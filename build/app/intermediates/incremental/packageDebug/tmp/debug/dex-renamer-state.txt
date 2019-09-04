@@ -1,0 +1,4 @@
+#Wed Sep 04 17:25:15 KST 2019
+base.0=/Users/changkiyoon/Documents/CK_WorkWorld/Solution_SuperAnts/Project_Sparky/sparky/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
