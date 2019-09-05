@@ -1,7 +1,0 @@
-#Thu Sep 05 10:16:47 KST 2019
-base.0=/Users/changkiyoon/Documents/CK_WorkWorld/Solution_SuperAnts/Project_Sparky/sparky/build/app/intermediates/transforms/dexMerger/debug/1
-path.1=classes.dex
-renamed.1=classes2.dex
-path.0=classes.dex
-renamed.0=classes.dex
-base.1=/Users/changkiyoon/Documents/CK_WorkWorld/Solution_SuperAnts/Project_Sparky/sparky/build/app/intermediates/transforms/dexMerger/debug/0
