@@ -232,6 +232,8 @@ class ModelTextDetection
 
       list.add(modelTextDetection);
 
+
+
     }
 
     return list;
