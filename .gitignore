@@ -27,6 +27,8 @@ android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 
 android/local.properties
 
+android
+
 images/.DS_Store
 
 ios/.DS_Store
