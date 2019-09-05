@@ -13,6 +13,8 @@ build/app/outputs/apk/app.apk.sha1
 
 build/app/outputs/apk/debug/app-debug.apk
 
+build
+
 android/.gradle/4.10.2/fileHashes/fileHashes.bin
 
 android/.gradle/4.10.2/fileHashes/fileHashes.lock
