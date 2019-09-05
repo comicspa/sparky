@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "502860158175",
+    "firebase_url": "https://enhanced-grid-251003.firebaseio.com",
+    "project_id": "enhanced-grid-251003",
+    "storage_bucket": "enhanced-grid-251003.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502860158175:android:890de2a2109aab73",
+        "android_client_info": {
+          "package_name": "io.superants.sparky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502860158175-44vr2tfj27ukck44gkervn586jvmnh8q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.superants.sparky",
+            "certificate_hash": "5025f0a8dbb7a8b3c15443516aa3c6e135a5c8f4"
+          }
+        },
+        {
+          "client_id": "502860158175-f3ojphjf2e2mcu5srm4fp3dodtaktojr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.superants.sparky",
+            "certificate_hash": "5897aeae2bc19aea34b65b5b5a95dd741f3e53fa"
+          }
+        },
+        {
+          "client_id": "502860158175-bucs932kqmohbkcln2i63bpls9mg6qva.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3moJkP5nJA9orOEGNeFppYjrhBJANI9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502860158175-bucs932kqmohbkcln2i63bpls9mg6qva.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

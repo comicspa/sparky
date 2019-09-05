@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">502860158175-bucs932kqmohbkcln2i63bpls9mg6qva.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://enhanced-grid-251003.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">502860158175</string>
+    <string name="google_api_key" translatable="false">AIzaSyD3moJkP5nJA9orOEGNeFppYjrhBJANI9U</string>
+    <string name="google_app_id" translatable="false">1:502860158175:android:890de2a2109aab73</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyD3moJkP5nJA9orOEGNeFppYjrhBJANI9U</string>
+    <string name="google_storage_bucket" translatable="false">enhanced-grid-251003.appspot.com</string>
+    <string name="project_id" translatable="false">enhanced-grid-251003</string>
+</resources>
