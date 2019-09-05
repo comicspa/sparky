@@ -25,28 +25,26 @@ class BoundingBoxInfo
   bool changed = false;
   int previousImageTotalHeight = 0;
   int imageWidth = 0;
+  int imageHeight = 0;
   int textLineCount = 0;
 
-  double get left
-  {
-    return ManageDeviceInfo.resolutionWidth / (imageWidth / boundingBox.left);
-  }
+  double left;
+  double top;
+  double width;
+  double height;
 
-  double get top
+  void calculateSize(double ratioHorizontal,double ratioVertical,double ratioPreviousImageTotalHeight)
   {
-    return (boundingBox.top / (imageWidth / ManageDeviceInfo.resolutionWidth)) + (previousImageTotalHeight/(imageWidth / ManageDeviceInfo.resolutionWidth));
-  }
 
-  double get width
-  {
-    return ManageDeviceInfo.resolutionWidth / (imageWidth / boundingBox.width);
-  }
+    left = boundingBox.left / ratioHorizontal;
+    double right = boundingBox.right / ratioHorizontal;
 
-  double get height
-  {
-    return ManageDeviceInfo.resolutionHeight /
-        (ModelTextDetection.imageTotalHeight / boundingBox.height) +
-        ManageDeviceInfo.statusBarHeight;
+    top = boundingBox.top / ratioHorizontal + ratioPreviousImageTotalHeight;
+    double bottom = boundingBox.bottom / ratioHorizontal + ratioPreviousImageTotalHeight;
+
+    width = right - left;
+    height = bottom - top;
+
   }
 
 }
@@ -104,12 +102,14 @@ class ModelTextDetection
 
     int boundingBoxCountIndex = 0;
     int previousImageTotalHeight = 0;
-    for(int countIndex=0; countIndex<urlList.length; ++countIndex)
-       {
-         String url  = urlList[countIndex];//await ManageFirebaseStorage.getDownloadUrl('comics/${urlList[countIndex]}');
-         print('url[$countIndex/${urlList.length}] : $url');
+    double ratioPreviousImageTotalHeight = 0.0;
 
-         /*
+    for(int countIndex=0; countIndex<urlList.length; ++countIndex)
+    {
+      String url  = urlList[countIndex];//await ManageFirebaseStorage.getDownloadUrl('comics/${urlList[countIndex]}');
+      print('url[$countIndex/${urlList.length}] : $url');
+
+      /*
          Directory tempDir = await getTemporaryDirectory();
          String tempPath = tempDir.path;
          print('tempPath : $tempPath');
@@ -130,108 +130,120 @@ class ModelTextDetection
          });
          */
 
-         FileInfo fileInfo = await ManageFlutterCacheManager.downloadFile(url);
-         int fileLength = await fileInfo.file.length();
-         print('fileLength[$countIndex/${urlList.length}] : $fileLength');
+      FileInfo fileInfo = await ManageFlutterCacheManager.downloadFile(url);
+      int fileLength = await fileInfo.file.length();
+      print('fileLength[$countIndex/${urlList.length}] : $fileLength');
 
 
-         VisionText visionText = await ManageFirebaseMLVision.detectTextFromFile(fileInfo.file, useCloud);
-         Uint8List uint8list = await ModelCommon.getUint8ListFromFile(fileInfo.file);
+      VisionText visionText = await ManageFirebaseMLVision.detectTextFromFile(fileInfo.file, useCloud);
+      Uint8List uint8list = await ModelCommon.getUint8ListFromFile(fileInfo.file);
 
-         ModelTextDetection modelTextDetection = new ModelTextDetection();
-         modelTextDetection.uint8List = uint8list;
-         modelTextDetection.image = await ManageImage.loadImage(uint8list);
+      ModelTextDetection modelTextDetection = new ModelTextDetection();
+      modelTextDetection.uint8List = uint8list;
+      modelTextDetection.image = await ManageImage.loadImage(uint8list);
 
-         print('imaghe1[$countIndex/${urlList.length}] size - width : ${modelTextDetection.image.width} , height : ${modelTextDetection.image.height}');
+      print('imaghe1[$countIndex/${urlList.length}] size - width : ${modelTextDetection.image.width} , height : ${modelTextDetection.image.height}');
 
-         if (false == modelTextDetection.manageImage.decode(uint8list))
-         {
-           print('false == manageImage.decode');
-         }
-         else
-         {
-           print('imaghe2[$countIndex/${urlList.length}] size - width : ${modelTextDetection.manageImage.width} , height : ${modelTextDetection.manageImage.height}');
-         }
-
-         if(0 < countIndex)
-           previousImageTotalHeight += list[countIndex-1].manageImage.height;
-         print('previousImageTotalHeight[$countIndex/${urlList.length}] : $previousImageTotalHeight');
-         modelTextDetection.previousImageTotalHeight = previousImageTotalHeight;
-
-         if (null != visionText.blocks) {
-           for (int i = 0; i < visionText.blocks.length; ++i) {
-             TextBlock textBlock = visionText.blocks[i];
-
-             modelTextDetection.textBlockList.add(textBlock);
-
-             BoundingBoxInfo boundingBoxInfo = new BoundingBoxInfo();
-             boundingBoxInfo.countIndex = boundingBoxCountIndex ++;
-             boundingBoxInfo.boundingBox = textBlock.boundingBox;
-             boundingBoxInfo.text = '';
-             boundingBoxInfo.previousImageTotalHeight = previousImageTotalHeight;
-             boundingBoxInfo.imageWidth = modelTextDetection.image.width;
+      if (false == modelTextDetection.manageImage.decode(uint8list))
+      {
+        print('false == manageImage.decode');
+      }
+      else
+      {
+        print('imaghe2[$countIndex/${urlList.length}] size - width : ${modelTextDetection.manageImage.width} , height : ${modelTextDetection.manageImage.height}');
+      }
 
 
+      double ratioHorizontal =  modelTextDetection.image.width.toDouble() / ManageDeviceInfo.resolutionWidth;
+      double ratioVertical = modelTextDetection.image.height.toDouble() / ratioHorizontal;
 
-        //if (null != textBlock.recognizedLanguages)
-        //{
-        //  for (int m = 0; m < textBlock.recognizedLanguages.length; ++m)
-        //  {
-        //    print('recognizedLanguages[$m] : ${textBlock.recognizedLanguages.elementAt(m).toString()}');
-        //  }
-        //}
+      if(0 < countIndex)
+      {
+        double preRatioHorizontal = list[countIndex-1].manageImage.width.toDouble() / ManageDeviceInfo.resolutionWidth;
+        int preImageHeight = list[countIndex-1].manageImage.height;
 
-             //print('text[$i] : ${textBlock.text}');
-             // print('boundingBox[$i] : ${textBlock.boundingBox.toString()}');
-             //print('cornerPoints[$i] : ${textBlock.cornerPoints.toString()}');
+        previousImageTotalHeight += preImageHeight;
+        ratioPreviousImageTotalHeight += (preImageHeight / preRatioHorizontal);
+      }
+      print('previousImageTotalHeight[$countIndex/${urlList.length}] : $previousImageTotalHeight , $ratioPreviousImageTotalHeight');
 
-             if (null != textBlock.lines)
-             {
-               boundingBoxInfo.textLineCount = textBlock.lines.length;
+      modelTextDetection.previousImageTotalHeight = previousImageTotalHeight;
 
-               for (int j = 0; j < textBlock.lines.length; ++j) {
-                 // print('linetext[$i][$j] : ${textBlock.lines[j].text}');
-               }
-             }
+      if (null != visionText.blocks) {
+        for (int i = 0; i < visionText.blocks.length; ++i) {
+          TextBlock textBlock = visionText.blocks[i];
 
-             if(null == boundingBoxInfoList)
-               boundingBoxInfoList = new List<BoundingBoxInfo>();
-             boundingBoxInfoList.add(boundingBoxInfo);
+          modelTextDetection.textBlockList.add(textBlock);
 
-
-
-           }
-         }
-
+          BoundingBoxInfo boundingBoxInfo = new BoundingBoxInfo();
+          boundingBoxInfo.countIndex = boundingBoxCountIndex ++;
+          boundingBoxInfo.boundingBox = textBlock.boundingBox;
+          boundingBoxInfo.text = '';
+          boundingBoxInfo.previousImageTotalHeight = previousImageTotalHeight;
+          boundingBoxInfo.imageWidth = modelTextDetection.image.width;
+          boundingBoxInfo.imageHeight = modelTextDetection.image.height;
+          boundingBoxInfo.calculateSize(ratioHorizontal,ratioVertical,ratioPreviousImageTotalHeight);
 
 
+          //if (null != textBlock.recognizedLanguages)
+          //{
+          //  for (int m = 0; m < textBlock.recognizedLanguages.length; ++m)
+          //  {
+          //    print('recognizedLanguages[$m] : ${textBlock.recognizedLanguages.elementAt(m).toString()}');
+          //  }
+          //}
 
-         /*
+          //print('text[$i] : ${textBlock.text}');
+          // print('boundingBox[$i] : ${textBlock.boundingBox.toString()}');
+          //print('cornerPoints[$i] : ${textBlock.cornerPoints.toString()}');
+
+          if (null != textBlock.lines)
+          {
+            boundingBoxInfo.textLineCount = textBlock.lines.length;
+
+            for (int j = 0; j < textBlock.lines.length; ++j) {
+              // print('linetext[$i][$j] : ${textBlock.lines[j].text}');
+            }
+          }
+
+          if(null == boundingBoxInfoList)
+            boundingBoxInfoList = new List<BoundingBoxInfo>();
+          boundingBoxInfoList.add(boundingBoxInfo);
+
+
+
+        }
+      }
+
+
+
+
+      /*
          print('textBlockList Count : ${modelTextDetection.textBlockList.length}');
          modelTextDetection.uint8List = await ModelCommon.getUint8ListFromFile(fileInfo.file);
         */
 
-         imageTotalHeight += modelTextDetection.manageImage.height;
-         print('imageTotalHeight[$countIndex/${urlList.length}] : $imageTotalHeight');
+      imageTotalHeight += modelTextDetection.manageImage.height;
+      print('imageTotalHeight[$countIndex/${urlList.length}] : $imageTotalHeight');
 
 
-         if(null == list)
-           list = new List<ModelTextDetection>();
+      if(null == list)
+        list = new List<ModelTextDetection>();
 
-         list.add(modelTextDetection);
+      list.add(modelTextDetection);
 
-       }
+    }
 
-       return list;
-     }
+    return list;
+  }
 
-   static get sizeBoxWidth
-   {
-     if(null == ModelTextDetection.list || 0 == ModelTextDetection.list.length)
-       return ManageDeviceInfo.resolutionWidth;
+  static get sizeBoxWidth
+  {
+    if(null == ModelTextDetection.list || 0 == ModelTextDetection.list.length)
+      return ManageDeviceInfo.resolutionWidth;
 
-     return ManageDeviceInfo.resolutionWidth * (ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth);
-   }
+    return ManageDeviceInfo.resolutionWidth * (ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth);
+  }
 
   static get sizeBoxHeight
   {
