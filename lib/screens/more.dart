@@ -110,7 +110,7 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                             Navigator.push<Widget>(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SubMenuComingSoonScreen('Top-up Comi'),
+                                  builder: (context) => SubMenuComingSoonScreen('Shop'),
                                 ));
                           },
                           child: Text(
