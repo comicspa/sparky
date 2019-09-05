@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>502860158175-tihpvu0ib0fhcldqep67ruoc0qakse2t.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.502860158175-tihpvu0ib0fhcldqep67ruoc0qakse2t</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>502860158175-44vr2tfj27ukck44gkervn586jvmnh8q.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA4zq6YXPZDmyE5KDU-ojuUO3Pn9ysviv0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>502860158175</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>io.superants.sparky</string>
+	<key>PROJECT_ID</key>
+	<string>enhanced-grid-251003</string>
+	<key>STORAGE_BUCKET</key>
+	<string>enhanced-grid-251003.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:502860158175:ios:1a69985c56a88ca886056a</string>
+	<key>DATABASE_URL</key>
+	<string>https://enhanced-grid-251003.firebaseio.com</string>
+</dict>
+</plist>
