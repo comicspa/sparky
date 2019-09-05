@@ -40,3 +40,5 @@ lib/screens/.DS_Store
 .packages
 
 .idea/libraries/Dart_Packages.xml
+
+.idea
