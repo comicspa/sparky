@@ -245,7 +245,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                         color: Colors.black54,
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.04,
+                                                            0.03,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
@@ -444,7 +444,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                         color: Colors.black54,
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.04,
+                                                            0.03,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
@@ -642,7 +642,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                         color: Colors.black54,
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.04,
+                                                            0.03,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
@@ -829,13 +829,14 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                     flex: 1,
                                                     child: Container(
                                                       child: IconButton(
-                                                        icon: Icon(
-                                                            Icons.chevron_right,
-                                                            color:
-                                                                Colors.black54),
+                                                        icon: ImageIcon(
+                                                          AssetImage(
+                                                            'images/Chevron Right.png',
+                                                          ),
+                                                        ),
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.04,
+                                                            0.03,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
