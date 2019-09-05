@@ -128,7 +128,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                               padding: EdgeInsets.only(
                                                   left: ManageDeviceInfo
                                                           .resolutionWidth *
-                                                      0.1),
+                                                      0.06),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -245,7 +245,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                         color: Colors.black54,
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.02,
+                                                            0.04,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
@@ -327,7 +327,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                               padding: EdgeInsets.only(
                                                   left: ManageDeviceInfo
                                                           .resolutionWidth *
-                                                      0.1),
+                                                      0.06),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -444,7 +444,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                         color: Colors.black54,
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.02,
+                                                            0.04,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
@@ -525,7 +525,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                               padding: EdgeInsets.only(
                                                   left: ManageDeviceInfo
                                                           .resolutionWidth *
-                                                      0.1),
+                                                      0.06),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -642,7 +642,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                         color: Colors.black54,
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.02,
+                                                            0.04,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
@@ -723,7 +723,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                               padding: EdgeInsets.only(
                                                   left: ManageDeviceInfo
                                                           .resolutionWidth *
-                                                      0.1),
+                                                      0.06),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -835,7 +835,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                                                 Colors.black54),
                                                         iconSize: ManageDeviceInfo
                                                                 .resolutionHeight *
-                                                            0.06,
+                                                            0.04,
                                                         onPressed: () {
                                                           Navigator.push<
                                                               Widget>(
