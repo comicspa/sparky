@@ -42,3 +42,7 @@ lib/screens/.DS_Store
 .idea/libraries/Dart_Packages.xml
 
 .idea
+
+.flutter-plugins
+
+sparky.iml
