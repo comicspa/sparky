@@ -717,152 +717,156 @@ class _LibraryScreenState extends State<LibraryScreen>
                                         itemBuilder:
                                             (BuildContext context, int index) =>
                                                 Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(
-                                                  left: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.06),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Flexible(
-                                                    flex: 3,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              3.0),
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: snapshot
-                                                            .data[index]
-                                                            .thumbnailUrl,
-                                                        placeholder: (context,
-                                                                url) =>
-                                                            LoadingIndicator(),
-                                                        width: ManageDeviceInfo
-                                                                .resolutionWidth *
-                                                            0.25,
-                                                        height: ManageDeviceInfo
-                                                                .resolutionWidth *
-                                                            0.25,
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    flex: 6,
-                                                    child: Container(
-                                                        width: ManageDeviceInfo
-                                                                .resolutionWidth *
-                                                            0.5,
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: <Widget>[
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomLeft,
-                                                              padding: EdgeInsets.only(
-                                                                  left: ManageDeviceInfo
-                                                                          .resolutionWidth *
-                                                                      0.04),
-                                                              child: Text(
-                                                                  '작품   ${snapshot.data[index].title}',
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .left,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                    fontSize:
-                                                                        ManageDeviceInfo.resolutionHeight *
-                                                                            0.016,
-                                                                    color: Colors
-                                                                        .black87,
-                                                                  )),
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: ManageDeviceInfo
+                                                              .resolutionWidth *
+                                                              0.06),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                        children: [
+                                                          Flexible(
+                                                            flex: 3,
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                              BorderRadius.circular(
+                                                                  3.0),
+                                                              child: CachedNetworkImage(
+                                                                imageUrl: snapshot
+                                                                    .data[index]
+                                                                    .thumbnailUrl,
+                                                                placeholder: (context,
+                                                                    url) =>
+                                                                    LoadingIndicator(),
+                                                                width: ManageDeviceInfo
+                                                                    .resolutionWidth *
+                                                                    0.25,
+                                                                height: ManageDeviceInfo
+                                                                    .resolutionWidth *
+                                                                    0.25,
+                                                                fit: BoxFit.fill,
+                                                              ),
                                                             ),
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomLeft,
-                                                              padding: EdgeInsets.only(
-                                                                  left: ManageDeviceInfo
-                                                                          .resolutionWidth *
-                                                                      0.04),
-                                                              child: Text(
-                                                                  '글/그림   ${snapshot.data[index].title}',
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .left,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                    fontSize:
-                                                                        ManageDeviceInfo.resolutionHeight *
-                                                                            0.016,
-                                                                    color: Colors
-                                                                        .black87,
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ),
-                                                  Flexible(
-                                                    flex: 1,
-                                                    child: Container(
-                                                      child: IconButton(
-                                                        icon: ImageIcon(
-                                                          AssetImage(
-                                                            'images/Chevron Right.png',
                                                           ),
-                                                        ),
-                                                        iconSize: ManageDeviceInfo
-                                                                .resolutionHeight *
-                                                            0.03,
-                                                        onPressed: () {
-                                                          Navigator.push<
-                                                              Widget>(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) => DetailPage(
-                                                                  snapshot
-                                                                      .data[
+                                                          Flexible(
+                                                            flex: 6,
+                                                            child: Container(
+                                                                width: ManageDeviceInfo
+                                                                    .resolutionWidth *
+                                                                    0.5,
+                                                                child: Column(
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .end,
+                                                                  children: <Widget>[
+                                                                    Container(
+                                                                      alignment: Alignment
+                                                                          .bottomLeft,
+                                                                      padding: EdgeInsets.only(
+                                                                          left: ManageDeviceInfo
+                                                                              .resolutionWidth *
+                                                                              0.04),
+                                                                      child: Text(
+                                                                          '작품   ${snapshot.data[index].title}',
+                                                                          maxLines: 2,
+                                                                          overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                          textAlign:
+                                                                          TextAlign
+                                                                              .left,
+                                                                          style:
+                                                                          TextStyle(
+                                                                            fontFamily:
+                                                                            'Lato',
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                            fontSize:
+                                                                            ManageDeviceInfo.resolutionHeight *
+                                                                                0.016,
+                                                                            color: Colors
+                                                                                .black87,
+                                                                          )),
+                                                                    ),
+                                                                    Container(
+                                                                      alignment: Alignment
+                                                                          .bottomLeft,
+                                                                      padding: EdgeInsets.only(
+                                                                          left: ManageDeviceInfo
+                                                                              .resolutionWidth *
+                                                                              0.04),
+                                                                      child: Text(
+                                                                          '글/그림   ${snapshot.data[index].title}',
+                                                                          maxLines: 2,
+                                                                          overflow:
+                                                                          TextOverflow
+                                                                              .ellipsis,
+                                                                          textAlign:
+                                                                          TextAlign
+                                                                              .left,
+                                                                          style:
+                                                                          TextStyle(
+                                                                            fontFamily:
+                                                                            'Lato',
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .normal,
+                                                                            fontSize:
+                                                                            ManageDeviceInfo.resolutionHeight *
+                                                                                0.016,
+                                                                            color: Colors
+                                                                                .black87,
+                                                                          )),
+                                                                    ),
+                                                                  ],
+                                                                )),
+                                                          ),
+                                                          Spacer(
+                                                            flex: 1,
+                                                          ),
+                                                          Flexible(
+                                                            flex: 1,
+                                                            child: Container(
+                                                              child: IconButton(
+                                                                icon: ImageIcon(
+                                                                  AssetImage(
+                                                                    'images/Chevron Right.png',
+                                                                  ),
+                                                                ),
+                                                                color: Colors.black54,
+                                                                iconSize: ManageDeviceInfo
+                                                                    .resolutionHeight *
+                                                                    0.03,
+                                                                onPressed: () {
+                                                                  Navigator.push<
+                                                                      Widget>(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                      builder: (context) => DetailPage(
+                                                                          snapshot
+                                                                              .data[
                                                                           index]
-                                                                      .userId,
-                                                                  snapshot
-                                                                      .data[
+                                                                              .userId,
+                                                                          snapshot
+                                                                              .data[
                                                                           index]
-                                                                      .comicId), // link to Actual viewer
+                                                                              .comicId), // link to Actual viewer
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
                                                             ),
-                                                          );
-                                                        },
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Divider(),
-                                          ],
-                                        ),
+                                                    Divider(),
+                                                  ],
+                                                ),
                                       );
                                 }
 
