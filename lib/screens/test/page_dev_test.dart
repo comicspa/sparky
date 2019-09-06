@@ -61,8 +61,6 @@ class _PageDevTestState extends State<PageDevTest> {
   PacketC2SLibraryOwnedComicInfo c2SLibraryOwnedComicInfo = new PacketC2SLibraryOwnedComicInfo();
   PacketC2SLibraryRecentComicInfo c2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
 
-
-
   @override
   void initState() {
     super.initState();
