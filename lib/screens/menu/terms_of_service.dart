@@ -36,16 +36,18 @@ class _TermsOfServiceWebviewState extends State<TermsOfServiceWebview> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.0),
-        child: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
+        child: SafeArea(
+          child: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            elevation: 1,
+            backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0), //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+            title: Text(titleText,
+              style: TextStyle(color: Colors.black),
+            ),
+            centerTitle: true,
           ),
-          elevation: 1,
-          backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0), //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
-          title: Text(titleText,
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
         ),
       ),
 //      body:
