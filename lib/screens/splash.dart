@@ -37,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    //ManageCommon.rotatePortraitLandscape();
     super.dispose();
   }
 
