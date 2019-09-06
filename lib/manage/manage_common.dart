@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/services.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 import 'package:sparky/manage/manage_firebase_ml_vision.dart';
@@ -60,6 +60,29 @@ class ManageCommon
       print('catchError : $error');
     });
     */
-
   }
+
+
+  static void rotatePortraitOnly()
+  {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+
+  static void rotatePortraitLandscape()
+  {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  }
+
+
+
+
 }

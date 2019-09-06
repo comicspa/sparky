@@ -7,7 +7,7 @@ import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:flutter/material.dart';
-
+import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/manage/manage_message.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+    ManageCommon.rotatePortraitOnly();
 
     ModelPreset.fetch2(_presetFetchDone);
   }
