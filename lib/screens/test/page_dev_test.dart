@@ -21,7 +21,6 @@ import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_recent_comic_info.dart';
 
-
 import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_firebase_auth.dart';
 import 'package:sparky/manage/manage_firebase_ml_vision.dart';
@@ -29,13 +28,7 @@ import 'package:sparky/manage/manage_firebase_storage.dart';
 import 'package:sparky/manage/manage_paint_canvas.dart';
 import 'package:sparky/manage/manage_access_token.dart';
 
-
 import 'package:sparky/models/model_view_comic.dart';
-
-
-
-
-
 
 class PageDevTest extends StatefulWidget {
   @override
@@ -43,26 +36,33 @@ class PageDevTest extends StatefulWidget {
 }
 
 class _PageDevTestState extends State<PageDevTest> {
-
   int selectedCountIndex = -1;
   AsyncSnapshot snapshot;
 
-  PacketC2STodayTrendComicInfo c2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo();
-  PacketC2SWeeklyTrendComicInfo c2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
-  PacketC2SFeaturedComicInfo c2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
+  PacketC2STodayTrendComicInfo c2STodayTrendComicInfo =
+      new PacketC2STodayTrendComicInfo();
+  PacketC2SWeeklyTrendComicInfo c2SWeeklyTrendComicInfo =
+      new PacketC2SWeeklyTrendComicInfo();
+  PacketC2SFeaturedComicInfo c2SFeaturedComicInfo =
+      new PacketC2SFeaturedComicInfo();
   PacketC2SViewComic c2SViewComic = new PacketC2SViewComic();
   PacketC2SNewComicInfo c2SNewComicInfo = new PacketC2SNewComicInfo();
-  PacketC2SRealTimeTrendInfo c2SRealTimeTrendInfo = new PacketC2SRealTimeTrendInfo();
-  PacketC2SRecommendedComicInfo c2SRecommendedComicInfo = new PacketC2SRecommendedComicInfo();
+  PacketC2SRealTimeTrendInfo c2SRealTimeTrendInfo =
+      new PacketC2SRealTimeTrendInfo();
+  PacketC2SRecommendedComicInfo c2SRecommendedComicInfo =
+      new PacketC2SRecommendedComicInfo();
   PacketC2SComicDetailInfo c2SComicDetailInfo = new PacketC2SComicDetailInfo();
   PacketC2SNewCreatorInfo c2SNewCreatorInfo = new PacketC2SNewCreatorInfo();
-  PacketC2SWeeklyCreatorInfo c2SWeeklyCreatorInfo = new PacketC2SWeeklyCreatorInfo();
-  PacketC2SLibraryViewListComicInfo c2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
-  PacketC2SLibraryContinueComicInfo c2SLibraryContinueComicInfo = new PacketC2SLibraryContinueComicInfo();
-  PacketC2SLibraryOwnedComicInfo c2SLibraryOwnedComicInfo = new PacketC2SLibraryOwnedComicInfo();
-  PacketC2SLibraryRecentComicInfo c2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
-
-
+  PacketC2SWeeklyCreatorInfo c2SWeeklyCreatorInfo =
+      new PacketC2SWeeklyCreatorInfo();
+  PacketC2SLibraryViewListComicInfo c2SLibraryViewListComicInfo =
+      new PacketC2SLibraryViewListComicInfo();
+  PacketC2SLibraryContinueComicInfo c2SLibraryContinueComicInfo =
+      new PacketC2SLibraryContinueComicInfo();
+  PacketC2SLibraryOwnedComicInfo c2SLibraryOwnedComicInfo =
+      new PacketC2SLibraryOwnedComicInfo();
+  PacketC2SLibraryRecentComicInfo c2SLibraryRecentComicInfo =
+      new PacketC2SLibraryRecentComicInfo();
 
   @override
   void initState() {
@@ -73,16 +73,15 @@ class _PageDevTestState extends State<PageDevTest> {
     c2STodayTrendComicInfo.generate(0, 0);
     c2SWeeklyTrendComicInfo.generate(0, 0);
     c2SFeaturedComicInfo.generate(0, 0);
-    c2SViewComic.generate('1566811403000','000001','00001');
-    c2SNewComicInfo.generate(0,0);
-    c2SRealTimeTrendInfo.generate(0,0);
-    c2SRecommendedComicInfo.generate(0,0);
-    c2SComicDetailInfo.generate('1566811403000','000001');
+    c2SViewComic.generate('1566811403000', '000001', '00001');
+    c2SNewComicInfo.generate(0, 0);
+    c2SRealTimeTrendInfo.generate(0, 0);
+    c2SRecommendedComicInfo.generate(0, 0);
+    c2SComicDetailInfo.generate('1566811403000', '000001');
     c2SNewCreatorInfo.generate();
     c2SWeeklyCreatorInfo.generate();
 
     //ManageAccessToken.test();
-
 
     /*
     ManageFirebaseStorage.getDownloadUrl('comics/1566265967000/01/0000.jpg').then((value)
@@ -99,7 +98,6 @@ class _PageDevTestState extends State<PageDevTest> {
       print('getDownloadUrl catchError : $error');
     });
     */
-
   }
 
   /*
@@ -117,11 +115,10 @@ class _PageDevTestState extends State<PageDevTest> {
   }
   */
 
-
-  Widget createTodayPopularComicInfoListView(BuildContext context, AsyncSnapshot snapshot)
-  {
+  Widget createTodayPopularComicInfoListView(
+      BuildContext context, AsyncSnapshot snapshot) {
     var values = snapshot.data;
-    if(null == values)
+    if (null == values)
       print('null == values');
     else
       print('values.length = ${values.length}');
@@ -135,8 +132,7 @@ class _PageDevTestState extends State<PageDevTest> {
               selectedCountIndex = index;
               print('$index: ${values[index].url}');
 
-              switch(selectedCountIndex)
-              {
+              switch (selectedCountIndex) {
                 case 0:
                   {
                     ManageFirebaseAuth.simpleUsageSignInWithGoogle();
@@ -156,9 +152,7 @@ class _PageDevTestState extends State<PageDevTest> {
                   break;
 
                 case 3:
-                  {
-
-                  }
+                  {}
                   break;
               }
 
@@ -170,7 +164,6 @@ class _PageDevTestState extends State<PageDevTest> {
               //c2SMyLockerComicContinue.fetchBytes();
               //c2SMyLockerComicOwned.fetchBytes();
               //c2SMyLockerComicRecent.fetchBytes();
-
             });
 
             //print(selectedCountIndex);
@@ -196,7 +189,6 @@ class _PageDevTestState extends State<PageDevTest> {
                   )
               ),
               */
-
             ],
           ),
         );
@@ -204,18 +196,13 @@ class _PageDevTestState extends State<PageDevTest> {
     );
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       body: Row(children: [
         Expanded(
           child: FutureBuilder(
-              future:c2STodayTrendComicInfo.fetchBytes(),
+              future: c2STodayTrendComicInfo.fetchBytes(),
               //future:c2SFeaturedComicInfo.fetchBytes(),
               //future:c2SNewComicInfo.fetchBytes(),
               //future:c2SViewComic.fetchBytes(),
@@ -240,7 +227,6 @@ class _PageDevTestState extends State<PageDevTest> {
               }),
         ),
         */
-
       ]),
 
       /*
@@ -408,8 +394,6 @@ class _PageDevTestState extends State<PageDevTest> {
         ],
       ),
       */
-
     );
-
   }
 }
