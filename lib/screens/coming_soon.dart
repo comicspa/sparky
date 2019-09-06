@@ -46,14 +46,16 @@ class _ComingSoonScreenState extends State<ComingSoonScreen> with WidgetsBinding
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
-        child: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
-          ),
-          elevation: 1,
-          backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0), //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
-          title: Text('Coming Soon',
-            style: TextStyle(color: Colors.black),
+        child: SafeArea(
+          child: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            elevation: 1,
+            backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0), //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+            title: Text('Coming Soon',
+              style: TextStyle(color: Colors.black),
+            ),
           ),
         ),
       ),

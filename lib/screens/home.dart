@@ -58,60 +58,62 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
-        child: AppBar(
-          elevation: 1,
-          backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
-               //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
-          centerTitle: true,
+        child: SafeArea(
+          child: AppBar(
+            elevation: 1,
+            backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
+                 //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+            centerTitle: true,
 
-          title: SvgPicture.asset(
-            'images/sparky_logo.svg',
-            width: ManageDeviceInfo.resolutionWidth * 0.045,
-            height: ManageDeviceInfo.resolutionHeight * 0.025,
-          ),
-          actions: <Widget>[
-            IconButton(
-              tooltip: 'Profile',
-              icon: Icon(
-                Icons.person,
-                color: Color.fromRGBO(21, 24, 45, 1.0),
-              ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return BuildAlertDialog();
-                  },
-                );
-//                Navigator.push(
-//                  context,
-//                  MaterialPageRoute(
-//                    builder: (context) => ComingSoonScreen(),
-//                  ),
-//                );
-              },
+            title: SvgPicture.asset(
+              'images/sparky_logo.svg',
+              width: ManageDeviceInfo.resolutionWidth * 0.045,
+              height: ManageDeviceInfo.resolutionHeight * 0.025,
             ),
-            IconButton(
-              icon: Icon(
-                Icons.search,
+            actions: <Widget>[
+              IconButton(
+                tooltip: 'Profile',
+                icon: Icon(
+                  Icons.person,
                   color: Color.fromRGBO(21, 24, 45, 1.0),
-              ),
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return BuildAlertDialog();
-                  },
-                );
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return BuildAlertDialog();
+                    },
+                  );
 //                Navigator.push(
 //                  context,
 //                  MaterialPageRoute(
 //                    builder: (context) => ComingSoonScreen(),
 //                  ),
 //                );
-              },
-            ),
-          ],
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                    color: Color.fromRGBO(21, 24, 45, 1.0),
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return BuildAlertDialog();
+                    },
+                  );
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(
+//                    builder: (context) => ComingSoonScreen(),
+//                  ),
+//                );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: TabBarView(
