@@ -90,16 +90,21 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
             Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
         child: Visibility(
           visible: _isVisible,
-          child: AppBar(
-            elevation: 1,
-            backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
-            //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
-            centerTitle: true,
+          child: SafeArea(
+            child: AppBar(
+              elevation: 1,
+              iconTheme: IconThemeData(
+                color: Colors.black, //change your color here
+              ),
+              backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
+              //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+              centerTitle: true,
 
-            title: Text('Episode #',
-                style:
-                    TextStyle(color: Colors.black) //Todo need to bind the data
-                ),
+              title: Text('Episode #',
+                  style:
+                      TextStyle(color: Colors.black) //Todo need to bind the data
+                  ),
+            ),
           ),
         ),
       ),
