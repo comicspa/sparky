@@ -94,6 +94,10 @@ class _SplashScreenState extends State<SplashScreen>
       case 2:
         Navigator.of(context).pushReplacementNamed('/PageDevView');
         break;
+
+      case 3:
+        Navigator.of(context).pushReplacementNamed('/PageDevSignalR');
+        break;
     }
   }
 
