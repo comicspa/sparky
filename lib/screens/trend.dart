@@ -18,13 +18,12 @@ import 'detail_page.dart';
 import 'viewer.dart';
 import 'common_widgets.dart';
 
-
 class Trend extends StatefulWidget {
   @override
   _TrendState createState() => new _TrendState();
 }
 
-class _TrendState extends State<Trend>  with WidgetsBindingObserver{
+class _TrendState extends State<Trend> with WidgetsBindingObserver {
   PacketC2STodayTrendComicInfo c2STodayTrendComicInfo =
       new PacketC2STodayTrendComicInfo(); // use this to handle data
   PacketC2SFeaturedComicInfo c2sFeaturedComicInfo =
@@ -49,7 +48,6 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
     c2sNewComicInfo.generate(0, 0);
     c2sRealTimeTrendInfo.generate(0, 0);
     c2sWeeklyTrendComicInfo.generate(0, 0);
-
   }
 
   @override
@@ -59,12 +57,9 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state)
-  {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     print('state = $state');
   }
-
-
 
   int _current = 0; // this is for indicator handler
 
@@ -100,14 +95,16 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                 child: GestureDetector(
                                   child: CachedNetworkImage(
                                       imageUrl: i.thumbnailUrl,
-                                      placeholder: (context, url) => LoadingIndicator(),
+                                      placeholder: (context, url) =>
+                                          LoadingIndicator(),
                                       fit: BoxFit.fitWidth),
                                   onTap: () {
                                     Navigator.push<Widget>(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) =>
-                                            DetailPage(i.userId, i.comicId), // link to Actual viewer
+                                        builder: (context) => DetailPage(
+                                            i.userId,
+                                            i.comicId), // link to Actual viewer
                                       ),
                                     );
                                   },
@@ -169,8 +166,7 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
             child: FutureBuilder<List<ModelRecommendedComicInfo>>(
               future: c2sRecommendedComicInfo.fetchBytes(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return new LoadingIndicator();
+                if (!snapshot.hasData) return new LoadingIndicator();
                 {
                   return ListView.builder(
                     physics: BouncingScrollPhysics(),
@@ -188,11 +184,13 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                               children: <Widget>[
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(2.0),
-
                                   child: CachedNetworkImage(
                                     imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) => LoadingIndicator(),
-                                    fit: BoxFit.fill, height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                    placeholder: (context, url) =>
+                                        LoadingIndicator(),
+                                    fit: BoxFit.fill,
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.15,
                                   ),
                                 ),
                                 Expanded(
@@ -200,63 +198,81 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                         padding: EdgeInsets.all(5.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               height: ManageDeviceInfo
-                                                  .resolutionHeight *
+                                                      .resolutionHeight *
                                                   0.048,
                                               child: Text(
-                                                'Title of this content is too long so we need to shorten it with ...',
+                                                snapshot.data[index].title,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontFamily: 'Lato',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                                  fontSize: ManageDeviceInfo
+                                                          .resolutionHeight *
+                                                      0.019,
                                                 ),
                                               ),
                                             ),
-                                            Spacer(),// used for spacing purpose
+                                            Spacer(), // used for spacing purpose
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 SizedBox(
                                                   height: ManageDeviceInfo
-                                                      .resolutionHeight *
+                                                          .resolutionHeight *
                                                       0.03,
-                                                  width: ManageDeviceInfo.resolutionWidth * 0.15,
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.15,
                                                   child: Text(
-                                                    '이름이 길어도 너무 길어',
+                                                    snapshot.data[index].userId,
                                                     maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo.resolutionHeight * 0.016,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: ManageDeviceInfo
+                                                              .resolutionHeight *
+                                                          0.016,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.1,),
+                                                SizedBox(
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.1,
+                                                ),
                                                 Expanded(
                                                   child: SizedBox(
                                                     height: ManageDeviceInfo
-                                                        .resolutionHeight *
+                                                            .resolutionHeight *
                                                         0.03,
-                                                    width: ManageDeviceInfo.resolutionWidth * 0.25,
-
+                                                    width: ManageDeviceInfo
+                                                            .resolutionWidth *
+                                                        0.25,
                                                     child: Text(
-                                                      'Views: 15만',
+                                                      'Views: 15만', //Todo need to create 조회수 data
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                                        fontSize: ManageDeviceInfo
+                                                                .resolutionHeight *
+                                                            0.018,
                                                       ),
                                                     ),
                                                   ),
@@ -278,8 +294,10 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                   Navigator.push<Widget>(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailPage(snapshot.data[index].userId, snapshot.data[index].comicId), // link to Actual viewer
+                                      builder: (context) => DetailPage(
+                                          snapshot.data[index].userId,
+                                          snapshot.data[index]
+                                              .comicId), // link to Actual viewer
                                     ),
                                   );
                                 },
@@ -320,9 +338,7 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                       children: <Widget>[
                         SizedBox(
                           height: ManageDeviceInfo.resolutionHeight * .25,
-                          child:  Center(
-                              child: CircularProgressIndicator()
-                          ),
+                          child: Center(child: CircularProgressIndicator()),
                         ),
                       ],
                     ),
@@ -344,11 +360,13 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                               children: <Widget>[
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(2.0),
-
                                   child: CachedNetworkImage(
                                     imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) => LoadingIndicator(),
-                                    fit: BoxFit.fill, height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                    placeholder: (context, url) =>
+                                        LoadingIndicator(),
+                                    fit: BoxFit.fill,
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.15,
                                   ),
                                 ),
                                 Expanded(
@@ -356,11 +374,11 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                         padding: EdgeInsets.all(5.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               height: ManageDeviceInfo
-                                                  .resolutionHeight *
+                                                      .resolutionHeight *
                                                   0.048,
                                               child: Text(
                                                 'Title of this content is too long so we need to shorten it with ...',
@@ -370,49 +388,67 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                                 style: TextStyle(
                                                   fontFamily: 'Lato',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                                  fontSize: ManageDeviceInfo
+                                                          .resolutionHeight *
+                                                      0.019,
                                                 ),
                                               ),
                                             ),
-                                            Spacer(),// used for spacing purpose
+                                            Spacer(), // used for spacing purpose
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 SizedBox(
                                                   height: ManageDeviceInfo
-                                                      .resolutionHeight *
+                                                          .resolutionHeight *
                                                       0.03,
-                                                  width: ManageDeviceInfo.resolutionWidth * 0.15,
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.15,
                                                   child: Text(
                                                     '이름이 길어도 너무 길어',
                                                     maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo.resolutionHeight * 0.016,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: ManageDeviceInfo
+                                                              .resolutionHeight *
+                                                          0.016,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.1,),
+                                                SizedBox(
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.1,
+                                                ),
                                                 Expanded(
                                                   child: SizedBox(
                                                     height: ManageDeviceInfo
-                                                        .resolutionHeight *
+                                                            .resolutionHeight *
                                                         0.03,
-                                                    width: ManageDeviceInfo.resolutionWidth * 0.25,
-
+                                                    width: ManageDeviceInfo
+                                                            .resolutionWidth *
+                                                        0.25,
                                                     child: Text(
                                                       'Views: 15만',
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                                        fontSize: ManageDeviceInfo
+                                                                .resolutionHeight *
+                                                            0.018,
                                                       ),
                                                     ),
                                                   ),
@@ -434,8 +470,10 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                   Navigator.push<Widget>(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailPage(snapshot.data[index].userId,snapshot.data[index].comicId), // link to Actual viewer
+                                      builder: (context) => DetailPage(
+                                          snapshot.data[index].userId,
+                                          snapshot.data[index]
+                                              .comicId), // link to Actual viewer
                                     ),
                                   );
                                 },
@@ -469,8 +507,7 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
             child: FutureBuilder<List<ModelNewComicInfo>>(
               future: c2sNewComicInfo.fetchBytes(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return LoadingIndicator();
+                if (!snapshot.hasData) return LoadingIndicator();
                 {
                   return ListView.builder(
                     physics: BouncingScrollPhysics(),
@@ -488,11 +525,13 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                               children: <Widget>[
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(2.0),
-
                                   child: CachedNetworkImage(
                                     imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) => LoadingIndicator(),
-                                    fit: BoxFit.fill, height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                    placeholder: (context, url) =>
+                                        LoadingIndicator(),
+                                    fit: BoxFit.fill,
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.15,
                                   ),
                                 ),
                                 Expanded(
@@ -500,11 +539,11 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                         padding: EdgeInsets.all(5.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               height: ManageDeviceInfo
-                                                  .resolutionHeight *
+                                                      .resolutionHeight *
                                                   0.048,
                                               child: Text(
                                                 'Title of this content is too long so we need to shorten it with ...',
@@ -514,49 +553,67 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                                 style: TextStyle(
                                                   fontFamily: 'Lato',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                                  fontSize: ManageDeviceInfo
+                                                          .resolutionHeight *
+                                                      0.019,
                                                 ),
                                               ),
                                             ),
-                                            Spacer(),// used for spacing purpose
+                                            Spacer(), // used for spacing purpose
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 SizedBox(
                                                   height: ManageDeviceInfo
-                                                      .resolutionHeight *
+                                                          .resolutionHeight *
                                                       0.03,
-                                                  width: ManageDeviceInfo.resolutionWidth * 0.15,
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.15,
                                                   child: Text(
                                                     '이름이 길어도 너무 길어',
                                                     maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo.resolutionHeight * 0.016,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: ManageDeviceInfo
+                                                              .resolutionHeight *
+                                                          0.016,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.1,),
+                                                SizedBox(
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.1,
+                                                ),
                                                 Expanded(
                                                   child: SizedBox(
                                                     height: ManageDeviceInfo
-                                                        .resolutionHeight *
+                                                            .resolutionHeight *
                                                         0.03,
-                                                    width: ManageDeviceInfo.resolutionWidth * 0.25,
-
+                                                    width: ManageDeviceInfo
+                                                            .resolutionWidth *
+                                                        0.25,
                                                     child: Text(
                                                       'Views: 15만',
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                                        fontSize: ManageDeviceInfo
+                                                                .resolutionHeight *
+                                                            0.018,
                                                       ),
                                                     ),
                                                   ),
@@ -578,8 +635,10 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                   Navigator.push<Widget>(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailPage(snapshot.data[index].userId,snapshot.data[index].comicId), // link to Actual viewer
+                                      builder: (context) => DetailPage(
+                                          snapshot.data[index].userId,
+                                          snapshot.data[index]
+                                              .comicId), // link to Actual viewer
                                     ),
                                   );
                                 },
@@ -613,8 +672,7 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
             child: FutureBuilder<List<ModelTodayTrendComicInfo>>(
               future: c2STodayTrendComicInfo.fetchBytes(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return LoadingIndicator();
+                if (!snapshot.hasData) return LoadingIndicator();
                 {
                   return ListView.builder(
                     physics: BouncingScrollPhysics(),
@@ -632,11 +690,13 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                               children: <Widget>[
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(2.0),
-
                                   child: CachedNetworkImage(
                                     imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) => LoadingIndicator(),
-                                    fit: BoxFit.fill, height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                    placeholder: (context, url) =>
+                                        LoadingIndicator(),
+                                    fit: BoxFit.fill,
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.15,
                                   ),
                                 ),
                                 Expanded(
@@ -644,11 +704,11 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                         padding: EdgeInsets.all(5.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               height: ManageDeviceInfo
-                                                  .resolutionHeight *
+                                                      .resolutionHeight *
                                                   0.048,
                                               child: Text(
                                                 'Title of this content is too long so we need to shorten it with ...',
@@ -658,49 +718,67 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                                 style: TextStyle(
                                                   fontFamily: 'Lato',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                                  fontSize: ManageDeviceInfo
+                                                          .resolutionHeight *
+                                                      0.019,
                                                 ),
                                               ),
                                             ),
-                                            Spacer(),// used for spacing purpose
+                                            Spacer(), // used for spacing purpose
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 SizedBox(
                                                   height: ManageDeviceInfo
-                                                      .resolutionHeight *
+                                                          .resolutionHeight *
                                                       0.03,
-                                                  width: ManageDeviceInfo.resolutionWidth * 0.15,
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.15,
                                                   child: Text(
                                                     '이름이 길어도 너무 길어',
                                                     maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo.resolutionHeight * 0.016,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: ManageDeviceInfo
+                                                              .resolutionHeight *
+                                                          0.016,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.1,),
+                                                SizedBox(
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.1,
+                                                ),
                                                 Expanded(
                                                   child: SizedBox(
                                                     height: ManageDeviceInfo
-                                                        .resolutionHeight *
+                                                            .resolutionHeight *
                                                         0.03,
-                                                    width: ManageDeviceInfo.resolutionWidth * 0.25,
-
+                                                    width: ManageDeviceInfo
+                                                            .resolutionWidth *
+                                                        0.25,
                                                     child: Text(
                                                       'Views: 15만',
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                                        fontSize: ManageDeviceInfo
+                                                                .resolutionHeight *
+                                                            0.018,
                                                       ),
                                                     ),
                                                   ),
@@ -722,8 +800,10 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                   Navigator.push<Widget>(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailPage(snapshot.data[index].userId,snapshot.data[index].comicId), // link to Actual viewer
+                                      builder: (context) => DetailPage(
+                                          snapshot.data[index].userId,
+                                          snapshot.data[index]
+                                              .comicId), // link to Actual viewer
                                     ),
                                   );
                                 },
@@ -757,8 +837,7 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
             child: FutureBuilder<List<ModelWeeklyTrendComicInfo>>(
               future: c2sWeeklyTrendComicInfo.fetchBytes(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return LoadingIndicator();
+                if (!snapshot.hasData) return LoadingIndicator();
                 {
                   return ListView.builder(
                     physics: BouncingScrollPhysics(),
@@ -776,11 +855,13 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                               children: <Widget>[
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(2.0),
-
                                   child: CachedNetworkImage(
                                     imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) => LoadingIndicator(),
-                                    fit: BoxFit.fill, height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                    placeholder: (context, url) =>
+                                        LoadingIndicator(),
+                                    fit: BoxFit.fill,
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.15,
                                   ),
                                 ),
                                 Expanded(
@@ -788,11 +869,11 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                         padding: EdgeInsets.all(5.0),
                                         child: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
                                               height: ManageDeviceInfo
-                                                  .resolutionHeight *
+                                                      .resolutionHeight *
                                                   0.048,
                                               child: Text(
                                                 'Title of this content is too long so we need to shorten it with ...',
@@ -802,49 +883,67 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                                 style: TextStyle(
                                                   fontFamily: 'Lato',
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                                  fontSize: ManageDeviceInfo
+                                                          .resolutionHeight *
+                                                      0.019,
                                                 ),
                                               ),
                                             ),
-                                            Spacer(),// used for spacing purpose
+                                            Spacer(), // used for spacing purpose
                                             Row(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: <Widget>[
                                                 SizedBox(
                                                   height: ManageDeviceInfo
-                                                      .resolutionHeight *
+                                                          .resolutionHeight *
                                                       0.03,
-                                                  width: ManageDeviceInfo.resolutionWidth * 0.15,
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.15,
                                                   child: Text(
                                                     '이름이 길어도 너무 길어',
                                                     maxLines: 1,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo.resolutionHeight * 0.016,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: ManageDeviceInfo
+                                                              .resolutionHeight *
+                                                          0.016,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.1,),
+                                                SizedBox(
+                                                  width: ManageDeviceInfo
+                                                          .resolutionWidth *
+                                                      0.1,
+                                                ),
                                                 Expanded(
                                                   child: SizedBox(
                                                     height: ManageDeviceInfo
-                                                        .resolutionHeight *
+                                                            .resolutionHeight *
                                                         0.03,
-                                                    width: ManageDeviceInfo.resolutionWidth * 0.25,
-
+                                                    width: ManageDeviceInfo
+                                                            .resolutionWidth *
+                                                        0.25,
                                                     child: Text(
                                                       'Views: 15만',
                                                       maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: TextStyle(
                                                         fontFamily: 'Lato',
                                                         color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                                        fontSize: ManageDeviceInfo
+                                                                .resolutionHeight *
+                                                            0.018,
                                                       ),
                                                     ),
                                                   ),
@@ -866,8 +965,10 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
                                   Navigator.push<Widget>(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailPage(snapshot.data[index].userId,snapshot.data[index].comicId), // link to Actual viewer
+                                      builder: (context) => DetailPage(
+                                          snapshot.data[index].userId,
+                                          snapshot.data[index]
+                                              .comicId), // link to Actual viewer
                                     ),
                                   );
                                 },
@@ -882,15 +983,11 @@ class _TrendState extends State<Trend>  with WidgetsBindingObserver{
               },
             ),
           ),
-
         ],
       ),
     );
   }
-
 }
-
-
 
 // Need handler for indicator
 List<T> map<T>(List list, Function handler) {
@@ -923,24 +1020,16 @@ List<String> countBanner(List<ModelFeaturedComicInfo> countBanner) {
   return featuredComicsList;
 }
 
-
-
-
-  List bannerList = map<Widget>(
-    featuredComicsList,
-        (index, i) {
-      return Container(
-        height: 300,
-        margin: EdgeInsets.all(5.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          child: CachedNetworkImage(
-              imageUrl: i.thumbnailUrl,
-              fit: BoxFit.fill),
-        ),
-      );
-    },
-  ).toList();
-
-
-
+List bannerList = map<Widget>(
+  featuredComicsList,
+  (index, i) {
+    return Container(
+      height: 300,
+      margin: EdgeInsets.all(5.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        child: CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill),
+      ),
+    );
+  },
+).toList();

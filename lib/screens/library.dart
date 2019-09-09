@@ -108,207 +108,9 @@ class _LibraryScreenState extends State<LibraryScreen>
                                 case ConnectionState.done:
                                   //default:
                                   if (snapshot.hasError)
-                                    return new Text(
-                                        'Error: ${snapshot.error}');
+                                    return new Text('Error: ${snapshot.error}');
                                   else
-                                    return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: ModelLibraryRecentComicInfo
-                                          .list.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) =>
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                            0.06),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                      children: [
-                                                        Flexible(
-                                                          flex: 3,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  3.0),
-                                                              child: CachedNetworkImage(
-                                                                imageUrl: snapshot
-                                                                    .data[index]
-                                                                    .thumbnailUrl,
-                                                                placeholder: (context,
-                                                                    url) =>
-                                                                    LoadingIndicator(),
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                height: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                fit: BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          flex: 6,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                                color: Colors.transparent, // need this to detect gesture on space
-                                                                height: ManageDeviceInfo.resolutionWidth * 0.25,
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.5,
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: <Widget>[
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '작품   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '글/그림   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                  ],
-                                                                )),
-                                                          ),
-                                                        ),
-                                                        Spacer(
-                                                          flex: 1,
-                                                        ),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            child: IconButton(
-                                                              icon: ImageIcon(
-                                                                AssetImage(
-                                                                  'images/Chevron Right.png',
-                                                                ),
-                                                              ),
-                                                              color: Colors.black54,
-                                                              iconSize: ManageDeviceInfo
-                                                                  .resolutionHeight *
-                                                                  0.03,
-                                                              onPressed: () {
-                                                                Navigator.push<
-                                                                    Widget>(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder: (context) => DetailPage(
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .userId,
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .comicId), // link to Actual viewer
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Divider(),
-                                                ],
-                                              ),
-                                    );
+                                    return LibraryListTile(snapshot: snapshot);
                               }
 
                               return Text('Result: ${snapshot.data}');
@@ -328,8 +130,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                   top: ManageDeviceInfo.resolutionHeight *
                                       0.04)),
                           FutureBuilder<List<ModelLibraryViewListComicInfo>>(
-                            future:
-                                c2sMyLibraryViewListComicInfo.fetchBytes(),
+                            future: c2sMyLibraryViewListComicInfo.fetchBytes(),
                             builder: (BuildContext context, snapshot) {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:
@@ -342,207 +143,9 @@ class _LibraryScreenState extends State<LibraryScreen>
                                 case ConnectionState.done:
                                   //default:
                                   if (snapshot.hasError)
-                                    return new Text(
-                                        'Error: ${snapshot.error}');
+                                    return new Text('Error: ${snapshot.error}');
                                   else
-                                    return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: ModelLibraryViewListComicInfo
-                                          .list.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) =>
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                            0.06),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                      children: [
-                                                        Flexible(
-                                                          flex: 3,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  3.0),
-                                                              child: CachedNetworkImage(
-                                                                imageUrl: snapshot
-                                                                    .data[index]
-                                                                    .thumbnailUrl,
-                                                                placeholder: (context,
-                                                                    url) =>
-                                                                    LoadingIndicator(),
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                height: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                fit: BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          flex: 6,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                                color: Colors.transparent, // need this to detect gesture on space
-                                                                height: ManageDeviceInfo.resolutionWidth * 0.25,
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.5,
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: <Widget>[
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '작품   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '글/그림   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                  ],
-                                                                )),
-                                                          ),
-                                                        ),
-                                                        Spacer(
-                                                          flex: 1,
-                                                        ),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            child: IconButton(
-                                                              icon: ImageIcon(
-                                                                AssetImage(
-                                                                  'images/Chevron Right.png',
-                                                                ),
-                                                              ),
-                                                              color: Colors.black54,
-                                                              iconSize: ManageDeviceInfo
-                                                                  .resolutionHeight *
-                                                                  0.03,
-                                                              onPressed: () {
-                                                                Navigator.push<
-                                                                    Widget>(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder: (context) => DetailPage(
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .userId,
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .comicId), // link to Actual viewer
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Divider(),
-                                                ],
-                                              ),
-                                    );
+                                    return LibraryListTile(snapshot: snapshot);
                               }
 
                               return Text('Result: ${snapshot.data}');
@@ -575,207 +178,9 @@ class _LibraryScreenState extends State<LibraryScreen>
                                 case ConnectionState.done:
                                   //default:
                                   if (snapshot.hasError)
-                                    return new Text(
-                                        'Error: ${snapshot.error}');
+                                    return new Text('Error: ${snapshot.error}');
                                   else
-                                    return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: ModelLibraryOwnedComicInfo
-                                          .list.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) =>
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                            0.06),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                      children: [
-                                                        Flexible(
-                                                          flex: 3,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  3.0),
-                                                              child: CachedNetworkImage(
-                                                                imageUrl: snapshot
-                                                                    .data[index]
-                                                                    .thumbnailUrl,
-                                                                placeholder: (context,
-                                                                    url) =>
-                                                                    LoadingIndicator(),
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                height: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                fit: BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          flex: 6,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                                color: Colors.transparent, // need this to detect gesture on space
-                                                                height: ManageDeviceInfo.resolutionWidth * 0.25,
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.5,
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: <Widget>[
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '작품   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '글/그림   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                  ],
-                                                                )),
-                                                          ),
-                                                        ),
-                                                        Spacer(
-                                                          flex: 1,
-                                                        ),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            child: IconButton(
-                                                              icon: ImageIcon(
-                                                                AssetImage(
-                                                                  'images/Chevron Right.png',
-                                                                ),
-                                                              ),
-                                                              color: Colors.black54,
-                                                              iconSize: ManageDeviceInfo
-                                                                  .resolutionHeight *
-                                                                  0.03,
-                                                              onPressed: () {
-                                                                Navigator.push<
-                                                                    Widget>(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder: (context) => DetailPage(
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .userId,
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .comicId), // link to Actual viewer
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Divider(),
-                                                ],
-                                              ),
-                                    );
+                                    return LibraryListTile(snapshot: snapshot);
                               }
 
                               return Text('Result: ${snapshot.data}');
@@ -808,207 +213,10 @@ class _LibraryScreenState extends State<LibraryScreen>
                                 case ConnectionState.done:
                                   //default:
                                   if (snapshot.hasError)
-                                    return new Text(
-                                        'Error: ${snapshot.error}');
+                                    return new Text('Error: ${snapshot.error}');
                                   else
-                                    return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: ModelLibraryContinueComicInfo
-                                          .list.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) =>
-                                              Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                            0.06),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                      children: [
-                                                        Flexible(
-                                                          flex: 3,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                              BorderRadius.circular(
-                                                                  3.0),
-                                                              child: CachedNetworkImage(
-                                                                imageUrl: snapshot
-                                                                    .data[index]
-                                                                    .thumbnailUrl,
-                                                                placeholder: (context,
-                                                                    url) =>
-                                                                    LoadingIndicator(),
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                height: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.25,
-                                                                fit: BoxFit.fill,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Flexible(
-                                                          flex: 6,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.push<
-                                                                  Widget>(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) => DetailPage(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .userId,
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
-                                                                          .comicId), // link to Actual viewer
-                                                                ),
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                              color: Colors.transparent, // need this to detect gesture on space
-                                                                height: ManageDeviceInfo.resolutionWidth * 0.25,
-                                                                width: ManageDeviceInfo
-                                                                    .resolutionWidth *
-                                                                    0.5,
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: <Widget>[
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '작품   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                    Container(
-                                                                      alignment: Alignment
-                                                                          .bottomLeft,
-                                                                      padding: EdgeInsets.only(
-                                                                          left: ManageDeviceInfo
-                                                                              .resolutionWidth *
-                                                                              0.04),
-                                                                      child: Text(
-                                                                          '글/그림   ${snapshot.data[index].title}',
-                                                                          maxLines: 2,
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            fontFamily:
-                                                                            'Lato',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .normal,
-                                                                            fontSize:
-                                                                            ManageDeviceInfo.resolutionHeight *
-                                                                                0.018,
-                                                                            color: Colors
-                                                                                .black87,
-                                                                          )),
-                                                                    ),
-                                                                  ],
-                                                                )),
-                                                          ),
-                                                        ),
-                                                        Spacer(
-                                                          flex: 1,
-                                                        ),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          child: Container(
-                                                            child: IconButton(
-                                                              icon: ImageIcon(
-                                                                AssetImage(
-                                                                  'images/Chevron Right.png',
-                                                                ),
-                                                              ),
-                                                              color: Colors.black54,
-                                                              iconSize: ManageDeviceInfo
-                                                                  .resolutionHeight *
-                                                                  0.03,
-                                                              onPressed: () {
-                                                                Navigator.push<
-                                                                    Widget>(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                    builder: (context) => DetailPage(
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .userId,
-                                                                        snapshot
-                                                                            .data[
-                                                                        index]
-                                                                            .comicId), // link to Actual viewer
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Divider(),
-                                                ],
-                                              ),
-                                    );
+                                    return new LibraryListTile(
+                                        snapshot: snapshot);
                               }
 
                               return Text('Result: ${snapshot.data}');
@@ -1019,6 +227,158 @@ class _LibraryScreenState extends State<LibraryScreen>
               ),
             ]),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class LibraryListTile extends StatelessWidget {
+  const LibraryListTile({
+    Key key,
+    @required this.snapshot,
+  }) : super(key: key);
+
+  final AsyncSnapshot snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    List<String> values = snapshot.data;
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding:
+                EdgeInsets.only(left: ManageDeviceInfo.resolutionWidth * 0.06),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Flexible(
+                  flex: 3,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push<Widget>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                              snapshot.data[index].userId,
+                              snapshot.data[index]
+                                  .comicId), // link to Actual viewer
+                        ),
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(3.0),
+                      child: CachedNetworkImage(
+                        imageUrl: snapshot.data[index].thumbnailUrl,
+                        placeholder: (context, url) => LoadingIndicator(),
+                        width: ManageDeviceInfo.resolutionWidth * 0.25,
+                        height: ManageDeviceInfo.resolutionWidth * 0.25,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 6,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push<Widget>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                              snapshot.data[index].userId,
+                              snapshot.data[index]
+                                  .comicId), // link to Actual viewer
+                        ),
+                      );
+                    },
+                    child: Container(
+                        color: Colors
+                            .transparent, // need this to detect gesture on space
+                        height: ManageDeviceInfo.resolutionWidth * 0.25,
+                        width: ManageDeviceInfo.resolutionWidth * 0.5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              alignment: Alignment.bottomLeft,
+                              padding: EdgeInsets.only(
+                                  left:
+                                      ManageDeviceInfo.resolutionWidth * 0.04),
+                              child: Text('작품   ${snapshot.data[index].title}',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.normal,
+                                    fontSize:
+                                        ManageDeviceInfo.resolutionHeight *
+                                            0.018,
+                                    color: Colors.black87,
+                                  )),
+                            ),
+                            Container(
+                              alignment: Alignment.bottomLeft,
+                              padding: EdgeInsets.only(
+                                  left:
+                                      ManageDeviceInfo.resolutionWidth * 0.04),
+                              child:
+                                  Text('글/그림   ${snapshot.data[index].title}',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'Lato',
+                                        fontWeight: FontWeight.normal,
+                                        fontSize:
+                                            ManageDeviceInfo.resolutionHeight *
+                                                0.018,
+                                        color: Colors.black87,
+                                      )),
+                            ),
+                          ],
+                        )),
+                  ),
+                ),
+                Spacer(
+                  flex: 1,
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    child: IconButton(
+                      icon: ImageIcon(
+                        AssetImage(
+                          'images/Chevron Right.png',
+                        ),
+                      ),
+                      color: Colors.black54,
+                      iconSize: ManageDeviceInfo.resolutionHeight * 0.03,
+                      onPressed: () {
+                        Navigator.push<Widget>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailPage(
+                                snapshot.data[index].userId,
+                                snapshot.data[index]
+                                    .comicId), // link to Actual viewer
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(),
         ],
       ),
     );
