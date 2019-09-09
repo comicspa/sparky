@@ -2,25 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:url_launcher/url_launcher.dart';
-import 'more_submenu_comming_soon.dart';
-import 'package:sparky/screens/menu/terms_of_service.dart';
-import 'package:sparky/manage/manage_service_center_info.dart';
+
 import 'common_widgets.dart';
+import 'uploading_center.dart';
 
 // Coming soon page for multi-purpose
 
-class ServiceInfoSubmenuScreen extends StatefulWidget {
-  ServiceInfoSubmenuScreen(this.titleText);
+class CreatorSubmenuScreen extends StatefulWidget {
+  CreatorSubmenuScreen(this.titleText);
   final String titleText;
 
   @override
-  _ServiceInfoSubmenuScreenState createState() =>
-      new _ServiceInfoSubmenuScreenState(titleText);
+  _CreatorSubmenuScreenState createState() =>
+      new _CreatorSubmenuScreenState(titleText);
 }
 
-class _ServiceInfoSubmenuScreenState extends State<ServiceInfoSubmenuScreen>
+class _CreatorSubmenuScreenState extends State<CreatorSubmenuScreen>
     with WidgetsBindingObserver {
-  _ServiceInfoSubmenuScreenState(this.titleText);
+  _CreatorSubmenuScreenState(this.titleText);
   String titleText;
 
   @override
@@ -70,53 +69,9 @@ class _ServiceInfoSubmenuScreenState extends State<ServiceInfoSubmenuScreen>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.question_answer),
+              leading: Icon(Icons.import_contacts),
               title: Text(
-                'FAQ',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              trailing: Icon(Icons.chevron_right),
-              onTap: _launchFaqURL,
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(CupertinoIcons.flag),
-              title: Text(
-                'Privacy Policy',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              trailing: Icon(Icons.chevron_right),
-              onTap: _launchPrivacyURL,
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.flag),
-              title: Text(
-                'Terms of Service',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              trailing: Icon(Icons.chevron_right),
-              onTap: _launchTermsURL,
-            ),
-            ListTile(
-              leading: Icon(Icons.contact_mail),
-              title: Text(
-                'Contact us',
+                'Registration',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontFamily: 'Lato',
@@ -134,36 +89,33 @@ class _ServiceInfoSubmenuScreenState extends State<ServiceInfoSubmenuScreen>
                 );
               },
             ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.cloud_upload),
+              title: Text(
+                'Uploading Center',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.push<Widget>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        UploadingCenterScreen('Uploading Center'),
+                  ),
+                );
+              },
+            ),
+            Divider(),
           ],
         ),
       ),
     );
-  }
-
-  _launchFaqURL() async {
-    String url = ManageServiceCenterInfo.launchFaqPage().toString();
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchPrivacyURL() async {
-    String url = ManageServiceCenterInfo.launchPrivacyPolicyPage().toString();
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  _launchTermsURL() async {
-    String url = ManageServiceCenterInfo.launchTermsOfUsePage().toString();
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

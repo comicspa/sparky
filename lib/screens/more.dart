@@ -1,3 +1,4 @@
+import 'package:sparky/screens/creator_submenu.dart';
 import 'package:sparky/screens/viewer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,17 +7,14 @@ import 'more_submenu_comming_soon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'service_info_submenu.dart';
 
-
-
 class MoreScreen extends StatefulWidget {
   @override
   _MoreScreenState createState() => new _MoreScreenState();
 }
 
-class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
+class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
 //  PacketC2STodayPopularComicInfo c2STodayPopularComicInfo =
 //      new PacketC2STodayPopularComicInfo(); // use this to handle data
-
 
 //  PacketC2SViewComic c2SViewComic = new PacketC2SViewComic(); // use this to handle data
 
@@ -35,11 +33,9 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state)
-  {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     print('state = $state');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +58,8 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                   right: ManageDeviceInfo.resolutionWidth / 2.3,
                   child: CircleAvatar(
                     radius: ManageDeviceInfo.resolutionHeight * 0.04,
-                    backgroundImage: CachedNetworkImageProvider('images/catHouse.jpg'),
+                    backgroundImage:
+                        CachedNetworkImageProvider('images/catHouse.jpg'),
                     child: Icon(Icons.person),
                   ),
                 ),
@@ -83,7 +80,8 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                             Navigator.push<Widget>(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SubMenuComingSoonScreen('Redeem'),
+                                  builder: (context) =>
+                                      SubMenuComingSoonScreen('Redeem'),
                                 ));
                           },
                           child: Text(
@@ -110,7 +108,8 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                             Navigator.push<Widget>(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SubMenuComingSoonScreen('Shop'),
+                                  builder: (context) =>
+                                      SubMenuComingSoonScreen('Shop'),
                                 ));
                           },
                           child: Text(
@@ -149,7 +148,7 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SubMenuComingSoonScreen('Creator'),
+                    builder: (context) => CreatorSubmenuScreen('Creator'),
                   ),
                 );
               },
@@ -171,7 +170,8 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ServiceInfoSubmenuScreen('Service Info.'),
+                    builder: (context) =>
+                        ServiceInfoSubmenuScreen('Service Info.'),
                   ),
                 );
               },
@@ -220,20 +220,17 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                 );
               },
             ),
-
             SizedBox(
               height: ManageDeviceInfo.resolutionHeight * 0.05,
             ),
             Container(
               color: Colors.white60,
-              height: ManageDeviceInfo.resolutionHeight * 0.02 ,
+              height: ManageDeviceInfo.resolutionHeight * 0.02,
             ),
-
             MaterialButton(
-
               textColor: const Color(0xFF807a6b),
               padding: EdgeInsets.all(20.0),
-              onPressed: (){
+              onPressed: () {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
@@ -249,16 +246,15 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text('Sign-Out'),
-                     SizedBox(height: 5.0),
+                      SizedBox(height: 5.0),
                     ],
                   ),
-               ],
+                ],
               ),
             ),
             SizedBox(
               height: 20,
             ),
-
             FlatButton(
               color: Colors.redAccent,
               onPressed: () {
@@ -275,9 +271,7 @@ class _MoreScreenState extends State<MoreScreen>  with WidgetsBindingObserver{
             ),
             Divider(),
           ],
-
         ),
-
       ],
     );
   }
