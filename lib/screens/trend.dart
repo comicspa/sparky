@@ -168,146 +168,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return new LoadingIndicator();
                 {
-                  return ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: ModelRecommendedComicInfo.list.length,
-                    itemBuilder: (BuildContext context, int index) => Card(
-                      child: Stack(
-                        children: <Widget>[
-                          SizedBox(
-                            width: ManageDeviceInfo.resolutionWidth * 0.45,
-                            height: ManageDeviceInfo.resolutionHeight * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) =>
-                                        LoadingIndicator(),
-                                    fit: BoxFit.fill,
-                                    height: ManageDeviceInfo.resolutionHeight *
-                                        0.15,
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(
-                                              height: ManageDeviceInfo
-                                                      .resolutionHeight *
-                                                  0.048,
-                                              child: Text(
-                                                snapshot.data[index].title,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontFamily: 'Lato',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.019,
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(), // used for spacing purpose
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.03,
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.15,
-                                                  child: Text(
-                                                    snapshot.data[index].userId,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo
-                                                              .resolutionHeight *
-                                                          0.016,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.1,
-                                                ),
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    height: ManageDeviceInfo
-                                                            .resolutionHeight *
-                                                        0.03,
-                                                    width: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                        0.25,
-                                                    child: Text(
-                                                      'Views: 15만', //Todo need to create 조회수 data
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo
-                                                                .resolutionHeight *
-                                                            0.018,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )))
-                              ],
-                            ),
-                          ),
-                          Positioned.fill(
-                            // added to display the inkwell effect properly when Card and other widgets are used together
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.push<Widget>(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                          snapshot.data[index].userId,
-                                          snapshot.data[index]
-                                              .comicId), // link to Actual viewer
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return TrendCardList(snapshot: snapshot);
                 }
               },
             ),
@@ -344,146 +205,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                     ),
                   );
                 {
-                  return ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: ModelRecommendedComicInfo.list.length,
-                    itemBuilder: (BuildContext context, int index) => Card(
-                      child: Stack(
-                        children: <Widget>[
-                          SizedBox(
-                            width: ManageDeviceInfo.resolutionWidth * 0.45,
-                            height: ManageDeviceInfo.resolutionHeight * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) =>
-                                        LoadingIndicator(),
-                                    fit: BoxFit.fill,
-                                    height: ManageDeviceInfo.resolutionHeight *
-                                        0.15,
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(
-                                              height: ManageDeviceInfo
-                                                      .resolutionHeight *
-                                                  0.048,
-                                              child: Text(
-                                                'Title of this content is too long so we need to shorten it with ...',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontFamily: 'Lato',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.019,
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(), // used for spacing purpose
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.03,
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.15,
-                                                  child: Text(
-                                                    '이름이 길어도 너무 길어',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo
-                                                              .resolutionHeight *
-                                                          0.016,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.1,
-                                                ),
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    height: ManageDeviceInfo
-                                                            .resolutionHeight *
-                                                        0.03,
-                                                    width: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                        0.25,
-                                                    child: Text(
-                                                      'Views: 15만',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo
-                                                                .resolutionHeight *
-                                                            0.018,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )))
-                              ],
-                            ),
-                          ),
-                          Positioned.fill(
-                            // added to display the inkwell effect properly when Card and other widgets are used together
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.push<Widget>(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                          snapshot.data[index].userId,
-                                          snapshot.data[index]
-                                              .comicId), // link to Actual viewer
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return TrendCardList(snapshot: snapshot);
                 }
               },
             ),
@@ -509,146 +231,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
-                  return ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: ModelRecommendedComicInfo.list.length,
-                    itemBuilder: (BuildContext context, int index) => Card(
-                      child: Stack(
-                        children: <Widget>[
-                          SizedBox(
-                            width: ManageDeviceInfo.resolutionWidth * 0.45,
-                            height: ManageDeviceInfo.resolutionHeight * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) =>
-                                        LoadingIndicator(),
-                                    fit: BoxFit.fill,
-                                    height: ManageDeviceInfo.resolutionHeight *
-                                        0.15,
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(
-                                              height: ManageDeviceInfo
-                                                      .resolutionHeight *
-                                                  0.048,
-                                              child: Text(
-                                                'Title of this content is too long so we need to shorten it with ...',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontFamily: 'Lato',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.019,
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(), // used for spacing purpose
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.03,
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.15,
-                                                  child: Text(
-                                                    '이름이 길어도 너무 길어',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo
-                                                              .resolutionHeight *
-                                                          0.016,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.1,
-                                                ),
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    height: ManageDeviceInfo
-                                                            .resolutionHeight *
-                                                        0.03,
-                                                    width: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                        0.25,
-                                                    child: Text(
-                                                      'Views: 15만',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo
-                                                                .resolutionHeight *
-                                                            0.018,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )))
-                              ],
-                            ),
-                          ),
-                          Positioned.fill(
-                            // added to display the inkwell effect properly when Card and other widgets are used together
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.push<Widget>(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                          snapshot.data[index].userId,
-                                          snapshot.data[index]
-                                              .comicId), // link to Actual viewer
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return TrendCardList(snapshot: snapshot);
                 }
               },
             ),
@@ -674,146 +257,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
-                  return ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: ModelRecommendedComicInfo.list.length,
-                    itemBuilder: (BuildContext context, int index) => Card(
-                      child: Stack(
-                        children: <Widget>[
-                          SizedBox(
-                            width: ManageDeviceInfo.resolutionWidth * 0.45,
-                            height: ManageDeviceInfo.resolutionHeight * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) =>
-                                        LoadingIndicator(),
-                                    fit: BoxFit.fill,
-                                    height: ManageDeviceInfo.resolutionHeight *
-                                        0.15,
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(
-                                              height: ManageDeviceInfo
-                                                      .resolutionHeight *
-                                                  0.048,
-                                              child: Text(
-                                                'Title of this content is too long so we need to shorten it with ...',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontFamily: 'Lato',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.019,
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(), // used for spacing purpose
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.03,
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.15,
-                                                  child: Text(
-                                                    '이름이 길어도 너무 길어',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo
-                                                              .resolutionHeight *
-                                                          0.016,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.1,
-                                                ),
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    height: ManageDeviceInfo
-                                                            .resolutionHeight *
-                                                        0.03,
-                                                    width: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                        0.25,
-                                                    child: Text(
-                                                      'Views: 15만',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo
-                                                                .resolutionHeight *
-                                                            0.018,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )))
-                              ],
-                            ),
-                          ),
-                          Positioned.fill(
-                            // added to display the inkwell effect properly when Card and other widgets are used together
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.push<Widget>(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                          snapshot.data[index].userId,
-                                          snapshot.data[index]
-                                              .comicId), // link to Actual viewer
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return TrendCardList(snapshot: snapshot);
                 }
               },
             ),
@@ -839,151 +283,153 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
-                  return ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: ModelRecommendedComicInfo.list.length,
-                    itemBuilder: (BuildContext context, int index) => Card(
-                      child: Stack(
-                        children: <Widget>[
-                          SizedBox(
-                            width: ManageDeviceInfo.resolutionWidth * 0.45,
-                            height: ManageDeviceInfo.resolutionHeight * 0.5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  child: CachedNetworkImage(
-                                    imageUrl: snapshot.data[index].thumbnailUrl,
-                                    placeholder: (context, url) =>
-                                        LoadingIndicator(),
-                                    fit: BoxFit.fill,
-                                    height: ManageDeviceInfo.resolutionHeight *
-                                        0.15,
-                                  ),
-                                ),
-                                Expanded(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Container(
-                                              height: ManageDeviceInfo
-                                                      .resolutionHeight *
-                                                  0.048,
-                                              child: Text(
-                                                'Title of this content is too long so we need to shorten it with ...',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontFamily: 'Lato',
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.019,
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(), // used for spacing purpose
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: ManageDeviceInfo
-                                                          .resolutionHeight *
-                                                      0.03,
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.15,
-                                                  child: Text(
-                                                    '이름이 길어도 너무 길어',
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Lato',
-                                                      fontSize: ManageDeviceInfo
-                                                              .resolutionHeight *
-                                                          0.016,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: ManageDeviceInfo
-                                                          .resolutionWidth *
-                                                      0.1,
-                                                ),
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    height: ManageDeviceInfo
-                                                            .resolutionHeight *
-                                                        0.03,
-                                                    width: ManageDeviceInfo
-                                                            .resolutionWidth *
-                                                        0.25,
-                                                    child: Text(
-                                                      'Views: 15만',
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Lato',
-                                                        color: Colors.grey[900],
-                                                        fontSize: ManageDeviceInfo
-                                                                .resolutionHeight *
-                                                            0.018,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )))
-                              ],
-                            ),
-                          ),
-                          Positioned.fill(
-                            // added to display the inkwell effect properly when Card and other widgets are used together
-                            child: Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                onTap: () {
-                                  Navigator.push<Widget>(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                          snapshot.data[index].userId,
-                                          snapshot.data[index]
-                                              .comicId), // link to Actual viewer
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return TrendCardList(snapshot: snapshot);
                 }
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TrendCardList extends StatelessWidget {
+  const TrendCardList({
+    Key key,
+    @required this.snapshot,
+  }) : super(key: key);
+
+  final AsyncSnapshot snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    List<dynamic> values = snapshot.data;
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) => Card(
+        child: Stack(
+          children: <Widget>[
+            SizedBox(
+              width: ManageDeviceInfo.resolutionWidth * 0.45,
+              height: ManageDeviceInfo.resolutionHeight * 0.5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(2.0),
+                    child: CachedNetworkImage(
+                      imageUrl: snapshot.data[index].thumbnailUrl,
+                      placeholder: (context, url) => LoadingIndicator(),
+                      fit: BoxFit.fill,
+                      height: ManageDeviceInfo.resolutionHeight * 0.15,
+                    ),
+                  ),
+                  Expanded(
+                      child: Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                height:
+                                    ManageDeviceInfo.resolutionHeight * 0.048,
+                                child: Text(
+                                  snapshot.data[index].title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        ManageDeviceInfo.resolutionHeight *
+                                            0.019,
+                                  ),
+                                ),
+                              ),
+                              Spacer(), // used for spacing purpose
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.03,
+                                    width:
+                                        ManageDeviceInfo.resolutionWidth * 0.15,
+                                    child: Text(
+                                      snapshot.data[index].userId,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: 'Lato',
+                                        fontSize:
+                                            ManageDeviceInfo.resolutionHeight *
+                                                0.016,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        ManageDeviceInfo.resolutionWidth * 0.1,
+                                  ),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height:
+                                          ManageDeviceInfo.resolutionHeight *
+                                              0.03,
+                                      width: ManageDeviceInfo.resolutionWidth *
+                                          0.25,
+                                      child: Text(
+                                        'Views: 15만', //Todo need to create 조회수 data
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontFamily: 'Lato',
+                                          color: Colors.grey[900],
+                                          fontSize: ManageDeviceInfo
+                                                  .resolutionHeight *
+                                              0.018,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )))
+                ],
+              ),
+            ),
+            Positioned.fill(
+              // added to display the inkwell effect properly when Card and other widgets are used together
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    Navigator.push<Widget>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                            snapshot.data[index].userId,
+                            snapshot
+                                .data[index].comicId), // link to Actual viewer
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -243,7 +243,7 @@ class LibraryListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> values = snapshot.data;
+    List<dynamic> values = snapshot.data;
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
