@@ -279,6 +279,7 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
 
       _filePathsMap[fileName] = imageFile.path;
 
+      file = loadFile();
       setStatus('Image Selected ');
     }
   }
@@ -292,7 +293,9 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
   Future<File> loadFile() async {
     String fileName = _filePathsMap.keys.toList()[0];
     print('loadFile : $fileName');
-    return new File(_filePathsMap[fileName]);
+
+    File file = new File(_filePathsMap[fileName]);
+    return file;
   }
 
   startUpload() async {
@@ -307,7 +310,6 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
       print(value.toString());
       print('success');
 
-      file = loadFile();
     }, onError: (error) {
       print('error : $error');
     }).catchError((error) {
