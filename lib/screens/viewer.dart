@@ -181,37 +181,6 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               }
             },
           ),
-//          child: CustomScrollView(
-////          controller: _hideButtonController,
-//            shrinkWrap: true,
-//            slivers: <Widget>[
-//              SliverPadding(
-//                padding: EdgeInsets.all(0.0),
-//                sliver: SliverList(
-//                    delegate: SliverChildListDelegate(
-//                      <Widget>[
-//                        Image.network(
-//                          url,
-//                        ),
-//                        Image.network(
-//                          url,
-//                        ),
-//                        Image.network(
-//                          url,
-//                        ),
-//                        Image.network(
-//                          url,
-//                        ),
-//                        Image.network(
-//                          url,
-//                        ),
-//                      ],
-//                    ),
-//                ),
-//              ),
-//            ],
-//          ),
-//        ),
         ),
       ),
       /*bottomNavigationBar: Visibility(

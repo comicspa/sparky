@@ -351,52 +351,69 @@ class TrendCardList extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Spacer(), // used for spacing purpose
+                              SizedBox(
+                                  height: ManageDeviceInfo.resolutionHeight *
+                                      0.018), // used for spacing purpose
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(
                                     height: ManageDeviceInfo.resolutionHeight *
-                                        0.03,
+                                        0.032,
                                     width:
-                                        ManageDeviceInfo.resolutionWidth * 0.15,
-                                    child: Text(
-                                      snapshot.data[index].userId,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontFamily: 'Lato',
-                                        fontSize:
-                                            ManageDeviceInfo.resolutionHeight *
-                                                0.016,
-                                        fontWeight: FontWeight.bold,
+                                        ManageDeviceInfo.resolutionWidth * 0.22,
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        snapshot.data[index].userId,
+                                        textAlign: TextAlign.right,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Lato',
+                                          fontSize: ManageDeviceInfo
+                                                  .resolutionHeight *
+                                              0.018,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                   SizedBox(
                                     width:
-                                        ManageDeviceInfo.resolutionWidth * 0.1,
+                                        ManageDeviceInfo.resolutionWidth * 0.02,
+                                  ),
+                                  SizedBox(
+                                    height: ManageDeviceInfo.resolutionHeight *
+                                        0.032,
+                                    child: Icon(
+                                      Icons.remove_red_eye,
+                                      size: ManageDeviceInfo.resolutionHeight *
+                                          0.025,
+                                      color: Colors.black54,
+                                    ),
                                   ),
                                   Expanded(
                                     child: SizedBox(
                                       height:
                                           ManageDeviceInfo.resolutionHeight *
-                                              0.03,
+                                              0.032,
                                       width: ManageDeviceInfo.resolutionWidth *
-                                          0.25,
-                                      child: Text(
-                                        'Views: 15만', //Todo need to create 조회수 data
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontFamily: 'Lato',
-                                          color: Colors.grey[900],
-                                          fontSize: ManageDeviceInfo
-                                                  .resolutionHeight *
-                                              0.018,
+                                          0.22,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          ' 2,150,589', //Todo need to create 조회수 data
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            fontFamily: 'Lato',
+                                            color: Colors.grey[900],
+                                            fontSize: ManageDeviceInfo
+                                                    .resolutionHeight *
+                                                0.018,
+                                          ),
                                         ),
                                       ),
                                     ),
