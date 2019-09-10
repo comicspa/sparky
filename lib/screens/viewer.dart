@@ -38,6 +38,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
   String userId;
   String comicId;
   String episodeId;
+
   _ViewerScreen(this.userId, this.comicId, this.episodeId);
 
   PacketC2SViewComic c2sViewComic = PacketC2SViewComic();
@@ -101,8 +102,8 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               centerTitle: true,
 
               title: Text('Episode #',
-                  style:
-                      TextStyle(color: Colors.black) //Todo need to bind the data
+                  style: TextStyle(
+                      color: Colors.black) //Todo need to bind the data
                   ),
             ),
           ),
@@ -164,7 +165,10 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
 //                );
                 return ListView.builder(
                   shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
+                  scrollDirection:
+                      snapshot.data[0].style == e_comic_view_style.vertical
+                          ? Axis.vertical
+                          : Axis.horizontal,
                   physics: BouncingScrollPhysics(),
                   itemCount: snapshot.data[0].imageUrlList.length,
 //                      ModelViewComic.getInstance().comicImageUrlList.length,
