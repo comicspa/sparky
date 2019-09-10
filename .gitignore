@@ -42,3 +42,8 @@ lib/screens/.DS_Store
 .idea/libraries/Dart_Packages.xml
 
 .idea
+pubspec.lock
+.flutter-plugins
+ios/Flutter/Generated.xcconfig
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m

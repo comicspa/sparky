@@ -15,7 +15,6 @@ import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'detail_page.dart';
-import 'viewer.dart';
 import 'common_widgets.dart';
 
 class Trend extends StatefulWidget {
@@ -35,6 +34,16 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       new PacketC2SRealTimeTrendInfo();
   PacketC2SWeeklyTrendComicInfo c2sWeeklyTrendComicInfo =
       new PacketC2SWeeklyTrendComicInfo();
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+
+ @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
+  }
+
 
   @override
   void initState() {
@@ -293,6 +302,21 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     );
   }
 }
+
+//Todo apply refreshIndicator to refresh with pull swipe
+
+/* RefreshIndicator(
+  key: _refreshIndicatorKey,
+  onRefresh: refresh,
+  child: ListView.builder(
+    children: [
+
+    ]
+  )
+), */
+
+
+
 
 class TrendCardList extends StatelessWidget {
   const TrendCardList({
