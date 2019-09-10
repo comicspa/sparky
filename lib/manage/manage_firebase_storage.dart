@@ -61,6 +61,54 @@ class ManageFirebaseStorage
 
   }
 
+
+  static Future<bool> uploadFiles(String pathName,Map<String,String> filePathMap) async
+  {
+    print('uploadFiles - start');
+    if(null == filePathMap)
+    {
+      print('uploadFiles - finish : null == filePathsMap');
+      return false;
+    }
+
+    for (var data in filePathMap.keys)
+    {
+         String fileFullName = data;
+         String fileFullPath = filePathMap[data];
+
+         print('getfilePath : $fileFullName , $fileFullPath');
+
+         Uint8List uint8list = await ModelCommon.getUint8ListFromFilePath(fileFullPath);
+
+         String fileFullPathName = 'comics';
+         if(true != pathName.isEmpty && 0 < pathName.length)
+           fileFullPathName += '/$pathName';
+         fileFullPathName += '/$fileFullName';
+
+         final StorageReference storageReference = FirebaseStorage().ref().child(fileFullPathName);
+         final StorageUploadTask uploadTask = storageReference.putData(uint8list);
+
+         final StreamSubscription<StorageTaskEvent> streamSubscription = uploadTask.events.listen((event) {
+           // You can use this to notify yourself or your user in any kind of way.
+           // For example: you could use the uploadTask.events stream in a StreamBuilder instead
+           // to show your user what the current status is. In that case, you would not need to cancel any
+           // subscription as StreamBuilder handles this automatically.
+
+           // Here, every StorageTaskEvent concerning the upload is printed to the logs.
+           print('EVENT ${event.type}');
+         });
+
+         // Cancel your subscription when done.
+         await uploadTask.onComplete;
+         streamSubscription.cancel();
+    }
+
+    print('uploadFiles - finish');
+    return true;
+
+  }
+
+
   static void simpleUsageUploadFile(String pathName) async
   {
     print('simpleUsageUploadFile - start');

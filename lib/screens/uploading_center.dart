@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sparky/manage/manage_file_picker.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 // Coming soon page for multi-purpose
 
@@ -32,6 +34,7 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
   String titleText;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   _UploadData _data = new _UploadData();
+  Map<String,String> _filePathsMap;
 
   // need validate packages to use below validations
   /*String _validateCreator(String value) {
@@ -254,17 +257,31 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
     );
   }
 
-  static final String uploadEndPoint =
-      'http://?????????????????????????????????????????????';
   Future<File> file;
   String status = '';
   String base64Image;
-  File tmpFile;
   String errMessage = 'Error Uploading Image';
+  File tmpFile;
 
   chooseImage() {
-    setState(() {
-      //file = ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() async {
+      //_filePathsMap = await ManageFilePicker.getMultiFilePath();
+      File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+      if(null == imageFile)
+        {
+          print("null == imageFile");
+        }
+      else
+        {
+        String fileName = basename(imageFile.path);
+        if (null == _filePathsMap)
+          _filePathsMap = new Map<String, String>();
+        else
+          _filePathsMap.clear();
+
+        _filePathsMap[fileName] = imageFile.path;
+      }
     });
     setStatus('');
   }
@@ -275,26 +292,41 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
     });
   }
 
-  startUpload() {
+  Future<File> loadFile() async
+  {
+    String fileName = _filePathsMap.keys.toList()[0];
+    print('loadFile : $fileName');
+    return new File(_filePathsMap[fileName]);
+  }
+
+
+
+  startUpload() async {
     setStatus('Uploading Image...');
-    if (null == tmpFile) {
+    if (null == _filePathsMap) {
       setStatus(errMessage);
       return;
     }
-    String fileName = tmpFile.path.split('/').last;
-    upload(fileName);
+
+    ManageFirebaseStorage.uploadFiles('test', _filePathsMap).then((value)
+    {
+      //value == String
+      print(value.toString());
+      print('success');
+
+      file = loadFile();
+    },
+        onError: (error)
+        {
+          print('error : $error');
+        }).catchError( (error)
+    {
+      print('catchError : $error');
+    });
+
   }
 
-  upload(String fileName) {
-    http.post(uploadEndPoint, body: {
-      "image": base64Image,
-      "name": fileName,
-    }).then((result) {
-      setStatus(result.statusCode == 200 ? result.body : errMessage);
-    }).catchError((error) {
-      setStatus(error);
-    });
-  }
+
 
   Widget showImage() {
     return FutureBuilder<File>(
@@ -303,6 +335,7 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
         if (snapshot.connectionState == ConnectionState.done &&
             null != snapshot.data) {
           tmpFile = snapshot.data;
+          print('tmpFile path : ${tmpFile.path}');
           base64Image = base64Encode(snapshot.data.readAsBytesSync());
           return Flexible(
             child: Image.file(
