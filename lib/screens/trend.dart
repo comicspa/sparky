@@ -37,12 +37,6 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
- @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
-  }
 
 
   @override
@@ -57,6 +51,11 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     c2sNewComicInfo.generate(0, 0);
     c2sRealTimeTrendInfo.generate(0, 0);
     c2sWeeklyTrendComicInfo.generate(0, 0);
+
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
+        // for pull to refresh
   }
 
   @override
