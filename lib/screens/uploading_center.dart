@@ -34,7 +34,7 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
   String titleText;
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   _UploadData _data = new _UploadData();
-  Map<String,String> _filePathsMap;
+  Map<String, String> _filePathsMap;
 
   // need validate packages to use below validations
   /*String _validateCreator(String value) {
@@ -263,27 +263,24 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
   String errMessage = 'Error Uploading Image';
   File tmpFile;
 
-  chooseImage() {
-    setState(() async {
-      //_filePathsMap = await ManageFilePicker.getMultiFilePath();
-      File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+  chooseImage() async {
+    //_filePathsMap = await ManageFilePicker.getMultiFilePath();
+    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-      if(null == imageFile)
-        {
-          print("null == imageFile");
-        }
+    if (null == imageFile) {
+      print("null == imageFile");
+      setStatus('');
+    } else {
+      String fileName = basename(imageFile.path);
+      if (null == _filePathsMap)
+        _filePathsMap = new Map<String, String>();
       else
-        {
-        String fileName = basename(imageFile.path);
-        if (null == _filePathsMap)
-          _filePathsMap = new Map<String, String>();
-        else
-          _filePathsMap.clear();
+        _filePathsMap.clear();
 
-        _filePathsMap[fileName] = imageFile.path;
-      }
-    });
-    setStatus('');
+      _filePathsMap[fileName] = imageFile.path;
+
+      setState(() {});
+    }
   }
 
   setStatus(String message) {
@@ -292,14 +289,11 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
     });
   }
 
-  Future<File> loadFile() async
-  {
+  Future<File> loadFile() async {
     String fileName = _filePathsMap.keys.toList()[0];
     print('loadFile : $fileName');
     return new File(_filePathsMap[fileName]);
   }
-
-
 
   startUpload() async {
     setStatus('Uploading Image...');
@@ -308,25 +302,18 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
       return;
     }
 
-    ManageFirebaseStorage.uploadFiles('test', _filePathsMap).then((value)
-    {
+    ManageFirebaseStorage.uploadFiles('test', _filePathsMap).then((value) {
       //value == String
       print(value.toString());
       print('success');
 
       file = loadFile();
-    },
-        onError: (error)
-        {
-          print('error : $error');
-        }).catchError( (error)
-    {
+    }, onError: (error) {
+      print('error : $error');
+    }).catchError((error) {
       print('catchError : $error');
     });
-
   }
-
-
 
   Widget showImage() {
     return FutureBuilder<File>(
