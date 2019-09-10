@@ -9,11 +9,13 @@ class ManageDeviceInfo
   static double _resolutionWidth = 0.0;
   static double _resolutionHeight = 0.0;
   static double _statusBarHeight = 0.0;
+  static Locale _locale;
 
   static String get uniqueId => _uniqueId;
   static double get resolutionWidth => _resolutionWidth;
   static double get resolutionHeight => _resolutionHeight;
   static double get statusBarHeight => _statusBarHeight;
+  static Locale get locale => _locale;
 
   static Future<String> _getUniqueId(BuildContext context) async
   {
@@ -60,11 +62,18 @@ class ManageDeviceInfo
     print('getStatusBarHeight : $_statusBarHeight');
   }
 
+  static void getLocale(BuildContext context)
+  {
+    if(null == _locale)
+      _locale = Localizations.localeOf(context);
+  }
+
   static void firstInitialize(BuildContext context)
   {
     getResolution(context);
     getUniqueId(context);
     getStatusBarHeight(context);
+    getLocale(context);
   }
 
 }

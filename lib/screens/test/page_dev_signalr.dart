@@ -8,8 +8,8 @@ import 'package:signalr_client/signalr_client.dart';
 
 typedef HubConnectionProvider = Future<HubConnection> Function();
 
-class ChatMessage {
-  // Properites
+class ChatMessage
+{
 
   final String senderName;
   final String message;
@@ -17,7 +17,7 @@ class ChatMessage {
   int id = 0;
   String title = 'title';
   String content = 'content';
-  bool completed;
+  bool completed = false;
 
   // Methods
   ChatMessage(this.senderName, this.message);
@@ -36,7 +36,7 @@ class PageDevSignalR extends StatefulWidget
 class _PageDevSignalRState extends State<PageDevSignalR>
 {
 
-  String serverUrl = 'https://localhost:5001';
+  String serverUrl = 'http://localhost:5000';
   HubConnection hubConnection;
   bool connectionIsOpen;
 
@@ -78,7 +78,6 @@ class _PageDevSignalRState extends State<PageDevSignalR>
     if(null == ChatMessage.list)
       ChatMessage.list = new List<ChatMessage>();
     ChatMessage.list.add( ChatMessage(senderName, message));
-
   }
 
 
@@ -104,7 +103,8 @@ class _PageDevSignalRState extends State<PageDevSignalR>
 
      */
 
-    sendChatMessage(DateTime.now().toString());
+    if (hubConnection.state == HubConnectionState.Connected)
+      sendChatMessage(DateTime.now().toString());
 
   }
 

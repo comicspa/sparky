@@ -4,7 +4,8 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
+import 'package:sparky/manage/manage_file_picker.dart';
+import 'package:sparky/manage/manage_firebase_storage.dart';
 
 // Coming soon page for multi-purpose
 
@@ -263,7 +264,7 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
 
   chooseImage() {
     setState(() {
-      file = ImagePicker.pickImage(source: ImageSource.gallery);
+      //file = ImagePicker.pickImage(source: ImageSource.gallery);
     });
     setStatus('');
   }
