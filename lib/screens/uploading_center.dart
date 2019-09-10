@@ -279,7 +279,7 @@ class _UploadingCenterScreenState extends State<UploadingCenterScreen>
 
       _filePathsMap[fileName] = imageFile.path;
 
-      setState(() {});
+      setStatus('Image Selected ');
     }
   }
 

@@ -403,13 +403,13 @@ class TrendCardList extends StatelessWidget {
                                       child: Align(
                                         alignment: Alignment.centerRight,
                                         child: Text(
-                                          ' 2,150,589', //Todo need to create 조회수 data
+                                          '250,589', //Todo need to create 조회수 data
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
                                             fontFamily: 'Lato',
-                                            color: Colors.grey[900],
+                                            color: Colors.black54,
                                             fontSize: ManageDeviceInfo
                                                     .resolutionHeight *
                                                 0.018,
