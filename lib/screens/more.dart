@@ -58,8 +58,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                   right: ManageDeviceInfo.resolutionWidth / 2.3,
                   child: CircleAvatar(
                     radius: ManageDeviceInfo.resolutionHeight * 0.04,
-                    backgroundImage:
-                        CachedNetworkImageProvider('images/catHouse.jpg'),
+                    backgroundImage: AssetImage('images/catHouse.jpg'),
                     child: Icon(Icons.person),
                   ),
                 ),
