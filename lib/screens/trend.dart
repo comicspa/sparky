@@ -519,3 +519,42 @@ List bannerList = map<Widget>(
     );
   },
 ).toList();
+
+
+//Todo use following codes to update Card Widget 
+/* Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              child: new FittedBox(
+                child: Material(
+                    color: Colors.white,
+                    elevation: 14.0,
+                    borderRadius: BorderRadius.circular(24.0),
+                    shadowColor: Color(0x802196F3),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: myDetailsContainer4(),
+                          ),
+                        ),
+
+                        Container(
+                          width: 250,
+                          height: 180,
+                          child: ClipRRect(
+                            borderRadius: new BorderRadius.circular(24.0),
+                            child: Image(
+                              fit: BoxFit.contain,
+                              alignment: Alignment.topRight,
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1545396872-a6682fc218ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"),
+                            ),
+                          ),),
+                      ],)
+                ),
+              ),
+            ),
+          ), */
