@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 
-ThemeData basicTheme(){
+ThemeData basicTheme() {
   TextTheme _basicTextTheme(TextTheme base){
     return base.copyWith(
       headline: base.headline.copyWith(

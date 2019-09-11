@@ -4,7 +4,7 @@ import 'package:sparky/screens/test/page_dev_view.dart';
 import 'package:sparky/screens/test/page_dev_signalr.dart';
 import 'package:sparky/screens/main_tab_bar.dart';
 import 'package:sparky/screens/splash.dart';
-import 'package:sparky/screens/theme.dart';
+import 'package:sparky/theme.dart';
 
 void main() => runApp(MyApp());
 
