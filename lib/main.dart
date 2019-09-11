@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
     // implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: basicTheme(), //ThemeData(fontFamily: 'Lato'),
+      
+      theme: ThemeData(fontFamily: 'Lato'),//basicTheme(), **** need to add title to implement basicTheme()
 
       home: SplashScreen(),
       routes: {

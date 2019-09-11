@@ -139,12 +139,13 @@ class _HomeScreenState extends State<HomeScreen>
           controller: controller,
           tabs: <Widget>[
             Tab(
-                icon: Icon(
+              icon: Icon(
               Icons.home,
               color: controller.index == 0
                   ? Color.fromRGBO(21, 24, 45, 1.0)
                   : Colors.grey,
-            )), //Todo replace home with hot(=trending) need to update icon image
+              ),
+            ), 
 //            Tab(
 //                icon: Icon(
 //                  Icons.palette,
