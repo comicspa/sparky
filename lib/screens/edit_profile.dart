@@ -62,7 +62,7 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center();}/* FutureBuilder(
+    return Center();}}/* FutureBuilder(
         future: Firestore.instance
             .collection('insta_users')
             .document(currentUserModel.id)
