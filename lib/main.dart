@@ -4,6 +4,7 @@ import 'package:sparky/screens/test/page_dev_view.dart';
 import 'package:sparky/screens/test/page_dev_signalr.dart';
 import 'package:sparky/screens/main_tab_bar.dart';
 import 'package:sparky/screens/splash.dart';
+import 'package:sparky/screens/theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     // implement build
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Lato'),
+      theme: basicTheme(), //ThemeData(fontFamily: 'Lato'),
 
       home: SplashScreen(),
       routes: {
@@ -22,6 +23,12 @@ class MyApp extends StatelessWidget {
         '/PageDevView': (context) => PageDevView(),
         '/PageDevSignalR': (context) => PageDevSignalR(),
       },
+
+    );
+  }
+}
+
+
 //      initialRoute: '/',
 //      routes: {
 //        '/': (context) => SplashScreen(),
@@ -30,6 +37,3 @@ class MyApp extends StatelessWidget {
 //        '/CreatorScreen': (context) => CreatorScreen(),
 //        '/MoreScreen': (context) => MoreScreen(),
 //      },
-    );
-  }
-}
