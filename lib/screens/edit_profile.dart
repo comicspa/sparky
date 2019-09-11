@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'main.dart'; //for currentuser & google signin instance
 // import 'models/user.dart';
+import 'package:sparky/models/model_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -62,7 +63,49 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center();}}/* FutureBuilder(
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+          child: CircleAvatar(
+            backgroundImage: AssetImage('images/야옹이.png'),
+            radius: 50.0,
+          ),
+        ),
+        FlatButton(
+            onPressed: () {
+              changeProfilePhoto(context);
+            },
+            child: Text(
+              "Change Photo",
+              style: const TextStyle(
+                  color: Colors.blue,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold),
+            )),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
+              buildTextField(name: "Name", controller: nameController),
+              buildTextField(name: "Bio", controller: bioController),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: MaterialButton(
+              onPressed: () => { /*_logout(context)*/ },
+              child: Text("Logout")
+
+          )
+        )
+      ],
+      );
+    }
+
+  
+}/* FutureBuilder(
         future: Firestore.instance
             .collection('insta_users')
             .document(currentUserModel.id)
