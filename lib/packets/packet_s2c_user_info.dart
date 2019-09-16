@@ -72,7 +72,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
 
       print('1 : ${ModelUserInfo.getInstance().photoUrl}');
-
     }
 
   }
