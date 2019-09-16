@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
-import 'viewer.dart';
-import 'coming_soon.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
+import 'package:sparky/models/model_user_info.dart';
+
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/models/model_preset.dart';
@@ -13,21 +12,18 @@ import 'dart:math';
 
 
 class ProfileScreen extends StatefulWidget {
-  final String _userId;
-  final String _comicId;
-  ProfileScreen(this._userId, this._comicId);
+  
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState(_userId, _comicId);
+  _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserver {
-  final String _userId;
-  final String _comicId;
+  
 
-  _ProfileScreenState(this._userId, this._comicId);
+  _ProfileScreenState();
 
-  PacketC2SComicDetailInfo c2sComicDetailInfo = new PacketC2SComicDetailInfo();
+  PacketC2SComicDetailInfo c2sComicDetailInfo = PacketC2SComicDetailInfo(); //Todo need a User info packet
 
   @override
   void initState() {
@@ -50,8 +46,8 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   }
 
   void init() async {
-    c2sComicDetailInfo.generate(_userId, _comicId);
-    await c2sComicDetailInfo.fetchBytes();
+    // c2sComicDetailInfo.generate();
+    // await c2sComicDetailInfo.fetchBytes();
     setState(() {});
   }
 
@@ -62,12 +58,13 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+    // ModelUserInfo.getInstance().loggedIn = true; //Todo need to applying login page like notification page
     // final topPadding = MediaQuery
     //     .of(context)
     //     .padding
     //     .top;
 
-    // final headerGradient = new RadialGradient(
+    // final headerGradient = RadialGradient(
     //   center: Alignment.topLeft,
     //   radius: 0.4,
     //   colors: <Color>[
@@ -89,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
           child: AppBar(
             elevation: 1,
             iconTheme: IconThemeData(
-              color: Colors.black, //change your color here
+              color: Colors.black, 
             ),
             backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
             //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
@@ -99,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
               fit: BoxFit.fitWidth,
               child: SizedBox(
                 width: ManageDeviceInfo.resolutionWidth * 0.7,
-                child: ModelComicDetailInfo.getInstance().mainTitleName == null
+                /* child: ModelUserInfo.getInstance().photoUrl == null
                     ? Text(
                         'Loading...',
                         maxLines: 1,
@@ -112,8 +109,9 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
                           color: Colors.black87,
                         ),
                       )
-                    : Text(
-                        ModelComicDetailInfo.getInstance().mainTitleName,
+                    : */ 
+                  child: Text(
+                        'Profile',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
@@ -130,6 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
               'images/sparky_logo.svg',
               width: ManageDeviceInfo.resolutionWidth * 0.045,
               height: ManageDeviceInfo.resolutionHeight * 0.025,
+            
             ),*/
           ),
         ),
@@ -137,9 +136,89 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
     body: ListView(
         padding: const EdgeInsets.all(0.0),
         children: <Widget>[
-          new ProfileHeader(), //Todo Need to pass Profile data here
-          new QuickActions(),
-          new MainMenu(),
+          ProfileHeader(), //Todo Need to pass Profile data here
+          // QuickActions(),
+          MainMenu(),
+        ],
+      ),
+    );
+  }
+
+
+}
+
+class ProfileHeader extends StatelessWidget {
+
+  // final Profile profile;
+
+  // ProfileHeader(this.profile);
+
+  @override
+  Widget build(BuildContext context) {
+    final topPadding = MediaQuery
+        .of(context)
+        .padding
+        .top;
+
+    final headerGradient = RadialGradient(
+      center: Alignment.topLeft,
+      radius: 0.4,
+      colors: <Color>[
+        const Color(0xFF8860EB),
+        const Color(0xFF8881EB),
+      ],
+      stops: <double>[
+        0.4, 1.0,
+      ],
+      tileMode: TileMode.repeated,
+    );
+
+    var headerHeight = ManageDeviceInfo.resolutionHeight * 0.3;
+
+    return Container(
+      height: headerHeight,
+      decoration: BoxDecoration(
+        color: Colors.greenAccent,
+        boxShadow: <BoxShadow>[
+          BoxShadow(spreadRadius: 2.0,
+              blurRadius: 4.0,
+              offset: Offset(0.0, 1.0),
+              color: Colors.black38),
+        ],
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          // linear gradient
+          Container(
+            height: headerHeight,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: <Color>[ //7928D1
+                    Colors.white70, Colors.white],//const Color(0xFF7928D1), const Color(0xFF9A4DFF)],
+                  stops: <double>[0.3, 0.5],
+                  begin: Alignment.topRight, end: Alignment.bottomLeft
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: topPadding, left: 15.0, right: 15.0, bottom: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 40.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: _buildAvatar(),
+                ),
+                _buildFollowerStats()
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -147,12 +226,12 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   /// Build the bell icon at the top right corner of the header
   Widget _buildBellIcon() {
-    return new Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        new IconButton(
-            icon: new Icon(
+        IconButton(
+            icon: Icon(
               Icons.notifications_none, color: Colors.white, size: 30.0,),
             onPressed: () {}),
       ],
@@ -160,93 +239,99 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   }
 
   Widget _buildTitle() {
-    return new Text("Profile",
-        style: new TextStyle(
+    return Text("Profile",
+        style: TextStyle(
             fontFamily: 'Lato',
             fontWeight: FontWeight.w700,
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 40.0,
             letterSpacing: 1.0));
   }
 
   /// The avatar consists of the profile image, the users name and location
   Widget _buildAvatar() {
-    final mainTextStyle = new TextStyle(fontFamily: 'Lato',
-        color: Colors.white,
+    final mainTextStyle = TextStyle(fontFamily: 'Lato',
+        color: Colors.black,
         fontWeight: FontWeight.w700,
         fontSize: 20.0);
-    final subTextStyle = new TextStyle(
+    final subTextStyle = TextStyle(
         fontFamily: 'Lato',
         fontSize: 16.0,
-        color: Colors.white70,
+        color: Colors.black87,
         fontWeight: FontWeight.w700);
 
-    return new Row(
+    return Row(
       children: <Widget>[
-        new Container(
+        Container(
           width: 70.0, height: 60.0,
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-                image: new AssetImage("assets/images/emma-watson.jpg"),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/catHouse.jpg"),
                 fit: BoxFit.cover),
-            borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
-              new BoxShadow(
+              BoxShadow(
                   color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
             ],
           ),
         ),
-        new Padding(padding: const EdgeInsets.only(right: 20.0)),
-        new Column(
+        Padding(padding: const EdgeInsets.only(right: 20.0)),
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Text('My Name', style: mainTextStyle),
-            new Text('Location', style: subTextStyle),
+            Text('My Name', style: mainTextStyle),
+            Text('My Location', style: subTextStyle),
           ],
         ),
+        IconButton(
+          icon: Icon(Icons.edit),
+          onPressed: () {
+            
+          },
+          )
       ],
     );
   }
 
   Widget _buildFollowerStats() {
-    return new Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        _buildFollowerStat("Followers", '20 K'),
+        _buildFollowerStat("Followers", '14 K'),
         _buildVerticalDivider(),
-        _buildFollowerStat("Following", '432'),
+        _buildFollowerStat("Following", '542'),
         _buildVerticalDivider(),
-        _buildFollowerStat("Total Likes", '13 K'),
+        _buildFollowerStat("Total Likes", '839'),
       ],
     );
   }
 
   Widget _buildFollowerStat(String title, String value) {
-    final titleStyle = new TextStyle(
+    final titleStyle = TextStyle(
         fontSize: 16.0,
         fontFamily: 'Lato',
-        color: Colors.white);
-    final valueStyle = new TextStyle(
+        color: Colors.black);
+    final valueStyle = TextStyle(
         fontFamily: 'Lato',
         fontSize: 18.0,
         fontWeight: FontWeight.w700,
-        color: Colors.white);
-    return new Column(
+        color: Colors.black);
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new Text(title, style: titleStyle),
-        new Text(value, style: valueStyle),
+        Text(title, style: titleStyle),
+        Text(value, style: valueStyle),
       ],
     );
   }
 
   Widget _buildVerticalDivider() {
-    return new Container(
+    return Container(
       height: 30.0,
       width: 1.0,
-      color: Colors.white30,
+      color: Colors.black54,
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
     );
   }
@@ -257,12 +342,12 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      constraints: const BoxConstraints(maxHeight: 240.0),
-      child: new ListView(
-        padding: const EdgeInsets.only(left: 5.0),
+    return Container(
+      constraints: BoxConstraints(maxHeight: ManageDeviceInfo.resolutionHeight * 0.5),
+      child: ListView(
+        padding: EdgeInsets.only(left: ManageDeviceInfo.resolutionWidth * 0.01, top: ManageDeviceInfo.resolutionHeight * 0.02, ),
         children: <Widget>[
-          _buildListItem("Memories", Icons.camera, () {}),
+          _buildListItem("History", Icons.history, () {}),
           _buildListItem("Favourites", Icons.favorite, () {}),
           _buildListItem("Presents", Icons.card_giftcard, () {}),
           _buildListItem("Friends", Icons.people, () {}),
@@ -273,33 +358,33 @@ class MainMenu extends StatelessWidget {
   }
 
   Widget _buildListItem(String title, IconData iconData, VoidCallback action) {
-    final textStyle = new TextStyle(
+    final textStyle = TextStyle(
         color: Colors.black54, fontSize: 18.0, fontWeight: FontWeight.w600);
 
-    return new InkWell(
+    return InkWell(
       onTap: action,
-      child: new Padding(
+      child: Padding(
         padding: const EdgeInsets.only(
             left: 10.0, right: 10.0, bottom: 5.0, top: 5.0),
-        child: new Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            new Container(
+            Container(
               width: 35.0,
               height: 35.0,
               margin: const EdgeInsets.only(right: 10.0),
-              decoration: new BoxDecoration(
-                color: Colors.purple,
-                borderRadius: new BorderRadius.circular(5.0),
+              decoration: BoxDecoration(
+                color: Colors.lightGreen,
+                borderRadius: BorderRadius.circular(5.0),
               ),
               alignment: Alignment.center,
-              child: new Icon(iconData, color: Colors.white, size: 24.0),
+              child: Icon(iconData, color: Colors.white, size: 24.0),
             ),
-            new Text(title, style: textStyle),
-            new Expanded(child: new Container()),
-            new IconButton(
-                icon: new Icon(Icons.chevron_right, color: Colors.black26),
+            Text(title, style: textStyle),
+            Expanded(child: Container()),
+            IconButton(
+                icon: Icon(Icons.chevron_right, color: Colors.black26),
                 onPressed: action)
           ],
         ),
@@ -310,7 +395,7 @@ class MainMenu extends StatelessWidget {
 }
 
 
-class QuickActions extends StatelessWidget {
+/* class QuickActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -339,12 +424,12 @@ class QuickActions extends StatelessWidget {
         begin: Alignment.bottomRight,
         end: Alignment.topLeft);
 
-    return new Container(
+    return Container(
       constraints: const BoxConstraints(maxHeight: 120.0),
       margin: const EdgeInsets.only(top: 20.0),
-      child: new Align(
+      child: Align(
         alignment: Alignment.center,
-        child: new ListView(
+        child: ListView(
             shrinkWrap: true,
             padding: const EdgeInsets.only(
                 left: 10.0, bottom: 20.0, right: 10.0, top: 10.0),
@@ -352,13 +437,13 @@ class QuickActions extends StatelessWidget {
             children: <Widget>[
               _buildAction(
                   "Live\nBroadcast", () {}, Colors.blue, blueGradient,
-                  new AssetImage("assets/images/microphone.png")),
+                  AssetImage("images/야옹이.png")),
               _buildAction(
                   "My\nWallet", () {}, Colors.purple, purpleGraient,
-                  new AssetImage("assets/images/wallet.png")),
+                  AssetImage("images/dragonBall.png")),
               _buildAction(
                   "Game\nCenter", () {}, Colors.red, redGradient,
-                  new AssetImage("assets/images/joystick.png")),
+                  AssetImage("images/joystick.png")),
             ]
         ),
       ),
@@ -367,60 +452,57 @@ class QuickActions extends StatelessWidget {
 
   Widget _buildAction(String title, VoidCallback action, Color color,
       Gradient gradient, ImageProvider backgroundImage) {
-    final textStyle = new TextStyle(
+    final textStyle = TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w700,
         fontSize: 18.0,
         fontFamily: 'Lato');
 
-    return new GestureDetector(
+    return GestureDetector(
       onTap: action,
-      child: new Container(
+      child: Container(
         margin: const EdgeInsets.only(right: 5.0, left: 5.0),
         width: 150.0,
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
             color: color,
             shape: BoxShape.rectangle,
-            borderRadius: new BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10.0),
             boxShadow: <BoxShadow>[
-              new BoxShadow(color: Colors.black38,
+              BoxShadow(color: Colors.black38,
                   blurRadius: 2.0,
                   spreadRadius: 1.0,
-                  offset: new Offset(0.0, 1.0)),
+                  offset: Offset(0.0, 1.0)),
             ],
             gradient: gradient
         ),
-        child: new Stack(
+        child: Stack(
           children: <Widget>[
-            new Opacity(
-              opacity: 0.2,
-              child: new Align(
+            Align(
+              alignment: Alignment.centerRight,
+              child: Transform.rotate(
+                angle: -3.14 / 4.8,
                 alignment: Alignment.centerRight,
-                child: new Transform.rotate(
-                  angle: -3.14 / 4.8,
-                  alignment: Alignment.centerRight,
-                  child: new ClipPath(
-                    clipper: new _BackgroundImageClipper(),
-                    child: new Container(
-                      padding: const EdgeInsets.only(
-                          bottom: 20.0, right: 0.0, left: 60.0),
-                      child: new Image(
-                        width: 90.0,
-                        height: 90.0,
-                        image: backgroundImage != null
-                            ? backgroundImage
-                            : new AssetImage("assets/images/microphone.png"),
-                      ),
+                child: ClipPath(
+                  clipper: _BackgroundImageClipper(),
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        bottom: 20.0, right: 0.0, left: 60.0),
+                    child: Image(
+                      width: 90.0,
+                      height: 90.0,
+                      image: backgroundImage != null
+                          ? backgroundImage
+                          : AssetImage("images/야옹이.png"),
                     ),
                   ),
                 ),
               ),
             ), // END BACKGROUND IMAGE
 
-            new Container(
+            Container(
               alignment: Alignment.topLeft,
               padding: const EdgeInsets.only(left: 10.0, top: 10.0),
-              child: new Text(title, style: textStyle),
+              child: Text(title, style: textStyle),
             ),
           ],
         ),
@@ -432,7 +514,7 @@ class QuickActions extends StatelessWidget {
 class _BackgroundImageClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final path = new Path();
+    final path = Path();
     path.moveTo(0.0, 0.0);
     path.lineTo(size.width, size.height);
     path.lineTo(size.width, 0.0);
@@ -443,211 +525,10 @@ class _BackgroundImageClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 
-}
+} */
 
   
 
 
 
 
-
-class ProfileHeader extends StatelessWidget {
-
-  // final Profile profile;
-
-  // ProfileHeader(this.profile);
-
-  @override
-  Widget build(BuildContext context) {
-    final topPadding = MediaQuery
-        .of(context)
-        .padding
-        .top;
-
-    final headerGradient = new RadialGradient(
-      center: Alignment.topLeft,
-      radius: 0.4,
-      colors: <Color>[
-        const Color(0xFF8860EB),
-        const Color(0xFF8881EB),
-      ],
-      stops: <double>[
-        0.4, 1.0,
-      ],
-      tileMode: TileMode.repeated,
-    );
-
-    const headerHeight = 290.0;
-
-    return new Container(
-      height: headerHeight,
-      decoration: new BoxDecoration(
-        color: Colors.greenAccent,
-        boxShadow: <BoxShadow>[
-          new BoxShadow(spreadRadius: 2.0,
-              blurRadius: 4.0,
-              offset: new Offset(0.0, 1.0),
-              color: Colors.black38),
-        ],
-      ),
-      child: new Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          // linear gradient
-          new Container(
-            height: headerHeight,
-            decoration: new BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: <Color>[ //7928D1
-                    const Color(0xFF7928D1), const Color(0xFF9A4DFF)],
-                  stops: <double>[0.3, 0.5],
-                  begin: Alignment.topRight, end: Alignment.bottomLeft
-              ),
-            ),
-          ),
-          // radial gradient
-          new CustomPaint(
-            painter: new HeaderGradientPainter(),
-          ),
-          new Padding(
-            padding: new EdgeInsets.only(
-                top: topPadding, left: 15.0, right: 15.0, bottom: 20.0),
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildBellIcon(),
-                new Padding(
-                  padding: const EdgeInsets.only(bottom: 15.0),
-                  child: _buildTitle(),
-                ),
-                new Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: _buildAvatar(),
-                ),
-                _buildFollowerStats()
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /// Build the bell icon at the top right corner of the header
-  Widget _buildBellIcon() {
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        new IconButton(
-            icon: new Icon(
-              Icons.notifications_none, color: Colors.white, size: 30.0,),
-            onPressed: () {}),
-      ],
-    );
-  }
-
-  Widget _buildTitle() {
-    return new Text("Profile",
-        style: new TextStyle(
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-            fontSize: 40.0,
-            letterSpacing: 1.0));
-  }
-
-  /// The avatar consists of the profile image, the users name and location
-  Widget _buildAvatar() {
-    final mainTextStyle = new TextStyle(fontFamily: 'Lato',
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 20.0);
-    final subTextStyle = new TextStyle(
-        fontFamily: 'Lato',
-        fontSize: 16.0,
-        color: Colors.white70,
-        fontWeight: FontWeight.w700);
-
-    return new Row(
-      children: <Widget>[
-        new Container(
-          width: 70.0, height: 60.0,
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-                image: new AssetImage("assets/images/emma-watson.jpg"),
-                fit: BoxFit.cover),
-            borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
-            boxShadow: <BoxShadow>[
-              new BoxShadow(
-                  color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
-            ],
-          ),
-        ),
-        new Padding(padding: const EdgeInsets.only(right: 20.0)),
-        new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Text('My Name', style: mainTextStyle),
-            new Text('My Location', style: subTextStyle),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildFollowerStats() {
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        _buildFollowerStat("Followers", '14 K'),
-        _buildVerticalDivider(),
-        _buildFollowerStat("Following", '542'),
-        _buildVerticalDivider(),
-        _buildFollowerStat("Total Likes", '839'),
-      ],
-    );
-  }
-
-  Widget _buildFollowerStat(String title, String value) {
-    final titleStyle = new TextStyle(
-        fontSize: 16.0,
-        fontFamily: 'Lato',
-        color: Colors.white);
-    final valueStyle = new TextStyle(
-        fontFamily: 'Lato',
-        fontSize: 18.0,
-        fontWeight: FontWeight.w700,
-        color: Colors.white);
-    return new Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        new Text(title, style: titleStyle),
-        new Text(value, style: valueStyle),
-      ],
-    );
-  }
-
-  Widget _buildVerticalDivider() {
-    return new Container(
-      height: 30.0,
-      width: 1.0,
-      color: Colors.white30,
-      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-    );
-  }
-}
-
-class HeaderGradientPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // TODO: paint background radial gradient
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-
-}

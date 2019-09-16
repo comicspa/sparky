@@ -586,17 +586,9 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ViewerScreen(
-                                                  ModelComicDetailInfo
-                                                          .getInstance()
-                                                      .userId,
-                                                  ModelComicDetailInfo
-                                                          .getInstance()
-                                                      .comicId,
-                                                  ModelPreset
-                                                      .convertCountIndex2CutImageId(
-                                                          index),
+                                                builder: (context) => ViewerScreen(ModelComicDetailInfo.getInstance().userId,
+                                                  ModelComicDetailInfo.getInstance().comicId,
+                                                  ModelPreset.convertCountIndex2CutImageId(index),
                                                 ),
                                               ),
                                             );
@@ -604,9 +596,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                           child: Container(
                                             color: Colors.transparent,
                                             child: SizedBox(
-                                              width: ManageDeviceInfo
-                                                      .resolutionWidth *
-                                                  0.5,
+                                              width: ManageDeviceInfo.resolutionWidth * 0.5,
                                               height: ManageDeviceInfo
                                                       .resolutionHeight *
                                                   0.16,

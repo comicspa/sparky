@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sparky/screens/profile.dart';
 import 'library.dart';
 import 'more.dart';
 import 'creator.dart';
@@ -78,18 +79,18 @@ class _HomeScreenState extends State<HomeScreen>
                   color: Color.fromRGBO(21, 24, 45, 1.0),
                 ),
                 onPressed: () {
-                  showDialog(
+                  /* showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return BuildAlertDialog();
                     },
-                  );
-//                Navigator.push(
-//                  context,
-//                  MaterialPageRoute(
-//                    builder: (context) => ComingSoonScreen(),
-//                  ),
-//                );
+                  ); */
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  ),
+                );
                 },
               ),
               IconButton(
