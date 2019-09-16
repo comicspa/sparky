@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_user_info.dart';
-import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
 
 
@@ -25,13 +24,17 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
     print('PackSize : $size , PacketType : $type , systemErrorCode : $systemErrorCode , serviceErrorCode : $serviceErrorCode');
 
-    ModelUserInfo.getInstance().id = readStringToByteBuffer();
-    ModelUserInfo.getInstance().creatorId = readStringToByteBuffer();
-    ModelUserInfo.getInstance().bio = readStringToByteBuffer();
-    ModelUserInfo.getInstance().comi = getUint32();
-    ModelUserInfo.getInstance().followers = getUint32();
-    ModelUserInfo.getInstance().following = getUint32();
-    ModelUserInfo.getInstance().likes = getUint32();
+
+    ModelUserInfo modelUserInfo = new ModelUserInfo();
+
+
+    modelUserInfo.id = readStringToByteBuffer();
+    modelUserInfo.creatorId = readStringToByteBuffer();
+    modelUserInfo.bio = readStringToByteBuffer();
+    modelUserInfo.comi = getUint32();
+    modelUserInfo.followers = getUint32();
+    modelUserInfo.following = getUint32();
+    modelUserInfo.likes = getUint32();
 
     int testMode = getUint32();
     if(1 == testMode)
@@ -41,29 +44,34 @@ class PacketS2CUserInfo extends PacketS2CCommon
       {
         case 1:
           {
-            ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.google;
+            modelUserInfo.socialProviderType = e_social_provider_type.google;
           }
           break;
 
         case 2:
           {
-            ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.facebook;
+            modelUserInfo.socialProviderType = e_social_provider_type.facebook;
           }
           break;
 
         case 3:
           {
-            ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.twitter;
+            modelUserInfo.socialProviderType = e_social_provider_type.twitter;
           }
           break;
       }
 
-      ModelUserInfo.getInstance().email = 'testUser@test.com';
-      ModelUserInfo.getInstance().userName = 'testUserName';
-      ModelUserInfo.getInstance().displayName = 'testDisplayName';
-      ModelUserInfo.getInstance().photoUrl  = await ManageFirebaseStorage.getDownloadUrl('presets/test_profile.png');
+      modelUserInfo.email = 'testUser@test.com';
+      modelUserInfo.userName = 'testUserName';
+      modelUserInfo.displayName = 'testDisplayName';
+      modelUserInfo.photoUrl   = await ManageFirebaseStorage.getDownloadUrl('presets/test_profile.png');
 
-      print('${ModelUserInfo.getInstance().photoUrl}');
+      while(null == modelUserInfo.photoUrl )
+      {
+      }
+
+      ModelUserInfo.instance = modelUserInfo;
+      print('1 : ${ModelUserInfo.getInstance().photoUrl}');
 
     }
 

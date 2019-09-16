@@ -119,14 +119,19 @@ class ModelUserInfo
   }
 
 
-  static ModelUserInfo _instance;
+  static ModelUserInfo instance;
   static ModelUserInfo getInstance() {
+
+    /*
     if(_instance == null) {
       _instance = ModelUserInfo();
       return _instance;
     }
-    return _instance;
+
+     */
+    return instance;
   }
+
 
   @override
   String toString()

@@ -51,6 +51,8 @@ class PacketC2SUserInfo extends PacketC2SCommon
         PacketS2CUserInfo packet = new PacketS2CUserInfo();
         packet.parseBytes(packetSize,byteData);
 
+        //print(ModelUserInfo.getInstance().toString());
+        print('2');
         _fetchStatus = 2;
         return ModelUserInfo.getInstance();
       }

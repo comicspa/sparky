@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as prefix0;
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
-import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/models/model_user_info.dart';
+import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'edit_profile.dart';
 
 import 'common_widgets.dart';
@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   _ProfileScreenState();
 
-  PacketC2SComicDetailInfo c2sComicDetailInfo = PacketC2SComicDetailInfo(); //Todo need a User info packet
+  PacketC2SUserInfo c2sUserInfo = PacketC2SUserInfo(); //Todo need a User info packet
 
   @override
   void initState() {
@@ -48,8 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   }
 
   void init() async {
-    // c2sComicDetailInfo.generate();
-    // await c2sComicDetailInfo.fetchBytes();
+     c2sUserInfo.generate();
+     await c2sUserInfo.fetchBytes();
     setState(() {});
   }
 
