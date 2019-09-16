@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as prefix0;
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/models/model_user_info.dart';
+import 'edit_profile.dart';
 
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -137,7 +139,6 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
         padding: const EdgeInsets.all(0.0),
         children: <Widget>[
           ProfileHeader(), //Todo Need to pass Profile data here
-          // QuickActions(),
           MainMenu(),
         ],
       ),
@@ -213,9 +214,10 @@ class ProfileHeader extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
-                  child: _buildAvatar(),
+                  child: _buildAvatar(context),
                 ),
                 _buildFollowerStats()
+                //Todo need to add Bio here
               ],
             ),
           ),
@@ -249,7 +251,7 @@ class ProfileHeader extends StatelessWidget {
   }
 
   /// The avatar consists of the profile image, the users name and location
-  Widget _buildAvatar() {
+  Widget _buildAvatar(BuildContext context) {
     final mainTextStyle = TextStyle(fontFamily: 'Lato',
         color: Colors.black,
         fontWeight: FontWeight.w700,
@@ -271,7 +273,7 @@ class ProfileHeader extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                  color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
+                color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
             ],
           ),
         ),
@@ -286,7 +288,11 @@ class ProfileHeader extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.edit),
           onPressed: () {
-            
+            Navigator.push(                  context,
+                  MaterialPageRoute(builder: (context) => EditProfileScreen(),
+                  ),
+            );
+
           },
           )
       ],
@@ -309,12 +315,12 @@ class ProfileHeader extends StatelessWidget {
 
   Widget _buildFollowerStat(String title, String value) {
     final titleStyle = TextStyle(
-        fontSize: 16.0,
+        fontSize: ManageDeviceInfo.resolutionWidth * 0.040,
         fontFamily: 'Lato',
         color: Colors.black);
     final valueStyle = TextStyle(
         fontFamily: 'Lato',
-        fontSize: 18.0,
+        fontSize: ManageDeviceInfo.resolutionWidth * 0.034,
         fontWeight: FontWeight.w700,
         color: Colors.black);
     return Column(
@@ -359,7 +365,7 @@ class MainMenu extends StatelessWidget {
 
   Widget _buildListItem(String title, IconData iconData, VoidCallback action) {
     final textStyle = TextStyle(
-        color: Colors.black54, fontSize: 18.0, fontWeight: FontWeight.w600);
+        color: Colors.black54, fontSize: ManageDeviceInfo.resolutionHeight * 0.03, fontWeight: FontWeight.w600);
 
     return InkWell(
       onTap: action,
@@ -371,15 +377,15 @@ class MainMenu extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: 35.0,
-              height: 35.0,
+              width: ManageDeviceInfo.resolutionWidth * 0.06,
+              height: ManageDeviceInfo.resolutionWidth * 0.06,
               margin: const EdgeInsets.only(right: 10.0),
               decoration: BoxDecoration(
                 color: Colors.lightGreen,
                 borderRadius: BorderRadius.circular(5.0),
               ),
               alignment: Alignment.center,
-              child: Icon(iconData, color: Colors.white, size: 24.0),
+              child: Icon(iconData, color: Colors.white, size: ManageDeviceInfo.resolutionHeight * 0.03),
             ),
             Text(title, style: textStyle),
             Expanded(child: Container()),

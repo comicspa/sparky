@@ -1,11 +1,13 @@
 import "package:flutter/material.dart";
+import 'package:sparky/manage/manage_device_info.dart';
+
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'main.dart'; //for currentuser & google signin instance
 // import 'models/user.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfileScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
 
@@ -63,45 +65,106 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('images/야옹이.png'),
-            radius: 50.0,
-          ),
-        ),
-        FlatButton(
-            onPressed: () {
-              changeProfilePhoto(context);
-            },
-            child: Text(
-              "Change Photo",
-              style: const TextStyle(
-                  color: Colors.blue,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
-            )),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              buildTextField(name: "Name", controller: nameController),
-              buildTextField(name: "Bio", controller: bioController),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: MaterialButton(
-              onPressed: () => { /*_logout(context)*/ },
-              child: Text("Logout")
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
+        child: SafeArea(
+          child: AppBar(
+            elevation: 1,
+            iconTheme: IconThemeData(
+              color: Colors.black, 
+            ),
+            backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
+            //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+            centerTitle: true,
 
+            title: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: SizedBox(
+                width: ManageDeviceInfo.resolutionWidth * 0.7,
+                /* child: ModelUserInfo.getInstance().photoUrl == null
+                    ? Text(
+                        'Loading...',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.bold,
+                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+                          color: Colors.black87,
+                        ),
+                      )
+                    : */ 
+                  child: Text(
+                        'Profile',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.bold,
+                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+                          color: Colors.black87,
+                        ),
+                      ),
+              ),
+            ),
+            /*SvgPicture.asset(
+              'images/sparky_logo.svg',
+              width: ManageDeviceInfo.resolutionWidth * 0.045,
+              height: ManageDeviceInfo.resolutionHeight * 0.025,
+            
+            ),*/
+          ),
+        ),
+      ), 
+    body: ListView(
+        padding: const EdgeInsets.all(0.0),
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('images/야옹이.png'),
+                  radius: 50.0,
+                ),
+              ),
+              FlatButton(
+                  onPressed: () {
+                    changeProfilePhoto(context);
+                  },
+                  child: Text(
+                    "Change Photo",
+                    style: const TextStyle(
+                        color: Colors.blue,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
+                  )),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    buildTextField(name: "Name", controller: nameController),
+                    buildTextField(name: "Bio", controller: bioController),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: MaterialButton(
+                    onPressed: () => { /*_logout(context)*/ },
+                    child: Text("Logout")
+
+                )
+              )
+            ],
           )
-        )
-      ],
-      );
+        ],
+      ),
+    );
     }
 
   
