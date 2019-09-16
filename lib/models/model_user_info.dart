@@ -80,7 +80,7 @@ class ModelUserInfo
 
   set photoUrl(String photoUrl)
   {
-    _photoUrl = photoUrl;
+    _photoUrl = photoUrl;;
   }
 
   set uId(String uId)
