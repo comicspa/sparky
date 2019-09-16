@@ -20,6 +20,7 @@ import 'package:sparky/packets/packet_c2s_library_view_list_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_recent_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_user_info.dart';
 
 import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_firebase_auth.dart';
@@ -39,30 +40,21 @@ class _PageDevTestState extends State<PageDevTest> {
   int selectedCountIndex = -1;
   AsyncSnapshot snapshot;
 
-  PacketC2STodayTrendComicInfo c2STodayTrendComicInfo =
-      new PacketC2STodayTrendComicInfo();
-  PacketC2SWeeklyTrendComicInfo c2SWeeklyTrendComicInfo =
-      new PacketC2SWeeklyTrendComicInfo();
-  PacketC2SFeaturedComicInfo c2SFeaturedComicInfo =
-      new PacketC2SFeaturedComicInfo();
+  PacketC2STodayTrendComicInfo c2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo();
+  PacketC2SWeeklyTrendComicInfo c2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
+  PacketC2SFeaturedComicInfo c2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
   PacketC2SViewComic c2SViewComic = new PacketC2SViewComic();
   PacketC2SNewComicInfo c2SNewComicInfo = new PacketC2SNewComicInfo();
-  PacketC2SRealTimeTrendInfo c2SRealTimeTrendInfo =
-      new PacketC2SRealTimeTrendInfo();
-  PacketC2SRecommendedComicInfo c2SRecommendedComicInfo =
-      new PacketC2SRecommendedComicInfo();
+  PacketC2SRealTimeTrendInfo c2SRealTimeTrendInfo = new PacketC2SRealTimeTrendInfo();
+  PacketC2SRecommendedComicInfo c2SRecommendedComicInfo = new PacketC2SRecommendedComicInfo();
   PacketC2SComicDetailInfo c2SComicDetailInfo = new PacketC2SComicDetailInfo();
   PacketC2SNewCreatorInfo c2SNewCreatorInfo = new PacketC2SNewCreatorInfo();
-  PacketC2SWeeklyCreatorInfo c2SWeeklyCreatorInfo =
-      new PacketC2SWeeklyCreatorInfo();
-  PacketC2SLibraryViewListComicInfo c2SLibraryViewListComicInfo =
-      new PacketC2SLibraryViewListComicInfo();
-  PacketC2SLibraryContinueComicInfo c2SLibraryContinueComicInfo =
-      new PacketC2SLibraryContinueComicInfo();
-  PacketC2SLibraryOwnedComicInfo c2SLibraryOwnedComicInfo =
-      new PacketC2SLibraryOwnedComicInfo();
-  PacketC2SLibraryRecentComicInfo c2SLibraryRecentComicInfo =
-      new PacketC2SLibraryRecentComicInfo();
+  PacketC2SWeeklyCreatorInfo c2SWeeklyCreatorInfo = new PacketC2SWeeklyCreatorInfo();
+  PacketC2SLibraryViewListComicInfo c2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
+  PacketC2SLibraryContinueComicInfo c2SLibraryContinueComicInfo = new PacketC2SLibraryContinueComicInfo();
+  PacketC2SLibraryOwnedComicInfo c2SLibraryOwnedComicInfo = new PacketC2SLibraryOwnedComicInfo();
+  PacketC2SLibraryRecentComicInfo c2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
+  PacketC2SUserInfo c2sUserInfo = new PacketC2SUserInfo();
 
   @override
   void initState() {
@@ -80,6 +72,7 @@ class _PageDevTestState extends State<PageDevTest> {
     c2SComicDetailInfo.generate('1566811403000', '000001');
     c2SNewCreatorInfo.generate();
     c2SWeeklyCreatorInfo.generate();
+    c2sUserInfo.generate();
 
     //ManageAccessToken.test();
 
@@ -157,13 +150,14 @@ class _PageDevTestState extends State<PageDevTest> {
               }
 
               //c2SComicDetailInfo.fetchBytes();
-              c2SViewComic.fetchBytes();
+              //c2SViewComic.fetchBytes();
               //c2SNewCreatorInfo.fetchBytes();
               //c2SWeeklyCreatorInfo.fetchBytes();
               //c2SMyLockerComicViewList.fetchBytes();
               //c2SMyLockerComicContinue.fetchBytes();
               //c2SMyLockerComicOwned.fetchBytes();
               //c2SMyLockerComicRecent.fetchBytes();
+              c2sUserInfo.fetchBytes();
             });
 
             //print(selectedCountIndex);

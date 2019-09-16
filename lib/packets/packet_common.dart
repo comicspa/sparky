@@ -80,6 +80,9 @@ enum e_packet_type
   c2s_preset_library_info,
   s2c_preset_library_info,
 
+  c2s_user_info,
+  s2c_user_info,
+
 }
 
 

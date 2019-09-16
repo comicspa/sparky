@@ -16,10 +16,15 @@ class ModelUserInfo
   int _comi;
   bool _loggedIn = false;
   String _email;
+  String _userName;
   String _displayName;
   String _photoUrl;
   String _uId;
   String _accessToken;
+  String _bio;
+  int _followers;
+  int _following;
+  int _likes;
 
   String get id => _id;
   String get creatorId => _creatorId;
@@ -28,10 +33,15 @@ class ModelUserInfo
   bool get loggedIn => _loggedIn;
   bool get me => _loggedIn;
   String get email => _email;
+  String get userName => _userName;
   String get displayName => _displayName;
   String get photoUrl => _photoUrl;
   String get uId => _uId;
   String get accessToken => _accessToken;
+  String get bio => _bio;
+  int get followers => _followers;
+  int get foloowing => _following;
+  int get likes => _likes;
 
   set id(String id)
   {
@@ -83,6 +93,31 @@ class ModelUserInfo
     _accessToken = accessToken;
   }
 
+  set userName(String userName)
+  {
+    _userName = userName;
+  }
+
+  set bio(String bio)
+  {
+    _bio = bio;
+  }
+
+  set followers(int followers)
+  {
+    _followers = followers;
+  }
+
+  set following (int following)
+  {
+    _following = following;
+  }
+
+  set likes(int likes)
+  {
+    _likes = likes;
+  }
+
 
   static ModelUserInfo _instance;
   static ModelUserInfo getInstance() {
@@ -96,7 +131,7 @@ class ModelUserInfo
   @override
   String toString()
   {
-    return 'email : $_email , displayName : $_displayName , photoUrl : $_photoUrl , uId : $uId';
+    return 'email : $_email , displayName : $_displayName , photoUrl : $_photoUrl , _followers : $_followers , bio : $_bio';
   }
 
 }
