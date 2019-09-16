@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as prefix0;
 import 'package:sparky/manage/manage_device_info.dart';
-import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
-import 'edit_profile.dart';
+import 'package:sparky/screens/test/edit_profile.dart'; 
 
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:sparky/models/model_preset.dart';
-import 'dart:math';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -25,7 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   _ProfileScreenState();
 
-  PacketC2SUserInfo c2sUserInfo = PacketC2SUserInfo(); //Todo need a User info packet
+  PacketC2SUserInfo c2sUserInfo = PacketC2SUserInfo(); 
 
   @override
   void initState() {
@@ -98,32 +94,18 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
               fit: BoxFit.fitWidth,
               child: SizedBox(
                 width: ManageDeviceInfo.resolutionWidth * 0.7,
-                /* child: ModelUserInfo.getInstance().photoUrl == null
-                    ? Text(
-                        'Loading...',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
-                          color: Colors.black87,
-                        ),
-                      )
-                    : */ 
-                  child: Text(
-                        'Profile',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
-                          color: Colors.black87,
-                        ),
-                      ),
+                child: Text(
+                  'Profile',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold,
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+                    color: Colors.black87,
+                  ),
+                ),
               ),
             ),
             /*SvgPicture.asset(
@@ -135,10 +117,12 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
           ),
         ),
       ), 
-    body: ListView(
+    body: ModelUserInfo.getInstance().photoUrl == null
+      ? LoadingIndicator()
+      : ListView(
         padding: const EdgeInsets.all(0.0),
         children: <Widget>[
-          ProfileHeader(), //Todo Need to pass Profile data here
+          ProfileHeader(),
           MainMenu(),
         ],
       ),
@@ -264,11 +248,13 @@ class ProfileHeader extends StatelessWidget {
 
     return Row(
       children: <Widget>[
-        Container(
+        /* Container(
           width: 70.0, height: 60.0,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("images/catHouse.jpg"),
+                image: CachedNetworkImageProvider(
+                  ModelUserInfo.getInstance().photoUrl,
+                  ),
                 fit: BoxFit.cover),
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
@@ -276,13 +262,32 @@ class ProfileHeader extends StatelessWidget {
                 color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
             ],
           ),
+        ), */
+        CachedNetworkImage(
+          imageUrl: ModelUserInfo.getInstance().photoUrl,
+          imageBuilder: (context, imageProvider) => Container(
+            width: 70.0, height: 60.0,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
+              ],
+              ),
+          ),
+          placeholder: (context, url) => LoadingIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
         Padding(padding: const EdgeInsets.only(right: 20.0)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('My Name', style: mainTextStyle),
-            Text('My Location', style: subTextStyle),
+            Text(ModelUserInfo.getInstance().userName, style: mainTextStyle),
+            Text(ModelUserInfo.getInstance().displayName, style: subTextStyle),
           ],
         ),
         IconButton(
@@ -304,11 +309,11 @@ class ProfileHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        _buildFollowerStat("Followers", '14 K'),
+        _buildFollowerStat("Followers", ModelUserInfo.getInstance().followers.toString()),
         _buildVerticalDivider(),
-        _buildFollowerStat("Following", '542'),
+        _buildFollowerStat("Following", ModelUserInfo.getInstance().foloowing.toString()),
         _buildVerticalDivider(),
-        _buildFollowerStat("Total Likes", '839'),
+        _buildFollowerStat("Total Likes", ModelUserInfo.getInstance().likes.toString()),
       ],
     );
   }

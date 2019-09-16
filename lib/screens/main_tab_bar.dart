@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:sparky/screens/profile.dart';
 import 'library.dart';
 import 'more.dart';
-import 'creator.dart';
-import 'testhome.dart';
+
 import 'trend.dart';
 import 'sign_in.dart';
 import 'notification.dart';
 import 'common_widgets.dart';
-import 'coming_soon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 
