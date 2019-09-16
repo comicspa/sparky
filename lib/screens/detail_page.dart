@@ -50,7 +50,6 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   void init() async {
     c2sComicDetailInfo.generate(_userId, _comicId);
     await c2sComicDetailInfo.fetchBytes();
-    setState(() {}); //Todo this setState can cause memory leak
   }
 
   @override
