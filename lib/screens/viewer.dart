@@ -5,18 +5,12 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'common_widgets.dart';
 import 'text_editor.dart';
 
-import 'package:sparky/screens/more.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:sparky/models/model_today_trend_comic_info.dart';
-import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
+
 import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
-import 'package:sparky/models/model_featured_comic_info.dart';
-import 'package:sparky/models/model_comic_detail_info.dart';
-import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
+
 import 'package:sparky/models/model_text_detection.dart';
 
-//Todo make fade-in image loading using "transparent_image package" later
 
 class ViewerScreen extends StatefulWidget {
   //final ModelFeaturedComicInfo modelFeaturedComicInfo;
