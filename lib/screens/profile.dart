@@ -46,7 +46,6 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   void init() async {
      c2sUserInfo.generate();
      await c2sUserInfo.fetchBytes();
-    setState(() {});
   }
 
 
@@ -121,6 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
       ? LoadingIndicator()
       : ListView(
         padding: const EdgeInsets.all(0.0),
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
         children: <Widget>[
           ProfileHeader(),
           MainMenu(),
