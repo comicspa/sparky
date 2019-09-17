@@ -45,9 +45,16 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   void init() async {
      c2sUserInfo.generate();
-     await c2sUserInfo.fetchBytes();
+     await c2sUserInfo.fetchBytes(_fetchDone);
   }
 
+
+  void _fetchDone(bool result)
+  {
+     setState(() {
+
+     });
+  }
 
   // final Profile profile;
 

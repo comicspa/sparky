@@ -108,6 +108,11 @@ class _PageDevTestState extends State<PageDevTest> {
   }
   */
 
+  void _fetchDone(bool result)
+  {
+
+  }
+
   Widget createTodayPopularComicInfoListView(
       BuildContext context, AsyncSnapshot snapshot) {
     var values = snapshot.data;
@@ -157,7 +162,7 @@ class _PageDevTestState extends State<PageDevTest> {
               //c2SMyLockerComicContinue.fetchBytes();
               //c2SMyLockerComicOwned.fetchBytes();
               //c2SMyLockerComicRecent.fetchBytes();
-              c2sUserInfo.fetchBytes();
+              c2sUserInfo.fetchBytes(_fetchDone);
             });
 
             //print(selectedCountIndex);
