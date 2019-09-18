@@ -12,7 +12,6 @@ import 'package:sparky/models/model_user_info.dart';
 
 
 
-typedef void OnFetchDone(bool result);
 
 
 class PacketC2SUserInfo extends PacketC2SCommon

@@ -95,7 +95,7 @@ class _PageDevTestState extends State<PageDevTest> {
 
     //ManageFirebaseDatabase.create();
     //ManageFirebaseDatabase.update();
-    ManageFirebaseDatabase.testRead();
+    //ManageFirebaseDatabase.testRead();
   }
 
   /*

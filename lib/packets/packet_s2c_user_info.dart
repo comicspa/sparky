@@ -67,7 +67,7 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
 
     if(null != onFetchDone)
-      onFetchDone(true);
+      onFetchDone(this);
 
   }
 
