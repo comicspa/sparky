@@ -83,6 +83,9 @@ enum e_packet_type
   c2s_user_info,
   s2c_user_info,
 
+  c2s_preset,
+  s2c_preset,
+
 }
 
 

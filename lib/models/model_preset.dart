@@ -21,7 +21,8 @@ typedef void OnPresetFetchDone(bool result);
 
 class ModelPreset
 {
-  static String __version = '1.0.0.0';
+  static String _version = '1.0.0.0';
+  static String _homepageUrl = 'https://www.google.co.kr';
   static String _faqUrl = 'https://www.google.co.kr';
   static String _privacyPolicyUrl = 'https://www.google.co.kr';
   static String _termsOfUseUrl = 'https://www.google.co.kr';
@@ -31,7 +32,8 @@ class ModelPreset
   static final String __thumbnailImageFileFullName = '00000.jpg';
   static final String __bannerImageFileFullName = '100000.jpg';
 
-  static String get version => __version;
+  static String get version => _version;
+  static String get homepageUrl => _homepageUrl;
   static String get faqUrl => _faqUrl;
   static String get privacyPolicyUrl => _privacyPolicyUrl;
   static String get termsOfUseUrl => _termsOfUseUrl;
@@ -41,13 +43,31 @@ class ModelPreset
   static String get thumbnailImageFileFullName => __thumbnailImageFileFullName;
   static String get bannerImageFileFullName => __bannerImageFileFullName;
 
+  static set homepageUrl(String homepageUrl)
+  {
+    _homepageUrl = homepageUrl;
+  }
+  static set faqUrl(String faqUrl)
+  {
+    _faqUrl = faqUrl;
+  }
+  static set privacyPolicyUrl(String privacyPolicyUrl)
+  {
+    _privacyPolicyUrl = privacyPolicyUrl;
+  }
+  static set termsOfUseUrl(String termsOfUseUrl)
+  {
+    _termsOfUseUrl = termsOfUseUrl;
+  }
+
+
   static bool fromJson(String presetJsonString)
   {
     print('preset : '+presetJsonString);
     Map presetMap = jsonDecode(presetJsonString);
 
     String version = presetMap['version'];
-    print('current version : $version , app version : $__version');
+    print('current version : $version , app version : $_version');
 
     PackageInfo.fromPlatform().then((PackageInfo packageInfo)
     {
@@ -58,7 +78,7 @@ class ModelPreset
 
       print('package version : $version , package buildNumber : $buildNumber');
     });
-    if(0 != version.compareTo(__version))
+    if(0 != version.compareTo(_version))
       return false;
 
 

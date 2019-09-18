@@ -14,6 +14,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparky/packets/packet_c2s_preset_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:sparky/packets/packet_c2s_preset.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with WidgetsBindingObserver {
+
+  PacketC2SPreset c2sPreset;
   List<PacketC2SCommon> _packetList;
   bool _enableAppVersion = true;
 
@@ -31,7 +35,9 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     ManageCommon.rotatePortraitOnly();
 
-    ModelPreset.fetch2(_presetFetchDone);
+    c2sPreset = new PacketC2SPreset();
+    c2sPreset.fetch(_onFetchDone);
+
   }
 
   @override
@@ -46,7 +52,9 @@ class _SplashScreenState extends State<SplashScreen>
     print('state = $state');
   }
 
-  void _presetFetchDone(bool result) {
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    bool result = true;
     _enableAppVersion = result;
 
     if (true == result) {
@@ -78,6 +86,9 @@ class _SplashScreenState extends State<SplashScreen>
 
       ManageMessage.add(_packetList[0]);
     }
+
+
+
   }
 
   void navigationPage() {

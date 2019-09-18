@@ -26,6 +26,7 @@ import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_firebase_auth.dart';
 import 'package:sparky/manage/manage_firebase_ml_vision.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 import 'package:sparky/manage/manage_paint_canvas.dart';
 import 'package:sparky/manage/manage_access_token.dart';
 
@@ -91,6 +92,10 @@ class _PageDevTestState extends State<PageDevTest> {
       print('getDownloadUrl catchError : $error');
     });
     */
+
+    //ManageFirebaseDatabase.create();
+    //ManageFirebaseDatabase.update();
+    ManageFirebaseDatabase.testRead();
   }
 
   /*
