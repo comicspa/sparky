@@ -111,47 +111,46 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           ),
         ),
       ),
-      body: Center(
-        child: GestureDetector(
-          //Todo add onVerticalDrag and onHorizontalDrag to update visibility
-          onTap: () {
-            setState(() {
-              _isVisible = !_isVisible;
-            });
-          },
-          child: FutureBuilder<List<ModelViewComic>>(
-            future: c2sViewComic.fetchBytes(_onFetchDone),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData)
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        height: ManageDeviceInfo.resolutionHeight * .3,
-                        child: Center(
-                          child: CircularPercentIndicator(
-                            radius: 40.0,
-                            lineWidth: 4.0,
-                            animation: true,
-                            animationDuration: 2700,
-                            percent: 0.75,
-                            footer: new Text(
-                              "Loading images...",
-                              style: new TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      ManageDeviceInfo.resolutionHeight * 0.02),
-                            ),
-                            circularStrokeCap: CircularStrokeCap.round,
-                            progressColor: Colors.redAccent,
+      body: GestureDetector(
+        //Todo add onVerticalDrag and onHorizontalDrag to update visibility
+        onTap: () {
+          setState(() {
+            _isVisible = !_isVisible;
+          });
+        },
+        child: FutureBuilder<List<ModelViewComic>>(
+          future: c2sViewComic.fetchBytes(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      height: ManageDeviceInfo.resolutionHeight * .3,
+                      child: Center(
+                        child: CircularPercentIndicator(
+                          radius: 40.0,
+                          lineWidth: 4.0,
+                          animation: true,
+                          animationDuration: 2700,
+                          percent: 0.75,
+                          footer: new Text(
+                            "Loading images...",
+                            style: new TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    ManageDeviceInfo.resolutionHeight * 0.02),
                           ),
+                          circularStrokeCap: CircularStrokeCap.round,
+                          progressColor: Colors.redAccent,
                         ),
                       ),
-                    ],
-                  ),
-                );
-              {
+                    ),
+                  ],
+                ),
+              );
+            {
 //                return ListView(
 //                  shrinkWrap: true,
 //                  scrollDirection: Axis.vertical,
@@ -165,24 +164,23 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
 //                    );
 //                  }),
 //                );
-                return ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection:
-                      snapshot.data[0].style == e_comic_view_style.vertical
-                          ? Axis.vertical
-                          : Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: snapshot.data[0].imageUrlList.length,
+              return ListView.builder(
+                shrinkWrap: true,
+                scrollDirection:
+                    snapshot.data[0].style == e_comic_view_style.vertical
+                        ? Axis.vertical
+                        : Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                itemCount: snapshot.data[0].imageUrlList.length,
 //                      ModelViewComic.getInstance().comicImageUrlList.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      CachedNetworkImage(
-                    imageUrl: snapshot.data[0].imageUrlList[index],
-                  ),
-                );
-                //Todo use pageview.builder to view horizontal style image like 만화 (참고: https://medium.com/flutter-community/a-deep-dive-into-pageview-in-flutter-with-custom-transitions-581d9ea6dded)
-              }
-            },
-          ),
+                itemBuilder: (BuildContext context, int index) =>
+                    CachedNetworkImage(
+                  imageUrl: snapshot.data[0].imageUrlList[index],
+                ),
+              );
+              //Todo use pageview.builder to view horizontal style image like 만화 (참고: https://medium.com/flutter-community/a-deep-dive-into-pageview-in-flutter-with-custom-transitions-581d9ea6dded)
+            }
+          },
         ),
       ),
       /*bottomNavigationBar: Visibility(
@@ -197,13 +195,36 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
       floatingActionButton: Visibility(
         visible: _isVisible,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          
           children: <Widget>[
+            SizedBox(
+              width: ManageDeviceInfo.resolutionWidth * 0.3,
+            ),
             Container(
-              height: 30,
-              child: FloatingActionButton(
+              height: ManageDeviceInfo.resolutionHeight * 0.04,
+              width: ManageDeviceInfo.resolutionWidth * 0.24,
+              child: FloatingActionButton.extended(
                 heroTag: 'btn1',
-                backgroundColor: Colors.brown,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return BuildAlertDialog();
+                    },
+                  );
+                },
+                label: Text('Pre Ep.'),
+                icon: Icon(Icons.arrow_left),
+              ),
+            ),
+            Container(
+              height: ManageDeviceInfo.resolutionHeight * 0.04,
+              child: FloatingActionButton(
+                heroTag: 'btn2',
+                backgroundColor: Colors.redAccent,
                 onPressed: () {
                   ModelTextDetection.reset();
 
@@ -213,33 +234,14 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                         builder: (context) => DrawRectAndImage(),
                       ));
                 },
-                child: Icon(Icons.translate),
+                child: Icon(
+                  Icons.translate,
+                  size: ManageDeviceInfo.resolutionHeight * 0.03,),
               ),
             ),
-            SizedBox(
-              width: 40,
-            ),
             Container(
-              height: 30,
-              child: FloatingActionButton.extended(
-                heroTag: 'btn2',
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return BuildAlertDialog();
-                    },
-                  );
-                },
-                label: Text('Pre'),
-                icon: Icon(Icons.arrow_left),
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Container(
-              height: 30,
+              height: ManageDeviceInfo.resolutionHeight * 0.04,
+              width: ManageDeviceInfo.resolutionWidth * 0.24,
               child: FloatingActionButton.extended(
                 heroTag: 'btn3',
                 onPressed: () {
@@ -250,7 +252,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                     },
                   );
                 },
-                label: Text('Next'),
+                label: Text('Next Ep.'),
                 icon: Icon(Icons.arrow_right),
               ),
             ),
