@@ -10,6 +10,7 @@ import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
 
 import 'package:sparky/models/model_text_detection.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 
 
 class ViewerScreen extends StatefulWidget {
@@ -53,6 +54,13 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     _isVisible = true;
+  }
+
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    setState(() {
+
+    });
   }
 
   @override
@@ -110,7 +118,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           });
         },
         child: FutureBuilder<List<ModelViewComic>>(
-          future: c2sViewComic.fetchBytes(),
+          future: c2sViewComic.fetchBytes(_onFetchDone),
           builder: (context, snapshot) {
             if (!snapshot.hasData)
               return Center(
