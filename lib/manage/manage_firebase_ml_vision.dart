@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
-
 import 'package:sparky/models/model_view_comic_detect_text_info.dart';
 
 
@@ -29,6 +28,7 @@ class ManageFirebaseMLVision
     {
       textRecognizer = FirebaseVision.instance.textRecognizer();
     }
+
 
     FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(file);
 
@@ -63,7 +63,6 @@ class ManageFirebaseMLVision
 
     //print('VisionText : ${visionText.text}');
     await textRecognizer.close();
-
 
     print('detectTextFromFile - finish');
     return visionText;
