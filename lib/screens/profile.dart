@@ -7,6 +7,7 @@ import 'package:sparky/screens/test/edit_profile.dart';
 
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -51,6 +52,13 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
      });
   }
 
+
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+     setState(() {
+
+     });
+  }
 
   // final Profile profile;
 

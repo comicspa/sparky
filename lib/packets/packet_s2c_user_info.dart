@@ -15,7 +15,7 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
 
 
-  Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async
+  Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize,onFetchDone) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);
 
@@ -23,10 +23,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
     serviceErrorCode = getUint32();
 
     print('PackSize : $size , PacketType : $type , systemErrorCode : $systemErrorCode , serviceErrorCode : $serviceErrorCode');
-
-
-    //ModelUserInfo modelUserInfo = new ModelUserInfo();
-
 
     ModelUserInfo.getInstance().id = readStringToByteBuffer();
     ModelUserInfo.getInstance().creatorId = readStringToByteBuffer();
@@ -66,13 +62,12 @@ class PacketS2CUserInfo extends PacketS2CCommon
       ModelUserInfo.getInstance().displayName = 'testDisplayName';
       ModelUserInfo.getInstance().photoUrl   = await ManageFirebaseStorage.getDownloadUrl('presets/test_profile.png');
 
-      while(null == ModelUserInfo.getInstance().photoUrl )
-      {
-      }
-
-
       print('1 : ${ModelUserInfo.getInstance().photoUrl}');
     }
+
+
+    if(null != onFetchDone)
+      onFetchDone(this);
 
   }
 
