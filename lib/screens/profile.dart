@@ -53,12 +53,9 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   }
 
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
-  {
-     setState(() {
-
-     });
-  }
+  void _onFetchDone(PacketS2CCommon s2cPacket){}
+     
+  
 
   // final Profile profile;
 
