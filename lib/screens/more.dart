@@ -37,6 +37,10 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
     print('state = $state');
   }
 
+  final textStyle = TextStyle(
+        color: Colors.black87, fontSize: ManageDeviceInfo.resolutionHeight * 0.025, fontWeight: FontWeight.w600);
+  
+  
   @override
   Widget build(BuildContext context) {
     // Todo Currently this screen is used for testing viewer
@@ -136,11 +140,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
               title: Text(
                 'Creator',
                 textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: textStyle,
               ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
@@ -158,11 +158,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
               title: Text(
                 'Service Info',
                 textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: textStyle
               ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
@@ -181,11 +177,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
               title: Text(
                 'Settings',
                 textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: textStyle,
               ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
@@ -203,11 +195,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
               title: Text(
                 'About',
                 textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: textStyle,
               ),
               trailing: Icon(Icons.chevron_right),
               onTap: () {

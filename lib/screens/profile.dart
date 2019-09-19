@@ -417,13 +417,14 @@ class MainMenu extends StatelessWidget {
 
   Widget _buildListItem(String title, IconData iconData, VoidCallback action) {
     final textStyle = TextStyle(
-        color: Colors.black54, fontSize: ManageDeviceInfo.resolutionHeight * 0.03, fontWeight: FontWeight.w600);
+        color: Colors.black87, fontSize: ManageDeviceInfo.resolutionHeight * 0.025, fontWeight: FontWeight.w600);
+
 
     return InkWell(
       onTap: action,
       child: Padding(
-        padding: const EdgeInsets.only(
-            left: 10.0, right: 10.0, bottom: 5.0, top: 5.0),
+        padding: EdgeInsets.only(
+            left: ManageDeviceInfo.resolutionWidth * 0.04, right: 10.0, bottom: 5.0, top: 5.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -431,7 +432,7 @@ class MainMenu extends StatelessWidget {
             Container(
               width: ManageDeviceInfo.resolutionWidth * 0.06,
               height: ManageDeviceInfo.resolutionWidth * 0.06,
-              margin: const EdgeInsets.only(right: 10.0),
+              margin: EdgeInsets.only(right: ManageDeviceInfo.resolutionWidth * 0.08),
               decoration: BoxDecoration(
                 color: Colors.redAccent,
                 borderRadius: BorderRadius.circular(5.0),
