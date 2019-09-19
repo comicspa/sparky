@@ -9,16 +9,14 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            height: ManageDeviceInfo.resolutionHeight * .25,
-            child: Center(child: CircularProgressIndicator()),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(
+          height: ManageDeviceInfo.resolutionHeight * .25,
+          child: Center(child: CircularProgressIndicator()),
+        ),
+      ],
     );
   }
 }

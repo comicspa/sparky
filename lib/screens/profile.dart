@@ -152,10 +152,7 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final topPadding = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    final topPadding = ManageDeviceInfo.resolutionHeight * 0.06;
 
     final headerGradient = RadialGradient(
       center: Alignment.topLeft,
@@ -200,18 +197,16 @@ class ProfileHeader extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-                top: topPadding, left: 15.0, right: 15.0, bottom: 20.0),
+                top: 40, 
+                left: 15.0, 
+                right: 15.0, 
+                bottom: 20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 40.0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: _buildAvatar(context),
-                ),
+  
+                _buildAvatar(context),
                 _buildFollowerStats()
                 //Todo need to add Bio here
               ],
@@ -258,61 +253,66 @@ class ProfileHeader extends StatelessWidget {
         color: Colors.black87,
         fontWeight: FontWeight.w700);
 
-    return Row(
-      children: <Widget>[
-        /* Container(
-          width: 70.0, height: 60.0,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: CachedNetworkImageProvider(
-                  ModelUserInfo.getInstance().photoUrl,
-                  ),
-                fit: BoxFit.cover),
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
-            ],
-          ),
-        ), */
-        CachedNetworkImage(
-          imageUrl: ModelUserInfo.getInstance().photoUrl,
-          imageBuilder: (context, imageProvider) => Container(
+    return Container(
+      height: ManageDeviceInfo.resolutionHeight * 0.12,
+      child: Row(
+        children: <Widget>[
+          /* Container(
             width: 70.0, height: 60.0,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover
-              ),
+                  image: CachedNetworkImageProvider(
+                    ModelUserInfo.getInstance().photoUrl,
+                    ),
+                  fit: BoxFit.cover),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
               ],
-              ),
+            ),
+          ), */
+          SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.06,),
+          CachedNetworkImage(
+            imageUrl: ModelUserInfo.getInstance().photoUrl,
+            imageBuilder: (context, imageProvider) => Container(
+              width: ManageDeviceInfo.resolutionWidth * 0.12, height: ManageDeviceInfo.resolutionWidth * 0.12,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Colors.black26, blurRadius: 5.0, spreadRadius: 1.0),
+                ],
+                ),
+            ),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
-          placeholder: (context, url) => LoadingIndicator(),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-        Padding(padding: const EdgeInsets.only(right: 20.0)),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(ModelUserInfo.getInstance().userName, style: mainTextStyle),
-            Text(ModelUserInfo.getInstance().displayName, style: subTextStyle),
-          ],
-        ),
-        IconButton(
-          icon: Icon(Icons.edit),
-          onPressed: () {
-            Navigator.push(                  context,
-                  MaterialPageRoute(builder: (context) => EditProfileScreen(),
-                  ),
-            );
+          // Padding(padding: const EdgeInsets.only(right: 20.0)),
+          SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.04,),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(ModelUserInfo.getInstance().userName, style: mainTextStyle),
+              Text(ModelUserInfo.getInstance().displayName, style: subTextStyle),
+            ],
+          ),
+          /* IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(                  context,
+                    MaterialPageRoute(builder: (context) => EditProfileScreen(),
+                    ),
+              ); 
 
-          },
-          )
-      ],
+            },
+            ) */
+        ],
+      ),
     );
   }
 
@@ -370,11 +370,46 @@ class MainMenu extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.only(left: ManageDeviceInfo.resolutionWidth * 0.01, top: ManageDeviceInfo.resolutionHeight * 0.02, ),
         children: <Widget>[
-          _buildListItem("History", Icons.history, () {}),
-          _buildListItem("Favourites", Icons.favorite, () {}),
-          _buildListItem("Presents", Icons.card_giftcard, () {}),
-          _buildListItem("Friends", Icons.people, () {}),
-          _buildListItem("Achievement", Icons.stars, () {}),
+          _buildListItem("History", Icons.history, () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return BuildAlertDialog();
+              },
+            );
+            }),
+          _buildListItem("Favourites", Icons.favorite, () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return BuildAlertDialog();
+              },
+            );
+          }),
+          _buildListItem("Presents", Icons.card_giftcard, () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return BuildAlertDialog();
+              },
+            );
+          }),
+          _buildListItem("Friends", Icons.people, () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return BuildAlertDialog();
+              },
+            );
+          }),
+          _buildListItem("Achievement", Icons.stars, () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return BuildAlertDialog();
+              },
+            );
+          }),
         ],
       ),
     );
@@ -398,7 +433,7 @@ class MainMenu extends StatelessWidget {
               height: ManageDeviceInfo.resolutionWidth * 0.06,
               margin: const EdgeInsets.only(right: 10.0),
               decoration: BoxDecoration(
-                color: Colors.lightGreen,
+                color: Colors.redAccent,
                 borderRadius: BorderRadius.circular(5.0),
               ),
               alignment: Alignment.center,
