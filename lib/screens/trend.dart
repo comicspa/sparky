@@ -411,7 +411,7 @@ class TrendCardList extends StatelessWidget {
                         child: CachedNetworkImage(
                           imageUrl: snapshot.data[index].thumbnailUrl,
                           placeholder: (context, url) => LoadingIndicator(),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           height: ManageDeviceInfo.resolutionHeight * 0.15,
                         ),
                       ),
