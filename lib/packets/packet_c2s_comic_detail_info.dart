@@ -29,7 +29,26 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
     _comicId = comicId;
   }
 
-  Future<ModelComicDetailInfo> fetchBytes() async
+  /*
+  Future<void> fetchJson(onFetchDone) async
+  {
+    print('PacketC2SPreset : fetch started');
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_preset');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SPreset:fetch] - ${snapshot.value}');
+
+      PacketS2CPreset preset = new PacketS2CPreset();
+      preset.parseJson(snapshot.value , onFetchDone);
+
+    });
+  }
+
+   */
+
+
+  Future<ModelComicDetailInfo> fetchBytes(onFetchDone) async
   {
     print('PacketC2SComicDetailInfo : fetchBytes started');
     if(0 != _fetchStatus)
@@ -58,7 +77,7 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
         //print('eventList.length == packetSize');
 
         PacketS2CComicDetailInfo packet = new PacketS2CComicDetailInfo();
-        packet.parseBytes(packetSize,byteData);
+        packet.parseBytes(packetSize,byteData,onFetchDone);
 
         _fetchStatus = 2;
       }

@@ -9,6 +9,7 @@ import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/models/model_preset.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 
 class DetailPage extends StatefulWidget {
   final String _userId;
@@ -49,7 +50,14 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 
   void init() async {
     c2sComicDetailInfo.generate(_userId, _comicId);
-    await c2sComicDetailInfo.fetchBytes();
+    await c2sComicDetailInfo.fetchBytes(_onFetchDone);
+  }
+
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    setState(() {
+
+    });
   }
 
   @override
@@ -499,7 +507,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                     height: ManageDeviceInfo.resolutionHeight * 0.02,
                   ),
                   FutureBuilder<ModelComicDetailInfo>(
-                    future: c2sComicDetailInfo.fetchBytes(),
+                    future: c2sComicDetailInfo.fetchBytes(null),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData)
                         return Center(

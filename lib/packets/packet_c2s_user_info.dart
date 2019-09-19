@@ -30,6 +30,11 @@ class PacketC2SUserInfo extends PacketC2SCommon
   }
 
 
+  Future<ModelUserInfo> fetchJson(onFetchDone) async
+  {
+    return null;
+  }
+
   Future<ModelUserInfo> fetchBytes(onFetchDone) async
   {
     print('PacketC2SUserInfo : fetchBytes started');

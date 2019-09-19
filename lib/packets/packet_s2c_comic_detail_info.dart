@@ -16,7 +16,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
   }
 
 
-  Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async
+  Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize, onFetchDone) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);
 
@@ -65,6 +65,10 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
 
       ModelComicDetailInfo.getInstance().modelComicInfoList.add(modelComicInfo);
     }
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+
   }
 
 }
