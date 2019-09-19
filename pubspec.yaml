@@ -59,6 +59,7 @@ dependencies:
   signalr_client: ^0.1.6
   image_picker: ^0.6.1+4
   path: ^1.6.2
+  tflite_native: ^0.3.0
 
 dev_dependencies:
   flutter_test:
