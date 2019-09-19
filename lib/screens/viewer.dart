@@ -10,7 +10,6 @@ import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
 
 import 'package:sparky/models/model_text_detection.dart';
-import 'package:sparky/packets/packet_s2c_common.dart';
 
 
 class ViewerScreen extends StatefulWidget {
@@ -54,13 +53,6 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     _isVisible = true;
-  }
-
-  void _onFetchDone(PacketS2CCommon s2cPacket)
-  {
-    setState(() {
-
-    });
   }
 
   @override
@@ -112,7 +104,6 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
         ),
       ),
       body: GestureDetector(
-        //Todo add onVerticalDrag and onHorizontalDrag to update visibility
         onTap: () {
           setState(() {
             _isVisible = !_isVisible;
