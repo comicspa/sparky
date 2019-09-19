@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:sparky/models/model_comic_detail_info.dart' as prefix0;
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';

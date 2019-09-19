@@ -34,7 +34,7 @@ class PacketC2SViewComic extends PacketC2SCommon
   }
 
 
-  Future<List<ModelViewComic>> fetchBytes() async
+  Future<List<ModelViewComic>> fetchBytes(onFetchDone) async
   {
     print('PacketC2SViewComic : fetchBytes started');
     //if(null != ModelViewComic.list)
@@ -57,7 +57,7 @@ class PacketC2SViewComic extends PacketC2SCommon
       if(eventList.length == packetSize)
       {
         PacketS2CViewComic packet = new PacketS2CViewComic();
-        packet.parseBytes(packetSize,byteData);
+        packet.parseBytes(packetSize,byteData,onFetchDone);
 
         _fetchStatus = 2;
         //return ModelViewComic.getInstance();
