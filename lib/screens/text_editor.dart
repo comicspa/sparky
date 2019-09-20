@@ -6,6 +6,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:sparky/models/model_text_detection.dart';
 import 'package:sparky/models/model_view_comic.dart';
 
+import 'common_widgets.dart';
+
 class DrawRectAndImage extends StatefulWidget {
   DrawRectAndImage();
 
@@ -261,15 +263,17 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
         key: _formKey,
         child: SizedBox(
           height: ManageDeviceInfo.resolutionHeight * 0.38,
+          width: ManageDeviceInfo.resolutionWidth * 0.6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
+                
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
-                height: ManageDeviceInfo.resolutionHeight * 0.2,
+                height: ManageDeviceInfo.resolutionHeight * 0.25,
                 child: TextFormField(
                   controller: textController,
                   textInputAction: TextInputAction.send,
@@ -282,7 +286,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                   decoration: InputDecoration(
                       hintText: 'You may start typing',
                       contentPadding: EdgeInsets.all(
-                          ManageDeviceInfo.resolutionHeight * 0.01)
+                          ManageDeviceInfo.resolutionHeight * 0.009)
 
                       //                              border: OutlineInputBorder(),
                       //                              focusedBorder: OutlineInputBorder(
@@ -312,7 +316,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    padding: EdgeInsets.symmetric(vertical: ManageDeviceInfo.resolutionHeight * 0.02),
                     child: SizedBox(
                       height: ManageDeviceInfo.resolutionHeight * 0.035,
                       child: RaisedButton(
@@ -325,10 +329,10 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                     ),
                   ),
                   SizedBox(
-                    width: ManageDeviceInfo.resolutionWidth * 0.1,
+                    width: ManageDeviceInfo.resolutionWidth * 0.05,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    padding: EdgeInsets.symmetric(vertical: ManageDeviceInfo.resolutionHeight * 0.02),
                     child: SizedBox(
                       height: ManageDeviceInfo.resolutionHeight * 0.035,
                       child: RaisedButton(
@@ -337,12 +341,8 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                           // Validate will return true if the form is valid, or false if
                           // the form is invalid.
                           if (_formKey.currentState.validate()) {
-                            ModelTextDetection
-                                .boundingBoxInfoList[tappedCountIndex]
-                                .text = textController.text;
-                            ModelTextDetection
-                                .boundingBoxInfoList[tappedCountIndex]
-                                .changed = true;
+                            ModelTextDetection.boundingBoxInfoList[tappedCountIndex].text = textController.text;
+                            ModelTextDetection.boundingBoxInfoList[tappedCountIndex].changed = true;
                             textController.text = '';
                             setState(() {});
 
@@ -361,17 +361,20 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(
-                        ManageDeviceInfo.resolutionHeight * 0.02),
+                        ManageDeviceInfo.resolutionHeight * 0.004),
                     child: SizedBox(
                       height: ManageDeviceInfo.resolutionHeight * 0.035,
                       child: RaisedButton(
                         shape: StadiumBorder(),
-                        onPressed: () {
-                          // Validate will return true if the form is valid, or false if
-                          // the form is invalid.
-                          if (_formKey.currentState.validate()) {
-                            // Process data.
-                          }
+                        onPressed: () {                          
+                            
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return BuildAlertDialog();
+                              },
+                            );
+                          
                         },
                         child: Text('Language'),
                       ),

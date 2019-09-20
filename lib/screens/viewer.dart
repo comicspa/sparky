@@ -216,7 +216,14 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                 height: ManageDeviceInfo.resolutionHeight * 0.046,
                 width: ManageDeviceInfo.resolutionWidth * 0.12,
                 child: GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+                    ModelTextDetection.reset();
+
+                    Navigator.push<Widget>(context,
+                      MaterialPageRoute(
+                        builder: (context) => DrawRectAndImage(),
+                      ));
+                  },
                   child: Container(
                     
                     decoration: BoxDecoration(
