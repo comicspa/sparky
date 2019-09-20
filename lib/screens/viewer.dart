@@ -193,7 +193,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   child: Container(
                     
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.red[400],
                       borderRadius: BorderRadius.all(Radius.circular(60.0)),
                       ),
                     child: Row(
@@ -228,7 +228,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   child: Container(
                     
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.red[400],
                       borderRadius: BorderRadius.all(Radius.circular(80.0)),
                       ),
                     child: Row(
@@ -258,7 +258,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   child: Container(
                     
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.red[400],
                       borderRadius: BorderRadius.all(Radius.circular(60.0)),
                       ),
                     child: Row(
