@@ -155,7 +155,7 @@ class _PageDevTestState extends State<PageDevTest> {
                 case 2:
                   {
                     //ManageFirebaseStorage.simpleUsageUploadFile('ooo');
-                    ManageTFLite.readModel();
+                    ManageTFLite.readbyImagePicker();
                   }
                   break;
 

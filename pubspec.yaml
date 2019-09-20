@@ -82,6 +82,15 @@ flutter:
     - images/
     - data/tflite/model.tflite
     - data/tflite/dict.txt
+    - data/tflite/deeplabv3_257_mv_gpu.tflite
+    - data/tflite/deeplabv3_257_mv_gpu.txt
+    - data/tflite/mobilenet_v1_1.0_224.tflite
+    - data/tflite/mobilenet_v1_1.0_224.txt
+    - data/tflite/posenet_mv1_075_float_from_checkpoints.tflite
+    - data/tflite/ssd_mobilenet.tflite
+    - data/tflite/ssd_mobilenet.txt
+    - data/tflite/yolov2_tiny.tflite
+    - data/tflite/yolov2_tiny.txt
 
   fonts:
     - family: Lato
