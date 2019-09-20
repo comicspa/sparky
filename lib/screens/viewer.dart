@@ -199,8 +199,8 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           crossAxisAlignment: CrossAxisAlignment.end,
           
           children: <Widget>[
-            SizedBox(
-              width: ManageDeviceInfo.resolutionWidth * 0.3,
+            FractionallySizedBox(
+              widthFactor: 0.3,
             ),
             Container(
               height: ManageDeviceInfo.resolutionHeight * 0.04,
