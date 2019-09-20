@@ -209,7 +209,8 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       ],
                       
                     ),
-                  )),
+                  ),
+                ),
                 
               ),
               SizedBox(
@@ -238,7 +239,8 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       ],
                       
                     ),
-                  )),
+                  ),
+                ),
                 
               ),
               SizedBox(
@@ -272,7 +274,8 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       ],
                       
                     ),
-                  )),
+                  ),
+                ),
                 
               ),
             ],
