@@ -24,6 +24,7 @@ import 'package:sparky/packets/packet_c2s_user_info.dart';
 
 import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_firebase_auth.dart';
+import 'package:sparky/manage/manage_tflite.dart';
 import 'package:sparky/manage/manage_firebase_ml_vision.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
@@ -31,6 +32,7 @@ import 'package:sparky/manage/manage_paint_canvas.dart';
 import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 
 class PageDevTest extends StatefulWidget {
   @override
@@ -113,9 +115,11 @@ class _PageDevTestState extends State<PageDevTest> {
   }
   */
 
-  void _fetchDone(bool result)
+  void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    setState(() {
 
+    });
   }
 
   Widget createTodayPopularComicInfoListView(
@@ -150,7 +154,8 @@ class _PageDevTestState extends State<PageDevTest> {
 
                 case 2:
                   {
-                    ManageFirebaseStorage.simpleUsageUploadFile('ooo');
+                    //ManageFirebaseStorage.simpleUsageUploadFile('ooo');
+                    ManageTFLite.readModel();
                   }
                   break;
 
@@ -167,7 +172,7 @@ class _PageDevTestState extends State<PageDevTest> {
               //c2SMyLockerComicContinue.fetchBytes();
               //c2SMyLockerComicOwned.fetchBytes();
               //c2SMyLockerComicRecent.fetchBytes();
-              c2sUserInfo.fetchBytes(_fetchDone);
+              c2sUserInfo.fetchBytes(_onFetchDone);
             });
 
             //print(selectedCountIndex);

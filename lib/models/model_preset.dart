@@ -15,10 +15,6 @@ enum e_comic_genre
 }
 
 
-
-typedef void OnPresetFetchDone(bool result);
-
-
 class ModelPreset
 {
   static String _version = '1.0.0.0';

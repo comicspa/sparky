@@ -7,9 +7,20 @@ import 'package:firebase_database/firebase_database.dart';
 
 class ManageFirebaseDatabase
 {
-
   static final DatabaseReference reference = FirebaseDatabase.instance.reference();
 
+  /*
+  static Future<void> dddd() async
+  {
+    reference.child('.info/connected').on.on('value', function(connectedSnap) {
+    if (connectedSnap.val() ==true) {
+    /* we're connected! */
+    } else {
+    /* we're disconnected! */
+    }
+    });
+  }
+   */
 
 
   static Future<Map<dynamic,dynamic>> read(String childName) async

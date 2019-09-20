@@ -32,8 +32,12 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
     ModelComicDetailInfo.getInstance().point = getDouble();
 
+    //ModelComicDetailInfo.getInstance().representationImageUrl =
+    //  await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+
     ModelComicDetailInfo.getInstance().representationImageUrl =
-      await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+      await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+
 
     if(null == ModelComicDetailInfo.getInstance().modelComicInfoList)
       ModelComicDetailInfo.getInstance().modelComicInfoList = new List<ModelComicInfo>();
