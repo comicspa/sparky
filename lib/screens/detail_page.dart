@@ -126,6 +126,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                     height: ManageDeviceInfo.resolutionHeight * 0.02,
                   ),
                   Container(
+                    
                     alignment: Alignment.center,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(
@@ -145,6 +146,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                       ),
                     ),
                   ),
+                  
                   Container(
                     alignment: Alignment.center,
                     child: Padding(
@@ -197,53 +199,63 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                   ),
                   Divider(),
                   Container(
-                    height: ManageDeviceInfo.resolutionHeight * 0.05,
-                    width: ManageDeviceInfo.resolutionWidth * 0.8,
-                    child: OutlineButton(
-                      splashColor: Colors.orangeAccent,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ViewerScreen(
-                                ModelComicDetailInfo.getInstance().userId,
-                                ModelComicDetailInfo.getInstance().comicId,
-                                ModelPreset.convertCountIndex2CutImageId(0)),
-                          ),
-                        );
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      highlightElevation: 1,
-                      borderSide: BorderSide(color: Colors.orangeAccent),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              CupertinoIcons.book,
-                              color: Colors.deepOrangeAccent,
-                            ),
-                            SizedBox(
-                              width: ManageDeviceInfo.resolutionWidth * 0.02,
-                            ),
-                            Text(
-                              '처음부터 보기 ',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    ManageDeviceInfo.resolutionHeight * 0.02,
-                                color: Colors.black87,
+                    height: ManageDeviceInfo.resolutionHeight * 0.08,
+                    
+                    color: Colors.grey[300],
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: ManageDeviceInfo.resolutionHeight * 0.05,
+                          width: ManageDeviceInfo.resolutionWidth * 0.9,
+                          child: FlatButton(
+                            color: Colors.red[300],
+                            splashColor: Colors.orangeAccent,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewerScreen(
+                                      ModelComicDetailInfo.getInstance().userId,
+                                      ModelComicDetailInfo.getInstance().comicId,
+                                      ModelPreset.convertCountIndex2CutImageId(0)),
+                                ),
+                              );
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    CupertinoIcons.book,
+                                    color: Colors.black,
+                                  ),
+                                  SizedBox(
+                                    width: ManageDeviceInfo.resolutionWidth * 0.02,
+                                  ),
+                                  Text(
+                                    '처음부터 보기 ',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          ManageDeviceInfo.resolutionHeight * 0.02,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                   Divider(),

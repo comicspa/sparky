@@ -68,7 +68,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                 labelColor: Colors.black,
                 //Color(0xFF5986E1),
                 labelStyle:
-                    TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: ManageDeviceInfo.resolutionWidth * 0.034, fontWeight: FontWeight.bold),
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
                 unselectedLabelColor: Colors.grey,
