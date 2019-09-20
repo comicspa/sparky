@@ -150,19 +150,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                 ),
               );
             {
-//                return ListView(
-//                  shrinkWrap: true,
-//                  scrollDirection: Axis.vertical,
-//                  padding: EdgeInsets.all(0.0),
-//                  children: List.generate(
-//                      ModelViewComic.getInstance().comicImageUrlList.length,
-//                      (index) {
-//                    return Center(
-//                      child: Image.network(ModelViewComic.getInstance()
-//                          .comicImageUrlList[index]),
-//                    );
-//                  }),
-//                );
+
               return ListView.builder(
                 shrinkWrap: true,
                 scrollDirection:
@@ -182,16 +170,110 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           },
         ),
       ),
-      /*bottomNavigationBar: Visibility(
+      bottomNavigationBar: Visibility(
         visible: _isVisible,
-        child: SizedBox(
-          height: ManageDeviceInfo.resolutionHeight * 0.055,
-          child: Container(
-            color: Colors.blue.withOpacity(0.3),
-          )
+        child: BottomAppBar(
+          color: Colors.white.withOpacity(0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              
+              SizedBox(
+                height: ManageDeviceInfo.resolutionHeight * 0.04,
+                width: ManageDeviceInfo.resolutionWidth * 0.26,
+                child: GestureDetector(
+                  onTap: (){
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return BuildAlertDialog();
+                      },
+                    );
+                  },
+                  child: Container(
+                    
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,),
+                        Icon(Icons.chevron_left, color: Colors.white), 
+                        Text('Prev. Ep.',
+                          style: TextStyle(
+                          color: Colors.white, 
+                          ),
+                        ),
+                      ],
+                      
+                    ),
+                  )),
+                
+              ),
+              SizedBox(
+                height: ManageDeviceInfo.resolutionHeight * 0.046,
+                width: ManageDeviceInfo.resolutionWidth * 0.12,
+                child: GestureDetector(
+                  onTap: (){},
+                  child: Container(
+                    
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                       
+                        Icon(Icons.translate, color: Colors.white, size: ManageDeviceInfo.resolutionHeight * 0.026), 
+                      ],
+                      
+                    ),
+                  )),
+                
+              ),
+              SizedBox(
+                height: ManageDeviceInfo.resolutionHeight * 0.04,
+                width: ManageDeviceInfo.resolutionWidth * 0.26,
+                child: GestureDetector(
+                  onTap: (){
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return BuildAlertDialog();
+                      },
+                    );
+                  },
+                  child: Container(
+                    
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text('Next Ep.',
+                          style: TextStyle(
+                          color: Colors.white, 
+                          ),
+                        ),
+                        Icon(Icons.chevron_right, color: Colors.white), 
+                        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,)
+                      ],
+                      
+                    ),
+                  )),
+                
+              ),
+            ],
+          ),
         ),
-      ),*/
-      floatingActionButton: Visibility(
+      ),
+                  
+      /* floatingActionButton: Visibility(
         visible: _isVisible,
         child: Row(
           
@@ -199,8 +281,11 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           crossAxisAlignment: CrossAxisAlignment.end,
           
           children: <Widget>[
-            FractionallySizedBox(
-              widthFactor: 0.3,
+            SizedBox(
+              width: ManageDeviceInfo.resolutionWidth * 0.3,
+              child: RaisedButton(
+                color: Colors.yellowAccent,
+              ),
             ),
             Container(
               height: ManageDeviceInfo.resolutionHeight * 0.04,
@@ -257,7 +342,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
             ),
           ],
         ),
-      ),
+      ), */
     );
   }
 }
