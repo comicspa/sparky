@@ -167,7 +167,8 @@ class _HomeScreenState extends State<HomeScreen>
                 icon: Badge(
                   badgeColor: Colors.red,
                   toAnimate: true,
-                  borderRadius: 10,
+                  showBadge: true,
+                  position: BadgePosition.topRight(top: -1, right: -2),
                   child: Icon(
                     Icons.email,
                     color: controller.index == 2
