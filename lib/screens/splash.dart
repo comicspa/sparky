@@ -98,7 +98,11 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void navigationPage() {
-    Navigator.of(context).pushReplacementNamed('/HomeScreen');
+
+    if(0 == _switchPage)
+      Navigator.of(context).pushReplacementNamed('/HomeScreen');
+    else if(2 == _switchPage)
+      Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
   }
 
   void applicationQuit() {
