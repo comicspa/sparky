@@ -9,14 +9,15 @@ import 'package:image/image.dart' as img;
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
 
-
+const String text_balloon = "textBalloon";
 const String mobile = "MobileNet";
 const String ssd = "SSD MobileNet";
 const String yolo = "Tiny YOLOv2";
 const String deeplab = "DeepLab";
 const String posenet = "PoseNet";
 
-
+// https://github.com/shaqian/flutter_tflite
+// https://github.com/shaqian/flutter_tflite/blob/master/example/lib/main.dart
 
 class PageDevTestTFLite extends StatefulWidget {
   @override
@@ -44,6 +45,9 @@ class _PageDevTestTFLiteState extends State<PageDevTestTFLite> {
     if (image == null) return;
 
     switch (_model) {
+      case text_balloon:
+        await textBallon(image);
+        break;
       case yolo:
         await yolov2Tiny(image);
         break;
@@ -94,6 +98,12 @@ class _PageDevTestTFLiteState extends State<PageDevTestTFLite> {
     try {
       String res;
       switch (_model) {
+        case text_balloon:
+          res = await Tflite.loadModel(
+            model: "data/tflite/model.tflite",
+            labels: "data/tflite/dict.txt",
+          );
+          break;
         case yolo:
           res = await Tflite.loadModel(
             model: "data/tflite/yolov2_tiny.tflite",
@@ -179,6 +189,29 @@ class _PageDevTestTFLiteState extends State<PageDevTestTFLite> {
       numResults: 6,
       threshold: 0.05,
     );
+    setState(() {
+      _recognitions = recognitions;
+    });
+  }
+
+  Future textBallon(File image) async {
+    var recognitions = await Tflite.detectObjectOnImage(
+      path: image.path,
+      model: "textBalloon",
+      threshold: 0.3,
+      imageMean: 0.0,
+      imageStd: 255.0,
+      numResultsPerClass: 1,
+    );
+    // var imageBytes = (await rootBundle.load(image.path)).buffer;
+    // img.Image oriImage = img.decodeJpg(imageBytes.asUint8List());
+    // img.Image resizedImage = img.copyResize(oriImage, 416, 416);
+    // var recognitions = await Tflite.detectObjectOnBinary(
+    //   binary: imageToByteListFloat32(resizedImage, 416, 0.0, 255.0),
+    //   model: "YOLO",
+    //   threshold: 0.3,
+    //   numResultsPerClass: 1,
+    // );
     setState(() {
       _recognitions = recognitions;
     });
@@ -402,6 +435,10 @@ class _PageDevTestTFLiteState extends State<PageDevTestTFLite> {
             onSelected: onSelect,
             itemBuilder: (context) {
               List<PopupMenuEntry<String>> menuEntries = [
+                const PopupMenuItem<String>(
+                  child: Text(text_balloon),
+                  value: mobile,
+                ),
                 const PopupMenuItem<String>(
                   child: Text(mobile),
                   value: mobile,

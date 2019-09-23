@@ -1,6 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -33,22 +31,21 @@ import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
-import 'package:sparky/screens/test/page_dev_test_tflite.dart';
-import 'package:sparky/screens/test/page_dev_test_account.dart';
 
 
-class PageDevTestMenu extends StatefulWidget {
+
+class PageDevTestAccount extends StatefulWidget {
   @override
-  _PageDevTestMenuState createState() => new _PageDevTestMenuState();
+  _PageDevTestAccountState createState() => new _PageDevTestAccountState();
 }
 
-class _PageDevTestMenuState extends State<PageDevTestMenu> {
+class _PageDevTestAccountState extends State<PageDevTestAccount> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dev Test Page Menu'),
+        title: Text('Account Test'),
       ),
       body: _buildSuggestions(context),
     );
@@ -63,30 +60,31 @@ class _PageDevTestMenuState extends State<PageDevTestMenu> {
         context: context,
         tiles: [
           ListTile(
-            title: Text('TFLite Test'),
+            title: Text('Sign up'),
             onTap: (){
 
-              Navigator.push<Widget>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PageDevTestTFLite(
-                  ),
-                ),
-              );
 
             },
           ),
           ListTile(
-            title: Text('Account Test'),
+            title: Text('Log in'),
             onTap: (){
 
-              Navigator.push<Widget>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PageDevTestAccount(
-                  ),
-                ),
-              );
+
+            },
+          ),
+          ListTile(
+            title: Text('Log out'),
+            onTap: (){
+
+
+            },
+          ),
+
+          ListTile(
+            title: Text('Sign out'),
+            onTap: (){
+
 
             },
           ),
