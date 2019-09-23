@@ -33,7 +33,58 @@ import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/screens/test/page_dev_tflite.dart';
 
+
+class PageDevTest extends StatefulWidget {
+  @override
+  _PageDevTestState createState() => new _PageDevTestState();
+}
+
+class _PageDevTestState extends State<PageDevTest> {
+  // TODO Add build() method
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dev Test Page'),
+      ),
+      body: _buildSuggestions(context),
+    );
+  }
+
+
+  Widget
+  _buildSuggestions(BuildContext context)
+  {
+    return ListView(
+      children: ListTile.divideTiles(
+        context: context,
+        tiles: [
+          ListTile(
+            title: Text('TFLite Test'),
+            onTap: (){
+
+             Navigator.push<Widget>(
+               context,
+               MaterialPageRoute(
+                 builder: (context) => PageDevTestTFLite(
+                     ),
+               ),
+             );
+
+            },
+          ),
+
+        ], ).toList(), ); }
+
+}
+
+
+
+
+
+/*
 class PageDevTest extends StatefulWidget {
   @override
   _PageDevTestState createState() => new _PageDevTestState();
@@ -59,6 +110,8 @@ class _PageDevTestState extends State<PageDevTest> {
   PacketC2SLibraryRecentComicInfo c2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
   PacketC2SUserInfo c2sUserInfo = new PacketC2SUserInfo();
 
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -79,41 +132,24 @@ class _PageDevTestState extends State<PageDevTest> {
 
     //ManageAccessToken.test();
 
-    /*
-    ManageFirebaseStorage.getDownloadUrl('comics/1566265967000/01/0000.jpg').then((value)
-    {
-      //value == String
-      print(value.toString());
-      print('getDownloadUrl success');
-    },
-        onError: (error)
-        {
-          print('getDownloadUrl error : $error');
-        }).catchError( (error)
-    {
-      print('getDownloadUrl catchError : $error');
-    });
-    */
+    //ManageFirebaseStorage.getDownloadUrl('comics/1566265967000/01/0000.jpg').then((value)
+    //{
+
+   //   print(value.toString());
+   //   print('getDownloadUrl success');
+   // },
+     //   onError: (error)
+     //   {
+     //     print('getDownloadUrl error : $error');
+     //   }).catchError( (error)
+   // {
+   //   print('getDownloadUrl catchError : $error');
+   // });
 
     //ManageFirebaseDatabase.create();
     //ManageFirebaseDatabase.update();
     //ManageFirebaseDatabase.testRead();
   }
-
-  /*
-  @override
-  void initState() {
-    super.initState();
-    var sunImage = new NetworkImage(
-        "https://resources.ninghao.org/images/childhood-in-a-picture.jpg");
-    sunImage.obtainKey(new ImageConfiguration()).then((val) {
-      var load = sunImage.load(val);
-      load.addListener((listener, err) async {
-        setState(() => image = listener);
-      });
-    });
-  }
-  */
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
@@ -187,17 +223,6 @@ class _PageDevTestState extends State<PageDevTest> {
                 height: 2.0,
               ),
 
-              /*
-              new Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  top: 0.0,
-                  child: new CustomPaint(
-                    painter: new ManagePaintCanvas(),
-                  )
-              ),
-              */
             ],
           ),
         );
@@ -226,183 +251,10 @@ class _PageDevTestState extends State<PageDevTest> {
               }),
         ),
 
-        /*
-        Expanded(
-          child: FutureBuilder(
-              future: getRegions(selectedCountry),
-              initialData: [],
-              builder: (context, snapshot) {
-                return createRegionsListView(context, snapshot);
-              }),
-        ),
-        */
+
       ]),
-
-      /*
-      body: CustomScrollView(
-        slivers: <Widget>[
-
-          SliverPadding(
-            padding: EdgeInsets.all(16.20),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Card(
-                    child: new InkWell(
-                      onTap: () {
-                        print("SignUp Tapped");
-
-                        _signInWithGoogle();
-
-                      },
-                      child: Container(
-
-                        width: 100.0,
-                        height: 50.0,
-                        color:Color.fromARGB(255, 128, 128, 128),
-
-                        child:Text("SignUp",),
-
-                      ),
-                    ),
-                  ),
-
-
-                  Card(
-                    child: new InkWell(
-                      onTap: () {
-                        print("Withdrawal Tapped");
-                      },
-                      child: Container(
-
-                        width: 100.0,
-                        height: 50.0,
-                        color:Color.fromARGB(255, 255, 255, 0),
-
-                        child:Text("Withdrawal",),
-
-                      ),
-                    ),
-                  ),
-
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                  Card(
-                    child: Text('data'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      */
     );
   }
 }
+
+ */
