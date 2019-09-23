@@ -33,21 +33,21 @@ import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
-import 'package:sparky/screens/test/page_dev_tflite.dart';
+import 'package:sparky/screens/test/page_dev_test_tflite.dart';
 
 
-class PageDevTest extends StatefulWidget {
+class PageDevTestMenu extends StatefulWidget {
   @override
-  _PageDevTestState createState() => new _PageDevTestState();
+  _PageDevTestMenuState createState() => new _PageDevTestMenuState();
 }
 
-class _PageDevTestState extends State<PageDevTest> {
+class _PageDevTestMenuState extends State<PageDevTestMenu> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dev Test Page'),
+        title: Text('Dev Test Page Menu'),
       ),
       body: _buildSuggestions(context),
     );
@@ -65,13 +65,13 @@ class _PageDevTestState extends State<PageDevTest> {
             title: Text('TFLite Test'),
             onTap: (){
 
-             Navigator.push<Widget>(
-               context,
-               MaterialPageRoute(
-                 builder: (context) => PageDevTestTFLite(
-                     ),
-               ),
-             );
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestTFLite(
+                  ),
+                ),
+              );
 
             },
           ),

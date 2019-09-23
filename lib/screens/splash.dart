@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
   {
     if(1 == _switchPage)
     {
-      Navigator.of(context).pushReplacementNamed('/PageDevTest');
+      Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
       return;
     }
 
