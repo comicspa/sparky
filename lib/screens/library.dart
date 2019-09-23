@@ -60,29 +60,31 @@ class _LibraryScreenState extends State<LibraryScreen>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
-      child: Column(
-        children: <Widget>[
-          Container(
-            constraints: BoxConstraints.expand(height: 50),
-            child: TabBar(
-                labelColor: Colors.black,
-                //Color(0xFF5986E1),
-                labelStyle:
-                    TextStyle(fontSize: ManageDeviceInfo.resolutionWidth * 0.034, fontWeight: FontWeight.bold),
-                indicatorWeight: 3,
-                indicatorSize: TabBarIndicatorSize.label,
-                unselectedLabelColor: Colors.grey,
-                indicatorColor: Colors.redAccent,
-                tabs: [
-                  Tab(text: "Recent"),
-                  Tab(text: "View List"),
-                  Tab(text: "Owned"),
-                  Tab(text: "Continue")
-                ]),
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: TabBar(
+            labelColor: Colors.black,
+            //Color(0xFF5986E1),
+            labelStyle:
+                TextStyle(fontSize: ManageDeviceInfo.resolutionWidth * 0.034, fontWeight: FontWeight.bold),
+            indicatorWeight: 3,
+            indicatorSize: TabBarIndicatorSize.label,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: Colors.redAccent,
+            tabs: [
+              Tab(text: "Recent"),
+              Tab(text: "View List"),
+              Tab(text: "Owned"),
+              Tab(text: "Continue")
+            ]
           ),
+          
+        ),
           //TODO login needed
-          Expanded(
-            child: TabBarView(children: [
+        body: 
+            
+            TabBarView(children: [
               SingleChildScrollView(
                 child: c2sLibraryRecentComicInfo.fetchBytes() == null
                     ? Center(child: LoadingIndicator())
@@ -224,10 +226,10 @@ class _LibraryScreenState extends State<LibraryScreen>
                         ],
                       ),
               ),
-            ]),
-          )
-        ],
-      ),
+            ])
+          
+        ),
+      
     );
   }
 }
@@ -383,4 +385,6 @@ class LibraryListTile extends StatelessWidget {
     );
   }
 }
+
+
 
