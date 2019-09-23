@@ -74,7 +74,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
             ),
             backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
             //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
-            centerTitle: true,
+            // centerTitle: true,
 
             title: FittedBox(
               fit: BoxFit.fitWidth,
@@ -85,7 +85,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                         'Loading...',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                         ModelComicDetailInfo.getInstance().mainTitleName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.bold,
