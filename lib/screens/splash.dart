@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
   PacketC2SPreset c2sPreset;
   List<PacketC2SCommon> _packetList;
   bool _enableAppVersion = true;
+  int _switchPage = 0;
 
   @override
   void initState() {
@@ -37,7 +38,6 @@ class _SplashScreenState extends State<SplashScreen>
 
     c2sPreset = new PacketC2SPreset();
     c2sPreset.fetch(_onFetchDone);
-
   }
 
   @override
@@ -54,6 +54,12 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    if(1 == _switchPage)
+    {
+      Navigator.of(context).pushReplacementNamed('/PageDevTest');
+      return;
+    }
+
     bool result = true;
     _enableAppVersion = result;
 
@@ -92,24 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void navigationPage() {
-    int switchPage = 0;
-    switch (switchPage) {
-      case 0:
-        Navigator.of(context).pushReplacementNamed('/HomeScreen');
-        break;
-
-      case 1:
-        Navigator.of(context).pushReplacementNamed('/PageDevTest');
-        break;
-
-      case 2:
-        Navigator.of(context).pushReplacementNamed('/PageDevView');
-        break;
-
-      case 3:
-        Navigator.of(context).pushReplacementNamed('/PageDevSignalR');
-        break;
-    }
+    Navigator.of(context).pushReplacementNamed('/HomeScreen');
   }
 
   void applicationQuit() {

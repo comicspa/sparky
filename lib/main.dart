@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/screens/test/page_dev_test.dart';
-import 'package:sparky/screens/test/page_dev_view.dart';
-import 'package:sparky/screens/test/page_dev_signalr.dart';
 import 'package:sparky/screens/main_tab_bar.dart';
 import 'package:sparky/screens/splash.dart';
 import 'package:sparky/theme.dart';
@@ -21,8 +19,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/PageDevTest': (context) => PageDevTest(),
         '/HomeScreen': (context) => HomeScreen(),
-        '/PageDevView': (context) => PageDevView(),
-        '/PageDevSignalR': (context) => PageDevSignalR(),
       },
 
     );
