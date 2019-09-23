@@ -10,6 +10,7 @@ import 'notification.dart';
 import 'common_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:badges/badges.dart';
 
 
 //import 'package:flutter/services.dart';
@@ -163,12 +164,18 @@ class _HomeScreenState extends State<HomeScreen>
             )),
 
             Tab(
-                icon: Icon(
-              Icons.email,
-              color: controller.index == 2
-                  ? Color.fromRGBO(21, 24, 45, 1.0)
-                  : Colors.grey,
-            )),
+                icon: Badge(
+                  badgeColor: Colors.red,
+                  toAnimate: true,
+                  borderRadius: 10,
+                  child: Icon(
+                    Icons.email,
+                    color: controller.index == 2
+                          ? Color.fromRGBO(21, 24, 45, 1.0)
+                          : Colors.grey,
+                  ),
+                ),
+            ),
             Tab(
                 icon: Icon(
               Icons.menu,
