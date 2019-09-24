@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'common_widgets.dart';
 import 'text_editor.dart';
 
@@ -35,8 +34,9 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
   String userId;
   String comicId;
   String episodeId;
-  String nextEpisodeId;
-  int presentEpisodeId;
+  
+
+  
 
   _ViewerScreen(this.userId, this.comicId, this.episodeId);
 
@@ -198,13 +198,16 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       );
                     }
                     : () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return BuildAlertDialog(null);
-                        },
-                      );
+                      
+                            String prevEpisodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
 
+                       // ModelComicInfo modelComicInfo = ModelComicDetailInfo.getInstance().searchModelComicInfo(episodeId);
+                           c2sViewComic.generate(userId, comicId, prevEpisodeId);
+                           ModelViewComic.reset();
+                        //getPrevEpisodeId(epsodeId);
+                      
+                          setState(() {
+                          });
                     },
                   child: Container(
                     
@@ -263,14 +266,27 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                 height: ManageDeviceInfo.resolutionHeight * 0.04,
                 width: ManageDeviceInfo.resolutionWidth * 0.26,
                 child: GestureDetector(
-                  onTap: (){
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BuildAlertDialog(null);
-                      },
-                    );
-                  },
+                  onTap: ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId) == null 
+                    ? () {  
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BuildAlertDialog('This episode is the first episode');
+                        },
+                      );
+                    }
+                    : () {
+                      
+                            String nextEpisodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
+
+                       // ModelComicInfo modelComicInfo = ModelComicDetailInfo.getInstance().searchModelComicInfo(episodeId);
+                           c2sViewComic.generate(userId, comicId, nextEpisodeId);
+                           ModelViewComic.reset();
+                        //getPrevEpisodeId(epsodeId);
+                      
+                          setState(() {
+                          });
+                    },
                   child: Container(
                     
                     decoration: BoxDecoration(
