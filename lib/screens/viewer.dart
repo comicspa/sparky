@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'common_widgets.dart';
 import 'text_editor.dart';
 
 
 import 'package:sparky/models/model_view_comic.dart';
+import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
 
 import 'package:sparky/models/model_text_detection.dart';
@@ -33,10 +35,14 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
   String userId;
   String comicId;
   String episodeId;
+  String nextEpisodeId;
+  int presentEpisodeId;
 
   _ViewerScreen(this.userId, this.comicId, this.episodeId);
 
   PacketC2SViewComic c2sViewComic = PacketC2SViewComic();
+  
+
 
 //  @override
 //  void initState() {
@@ -183,6 +189,13 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                 width: ManageDeviceInfo.resolutionWidth * 0.26,
                 child: GestureDetector(
                   onTap: (){
+                    if (ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(episodeId) ) {
+                      presentEpisodeId = int.parse(episodeId);
+                      presentEpisodeId++;
+                      nextEpisodeId = '0000${presentEpisodeId.toString()}';
+                      
+
+                    }
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
