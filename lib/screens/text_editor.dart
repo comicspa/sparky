@@ -371,7 +371,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return BuildAlertDialog();
+                                return BuildAlertDialog(null);
                               },
                             );
                           

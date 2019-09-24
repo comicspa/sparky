@@ -84,7 +84,7 @@ class _CreatorSubmenuScreenState extends State<CreatorSubmenuScreen>
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return BuildAlertDialog();
+                    return BuildAlertDialog(null);
                   },
                 );
               },

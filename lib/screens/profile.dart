@@ -374,7 +374,7 @@ class MainMenu extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return BuildAlertDialog();
+                return BuildAlertDialog(null);
               },
             );
             }),
@@ -382,7 +382,7 @@ class MainMenu extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return BuildAlertDialog();
+                return BuildAlertDialog(null);
               },
             );
           }),
@@ -390,7 +390,7 @@ class MainMenu extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return BuildAlertDialog();
+                return BuildAlertDialog(null);
               },
             );
           }),
@@ -398,7 +398,7 @@ class MainMenu extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return BuildAlertDialog();
+                return BuildAlertDialog(null);
               },
             );
           }),
@@ -406,7 +406,7 @@ class MainMenu extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return BuildAlertDialog();
+                return BuildAlertDialog(null);
               },
             );
           }),

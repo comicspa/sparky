@@ -318,7 +318,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return BuildAlertDialog();
+                              return BuildAlertDialog(null);
                             },
                           );
                         },
@@ -345,7 +345,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return BuildAlertDialog();
+                                  return BuildAlertDialog(null);
                                 },
                               );
                             },
@@ -387,7 +387,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return BuildAlertDialog();
+                                  return BuildAlertDialog(null);
                                 },
                               );
                             },
@@ -429,7 +429,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return BuildAlertDialog();
+                                  return BuildAlertDialog(null);
                                 },
                               );
                             },
@@ -692,7 +692,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                                 context: context,
                                                 builder:
                                                     (BuildContext context) {
-                                                  return BuildAlertDialog();
+                                                  return BuildAlertDialog(null);
                                                 },
                                               );
                                             },

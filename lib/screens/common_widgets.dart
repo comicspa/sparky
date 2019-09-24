@@ -3,6 +3,7 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 import 'package:cached_network_image/cached_network_image.dart';
 
 class LoadingIndicator extends StatelessWidget {
+  
   const LoadingIndicator({
     Key key,
   }) : super(key: key);
@@ -22,9 +23,8 @@ class LoadingIndicator extends StatelessWidget {
 }
 
 class BuildAlertDialog extends StatelessWidget {
-  const BuildAlertDialog({
-    Key key,
-  }) : super(key: key);
+  BuildAlertDialog(this.textMessage);
+  final String textMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class BuildAlertDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new BuildAboutText(),
+          new BuildAboutText(textMessage),
         ],
       ),
       actions: <Widget>[
@@ -51,15 +51,14 @@ class BuildAlertDialog extends StatelessWidget {
 }
 
 class BuildAboutText extends StatelessWidget {
-  const BuildAboutText({
-    Key key,
-  }) : super(key: key);
+  BuildAboutText(this.textMessage);
+  final String textMessage;
 
   @override
   Widget build(BuildContext context) {
     return RichText(
       text: new TextSpan(
-        text: 'This feature is coming soon.\n\n',
+        text: textMessage == null ? 'This feature is coming soon.\n\n' : textMessage,
         style: const TextStyle(color: Colors.black87),
         children: <TextSpan>[
           const TextSpan(text: ' '),

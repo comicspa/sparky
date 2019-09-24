@@ -129,7 +129,7 @@ class _ServiceInfoSubmenuScreenState extends State<ServiceInfoSubmenuScreen>
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return BuildAlertDialog();
+                    return BuildAlertDialog(null);
                   },
                 );
               },

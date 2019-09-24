@@ -188,25 +188,28 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                 height: ManageDeviceInfo.resolutionHeight * 0.04,
                 width: ManageDeviceInfo.resolutionWidth * 0.26,
                 child: GestureDetector(
-                  onTap: (){
-                    if (ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(episodeId) ) {
-                      presentEpisodeId = int.parse(episodeId);
-                      presentEpisodeId++;
-                      nextEpisodeId = '0000${presentEpisodeId.toString()}';
-                      
-
+                  onTap: ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId) == null 
+                    ? () {  
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BuildAlertDialog('This episode is the first episode');
+                        },
+                      );
                     }
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return BuildAlertDialog();
-                      },
-                    );
-                  },
+                    : () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BuildAlertDialog(null);
+                        },
+                      );
+
+                    },
                   child: Container(
                     
                     decoration: BoxDecoration(
-                      color: Colors.red[400],
+                      color: ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId) == null ? Colors.grey :Colors.red[400],
                       borderRadius: BorderRadius.all(Radius.circular(60.0)),
                       ),
                     child: Row(
@@ -264,7 +267,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return BuildAlertDialog();
+                        return BuildAlertDialog(null);
                       },
                     );
                   },
