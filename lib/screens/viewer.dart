@@ -64,6 +64,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    print('ViewerScreen : _onFetchDone');
     setState(() {
 
     });
@@ -198,16 +199,12 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       );
                     }
                     : () {
-                      
-                            String prevEpisodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
 
-                       // ModelComicInfo modelComicInfo = ModelComicDetailInfo.getInstance().searchModelComicInfo(episodeId);
-                           c2sViewComic.generate(userId, comicId, prevEpisodeId);
-                           ModelViewComic.reset();
-                        //getPrevEpisodeId(epsodeId);
-                      
-                          setState(() {
-                          });
+                          ModelViewComic.reset();
+                          episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId);
+                          c2sViewComic.generate(userId, comicId, episodeId);
+                          c2sViewComic.fetchBytes(_onFetchDone);
+
                     },
                   child: Container(
                     
@@ -266,7 +263,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                 height: ManageDeviceInfo.resolutionHeight * 0.04,
                 width: ManageDeviceInfo.resolutionWidth * 0.26,
                 child: GestureDetector(
-                  onTap: ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId) == null 
+                  onTap: ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId) == null
                     ? () {  
                       showDialog(
                         context: context,
@@ -276,16 +273,12 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       );
                     }
                     : () {
-                      
-                            String nextEpisodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
 
-                       // ModelComicInfo modelComicInfo = ModelComicDetailInfo.getInstance().searchModelComicInfo(episodeId);
-                           c2sViewComic.generate(userId, comicId, nextEpisodeId);
-                           ModelViewComic.reset();
-                        //getPrevEpisodeId(epsodeId);
-                      
-                          setState(() {
-                          });
+                          ModelViewComic.reset();
+                          episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
+                          c2sViewComic.generate(userId, comicId, episodeId);
+                          c2sViewComic.fetchBytes(_onFetchDone);
+
                     },
                   child: Container(
                     

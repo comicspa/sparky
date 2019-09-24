@@ -28,9 +28,13 @@ class PacketC2SViewComic extends PacketC2SCommon
 
   void generate(String userId,String comicId,String episodeId)
   {
+    reset();
+    _fetchStatus = 0;
     _userId = userId;
     _comicId = comicId;
     _episodeId = episodeId;
+
+    print('episodeId : $_episodeId');
   }
 
 

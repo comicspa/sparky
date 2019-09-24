@@ -130,6 +130,20 @@ class PacketCommon
     _type = type;
   }
 
+  void reset()
+  {
+    _size = 4 + 2;
+    _currentOffset = 0;
+
+    if(null != _packet)
+      {
+        //_packet.clear();
+        _packet = null;
+      }
+
+    byteData = null;
+
+  }
 
   static void setCSharpSocketServer()
   {

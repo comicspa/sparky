@@ -55,9 +55,6 @@ class ModelViewComic
 
   static void reset()
   {
-      if(null != list)
-        {list.clear();
-        list = null;}
   }
 
   /*
