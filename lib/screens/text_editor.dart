@@ -51,6 +51,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
         preferredSize:
             Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
@@ -259,130 +260,133 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
   AlertDialog buildTranslatePopUp(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
-      content: Form(
-        key: _formKey,
-        child: SizedBox(
-          height: ManageDeviceInfo.resolutionHeight * 0.38,
-          width: ManageDeviceInfo.resolutionWidth * 0.6,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                
-                decoration: BoxDecoration(
-                  color: Colors.white70,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                height: ManageDeviceInfo.resolutionHeight * 0.25,
-                child: TextFormField(
-                  controller: textController,
-                  textInputAction: TextInputAction.send,
-                  autofocus: true,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontFamily: 'Lato',
-                    color: Colors.black87,
+      content: SingleChildScrollView(  // need this to avoid bottom widget overflow issue when keyboard popup
+        scrollDirection: Axis.vertical,
+        child: Form(
+          key: _formKey,
+          child: SizedBox(
+            height: ManageDeviceInfo.resolutionHeight * 0.38,
+            width: ManageDeviceInfo.resolutionWidth * 0.6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  
+                  decoration: BoxDecoration(
+                    color: Colors.white70,
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
-                  decoration: InputDecoration(
-                      hintText: 'You may start typing',
-                      contentPadding: EdgeInsets.all(
-                          ManageDeviceInfo.resolutionHeight * 0.009)
-
-                      //                              border: OutlineInputBorder(),
-                      //                              focusedBorder: OutlineInputBorder(
-                      //                                borderSide: BorderSide(
-                      //                                  color: Colors.greenAccent,
-                      //                                ),
-                      //                              ),
-                      //                              enabledBorder: OutlineInputBorder(
-                      //                                borderSide: BorderSide(
-                      //                                  color: Colors.redAccent,
-                      //                                ),
-                      //                              ),
-                      //                              contentPadding: EdgeInsets.all(
-                      //                                  ManageDeviceInfo.resolutionWidth * 0.02),
-                      ),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: ManageDeviceInfo.resolutionHeight * 0.02),
-                    child: SizedBox(
-                      height: ManageDeviceInfo.resolutionHeight * 0.035,
-                      child: RaisedButton(
-                        shape: StadiumBorder(),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('Cancel'),
-                      ),
+                  height: ManageDeviceInfo.resolutionHeight * 0.25,
+                  child: TextFormField(
+                    controller: textController,
+                    textInputAction: TextInputAction.newline,
+                    autofocus: true,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      color: Colors.black87,
                     ),
-                  ),
-                  SizedBox(
-                    width: ManageDeviceInfo.resolutionWidth * 0.05,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: ManageDeviceInfo.resolutionHeight * 0.02),
-                    child: SizedBox(
-                      height: ManageDeviceInfo.resolutionHeight * 0.035,
-                      child: RaisedButton(
-                        shape: StadiumBorder(),
-                        onPressed: () {
-                          // Validate will return true if the form is valid, or false if
-                          // the form is invalid.
-                          if (_formKey.currentState.validate()) {
-                            ModelTextDetection.boundingBoxInfoList[tappedCountIndex].text = textController.text;
-                            ModelTextDetection.boundingBoxInfoList[tappedCountIndex].changed = true;
-                            textController.text = '';
-                            setState(() {});
+                    decoration: InputDecoration(
+                        hintText: 'You may start typing',
+                        contentPadding: EdgeInsets.all(
+                            ManageDeviceInfo.resolutionHeight * 0.009)
 
-                            // Process data.
+                        //                              border: OutlineInputBorder(),
+                        //                              focusedBorder: OutlineInputBorder(
+                        //                                borderSide: BorderSide(
+                        //                                  color: Colors.greenAccent,
+                        //                                ),
+                        //                              ),
+                        //                              enabledBorder: OutlineInputBorder(
+                        //                                borderSide: BorderSide(
+                        //                                  color: Colors.redAccent,
+                        //                                ),
+                        //                              ),
+                        //                              contentPadding: EdgeInsets.all(
+                        //                                  ManageDeviceInfo.resolutionWidth * 0.02),
+                        ),
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: ManageDeviceInfo.resolutionHeight * 0.02),
+                      child: SizedBox(
+                        height: ManageDeviceInfo.resolutionHeight * 0.035,
+                        child: RaisedButton(
+                          shape: StadiumBorder(),
+                          onPressed: () {
                             Navigator.of(context).pop();
-                          }
-                        },
-                        child: Text('Submit'),
+                          },
+                          child: Text('Cancel'),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(
-                        ManageDeviceInfo.resolutionHeight * 0.004),
-                    child: SizedBox(
-                      height: ManageDeviceInfo.resolutionHeight * 0.035,
-                      child: RaisedButton(
-                        shape: StadiumBorder(),
-                        onPressed: () {                          
+                    SizedBox(
+                      width: ManageDeviceInfo.resolutionWidth * 0.05,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: ManageDeviceInfo.resolutionHeight * 0.02),
+                      child: SizedBox(
+                        height: ManageDeviceInfo.resolutionHeight * 0.035,
+                        child: RaisedButton(
+                          shape: StadiumBorder(),
+                          onPressed: () {
+                            // Validate will return true if the form is valid, or false if
+                            // the form is invalid.
+                            if (_formKey.currentState.validate()) {
+                              ModelTextDetection.boundingBoxInfoList[tappedCountIndex].text = textController.text;
+                              ModelTextDetection.boundingBoxInfoList[tappedCountIndex].changed = true;
+                              textController.text = '';
+                              setState(() {});
+
+                              // Process data.
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          child: Text('Submit'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(
+                          ManageDeviceInfo.resolutionHeight * 0.004),
+                      child: SizedBox(
+                        height: ManageDeviceInfo.resolutionHeight * 0.035,
+                        child: RaisedButton(
+                          shape: StadiumBorder(),
+                          onPressed: () {                          
+                              
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BuildAlertDialog(null);
+                                },
+                              );
                             
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return BuildAlertDialog(null);
-                              },
-                            );
-                          
-                        },
-                        child: Text('Language'),
+                          },
+                          child: Text('Language'),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
