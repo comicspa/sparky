@@ -27,7 +27,7 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
     //_pageCountIndex = pageCountIndex;
   }
 
-  Future<List<ModelLibraryOwnedComicInfo>> fetchBytes() async
+  Future<List<ModelLibraryOwnedComicInfo>> fetchBytes(onFetchDone) async
   {
     print('PacketC2SMyLockerComicOwned : fetchBytes started');
 
@@ -58,7 +58,7 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
         //print('eventList.length == packetSize');
 
         PacketS2CLibraryOwnedComicInfo packet = new PacketS2CLibraryOwnedComicInfo();
-        packet.parseBytes(packetSize,byteData);
+        packet.parseBytes(packetSize,byteData,onFetchDone);
       }
 
       return ModelLibraryOwnedComicInfo.list;

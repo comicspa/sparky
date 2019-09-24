@@ -86,7 +86,7 @@ class _LibraryScreenState extends State<LibraryScreen>
             
             TabBarView(children: [
               SingleChildScrollView(
-                child: c2sLibraryRecentComicInfo.fetchBytes() == null
+                child: c2sLibraryRecentComicInfo.fetchBytes(null) == null
                     ? Center(child: LoadingIndicator())
                     : Column(
                         mainAxisSize: MainAxisSize.min,
@@ -96,7 +96,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                   top: ManageDeviceInfo.resolutionHeight *
                                       0.04)),
                           FutureBuilder<List<ModelLibraryRecentComicInfo>>(
-                            future: c2sLibraryRecentComicInfo.fetchBytes(),
+                            future: c2sLibraryRecentComicInfo.fetchBytes(null),
                             builder: (BuildContext context, snapshot) {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:
@@ -121,7 +121,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                       ),
               ),
               SingleChildScrollView(
-                child: c2sMyLibraryViewListComicInfo.fetchBytes() == null
+                child: c2sMyLibraryViewListComicInfo.fetchBytes(null) == null
                     ? Center(child: LoadingIndicator())
                     : Column(
                         mainAxisSize: MainAxisSize.min,
@@ -131,7 +131,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                   top: ManageDeviceInfo.resolutionHeight *
                                       0.04)),
                           FutureBuilder<List<ModelLibraryViewListComicInfo>>(
-                            future: c2sMyLibraryViewListComicInfo.fetchBytes(),
+                            future: c2sMyLibraryViewListComicInfo.fetchBytes(null),
                             builder: (BuildContext context, snapshot) {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:
@@ -156,7 +156,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                       ),
               ),
               SingleChildScrollView(
-                child: c2sLibraryOwnedComicInfo.fetchBytes() == null
+                child: c2sLibraryOwnedComicInfo.fetchBytes(null) == null
                     ? Center(child: LoadingIndicator())
                     : Column(
                         mainAxisSize: MainAxisSize.min,
@@ -166,7 +166,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                   top: ManageDeviceInfo.resolutionHeight *
                                       0.04)),
                           FutureBuilder<List<ModelLibraryOwnedComicInfo>>(
-                            future: c2sLibraryOwnedComicInfo.fetchBytes(),
+                            future: c2sLibraryOwnedComicInfo.fetchBytes(null),
                             builder: (BuildContext context, snapshot) {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:
@@ -191,7 +191,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                       ),
               ),
               SingleChildScrollView(
-                child: c2sLibraryContinueComicInfo.fetchBytes() == null
+                child: c2sLibraryContinueComicInfo.fetchBytes(null) == null
                     ? Center(child: LoadingIndicator())
                     : Column(
                         mainAxisSize: MainAxisSize.min,
@@ -201,7 +201,7 @@ class _LibraryScreenState extends State<LibraryScreen>
                                   top: ManageDeviceInfo.resolutionHeight *
                                       0.04)),
                           FutureBuilder<List<ModelLibraryContinueComicInfo>>(
-                            future: c2sLibraryContinueComicInfo.fetchBytes(),
+                            future: c2sLibraryContinueComicInfo.fetchBytes(null),
                             builder: (BuildContext context, snapshot) {
                               switch (snapshot.connectionState) {
                                 case ConnectionState.none:

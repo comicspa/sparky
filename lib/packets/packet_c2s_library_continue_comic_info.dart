@@ -29,7 +29,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
     //_pageCountIndex = pageCountIndex;
   }
 
-  Future<List<ModelLibraryContinueComicInfo>> fetchBytes() async
+  Future<List<ModelLibraryContinueComicInfo>> fetchBytes(onFetchDone) async
   {
     print('PacketC2SMyLockerComicContinue : fetchBytes started');
 
@@ -60,7 +60,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
         //print('eventList.length == packetSize');
 
         PacketS2CLibraryContinueComicInfo packet = new PacketS2CLibraryContinueComicInfo();
-        packet.parseBytes(packetSize,byteData);
+        packet.parseBytes(packetSize,byteData,onFetchDone);
       }
 
       return ModelLibraryContinueComicInfo.list;
