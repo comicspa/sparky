@@ -134,7 +134,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                               alignment: Alignment.center,
                               width: boundingBoxInfo.width + 4,
                               //ManageDeviceInfo.resolutionWidth / (ModelTextDetection.list[0].manageImage.width / boundingBoxInfo.boundingBox.width),
-                              height: boundingBoxInfo.height,
+                              height: boundingBoxInfo.height + 4,
                               //ManageDeviceInfo.resolutionHeight / (ModelTextDetection.imageTotalHeight / boundingBoxInfo.boundingBox.height) + ManageDeviceInfo.statusBarHeight,
                               decoration:
                                   textBoxDecoration(boundingBoxInfo.changed),
