@@ -52,7 +52,7 @@ class ManageFirebaseAuth
     ModelUserInfo.getInstance().uId = user.uid;
 
     //test
-    ModelUserInfo.getInstance().loggedIn = true;
+    //ModelUserInfo.getInstance().loggedIn = true;
 
     return ModelUserInfo.getInstance();
   }
@@ -68,8 +68,15 @@ class ManageFirebaseAuth
 
     await _googleSignIn.signOut();
 
+    //set
+    ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.none;
+    ModelUserInfo.getInstance().displayName = '';
+    ModelUserInfo.getInstance().photoUrl = '';
+    ModelUserInfo.getInstance().email = '';
+    ModelUserInfo.getInstance().uId = '';
+
     //test
-    ModelUserInfo.getInstance().loggedIn = false;
+    //ModelUserInfo.getInstance().loggedIn = false;
     return true;
   }
 

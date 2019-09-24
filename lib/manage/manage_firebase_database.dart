@@ -103,5 +103,67 @@ class ManageFirebaseDatabase
   }
 
 
+  static void set()
+  {
+    DatabaseReference modelUserInfoReference = reference.child('model_view_comic_info');
+
+    modelUserInfoReference.child('1566811443000_000001_00001').set({
+      'count': '1',
+      'style': '0',
+      'title': 'sample1',
+    }).then((_) {
+      // ...
+    });
+
+    modelUserInfoReference.child('1566811443000_000001_00002').set({
+      'count': '6',
+      'style': '0',
+      'title': 'sample2',
+    }).then((_) {
+      // ...
+    });
+
+    modelUserInfoReference.child('1566811443000_000001_00003').set({
+      'count': '5',
+      'style': '0',
+      'title': 'sample3',
+    }).then((_) {
+      // ...
+    });
+
+    modelUserInfoReference.child('1566811443000_000001_00004').set({
+      'count': '5',
+      'style': '0',
+      'title': 'sample4',
+    }).then((_) {
+      // ...
+    });
+
+
+    modelUserInfoReference.child('1566811443000_000001_00005').set({
+      'count': '6',
+      'style': '0',
+      'title': 'sample5',
+    }).then((_) {
+      // ...
+    });
+
+
+    modelUserInfoReference.child('1566811443000_000001_00006').set({
+      'count': '8',
+      'style': '0',
+      'title': 'sample6',
+    }).then((_) {
+      // ...
+    });
+
+
+
+
+
+
+
+  }
+
 
 }

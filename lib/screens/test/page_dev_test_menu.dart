@@ -35,14 +35,28 @@ import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/screens/test/page_dev_test_tflite.dart';
 import 'package:sparky/screens/test/page_dev_test_account.dart';
+import 'package:sparky/screens/test/page_dev_test_toast_message.dart';
 
 
-class PageDevTestMenu extends StatefulWidget {
+class PageDevTestMenu extends StatefulWidget
+{
   @override
   _PageDevTestMenuState createState() => new _PageDevTestMenuState();
 }
 
-class _PageDevTestMenuState extends State<PageDevTestMenu> {
+class _PageDevTestMenuState extends State<PageDevTestMenu>
+{
+
+  @override
+  void initState()
+  {
+    super.initState();
+
+    ManageFirebaseDatabase.set();
+  }
+
+
+
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
@@ -62,6 +76,21 @@ class _PageDevTestMenuState extends State<PageDevTestMenu> {
       children: ListTile.divideTiles(
         context: context,
         tiles: [
+          ListTile(
+            title: Text('ToastMessage Test'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestToastMessage(
+                  ),
+                ),
+              );
+
+            },
+          ),
+
           ListTile(
             title: Text('TFLite Test'),
             onTap: (){
