@@ -41,7 +41,7 @@ class PacketS2CViewComic extends PacketS2CCommon
     modelViewComic.id = readStringToByteBuffer();
     modelViewComic.episodeId = readStringToByteBuffer();
     modelViewComic.title = readStringToByteBuffer();
-    modelViewComic.episodeCount = getUint32();
+    int episodeCount = getUint32();
     switch(getUint32())
     {
       case 0:

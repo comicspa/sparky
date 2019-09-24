@@ -50,6 +50,7 @@ class ManageFirebaseAuth
     ModelUserInfo.getInstance().photoUrl = user.photoUrl;
     ModelUserInfo.getInstance().email = user.email;
     ModelUserInfo.getInstance().uId = user.uid;
+    print('signInWithGoogle : ${ModelUserInfo.getInstance().toString()}');
 
     //test
     //ModelUserInfo.getInstance().loggedIn = true;
@@ -74,6 +75,7 @@ class ManageFirebaseAuth
     ModelUserInfo.getInstance().photoUrl = '';
     ModelUserInfo.getInstance().email = '';
     ModelUserInfo.getInstance().uId = '';
+    print('signOutWithGoogle : ${ModelUserInfo.getInstance().toString()}');
 
     //test
     //ModelUserInfo.getInstance().loggedIn = false;

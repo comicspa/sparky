@@ -17,7 +17,6 @@ class ModelViewComic
   String _episodeId;
   List<String> _imageUrlList;
   e_comic_view_style _style = e_comic_view_style.vertical;
-  int _episodeCount = 0;
 
   String get userId => _userId;
   String get title => _title;
@@ -25,7 +24,6 @@ class ModelViewComic
   String get id => _id;
   List<String> get imageUrlList => _imageUrlList;
   e_comic_view_style get style => _style;
-  int get episodeCount => _episodeCount;
 
   set userId(String userId)
   {
@@ -52,12 +50,14 @@ class ModelViewComic
     _style = style;
   }
 
-  set episodeCount(int episodeCount)
-  {
-    _episodeCount = episodeCount;
-  }
 
   static List<ModelViewComic> list;
+
+  static void reset()
+  {
+      if(null != list)
+        list.clear();
+  }
 
   /*
   static ModelViewComic _instance;
