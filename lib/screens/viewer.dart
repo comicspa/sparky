@@ -110,7 +110,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
               centerTitle: true,
 
-              title: Text('Episode #',
+              title: Text('Episode ${int.parse(episodeId)} 화',
                   style: TextStyle(
                       color: Colors.black) //Todo need to bind the data
                   ),
@@ -127,53 +127,36 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
         child: FutureBuilder<List<ModelViewComic>>(
           future: c2sViewComic.fetchBytes(_onFetchDone),
           builder: (context, snapshot) {
-            if (!snapshot.hasData)
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: ManageDeviceInfo.resolutionHeight * .3,
-                      child: Center(
-                        child: CircularPercentIndicator(
-                          radius: 40.0,
-                          lineWidth: 4.0,
-                          animation: true,
-                          animationDuration: 2700,
-                          percent: 0.75,
-                          footer: new Text(
-                            "Loading images...",
-                            style: new TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    ManageDeviceInfo.resolutionHeight * 0.02),
-                          ),
-                          circularStrokeCap: CircularStrokeCap.round,
-                          progressColor: Colors.redAccent,
-                        ),
-                      ),
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return PercentIndicator();
+              case ConnectionState.active:
+                return PercentIndicator();
+              case ConnectionState.waiting:
+                return PercentIndicator();
+              //
+              case ConnectionState.done:
+                //default:
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                else
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection:
+                        snapshot.data[0].style == e_comic_view_style.vertical
+                            ? Axis.vertical
+                            : Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: snapshot.data[0].imageUrlList.length,
+    //                      ModelViewComic.getInstance().comicImageUrlList.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        CachedNetworkImage(
+                      imageUrl: snapshot.data[0].imageUrlList[index],
                     ),
-                  ],
-                ),
-              );
-            {
-
-              return ListView.builder(
-                shrinkWrap: true,
-                scrollDirection:
-                    snapshot.data[0].style == e_comic_view_style.vertical
-                        ? Axis.vertical
-                        : Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                itemCount: snapshot.data[0].imageUrlList.length,
-//                      ModelViewComic.getInstance().comicImageUrlList.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    CachedNetworkImage(
-                  imageUrl: snapshot.data[0].imageUrlList[index],
-                ),
-              );
-              //Todo use pageview.builder to view horizontal style image like 만화 (참고: https://medium.com/flutter-community/a-deep-dive-into-pageview-in-flutter-with-custom-transitions-581d9ea6dded)
+                  );
+              //Todo use pageview.builder to view horizontal style image like 만화 (참고: https://medium.com/flutter-community/a-deep-dive-into-pageview-in-flutter-with-custom-transitions-581d9ea6dded);
             }
+            return Text('Result: ${snapshot.data}');
           },
         ),
       ),
@@ -184,46 +167,56 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              Material(
+                borderRadius: BorderRadius.all(Radius.circular(60.0)),
+              ),
               
               SizedBox(
                 height: ManageDeviceInfo.resolutionHeight * 0.04,
                 width: ManageDeviceInfo.resolutionWidth * 0.26,
-                child: GestureDetector(
-                  onTap: ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId) == null 
-                    ? () {  
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return BuildAlertDialog('This episode is the first episode');
-                        },
-                      );
-                    }
-                    : () {
+                child: Material(
+                  color: Colors.red[400],
+                  borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                  child: InkWell(
+              
+                    //Todo Need to apply loading indicator or a Message
+                    splashColor: Colors.red[50],
+                    onTap: int.parse(episodeId) == 1 
+                      ? () {  
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return BuildAlertDialog('This episode is the first episode');
+                          },
+                        );
+                      }
+                      : () {
 
-                          ModelViewComic.reset();
-                          episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId);
-                          c2sViewComic.generate(userId, comicId, episodeId);
-                          c2sViewComic.fetchBytes(_onFetchDone);
+                            ModelViewComic.reset();
+                            episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId);
+                            c2sViewComic.generate(userId, comicId, episodeId);
+                            c2sViewComic.fetchBytes(_onFetchDone);
 
-                    },
-                  child: Container(
-                    
-                    decoration: BoxDecoration(
-                      color: ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId) == null ? Colors.grey :Colors.red[400],
-                      borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                      ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,),
-                        Icon(Icons.chevron_left, color: Colors.white), 
-                        Text('Prev. Ep.',
-                          style: TextStyle(
-                          color: Colors.white, 
-                          ),
-                        ),
-                      ],
+                      },
+                    child: Container(
                       
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,),
+                          Icon(Icons.chevron_left, color: Colors.white), 
+                          Text('Prev. Ep.',
+                            style: TextStyle(
+                            color: Colors.white, 
+                            ),
+                          ),
+                        ],
+                        
+                      ),
                     ),
                   ),
                 ),
@@ -232,28 +225,32 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               SizedBox(
                 height: ManageDeviceInfo.resolutionHeight * 0.046,
                 width: ManageDeviceInfo.resolutionWidth * 0.12,
-                child: GestureDetector(
-                  onTap: (){
-                    ModelTextDetection.reset();
+                child: Material(
+                  color: Colors.red[400],
+                  borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                  child: InkWell(
+                    onTap: (){
+                      ModelTextDetection.reset();
 
-                    Navigator.push<Widget>(context,
-                      MaterialPageRoute(
-                        builder: (context) => DrawRectAndImage(),
-                      ));
-                  },
-                  child: Container(
-                    
-                    decoration: BoxDecoration(
-                      color: Colors.red[400],
-                      borderRadius: BorderRadius.all(Radius.circular(80.0)),
-                      ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                       
-                        Icon(Icons.translate, color: Colors.white, size: ManageDeviceInfo.resolutionHeight * 0.026), 
-                      ],
+                      Navigator.push<Widget>(context,
+                        MaterialPageRoute(
+                          builder: (context) => DrawRectAndImage(),
+                        ));
+                    },
+                    child: Container(
                       
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                         
+                          Icon(Icons.translate, color: Colors.white, size: ManageDeviceInfo.resolutionHeight * 0.026), 
+                        ],
+                        
+                      ),
                     ),
                   ),
                 ),
@@ -262,42 +259,46 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               SizedBox(
                 height: ManageDeviceInfo.resolutionHeight * 0.04,
                 width: ManageDeviceInfo.resolutionWidth * 0.26,
-                child: GestureDetector(
-                  onTap: ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId) == null
-                    ? () {  
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return BuildAlertDialog('This episode is the first episode');
-                        },
-                      );
-                    }
-                    : () {
+                child: Material(
+                  color: Colors.red[400],
+                  borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                  child: InkWell(
+                    onTap: ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(episodeId)
+                      ? () {  
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return BuildAlertDialog('Sorry, no more episode for this title');
+                          },
+                        );
+                      }
+                      : () {
 
-                          ModelViewComic.reset();
-                          episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
-                          c2sViewComic.generate(userId, comicId, episodeId);
-                          c2sViewComic.fetchBytes(_onFetchDone);
+                            ModelViewComic.reset();
+                            episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
+                            c2sViewComic.generate(userId, comicId, episodeId);
+                            c2sViewComic.fetchBytes(_onFetchDone);
 
-                    },
-                  child: Container(
-                    
-                    decoration: BoxDecoration(
-                      color: Colors.red[400],
-                      borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                      ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text('Next Ep.',
-                          style: TextStyle(
-                          color: Colors.white, 
-                          ),
-                        ),
-                        Icon(Icons.chevron_right, color: Colors.white), 
-                        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,)
-                      ],
+                      },
+                    child: Container(
                       
+                      decoration: BoxDecoration(
+                        color: Colors.red[400],
+                        borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Text('Next Ep.',
+                            style: TextStyle(
+                            color: Colors.white, 
+                            ),
+                          ),
+                          Icon(Icons.chevron_right, color: Colors.white), 
+                          SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,)
+                        ],
+                        
+                      ),
                     ),
                   ),
                 ),
@@ -378,6 +379,44 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           ],
         ),
       ), */
+    );
+  }
+}
+
+class PercentIndicator extends StatelessWidget {
+  const PercentIndicator({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: ManageDeviceInfo.resolutionHeight * .3,
+            child: Center(
+              child: CircularPercentIndicator(
+                radius: 40.0,
+                lineWidth: 4.0,
+                animation: true,
+                animationDuration: 2700,
+                percent: 0.75,
+                footer: new Text(
+                  "Loading images...",
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize:
+                          ManageDeviceInfo.resolutionHeight * 0.02),
+                ),
+                circularStrokeCap: CircularStrokeCap.round,
+                progressColor: Colors.redAccent,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
