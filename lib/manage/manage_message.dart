@@ -74,7 +74,7 @@ class ManageMessage
           PacketC2SFeaturedComicInfo packet = packetC2SCommon as PacketC2SFeaturedComicInfo;
 
           print("Creating a  stream...");
-          Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -346,7 +346,7 @@ class ManageMessage
                   PacketC2SFeaturedComicInfo packet = packetC2SCommon as PacketC2SFeaturedComicInfo;
 
                   print("Creating a sample stream...");
-                  Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
