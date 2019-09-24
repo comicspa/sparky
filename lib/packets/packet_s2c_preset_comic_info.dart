@@ -23,7 +23,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
   }
 
 
-  Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async
+  Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize,onFetchDone) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);
 
@@ -201,6 +201,8 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
     ModelWeeklyTrendComicInfo.list = list6;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if(null != onFetchDone)
+      onFetchDone(this);
 
   }
 

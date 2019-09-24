@@ -13,6 +13,7 @@ import 'package:sparky/models/model_today_trend_comic_info.dart';
 
 import 'package:sparky/packets/packet_common.dart';
 import "package:sparky/packets/packet_c2s_common.dart";
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
@@ -603,7 +604,7 @@ class ManageMessage
                   PacketC2SPresetComicInfo packet = packetC2SCommon as PacketC2SPresetComicInfo;
 
                   print("Creating a stream...");
-                  Stream<void> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<void> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -612,7 +613,7 @@ class ManageMessage
                   }, onDone: () {
                     print("Task Done");
 
-                    __streamController.add(packetC2SCommon.type);
+                    //__streamController.add(packetC2SCommon.type);
 
                   }, onError: (error) {
                     print("Some Error");
@@ -628,7 +629,7 @@ class ManageMessage
                   PacketC2SPresetLibraryInfo packet = packetC2SCommon as PacketC2SPresetLibraryInfo;
 
                   print("Creating a stream...");
-                  Stream<void> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<void> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -637,7 +638,7 @@ class ManageMessage
                   }, onDone: () {
                     print("Task Done");
 
-                    __streamController.add(packetC2SCommon.type);
+                    //__streamController.add(packetC2SCommon.type);
 
                   }, onError: (error) {
                     print("Some Error");
@@ -661,6 +662,12 @@ class ManageMessage
 
     //print('finish current time : ${timer.tick}');
 
+  }
+
+
+  static void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    __streamController.add(s2cPacket.type);
   }
 
 

@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen>
         _packetList.removeAt(0);
         if (_packetList.length > 0) ManageMessage.add(_packetList[0]);
 
-        if (data == e_packet_type.c2s_preset_library_info) navigationPage();
+        if (data == e_packet_type.s2c_preset_library_info) navigationPage();
       }, onDone: () {
         print("Task Done1");
       }, onError: (error) {
