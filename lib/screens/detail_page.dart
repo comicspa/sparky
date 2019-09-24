@@ -15,6 +15,8 @@ class DetailPage extends StatefulWidget {
   final String _userId;
   final String _comicId;
   DetailPage(this._userId, this._comicId);
+  bool _favorited = true;
+  int 
 
   @override
   _DetailPageState createState() => _DetailPageState(_userId, _comicId);
@@ -23,6 +25,9 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   final String _userId;
   final String _comicId;
+  bool _favorited = true;
+  int _favoriteCount = 41;
+
 
   _DetailPageState(this._userId, this._comicId);
 
@@ -349,38 +354,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                 },
                               );
                             },
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    Icons.star_border,
-                                    color: Colors.deepOrangeAccent,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width:
-                                      ManageDeviceInfo.resolutionWidth * 0.015,
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    '평가하기',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'Lato',
-                                      fontWeight: FontWeight.normal,
-                                      fontSize:
-                                          ManageDeviceInfo.resolutionHeight *
-                                              0.017,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                            child: FavoriteWidget(),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -716,103 +690,46 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   }
 }
 
-/*ListTile(
-                        leading: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewerScreen(
-                                  ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
-                                  ModelPreset.convertCountIndex2CutImageId(index),
-                                ),
-                              ),
-                            );
-                          },
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(2.0),
-                              child: CachedNetworkImage(
-                                imageUrl: ModelComicDetailInfo.getInstance()
-                                    .modelComicInfoList[index]
-                                    .thumbnailImageUrl,
-                                width:
-                                    ManageDeviceInfo.resolutionWidth * 0.27,
-                                height:
-                                    ManageDeviceInfo.resolutionHeight * 0.22,
-                                fit: BoxFit.cover,
-                              )),
-                        ),
-                        title: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewerScreen(
-                                  ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
-                                  ModelPreset.convertCountIndex2CutImageId(index),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].episode}화',
+class FavoriteWidget extends StatefulWidget {
+  
+  FavoriteWidget({Key key}) : super(key: key);
 
-//                              '${int.parse(ModelComicDetailInfo.getInstance().modelComicInfoList[index].episodeId).toString()}화',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  ManageDeviceInfo.resolutionHeight * 0.02,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ),
-                        subtitle: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewerScreen(
-                                  ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
-                                  ModelPreset.convertCountIndex2CutImageId(index),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].subTitleName}',
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              fontWeight: FontWeight.normal,
-                              fontSize:
-                                  ManageDeviceInfo.resolutionHeight * 0.02,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.file_download,
-                            color: Colors.black54,
-                          ),
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return BuildAlertDialog();
-                              },
-                            );
-                          },
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: ManageDeviceInfo.resolutionHeight * 0.013, horizontal: ManageDeviceInfo.resolutionWidth * 0.025),
-                      );*/
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorited = false;
+  int _favoriteCount = 41;
+
+  void _toggleFavorite() {
+  setState(() {
+    if (_isFavorited) {
+      _favoriteCount -= 1;
+      _isFavorited = false;
+    } else {
+      _favoriteCount += 1;
+      _isFavorited = true;
+    }
+  });
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+    Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(          
+          padding: EdgeInsets.all(0),
+          alignment: Alignment.center,
+            child: IconButton(
+              icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+              color: Colors.red[500],
+              onPressed: _toggleFavorite,
+            ),
+        ),
+      ],
+    );
+  }
+
+}
