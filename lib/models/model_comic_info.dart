@@ -1,11 +1,8 @@
 
 import 'dart:ui' as ui;
 
-import 'package:sparky/models/model_preset.dart';
-import 'package:sprintf/sprintf.dart';
-
 import 'package:sparky/manage/manage_firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
+
 
 
 class ModelComicInfo
@@ -15,7 +12,6 @@ class ModelComicInfo
   String _partId = '001';
   String _seasonId = '001';
   String _episodeId = '00001';
-  int _episodeCount = 0;
   String _thumbnailImageURL;
   String _subTitleName;
   int _collected = 0;
@@ -30,7 +26,6 @@ class ModelComicInfo
   String get partId => _partId;
   String get seasonId => _seasonId;
   String get episodeId => _episodeId;
-  int get episodeCount => _episodeCount;
   String get thumbnailImageUrl => _thumbnailImageURL;
   String get subTitleName => _subTitleName;
   int get collected => _collected;
@@ -91,26 +86,7 @@ class ModelComicInfo
     _imageCutList = imageCutList;
   }
 
-  String getPrevEpisodeId()
-  {
-    int episodeNumber = int.parse(_episodeId);
-    -- episodeNumber;
-    if(0 < episodeNumber)
-      _episodeId = ModelPreset.convertNumber2CutImageId(episodeNumber);
-    return _episodeId;
-  }
-
-  String getNextEpisodeId()
-  {
-    int episodeNumber = int.parse(_episodeId);
-    ++ episodeNumber;
-
-    if(episodeNumber < _episodeCount + 1)
-      _episodeId = ModelPreset.convertNumber2CutImageId(episodeNumber);
-    return _episodeId;
-  }
-
-
+  /*
   Future<List<String>> getImageCutDownloadUrl() async
   {
     for(int countIndex=0; countIndex<_imageCutCount; ++countIndex)
@@ -127,8 +103,9 @@ class ModelComicInfo
       _imageCutUrlList.add(imageUrl);
     }
 
-    return _imageCutUrlList;
-  }
+    re
+
+   */
 
 
 }

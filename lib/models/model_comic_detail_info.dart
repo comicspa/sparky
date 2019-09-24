@@ -1,9 +1,7 @@
 
 import 'dart:ui' as ui;
-
+import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_comic_info.dart';
-
-import 'package:sparky/manage/manage_firebase_storage.dart';
 
 class ModelComicDetailInfo
 {
@@ -64,6 +62,41 @@ class ModelComicDetailInfo
     _representationImage = representationImage;
   }
 
+  String getPrevEpisodeId(String episodeId)
+  {
+    int episodeNumber = int.parse(episodeId);
+    -- episodeNumber;
+    if(0 < episodeNumber)
+      episodeId = ModelPreset.convertNumber2EpisodeId(episodeNumber);
+    return episodeId;
+  }
+
+  String getNextEpisodeId(String episodeId)
+  {
+    int episodeNumber = int.parse(episodeId);
+    ++ episodeNumber;
+
+    if(episodeNumber < _modelComicInfoList.length + 1)
+      episodeId = ModelPreset.convertNumber2EpisodeId(episodeNumber);
+    return episodeId;
+  }
+
+
+
+  ModelComicInfo searchModelComicInfo(String episodeId)
+  {
+    if(null == _modelComicInfoList)
+      return null;
+    for(int countIndex=0; countIndex<_modelComicInfoList.length; ++countIndex)
+      {
+        if(0 == _modelComicInfoList[countIndex].episodeId.compareTo(episodeId))
+          return _modelComicInfoList[countIndex];
+      }
+
+    return null;
+
+  }
+
 
   static ModelComicDetailInfo _instance;
   static ModelComicDetailInfo getInstance() {
@@ -73,5 +106,8 @@ class ModelComicDetailInfo
     }
     return _instance;
   }
+
+
+
 
 }

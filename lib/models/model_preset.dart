@@ -228,12 +228,12 @@ class ModelPreset
     return url;
   }
 
-  static String convertCountIndex2CutImageId(int countIndex)
+  static String convertCountIndex2EpisodeId(int countIndex)
   {
-    return convertNumber2CutImageId(countIndex + 1);
+    return convertNumber2EpisodeId(countIndex + 1);
   }
 
-  static String convertNumber2CutImageId(int number)
+  static String convertNumber2EpisodeId(int number)
   {
     String imageId;
     if(number < 10)
