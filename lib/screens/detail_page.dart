@@ -218,7 +218,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                   builder: (context) => ViewerScreen(
                                       ModelComicDetailInfo.getInstance().userId,
                                       ModelComicDetailInfo.getInstance().comicId,
-                                      ModelPreset.convertCountIndex2CutImageId(0)),
+                                      ModelPreset.convertCountIndex2EpisodeId(0)),
                                 ),
                               );
                             },
@@ -572,7 +572,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                                           .getInstance()
                                                       .comicId,
                                                   ModelPreset
-                                                      .convertCountIndex2CutImageId(
+                                                      .convertCountIndex2EpisodeId(
                                                           index),
                                                 ),
                                               ),
@@ -608,7 +608,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                               MaterialPageRoute(
                                                 builder: (context) => ViewerScreen(ModelComicDetailInfo.getInstance().userId,
                                                   ModelComicDetailInfo.getInstance().comicId,
-                                                  ModelPreset.convertCountIndex2CutImageId(index),
+                                                  ModelPreset.convertCountIndex2EpisodeId(index),
                                                 ),
                                               ),
                                             );
