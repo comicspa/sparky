@@ -24,7 +24,7 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
 
   }
 
-  Future<void> fetchBytes() async
+  Future<void> fetchBytes(onFetchDone) async
   {
     print('PacketC2SPresetLibraryInfo : fetchBytes started');
 
@@ -52,7 +52,7 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
         //print('eventList.length == packetSize');
 
         PacketS2CPresetComicInfo packet = new PacketS2CPresetComicInfo();
-        packet.parseBytes(packetSize,byteData);
+        packet.parseBytes(packetSize,byteData,onFetchDone);
 
 
       }

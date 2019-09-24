@@ -83,7 +83,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             child: Padding(
               padding: EdgeInsets.all(0.0),
               child: FutureBuilder<List<ModelFeaturedComicInfo>>(
-                future: c2sFeaturedComicInfo.fetchBytes(),
+                future: c2sFeaturedComicInfo.fetchBytes(null),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData)
                     return Center(child: LoadingIndicator());

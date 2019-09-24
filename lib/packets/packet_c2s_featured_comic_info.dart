@@ -27,7 +27,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     _pageCountIndex = pageCountIndex;
   }
 
-  Future<List<ModelFeaturedComicInfo>> fetchBytes() async
+  Future<List<ModelFeaturedComicInfo>> fetchBytes(onFetchDone) async
   {
     print('PacketC2SFeaturedComicInfo : fetchBytes started');
 
@@ -59,7 +59,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
         //print('eventList.length == packetSize');
 
         PacketS2CFeaturedComicInfo packet = new PacketS2CFeaturedComicInfo();
-        packet.parseBytes(packetSize,byteData);
+        packet.parseBytes(packetSize,byteData,onFetchDone);
         return ModelFeaturedComicInfo.list;
       }
 
