@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'viewer.dart';
 import 'coming_soon.dart';
@@ -340,114 +341,17 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                   ),
                   Divider(),
                   Padding(
-                    padding: EdgeInsets.only(
-                        top: ManageDeviceInfo.resolutionHeight * 0.00),
+                    padding: EdgeInsets.only(top: ManageDeviceInfo.resolutionHeight * 0.00),
                     //              height: ManageDeviceInfo.resolutionHeight * 0.09,
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return BuildAlertDialog(null);
-                                },
-                              );
-                            },
-                            child: FavoriteWidget(),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return BuildAlertDialog(null);
-                                },
-                              );
-                            },
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    CupertinoIcons.add_circled,
-                                    color: Colors.deepOrangeAccent,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width:
-                                      ManageDeviceInfo.resolutionWidth * 0.015,
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    '나중에 보기',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'Lato',
-                                      fontWeight: FontWeight.normal,
-                                      fontSize:
-                                          ManageDeviceInfo.resolutionHeight *
-                                              0.017,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return BuildAlertDialog(null);
-                                },
-                              );
-                            },
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    CupertinoIcons.share,
-                                    color: Colors.deepOrangeAccent,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width:
-                                      ManageDeviceInfo.resolutionWidth * 0.015,
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    '공유하기',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'Lato',
-                                      fontWeight: FontWeight.normal,
-                                      fontSize:
-                                          ManageDeviceInfo.resolutionHeight *
-                                              0.017,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FavoriteWidget(),
+                        SaveToViewList(),
+                        ShareWidget(),
+                      ]),
                   ),
                   Divider(),
-
-                  //            SizedBox(
-                  //              height: ManageDeviceInfo.resolutionHeight * 0.005,
-                  //            ),
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Padding(
@@ -710,8 +614,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(          
@@ -755,15 +658,16 @@ class SaveToViewList extends StatefulWidget {
 
 class _SaveToViewListState extends State<SaveToViewList> {
   bool _saveToViewList = false;
+  int _saveToViewListCount = 0;
   bool _saved = false;
 
-  void _toggleFavorite() {
+  void _toggleSaveToViewList() {
   setState(() {
     if (_saved) {
-      
+      _saveToViewListCount -= -1;
       _saved = false;
     } else {
-      
+      _saveToViewListCount += 1;
       _saved = true;
     }
   });
@@ -771,8 +675,7 @@ class _SaveToViewListState extends State<SaveToViewList> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
+    return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(          
@@ -781,7 +684,7 @@ class _SaveToViewListState extends State<SaveToViewList> {
             child: IconButton(
               icon: (_saveToViewList ? Icon(CupertinoIcons.add) : Icon(CupertinoIcons.add_circled,)),
               color: Colors.red[500],
-              onPressed: _toggleFavorite,
+              onPressed: _toggleSaveToViewList,
             ),
         ),
         SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
@@ -804,4 +707,67 @@ class _SaveToViewListState extends State<SaveToViewList> {
     );
   }
 
+}
+
+
+class ShareWidget extends StatefulWidget {
+  ShareWidget({Key key}) : super(key: key);
+
+  _ShareWidgetState createState() => _ShareWidgetState();
+}
+
+class _ShareWidgetState extends State<ShareWidget> {
+  bool _shareClicked = false;
+  int _sharedCount = 0;
+  
+
+  void _toggleShared() {
+    setState(() {
+      if (_shareClicked) {
+        _shareClicked = false;
+      } else {
+        _sharedCount += 1;
+        _shareClicked = true;
+        Share.share('check out my website https://superants.io');
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Container(          
+          padding: EdgeInsets.all(0),
+          alignment: Alignment.center,
+            child: IconButton(
+              icon: _shareClicked ? Icon(CupertinoIcons.share_solid) : Icon(CupertinoIcons.share_up),
+              color: Colors.deepOrangeAccent,
+              onPressed: _toggleShared,
+            ),
+        ),
+        SizedBox(
+          width:
+              ManageDeviceInfo.resolutionWidth * 0.015,
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            '공유하기',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Lato',
+              fontWeight: FontWeight.normal,
+              fontSize:
+                  ManageDeviceInfo.resolutionHeight *
+                      0.017,
+              color: Colors.black87,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
