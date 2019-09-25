@@ -143,6 +143,11 @@ class PacketCommon
     _type = type;
   }
 
+  set status(e_packet_status status)
+  {
+    _status = status;
+  }
+
   void reset()
   {
     _size = 4 + 2;

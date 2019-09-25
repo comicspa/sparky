@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:sparky/packets/packet_common.dart';
 import 'common_widgets.dart';
 import 'text_editor.dart';
 
@@ -15,48 +16,32 @@ import 'package:sparky/packets/packet_s2c_common.dart';
 
 
 class ViewerScreen extends StatefulWidget {
-  //final ModelFeaturedComicInfo modelFeaturedComicInfo;
-  //final ModelComicDetailInfo modelComicDetailInfo;
-  //final String url;
-  //ViewerScreen(this.url);
-//  ViewerScreen(this.modelFeaturedComicInfo);
-  String userId;
-  String comicId;
-  String episodeId;
-  ViewerScreen(this.userId, this.comicId, this.episodeId);
+
+  String _userId;
+  String _comicId;
+  String _episodeId;
+  ViewerScreen(this._userId, this._comicId, this._episodeId);
 
   @override
-  _ViewerScreen createState() => new _ViewerScreen(userId, comicId, episodeId);
+  _ViewerScreen createState() => new _ViewerScreen(_userId, _comicId, _episodeId);
 }
 
 class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
-//  PacketC2STodayPopularComicInfo c2STodayPopularComicInfo = new PacketC2STodayPopularComicInfo(); // use this to handle data
-  String userId;
-  String comicId;
-  String episodeId;
-  
 
-  
+  String _userId;
+  String _comicId;
+  String _episodeId;
 
-  _ViewerScreen(this.userId, this.comicId, this.episodeId);
+  _ViewerScreen(this._userId, this._comicId, this._episodeId);
 
-  PacketC2SViewComic c2sViewComic = PacketC2SViewComic();
-  
-
-
-//  @override
-//  void initState() {
-//    super.initState();
-//    c2STodayPopularComicInfo.generate(0, 0);   // generating packet
-//
-//  }
+  PacketC2SViewComic _c2sViewComic = PacketC2SViewComic();
   bool _isVisible;
 
   @override
   initState() {
     //    SystemChrome.setEnabledSystemUIOverlays([]);
 
-    c2sViewComic.generate(this.userId, this.comicId, this.episodeId);
+    _c2sViewComic.generate(_userId, _comicId, _episodeId);
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     _isVisible = true;
@@ -81,16 +66,6 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
     print('state = $state');
   }
 
-//  String url;
-  // ModelFeaturedComicInfo modelFeaturedComicInfo;
-
-  /*
-  _ViewerScreen(ModelFeaturedComicInfo modelFeaturedComicInfo) {
-    this.modelFeaturedComicInfo = modelFeaturedComicInfo;
-//    this.url = url;
-  }
-   */
-
   @override
   Widget build(BuildContext context) {
     // Todo Currently this screen is used for testing viewer
@@ -110,7 +85,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
               centerTitle: true,
 
-              title: Text('Episode ${int.parse(episodeId)} 화',
+              title: Text('Episode ${int.parse(_episodeId)} 화',
                   style: TextStyle(
                       color: Colors.black) //Todo need to bind the data
                   ),
@@ -125,8 +100,37 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           });
         },
         child: FutureBuilder<List<ModelViewComic>>(
-          future: c2sViewComic.fetchBytes(_onFetchDone),
+          future: _c2sViewComic.fetch(_onFetchDone),
           builder: (context, snapshot) {
+
+
+            if(e_packet_status.finish_dispatch_respond != _c2sViewComic.getRespondStatus())
+              {
+                return PercentIndicator();
+              }
+            else
+              {
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                else
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection:
+                    snapshot.data[0].style == e_comic_view_style.vertical
+                        ? Axis.vertical
+                        : Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: snapshot.data[0].imageUrlList.length,
+                    //                      ModelViewComic.getInstance().comicImageUrlList.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        CachedNetworkImage(
+                          imageUrl: snapshot.data[0].imageUrlList[index],
+                        ),
+                  );
+              }
+
+
+            /*
             switch (snapshot.connectionState) {
               case ConnectionState.none:
                 return PercentIndicator();
@@ -156,6 +160,9 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   );
               //Todo use pageview.builder to view horizontal style image like 만화 (참고: https://medium.com/flutter-community/a-deep-dive-into-pageview-in-flutter-with-custom-transitions-581d9ea6dded);
             }
+            */
+
+
             return Text('Result: ${snapshot.data}');
           },
         ),
@@ -181,7 +188,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               
                     //Todo Need to apply loading indicator or a Message
                     splashColor: Colors.red[50],
-                    onTap: int.parse(episodeId) == 1 
+                    onTap: int.parse(_episodeId) == 1
                       ? () {  
                         showDialog(
                           context: context,
@@ -193,9 +200,9 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       : () {
 
                             ModelViewComic.reset();
-                            episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(episodeId);
-                            c2sViewComic.generate(userId, comicId, episodeId);
-                            c2sViewComic.fetchBytes(_onFetchDone);
+                            _episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(_episodeId);
+                            _c2sViewComic.generate(_userId, _comicId, _episodeId);
+                            _c2sViewComic.fetch(_onFetchDone);
 
                       },
                     child: Container(
@@ -263,7 +270,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   color: Colors.red[400],
                   borderRadius: BorderRadius.all(Radius.circular(80.0)),
                   child: InkWell(
-                    onTap: ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(episodeId)
+                    onTap: ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(_episodeId)
                       ? () {  
                         showDialog(
                           context: context,
@@ -275,9 +282,9 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                       : () {
 
                             ModelViewComic.reset();
-                            episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(episodeId);
-                            c2sViewComic.generate(userId, comicId, episodeId);
-                            c2sViewComic.fetchBytes(_onFetchDone);
+                            _episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(_episodeId);
+                            _c2sViewComic.generate(_userId, _comicId,_episodeId);
+                            _c2sViewComic.fetch(_onFetchDone);
 
                       },
                     child: Container(

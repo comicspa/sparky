@@ -4,10 +4,23 @@ import 'dart:typed_data';
 
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_utility.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 
 
 class PacketC2SCommon extends PacketCommon
 {
+  PacketS2CCommon _respondPacket;
+
+  PacketS2CCommon get respondPacket => _respondPacket;
+  set respondPacket(PacketS2CCommon respondPacket)
+  {
+    _respondPacket = respondPacket;
+  }
+
+  e_packet_status getRespondStatus()
+  {
+    return _respondPacket.status;
+  }
 
   int generateHeader(int packetBodySize)
   {

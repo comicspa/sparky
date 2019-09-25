@@ -21,7 +21,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     ModelComicDetailInfo.getInstance().creatorName = jsonMap['creator_name'];
     ModelComicDetailInfo.getInstance().mainTitleName = jsonMap['title'];
     ModelComicDetailInfo.getInstance().explain = jsonMap['explain'];
-    print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
+    //print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
     ModelComicDetailInfo.getInstance().point = jsonMap['point'];
     ModelComicDetailInfo.getInstance().creatorId = jsonMap['creator_id'];
 
@@ -64,14 +64,15 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       ModelComicDetailInfo.getInstance().modelComicInfoList.add(modelComicInfo);
     }
 
+    //sort
+    ModelComicDetailInfo.getInstance().modelComicInfoList.sort((a, b) => a.episodeId.compareTo(b.episodeId));
 
     print('[PacketC2SComicDetailInfo : fetchFireBaseDB finished]');
 
     if(null != onFetchDone)
       onFetchDone(this);
-
-
   }
+
 
 
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize, onFetchDone) async

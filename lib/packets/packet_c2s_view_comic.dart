@@ -9,6 +9,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_view_comic.dart';
 import 'package:sparky/models/model_view_comic.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 
@@ -19,7 +21,7 @@ class PacketC2SViewComic extends PacketC2SCommon
   String _episodeId;
   String _partId = '001';
   String _seasonId = '001';
-  int _fetchStatus = 0;
+
 
   PacketC2SViewComic()
   {
@@ -29,21 +31,72 @@ class PacketC2SViewComic extends PacketC2SCommon
   void generate(String userId,String comicId,String episodeId)
   {
     reset();
-    _fetchStatus = 0;
+
+    ModelViewComic.list = null;
+
     _userId = userId;
     _comicId = comicId;
     _episodeId = episodeId;
+
+    respondPacket = null;
+    respondPacket = new PacketS2CViewComic();
+
 
     print('episodeId : $_episodeId');
   }
 
 
-  Future<List<ModelViewComic>> fetchBytes(onFetchDone) async
+  Future<List<ModelViewComic>> fetch(onFetchDone) async
+  {
+    return await _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelViewComic>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SViewComic : fetchFireBaseDB started');
+
+    switch(respondPacket.status)
+    {
+      case e_packet_status.finish_dispatch_respond:
+        return ModelViewComic.list;
+
+      case e_packet_status.none:
+        respondPacket.status = e_packet_status.start_dispatch_request;
+        break;
+
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    String id = '${_userId}_${_comicId}_${_episodeId}';
+    print('id : $id');
+    DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase.reference.child('model_view_comic_info').child(id);
+    modelComicDetailInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SViewComic : fetchFireBaseDB ] - ${snapshot.value}');
+
+      (respondPacket as PacketS2CViewComic).parseFireBaseDBJson(_userId,_comicId,_episodeId,snapshot.value , onFetchDone);
+
+      //_fetchStatus = 2;
+      return null;
+
+    });
+
+    //_fetchStatus = 1;
+    return null;
+  }
+
+
+
+  Future<List<ModelViewComic>> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SViewComic : fetchBytes started');
     //if(null != ModelViewComic.list)
     //  return ModelViewComic.list;
-    if(0 != _fetchStatus)
+    if(e_packet_status.finish_dispatch_respond == respondPacket.status)
       return  ModelViewComic.list;
 
     Socket socket = await ModelCommon.createServiceSocket();
@@ -60,12 +113,10 @@ class PacketC2SViewComic extends PacketC2SCommon
       int packetSize = byteData.getUint32(0,PacketCommon.endian);
       if(eventList.length == packetSize)
       {
-        PacketS2CViewComic packet = new PacketS2CViewComic();
-        packet.parseBytes(packetSize,byteData,onFetchDone);
+        (respondPacket as PacketS2CViewComic).parseBytes(packetSize,byteData,onFetchDone);
 
-        _fetchStatus = 2;
         //return ModelViewComic.getInstance();
-        return ModelViewComic.list;
+        //return ModelViewComic.list;
       }
       return null;
     });
@@ -86,16 +137,15 @@ class PacketC2SViewComic extends PacketC2SCommon
     writeStringToByteBuffer(partIdList);
     writeStringToByteBuffer(seasonIdList);
 
-
+    respondPacket.status = e_packet_status.finish_dispatch_request;
     socket.add(packet);
+    respondPacket.status = e_packet_status.wait_respond;
 
     // wait 5 seconds
     await Future.delayed(Duration(seconds: 5));
     socket.close();
 
-    _fetchStatus = 1;
-    return ModelViewComic.list;
+    return null;
   }
-
 
 }
