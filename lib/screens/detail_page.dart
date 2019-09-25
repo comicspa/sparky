@@ -16,7 +16,7 @@ class DetailPage extends StatefulWidget {
   final String _comicId;
   DetailPage(this._userId, this._comicId);
   bool _favorited = true;
-  int 
+  
 
   @override
   _DetailPageState createState() => _DetailPageState(_userId, _comicId);
