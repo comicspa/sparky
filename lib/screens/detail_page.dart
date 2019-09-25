@@ -539,16 +539,9 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ViewerScreen(
-                                                  ModelComicDetailInfo
-                                                          .getInstance()
-                                                      .userId,
-                                                  ModelComicDetailInfo
-                                                          .getInstance()
-                                                      .comicId,
-                                                  ModelPreset
-                                                      .convertCountIndex2EpisodeId(
-                                                          index),
+                                                  ViewerScreen(ModelComicDetailInfo.getInstance().userId,
+                                                  ModelComicDetailInfo.getInstance().comicId,
+                                                  ModelPreset.convertCountIndex2EpisodeId(index),
                                                 ),
                                               ),
                                             );
@@ -694,7 +687,8 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 class FavoriteWidget extends StatefulWidget {
   
   FavoriteWidget({Key key}) : super(key: key);
-
+  
+  @override
   _FavoriteWidgetState createState() => _FavoriteWidgetState();
 }
 
@@ -728,6 +722,83 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
               color: Colors.red[500],
               onPressed: _toggleFavorite,
             ),
+        ),
+        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            '좋아요',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Lato',
+              fontWeight: FontWeight.normal,
+              fontSize: ManageDeviceInfo.resolutionHeight * 0.017,
+              color: Colors.black87,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+}
+
+
+class SaveToViewList extends StatefulWidget {
+  
+  SaveToViewList({Key key}) : super(key: key);
+
+  _SaveToViewListState createState() => _SaveToViewListState();
+}
+
+class _SaveToViewListState extends State<SaveToViewList> {
+  bool _saveToViewList = false;
+  bool _saved = false;
+
+  void _toggleFavorite() {
+  setState(() {
+    if (_saved) {
+      
+      _saved = false;
+    } else {
+      
+      _saved = true;
+    }
+  });
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+    Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(          
+          padding: EdgeInsets.all(0),
+          alignment: Alignment.center,
+            child: IconButton(
+              icon: (_saveToViewList ? Icon(CupertinoIcons.add) : Icon(CupertinoIcons.add_circled,)),
+              color: Colors.red[500],
+              onPressed: _toggleFavorite,
+            ),
+        ),
+        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            '나중에 보기',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Lato',
+              fontWeight: FontWeight.normal,
+              fontSize: ManageDeviceInfo.resolutionHeight * 0.017,
+              color: Colors.black87,
+            ),
+          ),
         ),
       ],
     );
