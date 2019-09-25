@@ -44,8 +44,8 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
 
     });
   }
+  */
 
-   */
 
 
   Future<ModelComicDetailInfo> fetchBytes(onFetchDone) async

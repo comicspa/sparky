@@ -89,12 +89,24 @@ enum e_packet_type
 }
 
 
+enum e_packet_status
+{
+  none,
+  start_dispatch_request,
+  finish_dispatch_request,
+  wait_respond,
+  start_dispatch_respond,
+  finish_dispatch_respond,
+}
+
+
 class PacketCommon
 {
   static Endian _endian = Endian.little;
 
   static Endian get endian => _endian;
 
+  e_packet_status _status = e_packet_status.none;
   int _size = 4 + 2;
   e_packet_type _type = e_packet_type.none;
 
@@ -107,6 +119,7 @@ class PacketCommon
 
   Uint8List get packet => _packet;
   int get currentOffset => _currentOffset;
+  e_packet_status get status => _status;
 
   final int _version = 0;
 

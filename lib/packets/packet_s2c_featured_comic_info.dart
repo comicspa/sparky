@@ -16,6 +16,31 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
   }
 
 
+  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  {
+    /*
+    String version = jsonMap['version'];
+    print('parseJson - current version : $version , app version : ${ModelPreset.version}');
+
+    var linkJson = jsonMap['link'];
+    ModelPreset.faqUrl = linkJson['faq'];
+    print('parseJson - faq : ${ModelPreset.faqUrl}');
+
+    ModelPreset.privacyPolicyUrl = linkJson['privacy_policy'];
+    print('parseJson - privacy_policy : ${ModelPreset.privacyPolicyUrl}');
+
+    ModelPreset.termsOfUseUrl = linkJson['terms_of_use'];
+    print('parsejson - terms_of_use : ${ModelPreset.termsOfUseUrl}');
+
+    ModelPreset.homepageUrl = linkJson['home_page'];
+    print('parseJson - homepageUrl : ${ModelPreset.homepageUrl}');
+    */
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
+
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize,onFetchDone) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);

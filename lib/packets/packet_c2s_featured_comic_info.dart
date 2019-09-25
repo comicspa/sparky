@@ -8,6 +8,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_featured_comic_info.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 
@@ -26,6 +28,34 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     _pageViewCount = pageViewCount;
     _pageCountIndex = pageCountIndex;
   }
+
+  Future<List<ModelFeaturedComicInfo>> fetch(onFetchDone) async
+  {
+    return fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelFeaturedComicInfo>> fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SFeaturedComicInfo : fetchFireBaseDB started');
+
+    if(null != ModelFeaturedComicInfo.list)
+      return ModelFeaturedComicInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_featured_comic_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SFeaturedComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CFeaturedComicInfo preset = new PacketS2CFeaturedComicInfo();
+      preset.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelFeaturedComicInfo.list;
+
+    });
+
+    return null;
+  }
+
 
   Future<List<ModelFeaturedComicInfo>> fetchBytes(onFetchDone) async
   {

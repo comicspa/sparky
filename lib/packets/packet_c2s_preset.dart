@@ -24,7 +24,7 @@ class PacketC2SPreset extends PacketC2SCommon
       print('[PacketC2SPreset:fetch] - ${snapshot.value}');
 
       PacketS2CPreset preset = new PacketS2CPreset();
-      preset.parseJson(snapshot.value , onFetchDone);
+      preset.parseFireBaseDBJson(snapshot.value , onFetchDone);
 
     });
   }

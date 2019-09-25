@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
-import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_new_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
@@ -32,10 +31,10 @@ import 'package:sparky/manage/manage_paint_canvas.dart';
 import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
-import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/screens/test/page_dev_test_tflite.dart';
 import 'package:sparky/screens/test/page_dev_test_account.dart';
 import 'package:sparky/screens/test/page_dev_test_toast_message.dart';
+import 'package:sparky/screens/test/page_dev_test_packet.dart';
 
 
 class PageDevTestMenu extends StatefulWidget
@@ -52,7 +51,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
   {
     super.initState();
 
-    ManageFirebaseDatabase.set();
+    //ManageFirebaseDatabase.set();
   }
 
 
@@ -120,6 +119,21 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
             },
           ),
 
+          ListTile(
+            title: Text('Packet Test'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestPacket(
+                  ),
+                ),
+              );
+
+            },
+          ),
+
         ], ).toList(), ); }
 
 }
@@ -140,7 +154,6 @@ class _PageDevTestState extends State<PageDevTest> {
 
   PacketC2STodayTrendComicInfo c2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo();
   PacketC2SWeeklyTrendComicInfo c2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
-  PacketC2SFeaturedComicInfo c2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
   PacketC2SViewComic c2SViewComic = new PacketC2SViewComic();
   PacketC2SNewComicInfo c2SNewComicInfo = new PacketC2SNewComicInfo();
   PacketC2SRealTimeTrendInfo c2SRealTimeTrendInfo = new PacketC2SRealTimeTrendInfo();
@@ -164,7 +177,6 @@ class _PageDevTestState extends State<PageDevTest> {
 
     c2STodayTrendComicInfo.generate(0, 0);
     c2SWeeklyTrendComicInfo.generate(0, 0);
-    c2SFeaturedComicInfo.generate(0, 0);
     c2SViewComic.generate('1566811403000', '000001', '00001');
     c2SNewComicInfo.generate(0, 0);
     c2SRealTimeTrendInfo.generate(0, 0);
@@ -195,12 +207,7 @@ class _PageDevTestState extends State<PageDevTest> {
     //ManageFirebaseDatabase.testRead();
   }
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
-  {
-    setState(() {
 
-    });
-  }
 
   Widget createTodayPopularComicInfoListView(
       BuildContext context, AsyncSnapshot snapshot) {
@@ -281,7 +288,6 @@ class _PageDevTestState extends State<PageDevTest> {
         Expanded(
           child: FutureBuilder(
               future: c2STodayTrendComicInfo.fetchBytes(),
-              //future:c2SFeaturedComicInfo.fetchBytes(),
               //future:c2SNewComicInfo.fetchBytes(),
               //future:c2SViewComic.fetchBytes(),
               //future:c2SWeeklyPopularComicInfo.fetchBytes(),

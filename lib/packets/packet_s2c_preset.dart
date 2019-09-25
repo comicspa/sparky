@@ -16,7 +16,7 @@ class PacketS2CPreset extends PacketS2CCommon
 
 
 
-  Future<void> parseJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     String version = jsonMap['version'];
     print('parseJson - current version : $version , app version : ${ModelPreset.version}');
