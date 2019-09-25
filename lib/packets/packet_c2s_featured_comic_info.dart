@@ -31,10 +31,10 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
 
   Future<List<ModelFeaturedComicInfo>> fetch(onFetchDone) async
   {
-    return fetchFireBaseDB(onFetchDone);
+    return _fetchFireBaseDB(onFetchDone);
   }
 
-  Future<List<ModelFeaturedComicInfo>> fetchFireBaseDB(onFetchDone) async
+  Future<List<ModelFeaturedComicInfo>> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SFeaturedComicInfo : fetchFireBaseDB started');
 

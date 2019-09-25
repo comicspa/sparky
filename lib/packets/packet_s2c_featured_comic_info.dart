@@ -18,23 +18,37 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
-    /*
-    String version = jsonMap['version'];
-    print('parseJson - current version : $version , app version : ${ModelPreset.version}');
+    //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
 
-    var linkJson = jsonMap['link'];
-    ModelPreset.faqUrl = linkJson['faq'];
-    print('parseJson - faq : ${ModelPreset.faqUrl}');
+    List<ModelFeaturedComicInfo>  list = new List<ModelFeaturedComicInfo>();
+    for(var key in jsonMap.keys)
+      {
+        print(key);
+        List<String> splitList = key.toString().split('_');
+        //String creatorId = splitList[0];
+        //String comicId = splitList[1];
 
-    ModelPreset.privacyPolicyUrl = linkJson['privacy_policy'];
-    print('parseJson - privacy_policy : ${ModelPreset.privacyPolicyUrl}');
+        var comicInfo = jsonMap[key];
 
-    ModelPreset.termsOfUseUrl = linkJson['terms_of_use'];
-    print('parsejson - terms_of_use : ${ModelPreset.termsOfUseUrl}');
+        ModelFeaturedComicInfo modelFeaturedComicInfo = new ModelFeaturedComicInfo();
 
-    ModelPreset.homepageUrl = linkJson['home_page'];
-    print('parseJson - homepageUrl : ${ModelPreset.homepageUrl}');
-    */
+        modelFeaturedComicInfo.title = comicInfo['title'];
+        modelFeaturedComicInfo.creatorName = comicInfo['creator_name'];
+        modelFeaturedComicInfo.comicId = comicInfo['comic_id'];
+        modelFeaturedComicInfo.userId = comicInfo['user_id'];
+        modelFeaturedComicInfo.creatorId = comicInfo['creator_id'];
+
+        String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.userId, modelFeaturedComicInfo.comicId);
+        modelFeaturedComicInfo.url = url;
+        modelFeaturedComicInfo.thumbnailUrl = url;
+        modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
+
+        print(modelFeaturedComicInfo.toString());
+
+        list.add(modelFeaturedComicInfo);
+
+      }
+    ModelFeaturedComicInfo.list = list;
 
     if(null != onFetchDone)
       onFetchDone(this);

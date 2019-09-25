@@ -55,11 +55,12 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 
   void init() async {
     c2sComicDetailInfo.generate(_userId, _comicId);
-    await c2sComicDetailInfo.fetchBytes(_onFetchDone);
+    c2sComicDetailInfo.fetch(_onFetchDone);
   }
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    print('[detail_page] : onFetchDone');
     setState(() {
 
     });
@@ -493,7 +494,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                     height: ManageDeviceInfo.resolutionHeight * 0.02,
                   ),
                   FutureBuilder<ModelComicDetailInfo>(
-                    future: c2sComicDetailInfo.fetchBytes(null),
+                    future: c2sComicDetailInfo.fetch(null),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData)
                         return Center(

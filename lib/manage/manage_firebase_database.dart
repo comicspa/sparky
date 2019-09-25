@@ -2,8 +2,20 @@
 import 'package:firebase_database/firebase_database.dart';
 
 
-
-
+// https://cionman.tistory.com/72
+// https://www.slideshare.net/sungbeenjang/firebase-for-web-3-realtime-database
+// http://blog.naver.com/PostView.nhn?blogId=wj8606&logNo=221204979652&parentCategoryNo=&categoryNo=10&viewDate=&isShowPopularPosts=true&from=search
+// https://stackoverflow.com/questions/26700924/query-based-on-multiple-where-clauses-in-firebase
+// https://polyglot-programming.tistory.com/26
+// https://stack07142.tistory.com/282
+// http://blog.naver.com/PostView.nhn?blogId=wj8606&logNo=221204979652&parentCategoryNo=&categoryNo=10&viewDate=&isShowPopularPosts=true&from=search
+// https://grokonez.com/flutter/flutter-firebase-database-example-firebase-database-crud-listview
+// https://dart.academy/build-a-real-time-chat-web-app-with-dart-angular-2-and-firebase-3/
+// https://beomseok95.tistory.com/114?category=1031942
+// https://medium.com/flutter-community/building-a-chat-app-with-flutter-and-firebase-from-scratch-9eaa7f41782e
+// https://academy.realm.io/kr/posts/firebase-as-a-real-mobile-backend/
+// https://forest71.tistory.com/170
+// https://github.com/firebase/functions-samples/blob/master/convert-images/functions/index.js
 
 class ManageFirebaseDatabase
 {

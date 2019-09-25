@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
 class PageDevTestPacket extends StatefulWidget {
@@ -47,6 +48,19 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
 
             },
           ),
+
+          ListTile(
+            title: Text('Comic Detail Info'),
+            onTap: (){
+
+              PacketC2SComicDetailInfo c2SComicDetailInfo = new PacketC2SComicDetailInfo();
+              c2SComicDetailInfo.generate('1566811403000','000001');
+              c2SComicDetailInfo.fetch(_onFetchDone);
+
+
+            },
+          ),
+
 
 
         ], ).toList(), ); }

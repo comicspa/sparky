@@ -10,6 +10,7 @@ class ModelComicDetailInfo
   String _mainTitleName;
   String _representationImageUrl;
   String _explain;
+  String _creatorId;
   String _creatorName;
   double _point;
   List<ModelComicInfo> _modelComicInfoList;
@@ -24,6 +25,7 @@ class ModelComicDetailInfo
   double get point => _point;
   List<ModelComicInfo> get modelComicInfoList => _modelComicInfoList;
   ui.Image get representationImage => _representationImage;
+  String get creatorId => _creatorId;
 
   set userId(String userId)
   {
@@ -60,6 +62,11 @@ class ModelComicDetailInfo
   set representationImage(ui.Image representationImage)
   {
     _representationImage = representationImage;
+  }
+
+  set creatorId(String creatorId)
+  {
+    _creatorId = creatorId;
   }
 
   String getPrevEpisodeId(String episodeId)

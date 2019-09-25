@@ -9,7 +9,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_comic_detail_info.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
-
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 class PacketC2SComicDetailInfo extends PacketC2SCommon
@@ -29,26 +30,39 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
     _comicId = comicId;
   }
 
-  /*
-  Future<void> fetchJson(onFetchDone) async
+  Future<ModelComicDetailInfo> fetch(onFetchDone) async
   {
-    print('PacketC2SPreset : fetch started');
+    return _fetchFireBaseDB(onFetchDone);
+  }
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_preset');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
+  Future<ModelComicDetailInfo> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SComicDetailInfo : fetchFireBaseDB started');
+
+    if(0 != _fetchStatus)
+      return ModelComicDetailInfo.getInstance();
+
+    String id = '${_userId}_${_comicId}';
+    print('id : $id');
+    DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child(id);
+    modelComicDetailInfoReference.once().then((DataSnapshot snapshot)
     {
-      print('[PacketC2SPreset:fetch] - ${snapshot.value}');
+      print('[PacketC2SComicDetailInfo : fetchFireBaseDB ] - ${snapshot.value}');
 
-      PacketS2CPreset preset = new PacketS2CPreset();
-      preset.parseJson(snapshot.value , onFetchDone);
+      PacketS2CComicDetailInfo preset = new PacketS2CComicDetailInfo();
+      preset.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      _fetchStatus = 2;
+      return ModelComicDetailInfo.getInstance();
 
     });
+
+    return null;
   }
-  */
 
 
 
-  Future<ModelComicDetailInfo> fetchBytes(onFetchDone) async
+  Future<ModelComicDetailInfo> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SComicDetailInfo : fetchBytes started');
     if(0 != _fetchStatus)

@@ -14,6 +14,65 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     type = e_packet_type.s2c_comic_detail_info;
   }
 
+  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  {
+    ModelComicDetailInfo.getInstance().userId = jsonMap['user_id'];
+    ModelComicDetailInfo.getInstance().comicId = jsonMap['comic_id'];
+    ModelComicDetailInfo.getInstance().creatorName = jsonMap['creator_name'];
+    ModelComicDetailInfo.getInstance().mainTitleName = jsonMap['title'];
+    ModelComicDetailInfo.getInstance().explain = jsonMap['explain'];
+    print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
+    ModelComicDetailInfo.getInstance().point = jsonMap['point'];
+    ModelComicDetailInfo.getInstance().creatorId = jsonMap['creator_id'];
+
+    //ModelComicDetailInfo.getInstance().representationImageUrl =
+    //  await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+
+    ModelComicDetailInfo.getInstance().representationImageUrl =
+    await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+
+    if(null == ModelComicDetailInfo.getInstance().modelComicInfoList)
+      ModelComicDetailInfo.getInstance().modelComicInfoList = new List<ModelComicInfo>();
+    else
+      ModelComicDetailInfo.getInstance().modelComicInfoList.clear();
+
+    int countIndex = 0;
+    var comics = jsonMap['comics'];
+    for(var key in comics.keys)
+    {
+      ModelComicInfo modelComicInfo = new ModelComicInfo();
+
+      modelComicInfo.episodeId = comics[key.toString()]['episode_id'];
+      modelComicInfo.subTitleName = comics[key.toString()]['title'];
+      modelComicInfo.collected = comics[key.toString()]['collected'];
+      modelComicInfo.updated = comics[key.toString()]['updated'];
+
+      print('episode_id : ${modelComicInfo.episodeId}');
+
+      modelComicInfo.userId = ModelComicDetailInfo.getInstance().userId;
+      modelComicInfo.comicId = ModelComicDetailInfo.getInstance().comicId;
+
+      modelComicInfo.thumbnailImageUrl =
+      //await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
+      //   ModelComicDetailInfo.getInstance().comicId,'001','001','00001');
+
+      await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId);
+
+      print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicInfo.thumbnailImageUrl}');
+      ++countIndex;
+
+      ModelComicDetailInfo.getInstance().modelComicInfoList.add(modelComicInfo);
+    }
+
+
+    print('[PacketC2SComicDetailInfo : fetchFireBaseDB finished]');
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+
+
+  }
+
 
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize, onFetchDone) async
   {

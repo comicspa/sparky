@@ -12,7 +12,6 @@ import 'package:sparky/packets/packet_c2s_new_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
 import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
-import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_new_creator_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_creator_info.dart';
 import 'package:sparky/packets/packet_c2s_library_view_list_comic_info.dart';
@@ -158,7 +157,6 @@ class _PageDevTestState extends State<PageDevTest> {
   PacketC2SNewComicInfo c2SNewComicInfo = new PacketC2SNewComicInfo();
   PacketC2SRealTimeTrendInfo c2SRealTimeTrendInfo = new PacketC2SRealTimeTrendInfo();
   PacketC2SRecommendedComicInfo c2SRecommendedComicInfo = new PacketC2SRecommendedComicInfo();
-  PacketC2SComicDetailInfo c2SComicDetailInfo = new PacketC2SComicDetailInfo();
   PacketC2SNewCreatorInfo c2SNewCreatorInfo = new PacketC2SNewCreatorInfo();
   PacketC2SWeeklyCreatorInfo c2SWeeklyCreatorInfo = new PacketC2SWeeklyCreatorInfo();
   PacketC2SLibraryViewListComicInfo c2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
