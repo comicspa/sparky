@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'viewer.dart';
-import 'coming_soon.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'common_widgets.dart';
