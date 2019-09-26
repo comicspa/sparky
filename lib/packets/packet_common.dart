@@ -86,6 +86,9 @@ enum e_packet_type
   c2s_preset,
   s2c_preset,
 
+  c2s_localization_info,
+  s2c_localization_info,
+
 }
 
 

@@ -66,6 +66,8 @@ class ManageDeviceInfo
   {
     if(null == _locale)
       _locale = Localizations.localeOf(context);
+
+    print('getLocale - countryCode : ${_locale.countryCode} , languageCode : ${_locale.languageCode}');
   }
 
   static void firstInitialize(BuildContext context)
