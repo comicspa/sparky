@@ -59,6 +59,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       list1.add(modelFeaturedComicInfo);
     }
 
+
     ModelFeaturedComicInfo.list = list1;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

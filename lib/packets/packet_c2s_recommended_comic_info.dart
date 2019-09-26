@@ -29,6 +29,34 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
     _pageCountIndex = pageCountIndex;
   }
 
+  Future<List<ModelRecommendedComicInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelRecommendedComicInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SRecommendedComicInfo : fetchFireBaseDB started');
+
+    if(null != ModelRecommendedComicInfo.list)
+      return ModelRecommendedComicInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_recommended_comic_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SRecommendedComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelRecommendedComicInfo.list;
+
+    });
+
+    return null;
+  }
+
+
   Future<List<ModelRecommendedComicInfo>> fetchBytes() async
   {
     print('PacketC2SRecommendedComicInfo : fetchBytes started');

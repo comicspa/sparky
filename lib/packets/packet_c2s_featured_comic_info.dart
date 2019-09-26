@@ -46,8 +46,8 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     {
       print('[PacketC2SFeaturedComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
 
-      PacketS2CFeaturedComicInfo preset = new PacketS2CFeaturedComicInfo();
-      preset.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      PacketS2CFeaturedComicInfo packet = new PacketS2CFeaturedComicInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
 
       return ModelFeaturedComicInfo.list;
 

@@ -29,6 +29,33 @@ class PacketC2SNewCreatorInfo extends PacketC2SCommon
     //_pageCountIndex = pageCountIndex;
   }
 
+  Future<List<ModelNewCreatorInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelNewCreatorInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SNewCreatorInfo : fetchFireBaseDB started');
+
+    if(null != ModelNewCreatorInfo.list)
+      return ModelNewCreatorInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_new_creator_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SNewCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CNewCreatorInfo packet = new PacketS2CNewCreatorInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelNewCreatorInfo.list;
+
+    });
+
+    return null;
+  }
+
   Future<List<ModelNewCreatorInfo>> fetchBytes() async
   {
     print('PacketC2SNewCreatorInfo : fetchBytes started');

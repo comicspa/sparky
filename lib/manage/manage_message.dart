@@ -227,7 +227,7 @@ class ManageMessage
           PacketC2SLibraryRecentComicInfo packet = packetC2SCommon as PacketC2SLibraryRecentComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelLibraryRecentComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+          Stream<List<ModelLibraryRecentComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -252,7 +252,7 @@ class ManageMessage
           PacketC2SLibraryViewListComicInfo packet = packetC2SCommon as PacketC2SLibraryViewListComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelLibraryViewListComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+          Stream<List<ModelLibraryViewListComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -276,7 +276,7 @@ class ManageMessage
           PacketC2SLibraryOwnedComicInfo packet = packetC2SCommon as PacketC2SLibraryOwnedComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelLibraryOwnedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+          Stream<List<ModelLibraryOwnedComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -301,7 +301,7 @@ class ManageMessage
           PacketC2SLibraryContinueComicInfo packet = packetC2SCommon as PacketC2SLibraryContinueComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelLibraryContinueComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+          Stream<List<ModelLibraryContinueComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -499,7 +499,7 @@ class ManageMessage
                   PacketC2SLibraryRecentComicInfo packet = packetC2SCommon as PacketC2SLibraryRecentComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelLibraryRecentComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<List<ModelLibraryRecentComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -526,7 +526,7 @@ class ManageMessage
                   PacketC2SLibraryViewListComicInfo packet = packetC2SCommon as PacketC2SLibraryViewListComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelLibraryViewListComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<List<ModelLibraryViewListComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -552,7 +552,7 @@ class ManageMessage
                   PacketC2SLibraryOwnedComicInfo packet = packetC2SCommon as PacketC2SLibraryOwnedComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelLibraryOwnedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<List<ModelLibraryOwnedComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -579,7 +579,7 @@ class ManageMessage
                   PacketC2SLibraryContinueComicInfo packet = packetC2SCommon as PacketC2SLibraryContinueComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelLibraryContinueComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<List<ModelLibraryContinueComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -604,7 +604,7 @@ class ManageMessage
                   PacketC2SPresetComicInfo packet = packetC2SCommon as PacketC2SPresetComicInfo;
 
                   print("Creating a stream...");
-                  Stream<void> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {

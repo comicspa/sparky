@@ -29,6 +29,35 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
     _pageCountIndex = pageCountIndex;
   }
 
+
+  Future<List<ModelNewComicInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelNewComicInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SNewComicInfo : fetchFireBaseDB started');
+
+    if(null != ModelNewComicInfo.list)
+      return ModelNewComicInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_new_comic_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SNewComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CNewComicInfo packet = new PacketS2CNewComicInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelNewComicInfo.list;
+
+    });
+
+    return null;
+  }
+
+
   Future<List<ModelNewComicInfo>> fetchBytes() async
   {
     print('PacketC2SNewComicInfo : fetchBytes started');

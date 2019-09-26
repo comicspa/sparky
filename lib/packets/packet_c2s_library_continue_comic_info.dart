@@ -59,7 +59,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
   }
 
 
-  Future<List<ModelLibraryContinueComicInfo>> fetchBytes(onFetchDone) async
+  Future<List<ModelLibraryContinueComicInfo>> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SMyLockerComicContinue : fetchBytes started');
 

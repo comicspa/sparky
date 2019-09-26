@@ -29,6 +29,33 @@ class PacketC2SWeeklyCreatorInfo extends PacketC2SCommon
     //_pageCountIndex = pageCountIndex;
   }
 
+  Future<List<ModelWeeklyCreatorInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelWeeklyCreatorInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SWeeklyCreatorInfo : fetchFireBaseDB started');
+
+    if(null != ModelWeeklyCreatorInfo.list)
+      return ModelWeeklyCreatorInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_weekly_creator_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SWeeklyCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CWeeklyCreatorInfo packet = new PacketS2CWeeklyCreatorInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelWeeklyCreatorInfo.list;
+
+    });
+
+    return null;
+  }
+
   Future<List<ModelWeeklyCreatorInfo>> fetchBytes() async
   {
     print('PacketC2SWeeklyCreatorInfo : fetchBytes started');

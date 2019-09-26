@@ -29,6 +29,35 @@ class PacketC2STodayTrendComicInfo extends PacketC2SCommon
     _pageCountIndex = pageCountIndex;
   }
 
+
+  Future<List<ModelTodayTrendComicInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelTodayTrendComicInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2STodayTrendComicInfo : fetchFireBaseDB started');
+
+    if(null != ModelTodayTrendComicInfo.list)
+      return ModelTodayTrendComicInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_today_trend_comic_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2STodayTrendComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CTodayTrendComicInfo packet = new PacketS2CTodayTrendComicInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelTodayTrendComicInfo.list;
+
+    });
+
+    return null;
+  }
+
+
   Future<List<ModelTodayTrendComicInfo>> fetchBytes() async
   {
     print('PacketC2STodayPopularComicInfo : fetchBytes started');

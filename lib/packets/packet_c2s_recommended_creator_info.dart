@@ -29,6 +29,34 @@ class PacketC2SRecommendedCreatorInfo extends PacketC2SCommon
     //_pageCountIndex = pageCountIndex;
   }
 
+  Future<List<ModelRecommendedCreatorInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelRecommendedCreatorInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SRecommendedCreatorInfo : fetchFireBaseDB started');
+
+    if(null != ModelRecommendedCreatorInfo.list)
+      return ModelRecommendedCreatorInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_recommended_creator_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SRecommendedCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CRecommendedCreatorInfo packet = new PacketS2CRecommendedCreatorInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelRecommendedCreatorInfo.list;
+
+    });
+
+    return null;
+  }
+
+
   Future<List<ModelRecommendedCreatorInfo>> fetchBytes() async
   {
     print('PacketC2SRecommendedCreatorInfo : fetchBytes started');

@@ -13,6 +13,44 @@ class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
     type = e_packet_type.s2c_real_time_trend_comic_info;
   }
 
+  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  {
+    //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+
+    List<ModelRealTimeTrendComicInfo>  list = new List<ModelRealTimeTrendComicInfo>();
+    for(var key in jsonMap.keys)
+    {
+      print(key);
+      List<String> splitList = key.toString().split('_');
+      //String creatorId = splitList[0];
+      //String comicId = splitList[1];
+
+      var comicInfo = jsonMap[key];
+
+      ModelRealTimeTrendComicInfo modelRealTimeTrendComicInfo = new ModelRealTimeTrendComicInfo();
+
+      modelRealTimeTrendComicInfo.title = comicInfo['title'];
+      modelRealTimeTrendComicInfo.creatorName = comicInfo['creator_name'];
+      modelRealTimeTrendComicInfo.comicId = comicInfo['comic_id'];
+      modelRealTimeTrendComicInfo.userId = comicInfo['user_id'];
+      modelRealTimeTrendComicInfo.creatorId = comicInfo['creator_id'];
+
+      String url = await ModelPreset.getBannerImageDownloadUrl(modelRealTimeTrendComicInfo.userId, modelRealTimeTrendComicInfo.comicId);
+      modelRealTimeTrendComicInfo.url = url;
+      modelRealTimeTrendComicInfo.thumbnailUrl = url;
+      modelRealTimeTrendComicInfo.image = await ManageResource.fetchImage(url);
+
+      print(modelRealTimeTrendComicInfo.toString());
+
+      list.add(modelRealTimeTrendComicInfo);
+
+    }
+    ModelRealTimeTrendComicInfo.list = list;
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);

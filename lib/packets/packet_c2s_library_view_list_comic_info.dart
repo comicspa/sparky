@@ -56,7 +56,7 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
     return null;
   }
 
-  Future<List<ModelLibraryViewListComicInfo>> fetchBytes(onFetchDone) async
+  Future<List<ModelLibraryViewListComicInfo>> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SLibraryViewListComicInfo : fetchBytes started');
 

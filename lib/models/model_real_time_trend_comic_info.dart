@@ -10,6 +10,8 @@ class ModelRealTimeTrendComicInfo
   String _url;
   String _thumbnailUrl;
   ui.Image _image;
+  String _creatorName;
+  String _creatorId;
 
   String get comicId => _comicId;
   String get userId => _userId;
@@ -17,6 +19,8 @@ class ModelRealTimeTrendComicInfo
   String get url => _url;
   String get thumbnailUrl => _thumbnailUrl;
   ui.Image get image => _image;
+  String get creatorName => _creatorName;
+  String get creatorId => _creatorId;
 
   set comicId(String comicId)
   {
@@ -48,10 +52,20 @@ class ModelRealTimeTrendComicInfo
     _image = image;
   }
 
+  set creatorName(String creatorName)
+  {
+    _creatorName = creatorName;
+  }
+
+  set creatorId(String creatorId)
+  {
+    _creatorId = creatorId;
+  }
+
   @override
   String toString()
   {
-    return 'userId : $_userId , comicId : $_comicId , title : $_title , thumbnailUrl : $thumbnailUrl';
+    return 'title : $title , creatorName : $creatorName , comicId : $comicId, userId : $userId , creatorId : $creatorId , thumbnailUrl : $thumbnailUrl';
   }
 
   static List<ModelRealTimeTrendComicInfo> list;
