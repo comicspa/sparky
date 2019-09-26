@@ -676,16 +676,16 @@ class SaveToViewList extends StatefulWidget {
 class _SaveToViewListState extends State<SaveToViewList> {
   bool _saveToViewList = false;
   int _saveToViewListCount = 0;
-  bool _saved = false;
+  
 
   void _toggleSaveToViewList() {
   setState(() {
-    if (_saved) {
+    if (_saveToViewList) {
       _saveToViewListCount -= -1;
-      _saved = false;
+      _saveToViewList = false;
     } else {
       _saveToViewListCount += 1;
-      _saved = true;
+      _saveToViewList = true;
     }
   });
 }
