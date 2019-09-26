@@ -56,7 +56,7 @@ class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
     return null;
   }
 
-  Future<List<ModelRealTimeTrendComicInfo>> fetchBytes() async
+  Future<List<ModelRealTimeTrendComicInfo>> _fetchBytes() async
   {
     print('PacketC2SRealTimeTrendInfo : fetchBytes started');
 

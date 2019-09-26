@@ -58,7 +58,7 @@ class PacketC2STodayTrendComicInfo extends PacketC2SCommon
   }
 
 
-  Future<List<ModelTodayTrendComicInfo>> fetchBytes() async
+  Future<List<ModelTodayTrendComicInfo>> _fetchBytes() async
   {
     print('PacketC2STodayPopularComicInfo : fetchBytes started');
 

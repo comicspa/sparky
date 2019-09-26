@@ -56,7 +56,7 @@ class PacketC2SWeeklyCreatorInfo extends PacketC2SCommon
     return null;
   }
 
-  Future<List<ModelWeeklyCreatorInfo>> fetchBytes() async
+  Future<List<ModelWeeklyCreatorInfo>> _fetchBytes() async
   {
     print('PacketC2SWeeklyCreatorInfo : fetchBytes started');
 

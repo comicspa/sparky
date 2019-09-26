@@ -74,7 +74,7 @@ class ManageMessage
           PacketC2SFeaturedComicInfo packet = packetC2SCommon as PacketC2SFeaturedComicInfo;
 
           print("Creating a  stream...");
-          Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+          Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -101,7 +101,7 @@ class ManageMessage
           PacketC2SRecommendedComicInfo packet = packetC2SCommon as PacketC2SRecommendedComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelRecommendedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelRecommendedComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -127,7 +127,7 @@ class ManageMessage
           PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelRealTimeTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelRealTimeTrendComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -152,7 +152,7 @@ class ManageMessage
           PacketC2SNewComicInfo packet = packetC2SCommon as PacketC2SNewComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelNewComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelNewComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -177,7 +177,7 @@ class ManageMessage
           PacketC2STodayTrendComicInfo packet = packetC2SCommon as PacketC2STodayTrendComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelTodayTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelTodayTrendComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -202,7 +202,7 @@ class ManageMessage
           PacketC2SWeeklyTrendComicInfo packet = packetC2SCommon as PacketC2SWeeklyTrendComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelWeeklyTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelWeeklyTrendComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
           print("Created the stream");
 
           stream.listen((data) {
@@ -346,7 +346,7 @@ class ManageMessage
                   PacketC2SFeaturedComicInfo packet = packetC2SCommon as PacketC2SFeaturedComicInfo;
 
                   print("Creating a sample stream...");
-                  Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<List<ModelFeaturedComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -369,7 +369,7 @@ class ManageMessage
                   PacketC2SRecommendedComicInfo packet = packetC2SCommon as PacketC2SRecommendedComicInfo;
 
                   print("Creating a sample stream...");
-                  Stream<List<ModelRecommendedComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelRecommendedComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -391,7 +391,7 @@ class ManageMessage
                   PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelRealTimeTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelRealTimeTrendComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -418,7 +418,7 @@ class ManageMessage
                   PacketC2SNewComicInfo packet = packetC2SCommon as PacketC2SNewComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelNewComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelNewComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -445,7 +445,7 @@ class ManageMessage
                   PacketC2STodayTrendComicInfo packet = packetC2SCommon as PacketC2STodayTrendComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelTodayTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelTodayTrendComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -472,7 +472,7 @@ class ManageMessage
                   PacketC2SWeeklyTrendComicInfo packet = packetC2SCommon as PacketC2SWeeklyTrendComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelWeeklyTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelWeeklyTrendComicInfo>> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {

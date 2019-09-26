@@ -57,7 +57,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
   }
 
 
-  Future<List<ModelRecommendedComicInfo>> fetchBytes() async
+  Future<List<ModelRecommendedComicInfo>> _fetchBytes() async
   {
     print('PacketC2SRecommendedComicInfo : fetchBytes started');
 

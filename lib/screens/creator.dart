@@ -52,7 +52,7 @@ class _CreatorScreenState extends State<CreatorScreen> with WidgetsBindingObserv
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<List<ModelWeeklyCreatorInfo>>(
-                future: c2sWeeklyCreatorInfo.fetchBytes(),
+                future: c2sWeeklyCreatorInfo.fetch(null),
                 builder: (BuildContext context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -209,7 +209,7 @@ class _CreatorScreenState extends State<CreatorScreen> with WidgetsBindingObserv
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FutureBuilder<List<ModelNewCreatorInfo>>(
-                future: c2sNewCreatorInfo.fetchBytes(),
+                future: c2sNewCreatorInfo.fetch(null),
                 builder: (BuildContext context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
@@ -357,7 +357,7 @@ class _CreatorScreenState extends State<CreatorScreen> with WidgetsBindingObserv
               padding: const EdgeInsets.all(0.0),
               child: FutureBuilder<List<ModelWeeklyCreatorInfo>>(
                 //Todo need to change when Recommended Creator is ready
-                future: c2sWeeklyCreatorInfo2.fetchBytes(),
+                future: c2sWeeklyCreatorInfo2.fetch(null),
                 builder: (BuildContext context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:

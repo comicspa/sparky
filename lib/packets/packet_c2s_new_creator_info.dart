@@ -56,7 +56,7 @@ class PacketC2SNewCreatorInfo extends PacketC2SCommon
     return null;
   }
 
-  Future<List<ModelNewCreatorInfo>> fetchBytes() async
+  Future<List<ModelNewCreatorInfo>> _fetchBytes() async
   {
     print('PacketC2SNewCreatorInfo : fetchBytes started');
 

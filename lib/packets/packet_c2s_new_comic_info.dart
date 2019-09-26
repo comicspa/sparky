@@ -58,7 +58,7 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
   }
 
 
-  Future<List<ModelNewComicInfo>> fetchBytes() async
+  Future<List<ModelNewComicInfo>> _fetchBytes() async
   {
     print('PacketC2SNewComicInfo : fetchBytes started');
 

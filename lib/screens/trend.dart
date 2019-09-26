@@ -83,7 +83,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             child: Padding(
               padding: EdgeInsets.all(0.0),
               child: FutureBuilder<List<ModelFeaturedComicInfo>>(
-                future: c2sFeaturedComicInfo.fetchBytes(null),
+                future: c2sFeaturedComicInfo.fetch(null),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData)
                     return Center(child: LoadingIndicator());
@@ -171,7 +171,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelRecommendedComicInfo>>(
-              future: c2sRecommendedComicInfo.fetchBytes(),
+              future: c2sRecommendedComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return new LoadingIndicator();
                 {
@@ -197,7 +197,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelRealTimeTrendComicInfo>>(
-              future: c2sRealTimeTrendInfo.fetchBytes(),
+              future: c2sRealTimeTrendInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
                   return Center(
@@ -234,7 +234,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelNewComicInfo>>(
-              future: c2sNewComicInfo.fetchBytes(),
+              future: c2sNewComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
@@ -260,7 +260,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelTodayTrendComicInfo>>(
-              future: c2STodayTrendComicInfo.fetchBytes(),
+              future: c2STodayTrendComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
@@ -286,7 +286,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelWeeklyTrendComicInfo>>(
-              future: c2sWeeklyTrendComicInfo.fetchBytes(),
+              future: c2sWeeklyTrendComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {

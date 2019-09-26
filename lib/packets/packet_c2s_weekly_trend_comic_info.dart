@@ -56,7 +56,7 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
     return null;
   }
 
-  Future<List<ModelWeeklyTrendComicInfo>> fetchBytes() async
+  Future<List<ModelWeeklyTrendComicInfo>> _fetchBytes() async
   {
     print('PacketC2SWeeklyPopularComicInfo : fetchBytes started');
 

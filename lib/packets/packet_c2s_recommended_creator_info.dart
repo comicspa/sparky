@@ -57,7 +57,7 @@ class PacketC2SRecommendedCreatorInfo extends PacketC2SCommon
   }
 
 
-  Future<List<ModelRecommendedCreatorInfo>> fetchBytes() async
+  Future<List<ModelRecommendedCreatorInfo>> _fetchBytes() async
   {
     print('PacketC2SRecommendedCreatorInfo : fetchBytes started');
 
