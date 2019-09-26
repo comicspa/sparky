@@ -2,7 +2,7 @@
 import 'dart:ui' as ui;
 
 
-class ModelRealTimeTrendInfo
+class ModelRealTimeTrendComicInfo
 {
   String _comicId;
   String _userId;
@@ -54,6 +54,6 @@ class ModelRealTimeTrendInfo
     return 'userId : $_userId , comicId : $_comicId , title : $_title , thumbnailUrl : $thumbnailUrl';
   }
 
-  static List<ModelRealTimeTrendInfo> list;
+  static List<ModelRealTimeTrendComicInfo> list;
 
 }

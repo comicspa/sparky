@@ -2,13 +2,13 @@ import 'dart:typed_data';
 
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
-import 'package:sparky/models/model_real_time_trend_info.dart';
+import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/manage/manage_resource.dart';
 
-class PacketS2CRealTimeTrendInfo extends PacketS2CCommon
+class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
 {
-  PacketS2CRealTimeTrendInfo()
+  PacketS2CRealTimeTrendComicInfo()
   {
     type = e_packet_type.s2c_real_time_trend_info;
   }
@@ -26,10 +26,10 @@ class PacketS2CRealTimeTrendInfo extends PacketS2CCommon
     print('modelRealTimeTrendInfoCount : $modelRealTimeTrendInfoCount');
 
 
-    List<ModelRealTimeTrendInfo> list = new List<ModelRealTimeTrendInfo>();
+    List<ModelRealTimeTrendComicInfo> list = new List<ModelRealTimeTrendComicInfo>();
     for(int countIndex=0; countIndex<modelRealTimeTrendInfoCount; ++countIndex)
     {
-      ModelRealTimeTrendInfo modelRealTimeTrendInfo = new ModelRealTimeTrendInfo();
+      ModelRealTimeTrendComicInfo modelRealTimeTrendInfo = new ModelRealTimeTrendComicInfo();
 
       modelRealTimeTrendInfo.userId = readStringToByteBuffer();
       modelRealTimeTrendInfo.comicId = readStringToByteBuffer();
@@ -46,6 +46,6 @@ class PacketS2CRealTimeTrendInfo extends PacketS2CCommon
       list.add(modelRealTimeTrendInfo);
     }
 
-    ModelRealTimeTrendInfo.list = list;
+    ModelRealTimeTrendComicInfo.list = list;
   }
 }

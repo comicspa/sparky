@@ -10,8 +10,8 @@ import 'package:sparky/models/model_recommended_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_new_comic_info.dart';
-import 'package:sparky/models/model_real_time_trend_info.dart';
-import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
+import 'package:sparky/models/model_real_time_trend_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'detail_page.dart';
@@ -30,8 +30,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
   PacketC2SRecommendedComicInfo c2sRecommendedComicInfo =
       new PacketC2SRecommendedComicInfo();
   PacketC2SNewComicInfo c2sNewComicInfo = new PacketC2SNewComicInfo();
-  PacketC2SRealTimeTrendInfo c2sRealTimeTrendInfo =
-      new PacketC2SRealTimeTrendInfo();
+  PacketC2SRealTimeTrendComicInfo c2sRealTimeTrendInfo =
+      new PacketC2SRealTimeTrendComicInfo();
   PacketC2SWeeklyTrendComicInfo c2sWeeklyTrendComicInfo =
       new PacketC2SWeeklyTrendComicInfo();
 
@@ -196,7 +196,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           Container(
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
-            child: FutureBuilder<List<ModelRealTimeTrendInfo>>(
+            child: FutureBuilder<List<ModelRealTimeTrendComicInfo>>(
               future: c2sRealTimeTrendInfo.fetchBytes(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)

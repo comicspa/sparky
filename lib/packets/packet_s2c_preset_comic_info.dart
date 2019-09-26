@@ -7,7 +7,7 @@ import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';
 import 'package:sparky/models/model_recommended_comic_info.dart';
-import 'package:sparky/models/model_real_time_trend_info.dart';
+import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
@@ -94,10 +94,10 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
     print('modelRealTimeTrendInfoCount : $modelRealTimeTrendInfoCount');
 
 
-    List<ModelRealTimeTrendInfo> list3 = new List<ModelRealTimeTrendInfo>();
+    List<ModelRealTimeTrendComicInfo> list3 = new List<ModelRealTimeTrendComicInfo>();
     for(int countIndex=0; countIndex<modelRealTimeTrendInfoCount; ++countIndex)
     {
-      ModelRealTimeTrendInfo modelRealTimeTrendInfo = new ModelRealTimeTrendInfo();
+      ModelRealTimeTrendComicInfo modelRealTimeTrendInfo = new ModelRealTimeTrendComicInfo();
 
       modelRealTimeTrendInfo.userId = readStringToByteBuffer();
       modelRealTimeTrendInfo.comicId = readStringToByteBuffer();
@@ -114,7 +114,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       list3.add(modelRealTimeTrendInfo);
     }
 
-    ModelRealTimeTrendInfo.list = list3;
+    ModelRealTimeTrendComicInfo.list = list3;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

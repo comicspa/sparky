@@ -7,7 +7,7 @@ import 'package:sparky/models/model_library_recent_comic_info.dart';
 import 'package:sparky/models/model_library_view_list_comic_info.dart';
 import 'package:sparky/models/model_recommended_comic_info.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
-import 'package:sparky/models/model_real_time_trend_info.dart';
+import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 
@@ -16,7 +16,7 @@ import "package:sparky/packets/packet_c2s_common.dart";
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
-import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
+import 'package:sparky/packets/packet_c2s_real_time_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_new_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
@@ -124,10 +124,10 @@ class ManageMessage
 
       case e_packet_type.c2s_real_time_trend_info:
         {
-          PacketC2SRealTimeTrendInfo packet = packetC2SCommon as PacketC2SRealTimeTrendInfo;
+          PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
 
           print("Creating a stream...");
-          Stream<List<ModelRealTimeTrendInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+          Stream<List<ModelRealTimeTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
           print("Created the stream");
 
           stream.listen((data) {
@@ -388,10 +388,10 @@ class ManageMessage
 
               case e_packet_type.c2s_real_time_trend_info:
                 {
-                  PacketC2SRealTimeTrendInfo packet = packetC2SCommon as PacketC2SRealTimeTrendInfo;
+                  PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
 
                   print("Creating a stream...");
-                  Stream<List<ModelRealTimeTrendInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
+                  Stream<List<ModelRealTimeTrendComicInfo>> stream = new Stream.fromFuture(packet.fetchBytes());
                   print("Created the stream");
 
                   stream.listen((data) {

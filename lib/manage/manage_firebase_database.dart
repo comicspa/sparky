@@ -117,61 +117,47 @@ class ManageFirebaseDatabase
 
   static void set()
   {
-    DatabaseReference modelUserInfoReference = reference.child('model_view_comic_info');
+    DatabaseReference modelUserInfoReference = reference.child('model_weekly_creator_info');
 
-    modelUserInfoReference.child('1566811443000_000001_00001').set({
-      'count': '1',
-      'style': '0',
-      'title': 'sample1',
+    modelUserInfoReference.child('1566811403000_000001').set({
+      'comic_id': '000001',
+      'creator_id': '1566811403000',
+      'creator_name': '묵검향',
+      'title':'아비향',
+      'user_id':'1566811403000',
     }).then((_) {
       // ...
     });
 
-    modelUserInfoReference.child('1566811443000_000001_00002').set({
-      'count': '6',
-      'style': '0',
-      'title': 'sample2',
+    modelUserInfoReference.child('1566811403000_000002').set({
+      'comic_id': '000002',
+      'creator_id': '1566811403000',
+      'creator_name': '묵검향',
+      'title':'반야',
+      'user_id':'1566811403000',
     }).then((_) {
       // ...
     });
 
-    modelUserInfoReference.child('1566811443000_000001_00003').set({
-      'count': '5',
-      'style': '0',
-      'title': 'sample3',
+    modelUserInfoReference.child('1566811403000_000003').set({
+      'comic_id': '000003',
+      'creator_id': '1566811403000',
+      'creator_name': '묵검향',
+      'title':'개구쟁이',
+      'user_id':'1566811403000',
     }).then((_) {
       // ...
     });
 
-    modelUserInfoReference.child('1566811443000_000001_00004').set({
-      'count': '5',
-      'style': '0',
-      'title': 'sample4',
+    modelUserInfoReference.child('1566811443000_000001').set({
+      'comic_id': '000001',
+      'creator_id': '1566811443000',
+      'creator_name': 'sample',
+      'title':'sample',
+      'user_id':'1566811443000',
     }).then((_) {
       // ...
     });
-
-
-    modelUserInfoReference.child('1566811443000_000001_00005').set({
-      'count': '6',
-      'style': '0',
-      'title': 'sample5',
-    }).then((_) {
-      // ...
-    });
-
-
-    modelUserInfoReference.child('1566811443000_000001_00006').set({
-      'count': '8',
-      'style': '0',
-      'title': 'sample6',
-    }).then((_) {
-      // ...
-    });
-
-
-
-
 
 
 

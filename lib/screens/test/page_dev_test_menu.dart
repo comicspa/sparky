@@ -10,7 +10,7 @@ import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
 import 'package:sparky/packets/packet_c2s_new_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
-import 'package:sparky/packets/packet_c2s_real_time_trend_info.dart';
+import 'package:sparky/packets/packet_c2s_real_time_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_new_creator_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_creator_info.dart';
