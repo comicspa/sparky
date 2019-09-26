@@ -133,6 +133,20 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
             },
           ),
 
+          ListTile(
+            title: Text('Language Selector'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestPacket(),
+                ),
+              );
+
+            },
+          ),
+
         ], ).toList(), ); }
 
 }

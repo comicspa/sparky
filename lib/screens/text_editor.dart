@@ -359,7 +359,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                     ),
                   ],
                 ),
-                Row(
+                Row( //Todo need to apply fully functional Language Selector
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
@@ -374,7 +374,12 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return BuildAlertDialog(null);
+                                  return Material(
+                                    child: SizedBox(
+                                      width: ManageDeviceInfo.resolutionWidth * 0.1,
+                                      child: _simplePopup(),
+                                    ),
+                                  );
                                 },
                               );
                             
@@ -410,6 +415,21 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
       painter: new PaintingImage(),
     );
   }
+
+   Widget _simplePopup() => PopupMenuButton<int>(
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: 1,
+            child: Text('Kor'),
+          ),
+          PopupMenuItem(
+            value: 2,
+            child: Text('Eng'),
+          ),
+          
+        ],
+      );
+
 }
 
 class PaintingImage extends CustomPainter {
