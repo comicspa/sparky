@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:sparky/manage/manage_device_info.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
 import 'viewer.dart';
 
 import 'package:sparky/models/model_comic_detail_info.dart';
@@ -32,12 +33,16 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   _DetailPageState(this._userId, this._comicId);
 
   PacketC2SComicDetailInfo c2sComicDetailInfo = new PacketC2SComicDetailInfo();
+  // PacketC2SCommon ddd = new PacketC2SComicDetailInfo();
 
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     // generating packet
+    // (ddd as PacketC2SComicDetailInfo).fetch(null);
+    // c2sComicDetailInfo.fetch(null);
+
 
     init();
   }
