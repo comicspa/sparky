@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:auto_size_text/auto_size_text.dart';
@@ -270,6 +271,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                 Row( //Todo need to apply fully functional Language Selector
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    
                     Padding(
                       padding: EdgeInsets.all(
                           ManageDeviceInfo.resolutionHeight * 0.004),
@@ -277,9 +279,10 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                         height: ManageDeviceInfo.resolutionHeight * 0.035,
                         child: RaisedButton(
                           shape: StadiumBorder(),
-                          onPressed: () {                          
+                          onPressed: () { 
+                                                     
                               
-                              showDialog(
+                              showCupertinoModalPopup(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Material(
