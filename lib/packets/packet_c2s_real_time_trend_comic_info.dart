@@ -8,6 +8,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_real_time_trend_comic_info.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 
@@ -18,7 +20,7 @@ class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
 
   PacketC2SRealTimeTrendComicInfo()
   {
-    type = e_packet_type.c2s_real_time_trend_info;
+    type = e_packet_type.c2s_real_time_trend_comic_info;
   }
 
   void generate(int pageViewCount,int pageCountIndex)

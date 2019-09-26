@@ -10,7 +10,7 @@ class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
 {
   PacketS2CRealTimeTrendComicInfo()
   {
-    type = e_packet_type.s2c_real_time_trend_info;
+    type = e_packet_type.s2c_real_time_trend_comic_info;
   }
 
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async

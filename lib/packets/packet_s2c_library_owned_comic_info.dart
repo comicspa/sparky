@@ -15,6 +15,44 @@ class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
     type = e_packet_type.s2c_library_owned_comic_info;
   }
 
+  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  {
+    //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+
+    List<ModelLibraryOwnedComicInfo>  list = new List<ModelLibraryOwnedComicInfo>();
+    for(var key in jsonMap.keys)
+    {
+      print(key);
+      List<String> splitList = key.toString().split('_');
+      //String creatorId = splitList[0];
+      //String comicId = splitList[1];
+
+      var comicInfo = jsonMap[key];
+
+      ModelLibraryOwnedComicInfo modelLibraryOwnedComicInfo = new ModelLibraryOwnedComicInfo();
+
+      modelLibraryOwnedComicInfo.title = comicInfo['title'];
+      modelLibraryOwnedComicInfo.creatorName = comicInfo['creator_name'];
+      modelLibraryOwnedComicInfo.comicId = comicInfo['comic_id'];
+      modelLibraryOwnedComicInfo.userId = comicInfo['user_id'];
+      modelLibraryOwnedComicInfo.creatorId = comicInfo['creator_id'];
+
+      String url = await ModelPreset.getBannerImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
+      modelLibraryOwnedComicInfo.url = url;
+      modelLibraryOwnedComicInfo.thumbnailUrl = url;
+      modelLibraryOwnedComicInfo.image = await ManageResource.fetchImage(url);
+
+      print(modelLibraryOwnedComicInfo.toString());
+
+      list.add(modelLibraryOwnedComicInfo);
+
+    }
+    ModelLibraryOwnedComicInfo.list = list;
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
 
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize,onFetchDone) async
   {

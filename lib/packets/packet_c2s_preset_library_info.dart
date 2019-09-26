@@ -7,13 +7,25 @@ import 'package:flutter/services.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_preset_library_info.dart';
-
+import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_recent_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_view_list_comic_info.dart';
+import 'package:sparky/manage/manage_message.dart';
 
 
 
 class PacketC2SPresetLibraryInfo extends PacketC2SCommon
 {
+  int _count = 0;
+
+  PacketC2SLibraryContinueComicInfo _packetC2SLibraryContinueComicInfo = new PacketC2SLibraryContinueComicInfo();
+  PacketC2SLibraryOwnedComicInfo _packetC2SLibraryOwnedComicInfo = new PacketC2SLibraryOwnedComicInfo();
+  PacketC2SLibraryRecentComicInfo _packetC2SLibraryRecentComicInfo = new  PacketC2SLibraryRecentComicInfo();
+  PacketC2SLibraryViewListComicInfo _packetC2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
+
   PacketC2SPresetLibraryInfo()
   {
     type = e_packet_type.c2s_preset_library_info;
@@ -21,10 +33,67 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
 
   void generate()
   {
+    _packetC2SLibraryContinueComicInfo.generate();
+    _packetC2SLibraryOwnedComicInfo.generate();
+    _packetC2SLibraryRecentComicInfo.generate();
+    _packetC2SLibraryViewListComicInfo.generate();
+  }
+
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    print('[PacketC2SPresetLibraryInfo] : onFetchDone - $_count');
+
+    switch(_count)
+    {
+      case 0:
+        {
+          _count = 1;
+          _packetC2SLibraryOwnedComicInfo.fetch(_onFetchDone);
+        }
+        break;
+
+      case 1:
+        {
+          _count = 2;
+          _packetC2SLibraryRecentComicInfo.fetch(_onFetchDone);
+        }
+        break;
+
+      case 2:
+        {
+          _count = 3;
+          _packetC2SLibraryViewListComicInfo.fetch(_onFetchDone);
+        }
+        break;
+
+      case 3:
+        {
+          ManageMessage.streamController.add(e_packet_type.s2c_preset_library_info);
+        }
+        break;
+
+      default:
+        break;
+
+    }
 
   }
 
-  Future<void> fetchBytes(onFetchDone) async
+  Future<void> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+
+  Future<void> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SPresetLibraryInfo : fetchFireBaseDB started');
+    _packetC2SLibraryContinueComicInfo.fetch(_onFetchDone);
+    return null;
+  }
+
+
+  Future<void> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SPresetComicInfo : fetchBytes started');
 

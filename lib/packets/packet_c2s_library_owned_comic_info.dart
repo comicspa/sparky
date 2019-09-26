@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -10,6 +8,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_library_owned_comic_info.dart';
 import 'package:sparky/models/model_library_owned_comic_info.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
 {
@@ -27,9 +27,37 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
     //_pageCountIndex = pageCountIndex;
   }
 
+  Future<List<ModelLibraryOwnedComicInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelLibraryOwnedComicInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SLibraryOwnedComicInfo : fetchFireBaseDB started');
+
+    if(null != ModelLibraryOwnedComicInfo.list)
+      return ModelLibraryOwnedComicInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_library_owned_comic_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SLibraryOwnedComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CLibraryOwnedComicInfo packet = new PacketS2CLibraryOwnedComicInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelLibraryOwnedComicInfo.list;
+
+    });
+
+    return null;
+  }
+
+
   Future<List<ModelLibraryOwnedComicInfo>> fetchBytes(onFetchDone) async
   {
-    print('PacketC2SMyLockerComicOwned : fetchBytes started');
+    print('PacketC2SLibraryOwnedComicInfo : fetchBytes started');
 
     if(null != ModelLibraryOwnedComicInfo.list)
       return ModelLibraryOwnedComicInfo.list;

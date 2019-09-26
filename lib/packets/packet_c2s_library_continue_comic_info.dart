@@ -10,7 +10,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_library_continue_comic_info.dart';
 import 'package:sparky/models/model_library_continue_comic_info.dart';
-
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
@@ -28,6 +29,35 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
   }
+
+
+  Future<List<ModelLibraryContinueComicInfo>> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<List<ModelLibraryContinueComicInfo>> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SLibraryContinueComicInfo : fetchFireBaseDB started');
+
+    if(null != ModelLibraryContinueComicInfo.list)
+      return ModelLibraryContinueComicInfo.list;
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_library_continue_comic_info');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CLibraryContinueComicInfo packet = new PacketS2CLibraryContinueComicInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelLibraryContinueComicInfo.list;
+
+    });
+
+    return null;
+  }
+
 
   Future<List<ModelLibraryContinueComicInfo>> fetchBytes(onFetchDone) async
   {

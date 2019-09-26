@@ -122,7 +122,7 @@ class ManageMessage
         }
         break;
 
-      case e_packet_type.c2s_real_time_trend_info:
+      case e_packet_type.c2s_real_time_trend_comic_info:
         {
           PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
 
@@ -386,7 +386,7 @@ class ManageMessage
                 }
                 break;
 
-              case e_packet_type.c2s_real_time_trend_info:
+              case e_packet_type.c2s_real_time_trend_comic_info:
                 {
                   PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
 
@@ -629,7 +629,7 @@ class ManageMessage
                   PacketC2SPresetLibraryInfo packet = packetC2SCommon as PacketC2SPresetLibraryInfo;
 
                   print("Creating a stream...");
-                  Stream<void> stream = new Stream.fromFuture(packet.fetchBytes(_onFetchDone));
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   print("Created the stream");
 
                   stream.listen((data) {
