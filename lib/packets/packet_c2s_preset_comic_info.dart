@@ -88,6 +88,7 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
       case 5:
         {
           ManageMessage.streamController.add(e_packet_type.s2c_preset_comic_info);
+          print('<------------------------------------------------- 1 -------------------------------------------------------');
         }
         break;
 
@@ -106,6 +107,7 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
 
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
+    print('------------------------------------------------- 1 ------------------------------------------------------->');
     print('PacketC2SPresetComicInfo : fetchFireBaseDB started');
     _packetC2SFeaturedComicInfo.fetch(_onFetchDone);
     return null;
