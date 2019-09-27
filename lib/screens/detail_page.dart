@@ -148,8 +148,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4.0),
                         child: CachedNetworkImage(
-                          imageUrl: ModelComicDetailInfo.getInstance()
-                              .representationImageUrl,
+                          imageUrl: ModelComicDetailInfo.getInstance().representationImageUrl,
                           width: ManageDeviceInfo.resolutionWidth * 0.375,
                           height: ManageDeviceInfo.resolutionWidth * 0.375,
                           fit: BoxFit.fill,
@@ -366,9 +365,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                           0.0),
                       child: SizedBox(
                         width: ManageDeviceInfo.resolutionWidth * 0.8,
-                        child: ModelComicDetailInfo.getInstance()
-                                    .modelComicInfoList ==
-                                null
+                        child: ModelComicDetailInfo.getInstance().modelComicInfoList == null
                             ? Text(
                                 'Episodes( 0 )',
                                 maxLines: 1,
@@ -390,8 +387,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                 style: TextStyle(
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      ManageDeviceInfo.resolutionHeight * 0.021,
+                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.021,
                                   color: Colors.black87,
                                 ),
                               ),
@@ -450,17 +446,14 @@ class EpisodeListViewWidget extends StatelessWidget {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
-          itemCount: ModelComicDetailInfo.getInstance()
-              .modelComicInfoList
-              .length,
+          itemCount: ModelComicDetailInfo.getInstance().modelComicInfoList.length,
           itemBuilder: (context, index) {
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(
-                      left: ManageDeviceInfo.resolutionWidth *
-                          0.05),
+
+                  padding: EdgeInsets.all(ManageDeviceInfo.resolutionWidth * 0.02),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -483,25 +476,17 @@ class EpisodeListViewWidget extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.circular(4.0),
                             child: CachedNetworkImage(
-                              imageUrl: ModelComicDetailInfo
-                                      .getInstance()
-                                  .modelComicInfoList[index]
-                                  .thumbnailImageUrl,
-                              placeholder: (context, url) =>
-                                  LoadingIndicator(),
-                              width: ManageDeviceInfo
-                                      .resolutionWidth *
-                                  0.26,
-                              height: ManageDeviceInfo
-                                      .resolutionHeight *
-                                  0.16,
+                              imageUrl: ModelComicDetailInfo.getInstance().modelComicInfoList[index].thumbnailImageUrl,
+                              placeholder: (context, url) => LoadingIndicator(),
+                              width: ManageDeviceInfo.resolutionWidth * 0.26,
+                              height: ManageDeviceInfo.resolutionHeight * 0.16,
                               fit: BoxFit.fill,
                             ),
                           ),
                         ),
                       ),
                       Flexible(
-                        flex: 6,
+                        flex: 7,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -518,9 +503,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                             color: Colors.transparent,
                             child: SizedBox(
                               width: ManageDeviceInfo.resolutionWidth * 0.5,
-                              height: ManageDeviceInfo
-                                      .resolutionHeight *
-                                  0.16,
+                              height: ManageDeviceInfo.resolutionHeight * 0.16,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.center,
@@ -529,22 +512,16 @@ class EpisodeListViewWidget extends StatelessWidget {
                                     alignment:
                                         Alignment.bottomLeft,
                                     padding: EdgeInsets.only(
-                                        left: ManageDeviceInfo
-                                                .resolutionWidth *
-                                            0.04),
+                                        left: ManageDeviceInfo.resolutionWidth * 0.04),
                                     child: Text(
                                         '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].episode}화',
                                         maxLines: 2,
-                                        overflow:
-                                            TextOverflow.ellipsis,
+                                        overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontFamily: 'Lato',
-                                          fontWeight:
-                                              FontWeight.normal,
-                                          fontSize: ManageDeviceInfo
-                                                  .resolutionHeight *
-                                              0.025,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
                                           color: Colors.black87,
                                         )),
                                   ),
@@ -552,22 +529,16 @@ class EpisodeListViewWidget extends StatelessWidget {
                                     alignment:
                                         Alignment.bottomLeft,
                                     padding: EdgeInsets.only(
-                                        left: ManageDeviceInfo
-                                                .resolutionWidth *
-                                            0.04),
+                                        left: ManageDeviceInfo.resolutionWidth * 0.04),
                                     child: Text(
                                         '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].subTitleName}',
                                         maxLines: 2,
-                                        overflow:
-                                            TextOverflow.ellipsis,
+                                        overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontFamily: 'Lato',
-                                          fontWeight:
-                                              FontWeight.normal,
-                                          fontSize: ManageDeviceInfo
-                                                  .resolutionHeight *
-                                              0.02,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: ManageDeviceInfo.resolutionHeight * 0.02,
                                           color: Colors.black87,
                                         )),
                                   ),
@@ -577,8 +548,26 @@ class EpisodeListViewWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Spacer(
+                      
+                      Flexible(
                         flex: 1,
+                        child: Container(
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.timer,
+                              color: Colors.black87
+                            ),
+                          onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder:
+                                    (BuildContext context) {
+                                  return BuildAlertDialog(null);
+                                },
+                              );
+                            },
+                          ),
+                        )
                       ),
                       Flexible(
                         flex: 2,
