@@ -185,7 +185,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                     color: Colors.white70,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  height: ManageDeviceInfo.resolutionHeight * 0.25,
+                  height: ManageDeviceInfo.resolutionHeight * 0.3,
                   child: TextFormField(
                     controller: textController,
                     textInputAction: TextInputAction.newline,
@@ -268,39 +268,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
                     ),
                   ],
                 ),
-                Row( //Todo need to apply fully functional Language Selector
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    
-                    Padding(
-                      padding: EdgeInsets.all(
-                          ManageDeviceInfo.resolutionHeight * 0.004),
-                      child: SizedBox(
-                        height: ManageDeviceInfo.resolutionHeight * 0.035,
-                        child: RaisedButton(
-                          shape: StadiumBorder(),
-                          onPressed: () { 
-                                                     
-                              
-                              showCupertinoModalPopup(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Material(
-                                    child: SizedBox(
-                                      width: ManageDeviceInfo.resolutionWidth * 0.1,
-                                      child: _simplePopup(),
-                                    ),
-                                  );
-                                },
-                              );
-                            
-                          },
-                          child: Text('Language'),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
+                
               ],
             ),
           ),
