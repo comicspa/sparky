@@ -34,6 +34,8 @@ import 'package:sparky/screens/test/page_dev_test_tflite.dart';
 import 'package:sparky/screens/test/page_dev_test_account.dart';
 import 'package:sparky/screens/test/page_dev_test_toast_message.dart';
 import 'package:sparky/screens/test/page_dev_test_packet.dart';
+import 'package:sparky/screens/test/page_dev_test_view_image.dart';
+
 
 
 class PageDevTestMenu extends StatefulWidget
@@ -141,6 +143,20 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
                 context,
                 MaterialPageRoute(
                   builder: (context) => PageDevTestPacket(),
+                ),
+              );
+
+            },
+          ),
+
+          ListTile(
+            title: Text('View Image'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestViewImage(),
                 ),
               );
 
