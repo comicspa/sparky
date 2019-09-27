@@ -97,8 +97,8 @@ class _NotificationScreenState extends State<NotificationScreen>  with WidgetsBi
                 child: CircleAvatar(
                   radius: ManageDeviceInfo.resolutionWidth * 0.05,
                   child: Image(
-                    image: AssetImage(
-                      'images/catHouse.jpg', //Todo make NetworkAsset later
+                    image: AssetImage('images/Comi.png'
+                       //Todo make NetworkAsset later
                     ),
                     fit: BoxFit.cover,
                   ),
