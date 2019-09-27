@@ -69,6 +69,7 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
       case 3:
         {
           ManageMessage.streamController.add(e_packet_type.s2c_preset_library_info);
+          print('<------------------------------------------------- 2 -------------------------------------------------------');
         }
         break;
 
@@ -87,6 +88,7 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
 
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
+    print('------------------------------------------------- 2 ------------------------------------------------------->');
     print('PacketC2SPresetLibraryInfo : fetchFireBaseDB started');
     _packetC2SLibraryContinueComicInfo.fetch(_onFetchDone);
     return null;

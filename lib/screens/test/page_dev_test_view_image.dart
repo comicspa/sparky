@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
 
 class PageDevTestViewImage extends StatelessWidget {
-  
+
+  String _url1 = '';
+  String _url2 = '';
+  String _url3 = '';
+  String _url4 = '';
+  String _url5 = '';
+
+  void _init()
+  {
+    //test webp
+    _url1 = 'https://firebasestorage.googleapis.com/v0/b/enhanced-grid-251003.appspot.com/o/test%2F01.webp?alt=media&token=6158f23e-2ca0-4fb6-ad68-8bba31cb8d2f';
+    _url2 = 'https://firebasestorage.googleapis.com/v0/b/enhanced-grid-251003.appspot.com/o/test%2F02.webp?alt=media&token=0e3e7198-3485-41e3-b99e-cdea4132c6b5';
+    _url3 = 'https://firebasestorage.googleapis.com/v0/b/enhanced-grid-251003.appspot.com/o/test%2F03.webp?alt=media&token=5eb98a59-754b-4a74-8d60-0b2a3a210d77';
+    _url4 = 'https://firebasestorage.googleapis.com/v0/b/enhanced-grid-251003.appspot.com/o/test%2F04.webp?alt=media&token=8130cdad-785f-4d7d-b587-b68dd9d9d1df';
+    _url5 = 'https://firebasestorage.googleapis.com/v0/b/enhanced-grid-251003.appspot.com/o/test%2F05.webp?alt=media&token=4ace6bc9-5203-4859-a4fa-15ccab106998';
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    _init();
+
     return new Material(
         child: new Container(
             child: new SingleChildScrollView(
@@ -20,24 +39,19 @@ class PageDevTestViewImage extends StatelessWidget {
                       ),
                     ),
                     new Image.network(
-                      //'https://s3.ap-northeast-2.amazonaws.com/test.webtoon/01.jpg',
-                      'https://firebasestorage.googleapis.com/v0/b/comicspa-248608.appspot.com/o/comics%2F01.jpg?alt=media&token=b86e5d83-cca9-4e7e-81b2-089770127c01',
+                      _url1,
                     ),
                     new Image.network(
-                      //'https://s3.ap-northeast-2.amazonaws.com/test.webtoon/02.jpg',
-                      'https://firebasestorage.googleapis.com/v0/b/comicspa-248608.appspot.com/o/comics%2F02.jpg?alt=media&token=0d8d28e6-d60f-4bc8-ac43-9b764584e749',
+                      _url2,
                     ),
                     new Image.network(
-                      //'https://s3.ap-northeast-2.amazonaws.com/test.webtoon/03.jpg',
-                      'https://firebasestorage.googleapis.com/v0/b/comicspa-248608.appspot.com/o/comics%2F03.jpg?alt=media&token=9999f53e-5f0c-46e7-bf42-f4f3087518db',
+                      _url3,
                     ),
                     new Image.network(
-                      //'https://s3.ap-northeast-2.amazonaws.com/test.webtoon/04.jpg',
-                      'https://firebasestorage.googleapis.com/v0/b/comicspa-248608.appspot.com/o/comics%2F04.jpg?alt=media&token=92afec09-e153-48fb-81a8-37e2f70fcb37',
+                      _url4,
                     ),
                     new Image.network(
-                      //'https://s3.ap-northeast-2.amazonaws.com/test.webtoon/05.jpg',
-                      'https://firebasestorage.googleapis.com/v0/b/comicspa-248608.appspot.com/o/comics%2F05.jpg?alt=media&token=fe05a361-eec5-418a-b8ec-7bdb74d7ac7f',
+                      _url5,
                     ),
                   ]),
                 ))));

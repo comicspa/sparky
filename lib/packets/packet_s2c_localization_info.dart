@@ -17,6 +17,10 @@ class PacketS2CLocalizationInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     ModelLocalizationInfo.languagePack = jsonMap;
+
+    //String name = ModelLocalizationInfo.getText('test','name');
+    //print('name : $name');
+
     if(null != onFetchDone)
       onFetchDone(this);
   }

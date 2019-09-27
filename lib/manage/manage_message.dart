@@ -26,6 +26,7 @@ import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_preset_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
+import 'package:sparky/packets/packet_c2s_localization_info.dart';
 
 class ManageMessage
 {
@@ -604,7 +605,7 @@ class ManageMessage
                   PacketC2SPresetComicInfo packet = packetC2SCommon as PacketC2SPresetComicInfo;
 
                   print("Creating a stream...");
-                  Stream<void> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(null));
                   print("Created the stream");
 
                   stream.listen((data) {
@@ -612,8 +613,6 @@ class ManageMessage
                     print('DataReceived');
                   }, onDone: () {
                     print("Task Done");
-
-                    //__streamController.add(packetC2SCommon.type);
 
                   }, onError: (error) {
                     print("Some Error");
@@ -628,17 +627,15 @@ class ManageMessage
                 {
                   PacketC2SPresetLibraryInfo packet = packetC2SCommon as PacketC2SPresetLibraryInfo;
 
-                  print("Creating a stream...");
-                  Stream<void> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
-                  print("Created the stream");
+                 // print("Creating a stream...");
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(null));
+                 // print("Created the stream");
 
                   stream.listen((data) {
                     //print('DataReceived - size :  ${data.size}');
                     print('DataReceived');
                   }, onDone: () {
                     print("Task Done");
-
-                    //__streamController.add(packetC2SCommon.type);
 
                   }, onError: (error) {
                     print("Some Error");
@@ -648,6 +645,30 @@ class ManageMessage
                   __messageList.removeAt(0);
                 }
                 break;
+
+              case e_packet_type.c2s_localization_info:
+                {
+                  PacketC2SLocalizationInfo packet = packetC2SCommon as PacketC2SLocalizationInfo;
+
+                  // print("Creating a stream...");
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(null));
+                  // print("Created the stream");
+
+                  stream.listen((data) {
+                    //print('DataReceived - size :  ${data.size}');
+                    print('DataReceived');
+                  }, onDone: () {
+                    print("Task Done");
+
+                  }, onError: (error) {
+                    print("Some Error");
+
+                  });
+
+                  __messageList.removeAt(0);
+                }
+                break;
+
 
               default:
                 break;

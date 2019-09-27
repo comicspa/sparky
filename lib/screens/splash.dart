@@ -16,6 +16,7 @@ import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:sparky/packets/packet_c2s_preset.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_localization_info.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with WidgetsBindingObserver {
 
-  PacketC2SPreset c2sPreset;
+  PacketC2SPreset _c2sPreset;
   List<PacketC2SCommon> _packetList;
   bool _enableAppVersion = true;
   int _switchPage = 0;
@@ -36,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     ManageCommon.rotatePortraitOnly();
 
-    c2sPreset = new PacketC2SPreset();
-    c2sPreset.fetch(_onFetchDone);
+    _c2sPreset = new PacketC2SPreset();
+    _c2sPreset.fetch(_onFetchDone);
   }
 
   @override
@@ -69,26 +70,33 @@ class _SplashScreenState extends State<SplashScreen>
         print("DataReceived1: " + data.toString());
 
         _packetList.removeAt(0);
-        if (_packetList.length > 0) ManageMessage.add(_packetList[0]);
+        if (_packetList.length > 0)
+          ManageMessage.add(_packetList[0]);
 
-        if (data == e_packet_type.s2c_preset_library_info) navigationPage();
+        if (data == e_packet_type.s2c_localization_info)
+          navigationPage();
+
       }, onDone: () {
         print("Task Done1");
       }, onError: (error) {
         print("Some Error1");
       });
 
-      PacketC2SPresetComicInfo packetC2SPresetComicInfo =
-          new PacketC2SPresetComicInfo();
+      PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
       packetC2SPresetComicInfo.generate();
 
-      PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo =
-          new PacketC2SPresetLibraryInfo();
+      PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
       packetC2SPresetLibraryInfo.generate();
 
-      if (null == _packetList) _packetList = new List<PacketC2SCommon>();
+      PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+      packetC2SLocalizationInfo.generate(ManageDeviceInfo.localeCode, ManageDeviceInfo.languageCode);
+
+      if (null == _packetList)
+        _packetList = new List<PacketC2SCommon>();
+
       _packetList.add(packetC2SPresetComicInfo);
       _packetList.add(packetC2SPresetLibraryInfo);
+      _packetList.add(packetC2SLocalizationInfo);
 
       ManageMessage.add(_packetList[0]);
     }
