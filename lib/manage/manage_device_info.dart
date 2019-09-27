@@ -1,5 +1,5 @@
 import 'package:device_info/device_info.dart';
-
+import 'package:devicelocale/devicelocale.dart';
 import 'package:flutter/material.dart';
 
 
@@ -9,13 +9,17 @@ class ManageDeviceInfo
   static double _resolutionWidth = 0.0;
   static double _resolutionHeight = 0.0;
   static double _statusBarHeight = 0.0;
-  static Locale _locale;
+  //static Locale _locale;
+  static String _languageCode = 'ko';
+  static String _localeCode = 'kr';
 
   static String get uniqueId => _uniqueId;
   static double get resolutionWidth => _resolutionWidth;
   static double get resolutionHeight => _resolutionHeight;
   static double get statusBarHeight => _statusBarHeight;
-  static Locale get locale => _locale;
+  //static Locale get locale => _locale;
+  static String get languageCode => _languageCode;
+  static String get localeCode => _localeCode;
 
   static Future<String> _getUniqueId(BuildContext context) async
   {
@@ -62,20 +66,45 @@ class ManageDeviceInfo
     print('getStatusBarHeight : $_statusBarHeight');
   }
 
-  static void getLocale(BuildContext context)
+  static void getLanguageLocale() async
+  {
+    List languages = await Devicelocale.preferredLanguages;
+    String locale = await Devicelocale.currentLocale;
+
+    print('language[0] : ${languages[0]} , locale : $locale');
+    //languageCode : ko-KR , locale : en-KR - ios
+    //language[0] : ko_KR , locale : ko_KR
+
+    if(languages[0].toString().contains('-')) {
+      List<String> splits = languages[0].toString().split('-');
+      _languageCode = splits[0].toLowerCase();
+      _localeCode = splits[1].toLowerCase();
+    }
+    else if(languages[0].toString().contains('_')) {
+      List<String> splits = languages[0].toString().split('_');
+      _languageCode = splits[0].toLowerCase();
+      _localeCode = splits[1].toLowerCase();
+    }
+
+    print('languageCode : $_languageCode , localeCode : $_localeCode');
+  }
+
+  /*
+  static void getLocale(BuildContext context) async
   {
     if(null == _locale)
       _locale = Localizations.localeOf(context);
-
     print('getLocale - countryCode : ${_locale.countryCode} , languageCode : ${_locale.languageCode}');
   }
+   */
 
   static void firstInitialize(BuildContext context)
   {
+    getLanguageLocale();
     getResolution(context);
     getUniqueId(context);
     getStatusBarHeight(context);
-    getLocale(context);
+    //getLocale(context);
   }
 
 }

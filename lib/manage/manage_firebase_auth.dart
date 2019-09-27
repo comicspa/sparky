@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:sparky/models/model_user_info.dart';
 
+// https://sheeeng.github.io/dart/firebase/flutter/authentication/2019/01/20/sign-in-failed-on-flutter.html
 
 class ManageFirebaseAuth
 {

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "502860158175-5id5607oqar1iqhgfiubjq6i1eviml7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.superants.sparky",
+            "certificate_hash": "a587ea196650e2a8b8613e4fa9d7be969bfaee41"
+          }
+        },
+        {
           "client_id": "502860158175-44vr2tfj27ukck44gkervn586jvmnh8q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -46,6 +54,13 @@
             {
               "client_id": "502860158175-bucs932kqmohbkcln2i63bpls9mg6qva.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "502860158175-tihpvu0ib0fhcldqep67ruoc0qakse2t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.superants.sparky"
+              }
             }
           ]
         }
