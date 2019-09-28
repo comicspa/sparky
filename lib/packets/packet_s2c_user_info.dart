@@ -13,6 +13,19 @@ class PacketS2CUserInfo extends PacketS2CCommon
     type = e_packet_type.s2c_user_info;
   }
 
+  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  {
+    //ModelUserInfo.getInstance().id = readStringToByteBuffer();
+    ModelUserInfo.getInstance().creatorId = jsonMap['creator_id'];
+    ModelUserInfo.getInstance().bio = jsonMap['bio'];
+    ModelUserInfo.getInstance().comi = jsonMap['comi'];
+    ModelUserInfo.getInstance().followers = jsonMap['followers'];
+    ModelUserInfo.getInstance().following = jsonMap['following'];
+    ModelUserInfo.getInstance().likes = jsonMap['likes'];
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
 
 
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize,onFetchDone) async
