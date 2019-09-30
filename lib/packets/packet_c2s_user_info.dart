@@ -9,7 +9,8 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_user_info.dart';
 import 'package:sparky/models/model_user_info.dart';
-
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 
@@ -30,12 +31,37 @@ class PacketC2SUserInfo extends PacketC2SCommon
   }
 
 
-  Future<ModelUserInfo> fetchJson(onFetchDone) async
+
+  Future<ModelUserInfo> fetch(onFetchDone) async
   {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<ModelUserInfo> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SUserInfo : fetchFireBaseDB started');
+
+    if(2 == _fetchStatus)
+      return ModelUserInfo.getInstance();
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child('000011111');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[PacketC2SUserInfo : fetchFireBaseDB ] - ${snapshot.value}');
+
+      PacketS2CUserInfo packet = new PacketS2CUserInfo();
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+
+      return ModelUserInfo.getInstance();
+
+    });
+
     return null;
   }
 
-  Future<ModelUserInfo> fetchBytes(onFetchDone) async
+
+
+  Future<ModelUserInfo> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SUserInfo : fetchBytes started');
     if(2 == _fetchStatus)
