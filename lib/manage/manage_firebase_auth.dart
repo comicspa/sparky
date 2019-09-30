@@ -4,12 +4,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sparky/models/model_user_info.dart';
 
 // https://sheeeng.github.io/dart/firebase/flutter/authentication/2019/01/20/sign-in-failed-on-flutter.html
+// https://codeday.me/ko/qa/20190324/96545.html
 
 class ManageFirebaseAuth
 {
   static GoogleSignIn _googleSignIn;
 
-  static Future<ModelUserInfo> signInWithGoogle() async
+  static Future<bool> signInWithGoogle() async
   {
     if(null == _googleSignIn)
     {
@@ -23,7 +24,7 @@ class ManageFirebaseAuth
     else
       {
         if(true == await _googleSignIn.isSignedIn())
-          return  ModelUserInfo.getInstance();
+          return  true;
       }
 
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -43,7 +44,7 @@ class ManageFirebaseAuth
 
     final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
     assert(user.uid == currentUser.uid);
-    //print(currentUser.uid);
+    print(currentUser.uid);
 
     //set
     ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.google;
@@ -56,7 +57,7 @@ class ManageFirebaseAuth
     //test
     //ModelUserInfo.getInstance().loggedIn = true;
 
-    return ModelUserInfo.getInstance();
+    return true;
   }
 
 
@@ -103,6 +104,17 @@ class ManageFirebaseAuth
     });
 
     print('simpleUsageSignInWithGoogle - finish');
+  }
+
+
+  static GoogleSignIn processGoogleSignIn()
+  {
+    return new GoogleSignIn(
+      scopes: <String>[
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
   }
 
 }

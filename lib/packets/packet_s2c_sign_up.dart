@@ -4,12 +4,22 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
 
-class PacketS2CSignup extends PacketS2CCommon
+class PacketS2CSignUp extends PacketS2CCommon
 {
-  PacketS2CSignup()
+  PacketS2CSignUp()
   {
-    type = e_packet_type.s2c_signup;
+    type = e_packet_type.s2c_sign_up;
   }
+
+
+  Future<void> parseFireBaseDBJson(onFetchDone) async
+  {
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
+
 
   void parseBytes(List<int> event)
   {

@@ -11,17 +11,17 @@ enum e_packet_type
   c2s_upload_file,
   s2c_upload_file,
 
-  c2s_signup,
-  s2c_signup,
+  c2s_sign_up,
+  s2c_sign_up,
 
   c2s_withdrawal,
   s2c_withdrawal,
 
-  c2s_login,
-  s2c_login,
+  c2s_sign_in,
+  s2c_sign_in,
 
-  c2s_logout,
-  s2c_logout,
+  c2s_sign_out,
+  s2c_sign_out,
 
   c2s_register_creator,
   s2c_register_creator,
@@ -88,6 +88,12 @@ enum e_packet_type
 
   c2s_localization_info,
   s2c_localization_info,
+
+  c2s_sign_in_with_social,
+  s2c_sign_in_with_social,
+
+  c2s_sign_out_with_social,
+  s2c_sign_out_with_social,
 
 }
 

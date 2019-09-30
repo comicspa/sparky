@@ -18,3 +18,7 @@ class ModelLocalizationInfo
   }
 
 }
+
+
+//usage
+// String buttonText = ModelLocalizationInfo.getText('trend','button_1');

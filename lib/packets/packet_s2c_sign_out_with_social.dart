@@ -4,12 +4,24 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
 
-class PacketS2CLogout extends PacketS2CCommon
+class PacketS2CSignOutWithSocial extends PacketS2CCommon
 {
-  PacketS2CLogout()
+  PacketS2CSignOutWithSocial()
   {
-    type = e_packet_type.s2c_logout;
+    type = e_packet_type.s2c_sign_out_with_social;
   }
+
+
+  Future<void> parseGoogle(onFetchDone) async
+  {
+    //test
+    //ModelUserInfo.getInstance().loggedIn = false;
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
+
 
   void parseBytes(List<int> event)
   {

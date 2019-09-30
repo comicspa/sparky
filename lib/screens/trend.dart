@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:sparky/models/model_localization_info.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';
@@ -16,6 +17,7 @@ import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'detail_page.dart';
 import 'common_widgets.dart';
+
 
 class Trend extends StatefulWidget {
   @override
@@ -159,7 +161,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 5, 0, 2),
             child: Text(
-              'Recommended',
+              'Recommended' /* ModelLocalizationInfo.getText('trend','recommended') */,
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
                   fontFamily: 'Lato',

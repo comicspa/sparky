@@ -11,6 +11,13 @@ class PacketS2CWithdrawal extends PacketS2CCommon
     type = e_packet_type.s2c_withdrawal;
   }
 
+  Future<void> parseFireBaseDBJson(onFetchDone) async
+  {
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
   void parseBytes(List<int> event)
   {
     parseHeader(event);
