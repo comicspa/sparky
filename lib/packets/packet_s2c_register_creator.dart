@@ -11,6 +11,16 @@ class PacketS2CRegisterCreator extends PacketS2CCommon
     type = e_packet_type.s2c_register_creator;
   }
 
+
+  Future<void> parseFireBaseDBJson(onFetchDone) async
+  {
+
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
+
   void parseBytes(List<int> event)
   {
     parseHeader(event);

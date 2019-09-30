@@ -35,6 +35,10 @@ class PacketC2SSignUp extends PacketC2SCommon
   {
     print('PacketC2SSignUp : fetchFireBaseDB started');
 
+
+    String createTime = DateTime.now().millisecondsSinceEpoch.toString();
+    String updateTime = DateTime.now().millisecondsSinceEpoch.toString();
+
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
     modelUserInfoReference.child(_uId).set({
       'social_provider_type': _socialProviderType.index,
@@ -44,7 +48,9 @@ class PacketC2SSignUp extends PacketC2SCommon
       'followers':0,
       'following':0,
       'likes':0,
-      'sign_in':0
+      'sign_in':0,
+      'create_time':createTime,
+      'update_time':updateTime
     }).then((_) {
 
       PacketS2CSignUp packet = new PacketS2CSignUp();

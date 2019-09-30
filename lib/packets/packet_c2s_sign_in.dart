@@ -33,9 +33,11 @@ class PacketC2SSignIn extends PacketC2SCommon
   {
     print('PacketC2SSignUp : fetchFireBaseDB started');
 
+    String updateTime = DateTime.now().millisecondsSinceEpoch.toString();
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
     modelUserInfoReference.child(_uId).set({
-      'sign_in':1
+      'sign_in':1,
+      'update_time':updateTime
     }).then((_) {
 
       PacketS2CSignIn packet = new PacketS2CSignIn();

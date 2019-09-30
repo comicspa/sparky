@@ -11,6 +11,10 @@ import 'package:sparky/packets/packet_s2c_sign_up.dart';
 import 'package:sparky/packets/packet_s2c_withdrawal.dart';
 import 'package:sparky/packets/packet_c2s_sign_in_with_social.dart';
 import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
+import 'package:sparky/packets/packet_c2s_sign_in.dart';
+import 'package:sparky/packets/packet_c2s_sign_out.dart';
+import 'package:sparky/packets/packet_c2s_register_creator.dart';
+import 'package:sparky/packets/packet_c2s_unregister_creator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
@@ -41,7 +45,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
       case e_packet_type.s2c_sign_in_with_social:
         {
           Fluttertoast.showToast(
-              msg: "Sign in with social",
+              msg: "Sign in with social !!",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
@@ -54,7 +58,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
       case e_packet_type.s2c_sign_out_with_social:
         {
           Fluttertoast.showToast(
-              msg: "Sign out with social",
+              msg: "Sign out with social !!",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
@@ -68,7 +72,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
         {
 
           Fluttertoast.showToast(
-              msg: "회원가입 되었습니다.",
+              msg: "SignUp !!",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
@@ -83,7 +87,67 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
         {
 
           Fluttertoast.showToast(
-              msg: "회원탈퇴 되었습니다.",
+              msg: "Withdrawal !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+        }
+        break;
+
+      case e_packet_type.s2c_sign_in:
+        {
+
+          Fluttertoast.showToast(
+              msg: "SignIn !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+        }
+        break;
+
+      case e_packet_type.s2c_sign_out:
+        {
+
+          Fluttertoast.showToast(
+              msg: "SignOut !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+        }
+        break;
+
+      case e_packet_type.s2c_register_creator:
+        {
+
+          Fluttertoast.showToast(
+              msg: "Register Creator !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+        }
+        break;
+
+      case e_packet_type.s2c_unregister_creator:
+        {
+
+          Fluttertoast.showToast(
+              msg: "Unregister Creator !!",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
@@ -161,6 +225,9 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Sign in'),
             onTap: (){
 
+              PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
+              packetC2SSignIn.generate(ModelUserInfo.getInstance().uId);
+              packetC2SSignIn.fetch(_onFetchDone);
 
             },
           ),
@@ -169,6 +236,9 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Register Creator'),
             onTap: (){
 
+              PacketC2SRegisterCreator packetC2SRegisterCreator = new PacketC2SRegisterCreator();
+              packetC2SRegisterCreator.generate(ModelUserInfo.getInstance().uId);
+              packetC2SRegisterCreator.fetch(_onFetchDone);
 
             },
           ),
@@ -176,6 +246,10 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
           ListTile(
             title: Text('Unregister Creator'),
             onTap: (){
+
+              PacketC2SUnregisterCreator packetC2SUnregisterCreator = new PacketC2SUnregisterCreator();
+              packetC2SUnregisterCreator.generate(ModelUserInfo.getInstance().uId);
+              packetC2SUnregisterCreator.fetch(_onFetchDone);
 
 
             },
@@ -186,6 +260,9 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Sign out'),
             onTap: (){
 
+              PacketC2SSignOut packetC2SSignOut = new PacketC2SSignOut();
+              packetC2SSignOut.generate(ModelUserInfo.getInstance().uId);
+              packetC2SSignOut.fetch(_onFetchDone);
 
             },
           ),

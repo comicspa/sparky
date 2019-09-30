@@ -7,27 +7,44 @@ import 'package:sparky/packets/packet_utility.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_register_creator.dart';
-
-
-typedef void OnPacketRegisterCreatorFetchDone(PacketS2CRegisterCreator packet);
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 class PacketC2SRegisterCreator extends PacketC2SCommon
 {
-  String _socialId;
-  String _emailAddress;
-  e_social_provider_type _socialProviderType;
+  String _uId;
 
   PacketC2SRegisterCreator()
   {
     type = e_packet_type.c2s_register_creator;
   }
 
-  void generate(String socialId,String emailAddress,e_social_provider_type socialProviderType)
+  void generate(String uId)
   {
-    _socialId = socialId;
-    _emailAddress = emailAddress;
-    _socialProviderType = socialProviderType;
+    _uId = uId;
+  }
+
+  Future<void> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<void> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SSignUp : fetchFireBaseDB started');
+
+    String creatorId = DateTime.now().millisecondsSinceEpoch.toString();
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
+    modelUserInfoReference.child(_uId).set({
+      'creator_id':creatorId
+    }).then((_) {
+
+      PacketS2CRegisterCreator packet = new PacketS2CRegisterCreator();
+      packet.parseFireBaseDBJson(onFetchDone);
+
+    });
+
   }
 
   void fetchBytes(onPacketRegisterCreatorFetchDone) async
@@ -44,16 +61,12 @@ class PacketC2SRegisterCreator extends PacketC2SCommon
     });
 
 
-    List<int> socialIdList = PacketUtility.readyWriteStringToByteBuffer(_socialId);
-    List<int> emailAddressList = PacketUtility.readyWriteStringToByteBuffer(_emailAddress);
-    int socialProviderTypeIndex = _socialProviderType.index;
+    List<int> socialIdList = PacketUtility.readyWriteStringToByteBuffer(_uId);
 
-    int packetBodySize  = PacketUtility.getStringTotalLength(socialIdList) + PacketUtility.getStringTotalLength(emailAddressList) + 4;
+    int packetBodySize  = PacketUtility.getStringTotalLength(socialIdList);
     generateHeader(packetBodySize);
 
     writeStringToByteBuffer(socialIdList);
-    writeStringToByteBuffer(emailAddressList);
-    setUint32(socialProviderTypeIndex);
 
     socket.add(packet);
 
