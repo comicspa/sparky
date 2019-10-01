@@ -36,7 +36,7 @@ class PacketC2SRegisterCreator extends PacketC2SCommon
 
     String creatorId = DateTime.now().millisecondsSinceEpoch.toString();
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).set({
+    modelUserInfoReference.child(_uId).update({
       'creator_id':creatorId
     }).then((_) {
 

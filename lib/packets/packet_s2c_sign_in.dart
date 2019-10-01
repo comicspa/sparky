@@ -1,8 +1,8 @@
 import 'package:sparky/packets/packet_common.dart';
-import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_user_info.dart';
 
-class PacketS2CSignIn extends PacketC2SCommon
+class PacketS2CSignIn extends PacketS2CCommon
 {
 
   PacketS2CSignIn()

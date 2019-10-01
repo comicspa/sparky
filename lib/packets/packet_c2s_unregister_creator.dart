@@ -36,7 +36,7 @@ class PacketC2SUnregisterCreator extends PacketC2SCommon
     print('PacketC2SUnregisterCreator : fetchFireBaseDB started');
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).set({
+    modelUserInfoReference.child(_uId).update({
       'creator_id':''
     }).then((_) {
 

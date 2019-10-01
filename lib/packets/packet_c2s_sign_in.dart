@@ -31,11 +31,11 @@ class PacketC2SSignIn extends PacketC2SCommon
 
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
-    print('PacketC2SSignUp : fetchFireBaseDB started');
+    print('PacketC2SSignIn : fetchFireBaseDB started');
 
     String updateTime = DateTime.now().millisecondsSinceEpoch.toString();
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).set({
+    modelUserInfoReference.child(_uId).update({
       'sign_in':1,
       'update_time':updateTime
     }).then((_) {

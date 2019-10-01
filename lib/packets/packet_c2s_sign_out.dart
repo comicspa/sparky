@@ -31,10 +31,10 @@ class PacketC2SSignOut extends PacketC2SCommon
 
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
-    print('PacketC2SSignUp : fetchFireBaseDB started');
+    print('PacketC2SSignOut : fetchFireBaseDB started');
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).set({
+    modelUserInfoReference.child(_uId).update({
       'sign_in':0
     }).then((_) {
 

@@ -129,6 +129,7 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
               Buttons.Google,
               onPressed: () {
 
+                /*
                 ManageFirebaseAuth.signInWithGoogle().then((value)
                 {
                   //value == ModelUserInfo.getInstance()
@@ -142,6 +143,8 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
                 {
                   print('catchError : $error');
                 });
+
+                 */
               },
             ),
             SignInButton(
@@ -222,6 +225,7 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
             Buttons.Google,
             onPressed: () {
 
+              /*
               ManageFirebaseAuth.signInWithGoogle().then((value)
               {
                 //value == ModelUserInfo.getInstance()
@@ -235,6 +239,8 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
               {
                 print('catchError : $error');
               });
+
+               */
             },
           ),
           SignInButton(
