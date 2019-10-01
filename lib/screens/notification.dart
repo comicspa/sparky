@@ -35,9 +35,9 @@ class _NotificationScreenState extends State<NotificationScreen>  with WidgetsBi
 
   @override
   Widget build(BuildContext context) {
-    ModelUserInfo.getInstance().loggedIn =
+    ModelUserInfo.getInstance().signedIn =
         true; // Todo this need to be deleted when testing SignIn
-    return ModelUserInfo.getInstance().loggedIn
+    return ModelUserInfo.getInstance().signedIn
         ? notificationPage(context)
         : NotificationLandingPage();
   }

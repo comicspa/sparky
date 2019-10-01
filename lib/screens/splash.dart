@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 import 'package:sparky/models/model_preset.dart';
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparky/packets/packet_c2s_preset_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_c2s_preset.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_localization_info.dart';
+import 'package:sparky/manage/manage_shared_preference.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -26,20 +29,32 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with WidgetsBindingObserver {
 
-  PacketC2SPreset _c2sPreset;
-  List<PacketC2SCommon> _packetList;
+  PacketC2SPreset _packetC2SPreset;
   bool _enableAppVersion = true;
+  String _uId;
   int _switchPage = 0;
 
   @override
-  void initState() {
+  void initState()
+  {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     ManageCommon.rotatePortraitOnly();
 
-    _c2sPreset = new PacketC2SPreset();
-    _c2sPreset.fetch(_onFetchDone);
+    initialize();
   }
+
+
+  void initialize() async
+  {
+    _uId = await ManageSharedPreference.getString('uId');
+    print('uId : $_uId');
+
+    _packetC2SPreset = new PacketC2SPreset();
+    _packetC2SPreset.fetch(_onFetchDone);
+  }
+
+
 
   @override
   void dispose() {
@@ -69,41 +84,71 @@ class _SplashScreenState extends State<SplashScreen>
       ManageMessage.streamController.stream.listen((data) {
         print("DataReceived1: " + data.toString());
 
-        _packetList.removeAt(0);
-        if (_packetList.length > 0)
-          ManageMessage.add(_packetList[0]);
+        switch(data)
+        {
+          case e_packet_type.s2c_sign_in:
+            {
+              PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
+              packetC2SPresetComicInfo.generate();
+              ManageMessage.add(packetC2SPresetComicInfo);
+            }
+            break;
 
-        if (data == e_packet_type.s2c_localization_info)
-          navigationPage();
+          case e_packet_type.s2c_preset_comic_info:
+            {
+              PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
+              packetC2SPresetLibraryInfo.generate();
+              ManageMessage.add(packetC2SPresetLibraryInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_preset_library_info:
+            {
+              PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+              packetC2SLocalizationInfo.generate(
+                  ManageDeviceInfo.localeCode, ManageDeviceInfo.languageCode);
+              ManageMessage.add(packetC2SLocalizationInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_localization_info:
+            {
+              navigationPage();
+            }
+            break;
+
+          default:
+            break;
+        }
+
 
       }, onDone: () {
-        print("Task Done1");
+        print("_onFetchDone Done");
       }, onError: (error) {
-        print("Some Error1");
+        print("_onFetchDone Error");
       });
 
-      PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
-      packetC2SPresetComicInfo.generate();
 
-      PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
-      packetC2SPresetLibraryInfo.generate();
+      if(null != _uId && _uId.length > 0)
+      {
+        if(false == ModelUserInfo.getInstance().signedIn)
+        {
+          ModelUserInfo.getInstance().uId = _uId;
 
-      PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
-      packetC2SLocalizationInfo.generate(ManageDeviceInfo.localeCode, ManageDeviceInfo.languageCode);
-
-      if (null == _packetList)
-        _packetList = new List<PacketC2SCommon>();
-
-      _packetList.add(packetC2SPresetComicInfo);
-      _packetList.add(packetC2SPresetLibraryInfo);
-      _packetList.add(packetC2SLocalizationInfo);
-
-      ManageMessage.add(_packetList[0]);
+          PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
+          packetC2SSignIn.generate(_uId);
+          ManageMessage.add(packetC2SSignIn);
+        }
+      }
+      else
+      {
+        PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
+        packetC2SPresetComicInfo.generate();
+        ManageMessage.add(packetC2SPresetComicInfo);
+      }
     }
-
-
-
   }
+
 
   void navigationPage() {
 

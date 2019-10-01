@@ -1,23 +1,28 @@
 import 'dart:typed_data';
 
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/manage/manage_shared_preference.dart';
 
-
-class PacketS2CUnregisterCreator extends PacketS2CCommon
+class PacketS2CSignUp extends PacketS2CCommon
 {
-  PacketS2CUnregisterCreator()
+  PacketS2CSignUp()
   {
-    type = e_packet_type.s2c_unregister_creator;
+    type = e_packet_type.s2c_sign_up;
   }
+
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
-
+    ManageSharedPreference.setString('uId',ModelUserInfo.getInstance().uId);
+    ModelUserInfo.getInstance().signedIn = true;
 
     if(null != onFetchDone)
       onFetchDone(this);
   }
+
+
 
   void parseBytes(List<int> event)
   {

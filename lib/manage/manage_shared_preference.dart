@@ -3,6 +3,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ManageSharedPreference
 {
+
+  static void clear() async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  static void remove(String key) async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(key);
+  }
+
   static Future<int> getInt(String key) async
   {
     SharedPreferences prefs = await SharedPreferences.getInstance();

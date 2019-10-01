@@ -35,6 +35,24 @@ class ManageFirebaseDatabase
    */
 
 
+  static Future<String> checkUserInfo(String userUId) async
+  {
+    DatabaseReference modelUserInfoReference = reference.child('model_user_info').child(userUId);
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('checkUserInfo : ${snapshot.value}');
+      return snapshot.value;
+
+    },
+    onError: (e)
+    {
+      print(e);
+    });
+
+    return null;
+
+  }
+
   static Future<Map<dynamic,dynamic>> read(String childName) async
   {
     DatabaseReference modelUserInfoReference = reference.child(childName);

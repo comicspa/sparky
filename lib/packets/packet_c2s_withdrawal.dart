@@ -2,31 +2,53 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:sparky/models/model_common.dart';
-import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_utility.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_withdrawal.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
-
-typedef void OnPacketWithdrawalFetchDone(PacketS2CWithdrawal packet);
 
 
 class PacketC2SWithdrawal extends PacketC2SCommon
 {
-  String _userId;
+  String _uId;
 
   PacketC2SWithdrawal()
   {
     type = e_packet_type.c2s_withdrawal;
   }
 
-  void generate(String userId)
+  void generate(String uId)
   {
-    _userId = userId;
+    _uId = uId;
   }
 
-  void fetchBytes(onPacketWithdrawalFetchDone) async
+
+  Future<void> fetch(onFetchDone) async
+  {
+    return _fetchFireBaseDB(onFetchDone);
+  }
+
+  Future<void> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SWithdrawal : fetchFireBaseDB started');
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child(_uId);
+    modelUserInfoReference.remove().then((_) {
+
+      PacketS2CWithdrawal packet = new PacketS2CWithdrawal();
+      packet.parseFireBaseDBJson(onFetchDone);
+
+    });
+
+    return null;
+  }
+
+
+
+  void _fetchBytes(onFetchDone) async
   {
     Socket socket = await ModelCommon.createServiceSocket();
     print('connected server');
@@ -36,10 +58,9 @@ class PacketC2SWithdrawal extends PacketC2SCommon
     {
       PacketS2CWithdrawal packet = new PacketS2CWithdrawal();
       packet.parseBytes(event);
-      onPacketWithdrawalFetchDone(packet);
     });
 
-    List<int> userIdList = PacketUtility.readyWriteStringToByteBuffer(_userId);
+    List<int> userIdList = PacketUtility.readyWriteStringToByteBuffer(_uId);
 
     int packetBodySize  = PacketUtility.getStringTotalLength(userIdList);
     generateHeader(packetBodySize);
