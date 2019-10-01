@@ -8,6 +8,8 @@ class ModelWeeklyTrendComicInfo
 {
   String _comicId;
   String _userId;
+  String _partId = '001';
+  String _seasonId = '001';
   String _title;
   String _url;
   String _thumbnailUrl;
@@ -17,6 +19,8 @@ class ModelWeeklyTrendComicInfo
 
   String get comicId => _comicId;
   String get userId => _userId;
+  String get partId => _partId;
+  String get seasonId => _seasonId;
   String get title => _title;
   String get url => _url;
   String get thumbnailUrl => _thumbnailUrl;
@@ -32,6 +36,15 @@ class ModelWeeklyTrendComicInfo
   set userId(String userId)
   {
     _userId = userId;
+  }
+
+  set partId(String partId)
+  {
+    _partId = partId;
+  }
+  set seasonId(String seasonId)
+  {
+    _seasonId = seasonId;
   }
 
   set title(String title)

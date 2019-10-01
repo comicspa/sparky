@@ -22,8 +22,18 @@ class PacketS2CNewCreatorInfo extends PacketS2CCommon
     {
       print(key);
       List<String> splitList = key.toString().split('_');
-      //String creatorId = splitList[0];
-      //String comicId = splitList[1];
+      switch(splitList.length)
+      {
+        case 2:
+          {
+            //String creatorId = splitList[0];
+            //String comicId = splitList[1];
+          }
+          break;
+
+        default:
+          continue;
+      }
 
       var comicInfo = jsonMap[key];
 

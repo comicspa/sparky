@@ -78,7 +78,7 @@ class PacketC2SViewComic extends PacketC2SCommon
     {
       print('[PacketC2SViewComic : fetchFireBaseDB ] - ${snapshot.value}');
 
-      (respondPacket as PacketS2CViewComic).parseFireBaseDBJson(_userId,_comicId,_episodeId,snapshot.value , onFetchDone);
+      (respondPacket as PacketS2CViewComic).parseFireBaseDBJson(_userId,_comicId,_partId,_seasonId,_episodeId,snapshot.value , onFetchDone);
 
       //_fetchStatus = 2;
       return null;

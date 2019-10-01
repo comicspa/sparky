@@ -7,6 +7,8 @@ class ModelComicDetailInfo
 {
   String _userId = '1111111111111';
   String _comicId = '000001';
+  String _partId = '001';
+  String _seasonId = '001';
   String _mainTitleName;
   String _representationImageUrl;
   String _explain;
@@ -18,6 +20,8 @@ class ModelComicDetailInfo
 
   String get userId => _userId;
   String get comicId => _comicId;
+  String get partId => _partId;
+  String get seasonId => _seasonId;
   String get mainTitleName => _mainTitleName;
   String get representationImageUrl => _representationImageUrl;
   String get explain => _explain;
@@ -34,6 +38,14 @@ class ModelComicDetailInfo
   set comicId(String comicId)
   {
     _comicId = comicId;
+  }
+  set partId(String partId)
+  {
+    _partId = partId;
+  }
+  set seasonId(String seasonId)
+  {
+    _seasonId = seasonId;
   }
   set mainTitleName(String mainTitleName)
   {
