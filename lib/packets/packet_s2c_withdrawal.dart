@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
-
+import 'package:sparky/manage/manage_shared_preference.dart';
+import 'package:sparky/manage/manage_firebase_auth.dart';
 
 class PacketS2CWithdrawal extends PacketS2CCommon
 {
@@ -13,6 +15,7 @@ class PacketS2CWithdrawal extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
+    ManageSharedPreference.remove('uId');
 
     if(null != onFetchDone)
       onFetchDone(this);

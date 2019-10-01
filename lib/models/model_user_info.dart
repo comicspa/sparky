@@ -14,7 +14,7 @@ class ModelUserInfo
   String _creatorId;
   e_social_provider_type _socialProviderType = e_social_provider_type.none;
   int _comi;
-  bool _loggedIn = false;
+  bool _signedIn = false;
   String _email;
   String _userName;
   String _displayName;
@@ -30,8 +30,8 @@ class ModelUserInfo
   String get creatorId => _creatorId;
   e_social_provider_type get socialProviderType => _socialProviderType;
   int get comi => _comi;
-  bool get loggedIn => _loggedIn;
-  bool get me => _loggedIn;
+  bool get signedIn => _signedIn;
+  bool get me => _signedIn;
   String get email => _email;
   String get userName => _userName;
   String get displayName => _displayName;
@@ -63,9 +63,9 @@ class ModelUserInfo
     _comi = comi;
   }
 
-  set loggedIn(bool loggedIn)
+  set signedIn(bool signedIn)
   {
-    _loggedIn = loggedIn;
+    _signedIn = signedIn;
   }
 
   set email(String email)

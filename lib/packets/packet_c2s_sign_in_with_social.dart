@@ -37,27 +37,22 @@ class PacketC2SSignInWithSocial extends PacketC2SCommon
 
   Future<void> _fetchGoogle(onFetchDone) async
   {
-    GoogleSignIn googleSignIn = ManageFirebaseAuth.processGoogleSignIn();
 
-    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-    final AuthCredential authCredential = GoogleAuthProvider.getCredential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+    Future<FirebaseUser> currentUser =  ManageFirebaseAuth.googleSignIn();
+    currentUser.then((value)
+    {
+      print('success');
 
-    final FirebaseUser user = await FirebaseAuth.instance.signInWithCredential(authCredential);
+      PacketS2CSignInWithSocial packet = new PacketS2CSignInWithSocial();
+      packet.parseGoogle(value,onFetchDone);
+    },
+        onError: (error)
+    {
+      print('error');
+    }
+    );
 
-    //print('userMail : ${user.email}');
-    //print('userDisplayName : ${user.displayName}');
-
-    //assert(user.email != null);
-    //assert(user.displayName != null);
-    //assert(!user.isAnonymous);
-    //assert(await user.getIdToken() != null);
-
-    final FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
-
-    PacketS2CSignInWithSocial packet = new PacketS2CSignInWithSocial();
-    packet.parseGoogle(currentUser,onFetchDone);
 
   }
 

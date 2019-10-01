@@ -5,8 +5,6 @@ import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_sign_out_with_social.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 
 class PacketC2SSignOutWithSocial extends PacketC2SCommon
@@ -15,7 +13,7 @@ class PacketC2SSignOutWithSocial extends PacketC2SCommon
 
   PacketC2SSignOutWithSocial()
   {
-    type = e_packet_type.c2s_sign_in_with_social;
+    type = e_packet_type.c2s_sign_out_with_social;
   }
 
   void generate(e_social_provider_type socialProviderType)
@@ -37,23 +35,17 @@ class PacketC2SSignOutWithSocial extends PacketC2SCommon
 
   Future<void> _fetchGoogle(onFetchDone) async
   {
-    GoogleSignIn googleSignIn = ManageFirebaseAuth.processGoogleSignIn();
+    switch(ModelUserInfo.getInstance().socialProviderType)
+    {
+      case e_social_provider_type.google:
+        {
+          ManageFirebaseAuth.googleSignOut();
+        }
+        break;
 
-    if(false == await googleSignIn.isSignedIn())
-      return false;
-
-    await googleSignIn.signOut();
-
-    /*
-    //set
-    ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.none;
-    ModelUserInfo.getInstance().displayName = '';
-    ModelUserInfo.getInstance().photoUrl = '';
-    ModelUserInfo.getInstance().email = '';
-    ModelUserInfo.getInstance().uId = '';
-    print('signOutWithGoogle : ${ModelUserInfo.getInstance().toString()}');
-
-     */
+      default:
+        break;
+    }
 
     PacketS2CSignOutWithSocial packet = new PacketS2CSignOutWithSocial();
     packet.parseGoogle(onFetchDone);

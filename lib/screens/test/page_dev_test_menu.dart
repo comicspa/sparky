@@ -52,7 +52,9 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
   {
     super.initState();
 
-    //ManageFirebaseDatabase.set();
+    String millisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch.toString();
+    print('millisecondsSinceEpoch : $millisecondsSinceEpoch');
+
   }
 
 

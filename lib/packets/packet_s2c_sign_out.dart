@@ -1,5 +1,6 @@
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/models/model_user_info.dart';
 
 
 class PacketS2CSignOut extends PacketC2SCommon
@@ -13,6 +14,7 @@ class PacketS2CSignOut extends PacketC2SCommon
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
 
+    ModelUserInfo.getInstance().signedIn = false;
 
     if(null != onFetchDone)
       onFetchDone(this);
