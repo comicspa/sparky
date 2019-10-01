@@ -16,6 +16,7 @@ class PacketS2CSignUp extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
     ManageSharedPreference.setString('uId',ModelUserInfo.getInstance().uId);
+    ModelUserInfo.getInstance().signedIn = true;
 
     if(null != onFetchDone)
       onFetchDone(this);

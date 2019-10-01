@@ -8,8 +8,6 @@ import 'package:sparky/packets/packet_c2s_sign_up.dart';
 import 'package:sparky/packets/packet_c2s_withdrawal.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
-import 'package:sparky/packets/packet_s2c_sign_up.dart';
-import 'package:sparky/packets/packet_s2c_withdrawal.dart';
 import 'package:sparky/packets/packet_c2s_sign_in_with_social.dart';
 import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
 import 'package:sparky/packets/packet_c2s_sign_in.dart';
@@ -343,11 +341,9 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               packetC2SWithdrawal.generate(ModelUserInfo.getInstance().uId);
               _list.add(packetC2SWithdrawal);
 
-
               PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = new PacketC2SSignOutWithSocial();
               packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
               _list.add(packetC2SSignOutWithSocial);
-
 
               packetC2SWithdrawal.fetch(_onFetchDone);
 
