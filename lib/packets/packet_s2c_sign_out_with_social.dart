@@ -15,12 +15,7 @@ class PacketS2CSignOutWithSocial extends PacketS2CCommon
   Future<void> parseGoogle(onFetchDone) async
   {
 
-    ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.none;
-    ModelUserInfo.getInstance().displayName = null;
-    ModelUserInfo.getInstance().photoUrl = null;
-    ModelUserInfo.getInstance().email = null;
-    ModelUserInfo.getInstance().signedIn = false;
-    ModelUserInfo.getInstance().uId = null;
+
 
     if(null != onFetchDone)
       onFetchDone(this);
