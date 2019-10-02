@@ -14,6 +14,8 @@ class ModelViewComic
   String _userId;
   String _title;
   String _id;
+  String _partId = '001';
+  String _seasonId = '001';
   String _episodeId;
   List<String> _imageUrlList;
   e_comic_view_style _style = e_comic_view_style.vertical;
@@ -22,6 +24,8 @@ class ModelViewComic
   String get title => _title;
   String get episodeId => _episodeId;
   String get id => _id;
+  String get partId => _partId;
+  String get seasonId => _seasonId;
   List<String> get imageUrlList => _imageUrlList;
   e_comic_view_style get style => _style;
 
@@ -40,6 +44,14 @@ class ModelViewComic
   set id(String id)
   {
     _id = id;
+  }
+  set partId(String partId)
+  {
+    _partId = partId;
+  }
+  set seasonId(String seasonId)
+  {
+    _seasonId = seasonId;
   }
   set imageUrlList(List<String> imageUrlList)
   {

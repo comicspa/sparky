@@ -13,7 +13,9 @@ class PacketS2CSignOut extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
-
+    ModelUserInfo.getInstance().displayName = null;
+    ModelUserInfo.getInstance().photoUrl = null;
+    ModelUserInfo.getInstance().email = null;
     ModelUserInfo.getInstance().signedIn = false;
 
     if(null != onFetchDone)

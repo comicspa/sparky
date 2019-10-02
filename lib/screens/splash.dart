@@ -32,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
   PacketC2SPreset _packetC2SPreset;
   bool _enableAppVersion = true;
   String _uId;
+  int _socialProviderType = 0;
   int _switchPage = 0;
 
   @override
@@ -48,7 +49,9 @@ class _SplashScreenState extends State<SplashScreen>
   void initialize() async
   {
     _uId = await ManageSharedPreference.getString('uId');
-    print('uId : $_uId');
+    _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
+    print('uId : $_uId , social_provider_type : $_socialProviderType');
+
 
     _packetC2SPreset = new PacketC2SPreset();
     _packetC2SPreset.fetch(_onFetchDone);
@@ -134,6 +137,8 @@ class _SplashScreenState extends State<SplashScreen>
         if(false == ModelUserInfo.getInstance().signedIn)
         {
           ModelUserInfo.getInstance().uId = _uId;
+          ModelUserInfo.getInstance().socialProviderType = _socialProviderType as e_social_provider_type;
+          print('social_provider_type : ${ModelUserInfo.getInstance().socialProviderType.toString()}');
 
           PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
           packetC2SSignIn.generate(_uId);

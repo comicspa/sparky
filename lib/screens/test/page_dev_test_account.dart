@@ -25,7 +25,7 @@ class PageDevTestAccount extends StatefulWidget {
 class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
 
-  List<PacketC2SCommon> _list = new List<PacketC2SCommon>();
+  List<PacketC2SCommon> _requestPacketList = new List<PacketC2SCommon>();
 
 
   // TODO Add build() method
@@ -61,12 +61,10 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
            */
 
-
-
-          _list.removeAt(0);
-          if(_list.length > 0)
+          _requestPacketList.removeAt(0);
+          if(_requestPacketList.length > 0)
             {
-              PacketC2SCommon current = _list[0];
+              PacketC2SCommon current = _requestPacketList[0];
               switch(current.type)
               {
                 case e_packet_type.c2s_sign_up:
@@ -74,6 +72,14 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
                     PacketC2SSignUp packetC2SSignUp = current as PacketC2SSignUp;
                     packetC2SSignUp.generate(ModelUserInfo.getInstance().uId, ModelUserInfo.getInstance().socialProviderType);
                     packetC2SSignUp.fetch(_onFetchDone);
+                  }
+                  break;
+
+                case e_packet_type.c2s_sign_in:
+                  {
+                    PacketC2SSignIn packetC2SSignIn = current as PacketC2SSignIn;
+                    packetC2SSignIn.generate(ModelUserInfo.getInstance().uId);
+                    packetC2SSignIn.fetch(_onFetchDone);
                   }
                   break;
 
@@ -101,14 +107,14 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
           */
 
 
-          _list.removeAt(0);
+          _requestPacketList.removeAt(0);
 
         }
         break;
 
       case e_packet_type.s2c_sign_up:
         {
-          _list.removeAt(0);
+          _requestPacketList.removeAt(0);
 
 
           Fluttertoast.showToast(
@@ -134,12 +140,12 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               textColor: Colors.white,
               fontSize: 16.0);
 
-          _list.removeAt(0);
+          _requestPacketList.removeAt(0);
           //print('_list.length : ${_list.length}');
 
-          if(_list.length > 0)
+          if(_requestPacketList.length > 0)
           {
-            PacketC2SCommon current = _list[0];
+            PacketC2SCommon current = _requestPacketList[0];
             switch(current.type)
             {
               case e_packet_type.c2s_sign_out_with_social:
@@ -154,7 +160,6 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
                 break;
             }
           }
-
 
         }
         break;
@@ -185,6 +190,27 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               backgroundColor: Colors.black,
               textColor: Colors.white,
               fontSize: 16.0);
+
+          _requestPacketList.removeAt(0);
+          //print('_list.length : ${_list.length}');
+
+          if(_requestPacketList.length > 0)
+          {
+            PacketC2SCommon current = _requestPacketList[0];
+            switch(current.type)
+            {
+              case e_packet_type.c2s_sign_out_with_social:
+                {
+                  PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = current as PacketC2SSignOutWithSocial;
+                  packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
+                  packetC2SSignOutWithSocial.fetch(_onFetchDone);
+                }
+                break;
+
+              default:
+                break;
+            }
+          }
 
         }
         break;
@@ -279,10 +305,10 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               PacketC2SSignInWithSocial packetC2SSignInWithSocial = new PacketC2SSignInWithSocial();
               packetC2SSignInWithSocial.generate(e_social_provider_type.google);
-              _list.add(packetC2SSignInWithSocial);
+              _requestPacketList.add(packetC2SSignInWithSocial);
 
               PacketC2SSignUp packetC2SSignUp = new PacketC2SSignUp();
-              _list.add(packetC2SSignUp);
+              _requestPacketList.add(packetC2SSignUp);
 
               packetC2SSignInWithSocial.fetch(_onFetchDone);
             },
@@ -291,9 +317,14 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Sign in'),
             onTap: (){
 
+              PacketC2SSignInWithSocial packetC2SSignInWithSocial = new PacketC2SSignInWithSocial();
+              packetC2SSignInWithSocial.generate(e_social_provider_type.google);
+              _requestPacketList.add(packetC2SSignInWithSocial);
+
               PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
-              packetC2SSignIn.generate(ModelUserInfo.getInstance().uId);
-              packetC2SSignIn.fetch(_onFetchDone);
+              _requestPacketList.add(packetC2SSignIn);
+
+              packetC2SSignInWithSocial.fetch(_onFetchDone);
 
             },
           ),
@@ -328,6 +359,12 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               PacketC2SSignOut packetC2SSignOut = new PacketC2SSignOut();
               packetC2SSignOut.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SSignOut);
+
+              PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = new PacketC2SSignOutWithSocial();
+              packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
+              _requestPacketList.add(packetC2SSignOutWithSocial);
+
               packetC2SSignOut.fetch(_onFetchDone);
 
             },
@@ -339,11 +376,11 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               PacketC2SWithdrawal packetC2SWithdrawal = new PacketC2SWithdrawal();
               packetC2SWithdrawal.generate(ModelUserInfo.getInstance().uId);
-              _list.add(packetC2SWithdrawal);
+              _requestPacketList.add(packetC2SWithdrawal);
 
               PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = new PacketC2SSignOutWithSocial();
               packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
-              _list.add(packetC2SSignOutWithSocial);
+              _requestPacketList.add(packetC2SSignOutWithSocial);
 
               packetC2SWithdrawal.fetch(_onFetchDone);
 

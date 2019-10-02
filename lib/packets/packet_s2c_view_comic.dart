@@ -13,7 +13,7 @@ class PacketS2CViewComic extends PacketS2CCommon
     type = e_packet_type.s2c_view_comic;
   }
 
-  Future<void> parseFireBaseDBJson(String userId,String comicId,String episodeId,Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  Future<void> parseFireBaseDBJson(String userId,String comicId,String partId,String seasonId,String episodeId,Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     status = e_packet_status.start_dispatch_respond;
 
