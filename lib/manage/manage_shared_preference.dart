@@ -10,10 +10,16 @@ class ManageSharedPreference
     await prefs.clear();
   }
 
-  static void remove(String key) async
+  static Future<bool> remove(String key) async
   {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(key);
+    if(prefs.containsKey(key))
+      {
+        await prefs.remove(key);
+        return true;
+      }
+
+    return false;
   }
 
   static Future<int> getInt(String key) async
