@@ -132,81 +132,98 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
             ? LoadingIndicator()
             : Column(
                 mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
                     height: ManageDeviceInfo.resolutionHeight * 0.02,
                   ),
-                  Container(
-                    
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          0,
-                          ManageDeviceInfo.resolutionHeight * 0.0,
-                          0,
-                          ManageDeviceInfo.resolutionHeight * 0.01),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4.0),
-                        child: CachedNetworkImage(
-                          imageUrl: ModelComicDetailInfo.getInstance()
-                              .representationImageUrl,
-                          width: ManageDeviceInfo.resolutionWidth * 0.375,
-                          height: ManageDeviceInfo.resolutionWidth * 0.375,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  
-                  Container(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          0,
-                          ManageDeviceInfo.resolutionHeight * 0.004,
-                          0,
-                          ManageDeviceInfo.resolutionHeight * 0.002),
-                      child: SizedBox(
-                        width: ManageDeviceInfo.resolutionWidth * 0.6,
-                        child: Text(
-                          ModelComicDetailInfo.getInstance().mainTitleName,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                            color: Colors.black87,
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              ManageDeviceInfo.resolutionWidth * 0.05,
+                              ManageDeviceInfo.resolutionHeight * 0.0,
+                              0,
+                              ManageDeviceInfo.resolutionHeight * 0.01),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4.0),
+                            child: CachedNetworkImage(
+                              imageUrl: ModelComicDetailInfo.getInstance().representationImageUrl,
+                              width: ManageDeviceInfo.resolutionWidth * 0.35,
+                              height: ManageDeviceInfo.resolutionWidth * 0.35,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          0,
-                          ManageDeviceInfo.resolutionHeight * 0.005,
-                          0,
-                          ManageDeviceInfo.resolutionHeight * 0.01),
-                      child: SizedBox(
-                        width: ManageDeviceInfo.resolutionWidth * 0.6,
-                        child: Text(
-                          'By: ${ModelComicDetailInfo.getInstance().creatorName}',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            fontSize: ManageDeviceInfo.resolutionHeight * 0.020,
-                            color: Colors.black87,
-                          ),
+                      SizedBox(
+                        height:  ManageDeviceInfo.resolutionWidth * 0.35,
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: ManageDeviceInfo.resolutionHeight * 0.024,
+                            ),
+                            Container(
+                              alignment: Alignment.topLeft,
+                              
+                              child: Padding(
+                            
+                              padding: EdgeInsets.fromLTRB(
+                                  ManageDeviceInfo.resolutionWidth * 0.05,
+                                  ManageDeviceInfo.resolutionHeight * 0.004,
+                                  0,
+                                  ManageDeviceInfo.resolutionHeight * 0.002),
+                              child: SizedBox(
+                                width: ManageDeviceInfo.resolutionWidth * 0.45,
+                                child: Text(
+                                  ModelComicDetailInfo.getInstance().mainTitleName,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: ManageDeviceInfo.resolutionHeight * 0.024,
+                            ),
+                            Container(
+                              
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    ManageDeviceInfo.resolutionWidth * 0.05,
+                                    ManageDeviceInfo.resolutionHeight * 0.005,
+                                    0,
+                                    ManageDeviceInfo.resolutionHeight * 0.01),
+                                child: SizedBox(
+                                  width: ManageDeviceInfo.resolutionWidth * 0.45,
+                                  child: Text(
+                                    'Creator: ${ModelComicDetailInfo.getInstance().creatorName}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: ManageDeviceInfo.resolutionHeight * 0.020,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                    ],
                   ),
                   Divider(),
                   Container(
