@@ -118,11 +118,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                       ),
               ),
             ),
-            /*SvgPicture.asset(
-              'images/sparky_logo.svg',
-              width: ManageDeviceInfo.resolutionWidth * 0.045,
-              height: ManageDeviceInfo.resolutionHeight * 0.025,
-            ),*/
+            
           ),
         ),
       ),
@@ -166,19 +162,12 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                               height: ManageDeviceInfo.resolutionHeight * 0.024,
                             ),
                             Container(
+                              margin: EdgeInsets.only(left:ManageDeviceInfo.resolutionWidth * 0.05),
                               alignment: Alignment.topLeft,
-                              
-                              child: Padding(
-                            
-                              padding: EdgeInsets.fromLTRB(
-                                  ManageDeviceInfo.resolutionWidth * 0.05,
-                                  ManageDeviceInfo.resolutionHeight * 0.004,
-                                  0,
-                                  ManageDeviceInfo.resolutionHeight * 0.002),
                               child: SizedBox(
                                 width: ManageDeviceInfo.resolutionWidth * 0.45,
-                                child: Text(
-                                  ModelComicDetailInfo.getInstance().mainTitleName,
+                                height: ManageDeviceInfo.resolutionHeight * 0.05,
+                                child: Text(ModelComicDetailInfo.getInstance().mainTitleName,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -189,7 +178,6 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                                     color: Colors.black87,
                                   ),
                                 ),
-                              ),
                               ),
                             ),
                             SizedBox(
