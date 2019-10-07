@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:sparky/models/model_common.dart';
@@ -14,16 +15,18 @@ class PacketC2SSignUp extends PacketC2SCommon
 {
   String _uId;
   e_social_provider_type _socialProviderType;
+  String _emailAddress;
 
   PacketC2SSignUp()
   {
     type = e_packet_type.c2s_sign_up;
   }
 
-  void generate(String uId,e_social_provider_type socialProviderType)
+  void generate(String uId,e_social_provider_type socialProviderType,String emailAddress)
   {
     _uId = uId;
     _socialProviderType = socialProviderType;
+    _emailAddress = emailAddress;
   }
 
   Future<void> fetch(onFetchDone) async
@@ -34,6 +37,10 @@ class PacketC2SSignUp extends PacketC2SCommon
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SSignUp : fetchFireBaseDB started');
+
+    //List<int> emailAddressBytes = utf8.encode(_emailAddress);
+    //Base64Codec base64Codec = new Base64Codec();
+    //String emailAddressBase64 = base64Codec.encode(emailAddressBytes);
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
     modelUserInfoReference.child(_uId).set({

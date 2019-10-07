@@ -22,6 +22,10 @@ class PacketS2CUserInfo extends PacketS2CCommon
     ModelUserInfo.getInstance().followers = jsonMap['followers'];
     ModelUserInfo.getInstance().following = jsonMap['following'];
     ModelUserInfo.getInstance().likes = jsonMap['likes'];
+    ModelUserInfo.getInstance().displayName = jsonMap['display_name'];
+    ModelUserInfo.getInstance().userName = jsonMap['user_name'];
+    ModelUserInfo.getInstance().email = jsonMap['email_address'];
+    ModelUserInfo.getInstance().photoUrl   = await ManageFirebaseStorage.getDownloadUrl(jsonMap['photo_url']);
 
     if(null != onFetchDone)
       onFetchDone(this);
