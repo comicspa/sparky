@@ -95,6 +95,9 @@ enum e_packet_type
   c2s_sign_out_with_social,
   s2c_sign_out_with_social,
 
+  c2s_register_comic,
+  s2c_register_comic,
+
 }
 
 
