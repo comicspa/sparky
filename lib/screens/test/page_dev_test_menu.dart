@@ -36,6 +36,8 @@ import 'package:sparky/screens/test/page_dev_test_toast_message.dart';
 import 'package:sparky/screens/test/page_dev_test_packet.dart';
 import 'package:sparky/screens/test/page_dev_test_view_image.dart';
 import 'package:sparky/screens/test/page_dev_test_shared_preference.dart';
+import 'package:sparky/screens/test/page_dev_test_translation_page.dart';
+
 
 class PageDevTestMenu extends StatefulWidget
 {
@@ -171,6 +173,20 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
                 context,
                 MaterialPageRoute(
                   builder: (context) => PageDevTestSharedPreference(),
+                ),
+              );
+
+            },
+          ),
+
+          ListTile(
+            title: Text('SharedPreference Test'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TranslationListScreen(),
                 ),
               );
 
