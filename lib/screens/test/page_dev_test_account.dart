@@ -70,7 +70,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
                 case e_packet_type.c2s_sign_up:
                   {
                     PacketC2SSignUp packetC2SSignUp = current as PacketC2SSignUp;
-                    packetC2SSignUp.generate(ModelUserInfo.getInstance().uId, ModelUserInfo.getInstance().socialProviderType);
+                    packetC2SSignUp.generate(ModelUserInfo.getInstance().uId, ModelUserInfo.getInstance().socialProviderType,ModelUserInfo.getInstance().email);
                     packetC2SSignUp.fetch(_onFetchDone);
                   }
                   break;

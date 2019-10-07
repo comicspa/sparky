@@ -41,8 +41,8 @@ class PacketC2SUserInfo extends PacketC2SCommon
   {
     print('PacketC2SUserInfo : fetchFireBaseDB started');
 
-    if(2 == _fetchStatus)
-      return ModelUserInfo.getInstance();
+    //if(2 == _fetchStatus)
+    //  return ModelUserInfo.getInstance();
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child('000011111');
     modelUserInfoReference.once().then((DataSnapshot snapshot)
@@ -56,7 +56,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
 
     });
 
-    return null;
+    return ModelUserInfo.getInstance();
   }
 
 
