@@ -22,6 +22,7 @@ class ModelPreset
   static String _faqUrl = 'https://www.google.co.kr';
   static String _privacyPolicyUrl = 'https://www.google.co.kr';
   static String _termsOfUseUrl = 'https://www.google.co.kr';
+  static bool _developerMode = false;
   static final String _comicBaseUrl = 'comics';
   static final String __representationVerticalImageFileFullName = '000000.jpg';
   static final String __representationHorizontalImageFileFullName = '000001.jpg';
@@ -38,6 +39,7 @@ class ModelPreset
   static String get representationHorizontalImageFileFullName => __representationHorizontalImageFileFullName;
   static String get thumbnailImageFileFullName => __thumbnailImageFileFullName;
   static String get bannerImageFileFullName => __bannerImageFileFullName;
+  static bool get developerMode => _developerMode;
 
   static set homepageUrl(String homepageUrl)
   {
@@ -55,7 +57,10 @@ class ModelPreset
   {
     _termsOfUseUrl = termsOfUseUrl;
   }
-
+  static set developerMode(bool developerMode)
+  {
+    _developerMode = developerMode;
+  }
 
   static bool fromJson(String presetJsonString)
   {

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sparky/screens/test/page_dev_test_menu.dart';
 import 'package:sparky/screens/main_tab_bar.dart';
 import 'package:sparky/screens/splash.dart';
+import 'package:sparky/screens/test/page_dev_test_apply.dart';
 import 'package:sparky/theme.dart';
 
 void main() {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/PageDevTestMenu': (context) => PageDevTestMenu(),
         '/HomeScreen': (context) => HomeScreen(),
+        '/PageDevTestApply': (context) => PageDevTestApply(),
       },
 
     );

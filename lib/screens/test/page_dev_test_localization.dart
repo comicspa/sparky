@@ -34,6 +34,16 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
       children: ListTile.divideTiles(
         context: context,
         tiles: [
+
+          ListTile(
+            title: Text('Go to Next Page'),
+            onTap: (){
+
+              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+
+            },
+          ),
+
           ListTile(
             title: Text('ko_kr'),
             onTap: (){
@@ -52,7 +62,6 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
 
             },
           ),
-
 
         ], ).toList(), ); }
 
