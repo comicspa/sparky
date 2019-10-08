@@ -80,7 +80,7 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
     if(null != ModelLocalizationInfo.languagePack)
       return ModelLocalizationInfo.languagePack;
 
-    String id = '${_localeCode}_${_languageCode}';
+    String id = '${_languageCode}_${_localeCode}';
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_localization_info').child(id);
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {

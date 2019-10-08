@@ -48,10 +48,17 @@ class _SplashScreenState extends State<SplashScreen>
 
   void initialize() async
   {
+    //localization test
+    //ManageDeviceInfo.languageCode = 'ko';
+    //ManageDeviceInfo.localeCode = 'kr';
+
+    //ManageDeviceInfo.languageCode = 'en';
+    //ManageDeviceInfo.localeCode = 'us';
+
+
     _uId = await ManageSharedPreference.getString('uId');
     _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
     print('uId : $_uId , social_provider_type : $_socialProviderType');
-
 
     _packetC2SPreset = new PacketC2SPreset();
     _packetC2SPreset.fetch(_onFetchDone);
