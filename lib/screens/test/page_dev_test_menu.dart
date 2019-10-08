@@ -181,7 +181,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('SharedPreference Test'),
+            title: Text('Translation List View'),
             onTap: (){
 
               Navigator.push<Widget>(
