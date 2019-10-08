@@ -34,6 +34,10 @@ class PacketC2SRegisterCreator extends PacketC2SCommon
   {
     print('PacketC2SSignUp : fetchFireBaseDB started');
 
+    //List<int> uIdBytes = utf8.encode(_uId);
+    //Base64Codec base64Codec = new Base64Codec();
+    //String uIdBase64 = base64Codec.encode(uIdBytes);
+
     String creatorId = DateTime.now().millisecondsSinceEpoch.toString();
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
     modelUserInfoReference.child(_uId).update({

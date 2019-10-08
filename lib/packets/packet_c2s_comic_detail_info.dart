@@ -26,6 +26,7 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
 
   void generate(String userId,String comicId)
   {
+    _fetchStatus = 0;
     _userId = userId;
     _comicId = comicId;
   }
@@ -49,10 +50,16 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
     {
       print('[PacketC2SComicDetailInfo : fetchFireBaseDB ] - ${snapshot.value}');
 
-      PacketS2CComicDetailInfo preset = new PacketS2CComicDetailInfo();
-      preset.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      if(0 == _fetchStatus)
+      {
+        _fetchStatus = 1;
+
+        PacketS2CComicDetailInfo preset = new PacketS2CComicDetailInfo();
+        preset.parseFireBaseDBJson(snapshot.value, onFetchDone);
+      }
 
       _fetchStatus = 2;
+
       return ModelComicDetailInfo.getInstance();
 
     });
