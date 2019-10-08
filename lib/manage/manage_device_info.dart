@@ -10,8 +10,8 @@ class ManageDeviceInfo
   static double _resolutionHeight = 0.0;
   static double _statusBarHeight = 0.0;
   //static Locale _locale;
-  static String _languageCode = 'ko';
-  static String _localeCode = 'kr';
+  static String _languageCode;
+  static String _localeCode;
 
   static String get uniqueId => _uniqueId;
   static double get resolutionWidth => _resolutionWidth;
@@ -20,6 +20,18 @@ class ManageDeviceInfo
   //static Locale get locale => _locale;
   static String get languageCode => _languageCode;
   static String get localeCode => _localeCode;
+
+  static set languageCode(String languageCode)
+  {
+    _languageCode = languageCode;
+  }
+
+  static set localeCode(String localeCode)
+  {
+    _localeCode = localeCode;
+  }
+
+
 
   static Future<String> _getUniqueId(BuildContext context) async
   {
@@ -68,6 +80,12 @@ class ManageDeviceInfo
 
   static void getLanguageLocale() async
   {
+    if(null != _languageCode && null != _localeCode)
+    {
+      print('null != _languageCode && null != _localeCode');
+      return;
+    }
+
     List languages = await Devicelocale.preferredLanguages;
     String locale = await Devicelocale.currentLocale;
 

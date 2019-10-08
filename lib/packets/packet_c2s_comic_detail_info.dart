@@ -40,29 +40,30 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
   {
     print('PacketC2SComicDetailInfo : fetchFireBaseDB started');
 
-    if(0 != _fetchStatus)
+    if(3 == _fetchStatus)
       return ModelComicDetailInfo.getInstance();
-
-    String id = '${_userId}_${_comicId}';
-    print('id : $id');
-    DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child(id);
-    modelComicDetailInfoReference.once().then((DataSnapshot snapshot)
+    else if(0 == _fetchStatus)
     {
-      print('[PacketC2SComicDetailInfo : fetchFireBaseDB ] - ${snapshot.value}');
+      _fetchStatus = 1;
 
-      if(0 == _fetchStatus)
-      {
-        _fetchStatus = 1;
+      String id = '${_userId}_${_comicId}';
+      print('id : $id');
+      DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase
+          .reference.child('model_comic_detail_info').child(id);
+      modelComicDetailInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SComicDetailInfo : fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        _fetchStatus = 2;
 
         PacketS2CComicDetailInfo preset = new PacketS2CComicDetailInfo();
         preset.parseFireBaseDBJson(snapshot.value, onFetchDone);
-      }
 
-      _fetchStatus = 2;
-
-      return ModelComicDetailInfo.getInstance();
-
-    });
+        _fetchStatus = 3;
+       
+        return ModelComicDetailInfo.getInstance();
+      });
+    }
 
     return null;
   }
