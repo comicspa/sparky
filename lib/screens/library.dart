@@ -76,7 +76,7 @@ class _LibraryScreenState extends State<LibraryScreen>
               Tab(text: "Recent"),
               Tab(text: "View List"),
               Tab(text: "Owned"),
-              Tab(text: "Continue")
+              Tab(text: "Download")
             ]
           ),
           
