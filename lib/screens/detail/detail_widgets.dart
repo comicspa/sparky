@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:share/share.dart';
+
 
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
+import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/screens/common_widgets.dart';
 
-import 'package:share/share.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/screens/viewer.dart';
 import 'package:sparky/screens/common_widgets.dart';
@@ -14,13 +16,347 @@ import 'package:sparky/models/model_preset.dart';
 
 
 
-class StoryTranslationIconWidget extends StatelessWidget {
-  const StoryTranslationIconWidget({Key key}) : super(key: key);
+class EpisodeTotalNumberDisplayWidget extends StatelessWidget {
+  const EpisodeTotalNumberDisplayWidget({
+    Key key,
+    this.episodeCount,
+  }) : super(key: key);
+
+  final episodeCount;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+            ManageDeviceInfo.resolutionWidth * 0.02,
+            0.0,
+            0.0,
+            0.0),
+        child: SizedBox(
+          width: ManageDeviceInfo.resolutionWidth * 0.8,
+          child: episodeCount == null
+              ? Text(
+                  'Episodes( 0 )',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold,
+                    fontSize:
+                        ManageDeviceInfo.resolutionHeight * 0.021,
+                    color: Colors.black87,
+                  ),
+                )
+              : Text(
+                  'Episodes( ${episodeCount.length} )',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold,
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.021,
+                    color: Colors.black87,
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class StorylineTextBoxWidget extends StatelessWidget {
+  const StorylineTextBoxWidget({
+    Key key,
+    this.storyText,
+  }) : super(key: key);
+
+  final String storyText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                0,
+                ManageDeviceInfo.resolutionHeight * 0.010,
+                0,
+                ManageDeviceInfo.resolutionHeight * 0.015),
+            child: SizedBox(
+              width: ManageDeviceInfo.resolutionWidth * 0.8,
+              child: Text(storyText,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.normal,
+                  fontSize:
+                      ManageDeviceInfo.resolutionHeight * 0.02,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return BuildAlertDialog(null);
+              },
+            );
+          },
+          child: Container(
+            alignment: Alignment.center,
+            child: Icon(
+              CupertinoIcons.info,
+              color: Colors.deepOrangeAccent,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class ViewFrom1stEpisodeWidget extends StatelessWidget {
+  
+
+  const ViewFrom1stEpisodeWidget({
+    Key key,
+    this.userId,
+    this.comicId,
+    this.firstEpisodeId,
+  }) : super(key: key);
+
+  final userId;
+  final comicId;
+  final firstEpisodeId;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: ManageDeviceInfo.resolutionHeight * 0.08,
       
+      color: Colors.grey[300],
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: ManageDeviceInfo.resolutionHeight * 0.05,
+            width: ManageDeviceInfo.resolutionWidth * 0.9,
+            child: FlatButton(
+              color: Colors.red[300],
+              splashColor: Colors.orangeAccent,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewerScreen(
+                      userId,
+                      comicId,
+                      firstEpisodeId,
+                    )
+                  ),
+                );
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              
+              child: Container(
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      CupertinoIcons.book,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: ManageDeviceInfo.resolutionWidth * 0.02,
+                    ),
+                    Text(
+                      '처음부터 보기 ',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.bold,
+                        fontSize:
+                            ManageDeviceInfo.resolutionHeight * 0.02,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DeatilHeaderTitleWidget extends StatelessWidget {
+  const DeatilHeaderTitleWidget({
+    Key key,
+    this.titleThumnailUrl,
+    this.titleName,
+    this.creatorName,  
+  }) : super(key: key);
+
+  final String titleThumnailUrl;
+  final String titleName;
+  final String creatorName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                ManageDeviceInfo.resolutionWidth * 0.05,
+                ManageDeviceInfo.resolutionHeight * 0.0,
+                0,
+                ManageDeviceInfo.resolutionHeight * 0.01),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: CachedNetworkImage(
+                imageUrl: titleThumnailUrl,
+                width: ManageDeviceInfo.resolutionWidth * 0.35,
+                height: ManageDeviceInfo.resolutionWidth * 0.35,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height:  ManageDeviceInfo.resolutionWidth * 0.35,
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: ManageDeviceInfo.resolutionHeight * 0.024,
+              ),
+              Container(
+                margin: EdgeInsets.only(left:ManageDeviceInfo.resolutionWidth * 0.05),
+                alignment: Alignment.topLeft,
+                child: SizedBox(
+                  width: ManageDeviceInfo.resolutionWidth * 0.45,
+                  height: ManageDeviceInfo.resolutionHeight * 0.05,
+                  child: Text(titleName,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.bold,
+                      fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: ManageDeviceInfo.resolutionHeight * 0.024,
+              ),
+              Container(
+                
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      ManageDeviceInfo.resolutionWidth * 0.05,
+                      ManageDeviceInfo.resolutionHeight * 0.005,
+                      0,
+                      ManageDeviceInfo.resolutionHeight * 0.01),
+                  child: SizedBox(
+                    width: ManageDeviceInfo.resolutionWidth * 0.45,
+                    child: Text(
+                      'Creator: $creatorName',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.normal,
+                        fontSize: ManageDeviceInfo.resolutionHeight * 0.020,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
+class StoryTranslationIconWidget extends StatelessWidget {
+  const StoryTranslationIconWidget({
+    Key key,
+    this.iconText, 
+    
+    }) : super(key: key);
+
+  final String iconText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(          
+          padding: EdgeInsets.all(0),
+          alignment: Alignment.center,
+            child: IconButton(
+              icon: Icon(Icons.translate),
+              color: Colors.red[500],
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ComingSoonScreen(),
+                  ),
+                );
+              },
+            ),
+        ),
+        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            iconText,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'Lato',
+              fontWeight: FontWeight.normal,
+              fontSize: ManageDeviceInfo.resolutionHeight * 0.017,
+              color: Colors.black87,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
