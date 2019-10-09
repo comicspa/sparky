@@ -42,9 +42,55 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
     PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
     packetC2SPresetComicInfo.generate();
     ManageMessage.generate();
+    ManageMessage.streamController.stream.listen((data) {
+      print("DataReceived1: " + data.toString());
+
+      switch(data)
+      {
+        case e_packet_type.s2c_preset_comic_info:
+          {
+            PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
+            packetC2SPresetLibraryInfo.generate();
+            ManageMessage.add(packetC2SPresetLibraryInfo);
+
+            print('[_PageDevTestApplyState::_onFetchDone] : e_packet_type.s2c_preset_comic_info');
+          }
+          break;
+
+        case e_packet_type.s2c_preset_library_info:
+          {
+            print('[_PageDevTestApplyState::_onFetchDone] : e_packet_type.s2c_preset_library_info');
+            print(ManageDeviceInfo.getStringLanguageLocale());
+
+            PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+            packetC2SLocalizationInfo.generate(
+                ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
+            ManageMessage.add(packetC2SLocalizationInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_localization_info:
+          {
+            navigationPage();
+
+            print('[_PageDevTestApplyState::_onFetchDone] : e_packet_type.s2c_localization_info');
+          }
+          break;
+
+        default:
+          break;
+      }
+
+
+    }, onDone: () {
+      print("_onFetchDone Done");
+    }, onError: (error) {
+      print("_onFetchDone Error");
+    });
+
     ManageMessage.add(packetC2SPresetComicInfo);
 
-    //packetC2SPresetComicInfo.fetch(_onFetchDone);
   }
 
   @override
@@ -58,51 +104,6 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('state = $state');
   }
-
-  void _onFetchDone(PacketS2CCommon s2cPacket)
-  {
-      ManageMessage.streamController.stream.listen((data) {
-        print("DataReceived1: " + data.toString());
-
-        switch(data)
-        {
-          case e_packet_type.s2c_preset_comic_info:
-            {
-              PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
-              packetC2SPresetLibraryInfo.generate();
-              ManageMessage.add(packetC2SPresetLibraryInfo);
-            }
-            break;
-
-          case e_packet_type.s2c_preset_library_info:
-            {
-              PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
-              packetC2SLocalizationInfo.generate(
-                  ManageDeviceInfo.localeCode, ManageDeviceInfo.languageCode);
-              ManageMessage.add(packetC2SLocalizationInfo);
-            }
-            break;
-
-          case e_packet_type.s2c_localization_info:
-            {
-              navigationPage();
-            }
-            break;
-
-          default:
-            break;
-        }
-
-
-      }, onDone: () {
-        print("_onFetchDone Done");
-      }, onError: (error) {
-        print("_onFetchDone Error");
-      });
-
-
-  }
-
 
   void navigationPage() {
 

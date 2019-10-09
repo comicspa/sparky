@@ -36,6 +36,8 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
 
   void generate()
   {
+    _count = 0;
+
     _packetC2SFeaturedComicInfo.generate(0, 0);
     _packetC2SRecommendedComicInfo.generate(0, 0);
     _packetC2sRealTimeTrendComicInfo.generate(0, 0);

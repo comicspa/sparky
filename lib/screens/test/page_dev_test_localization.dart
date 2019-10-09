@@ -51,6 +51,17 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
               ManageDeviceInfo.languageCode = 'ko';
               ManageDeviceInfo.localeCode = 'kr';
 
+              Fluttertoast.showToast(
+                  msg: "Select ko_kr",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.black,
+                  textColor: Colors.yellow,
+                  fontSize: 16.0
+              );
+
+
             },
           ),
           ListTile(
@@ -59,6 +70,16 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
 
               ManageDeviceInfo.languageCode = 'en';
               ManageDeviceInfo.localeCode = 'us';
+
+              Fluttertoast.showToast(
+                  msg: "Select en_us",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIos: 1,
+                  backgroundColor: Colors.black,
+                  textColor: Colors.yellow,
+                  fontSize: 16.0
+              );
 
             },
           ),
