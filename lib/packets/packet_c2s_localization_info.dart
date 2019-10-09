@@ -16,48 +16,46 @@ import 'package:sparky/manage/manage_message.dart';
 
 class PacketC2SLocalizationInfo extends PacketC2SCommon
 {
-  String _localeCode = 'ko';
-  String _languageCode = 'kr';
-
+  String _languageCode = 'ko';
+  String _localeCode = 'kr';
 
   PacketC2SLocalizationInfo()
   {
     type = e_packet_type.c2s_localization_info;
   }
 
-  void generate(String localeCode,String languageCode)
+  void generate(String languageCode,String localeCode)
   {
+
+    languageCode = languageCode.toLowerCase();
+    switch(languageCode)
+    {
+      case 'en':
+        _languageCode = 'en';
+        break;
+
+      case  'ko':
+      default:
+        _languageCode = 'ko';
+        break;
+    }
+
     localeCode =  localeCode.toLowerCase();
     switch(localeCode)
     {
-      case  'ko':
-        _localeCode = 'ko';
-        break;
 
       case 'us':
         _localeCode = 'us';
         break;
 
-      default:
-        _localeCode = 'ko';
-        break;
-    }
-
-    languageCode = languageCode.toLowerCase();
-    switch(languageCode)
-    {
       case 'kr':
-        _languageCode = 'kr';
-        break;
-
-      case 'en':
-        _languageCode = 'en';
-        break;
-
       default:
-        _languageCode = 'kr';
+        _localeCode = 'kr';
         break;
     }
+
+
+
 
   }
 
@@ -75,12 +73,14 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
 
   Future<Map<dynamic,dynamic>> _fetchFireBaseDB(onFetchDone) async
   {
-    print('PacketC2SLocalizationInfo : fetchFireBaseDB started');
+    print('PacketC2SLocalizationInfo : fetchFireBaseDB started - languageCode : ${_languageCode} , localeCode : ${_localeCode}');
 
     if(null != ModelLocalizationInfo.languagePack)
       return ModelLocalizationInfo.languagePack;
 
     String id = '${_languageCode}_${_localeCode}';
+    print('id : $id');
+
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_localization_info').child(id);
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {

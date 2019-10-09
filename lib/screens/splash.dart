@@ -116,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen>
             {
               PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
               packetC2SLocalizationInfo.generate(
-                  ManageDeviceInfo.localeCode, ManageDeviceInfo.languageCode);
+                  ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
               ManageMessage.add(packetC2SLocalizationInfo);
             }
             break;

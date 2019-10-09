@@ -125,4 +125,9 @@ class ManageDeviceInfo
     //getLocale(context);
   }
 
+
+  static String getStringLanguageLocale()
+  {
+    return 'localeCode :  $localeCode, languageCode : $languageCode';
+  }
 }

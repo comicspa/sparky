@@ -33,6 +33,8 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
 
   void generate()
   {
+    _count = 0;
+
     _packetC2SLibraryContinueComicInfo.generate();
     _packetC2SLibraryOwnedComicInfo.generate();
     _packetC2SLibraryRecentComicInfo.generate();
