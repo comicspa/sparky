@@ -62,7 +62,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 child: Text('No'),
               ),
               FlatButton(
-                onPressed: () {
+                onPressed: () { //todo need more processing for logout
                   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                 },
                 child: Text('Yes'),
