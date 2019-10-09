@@ -7,7 +7,7 @@ import 'package:sparky/screens/more/setting_submenu.dart';
 import 'package:sparky/screens/more/version_info.dart';
 import 'more_submenu_comming_soon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'service_info_submenu.dart';
+import 'package:sparky/screens/more/service_info_submenu.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'package:sparky/screens/common_widgets.dart';

@@ -4,7 +4,7 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:sparky/manage/manage_service_center_info.dart';
-import 'common_widgets.dart';
+import 'package:sparky/screens/common_widgets.dart';
 
 // Coming soon page for multi-purpose
 

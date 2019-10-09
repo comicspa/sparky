@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:sparky/manage/manage_device_info.dart';
+import 'package:sparky/screens/more/account_delete_popup.dart'; // use this to make all the widget size responsive to the device size.
 
 
 // Coming soon page for multi-purpose
@@ -44,6 +45,14 @@ class SettingSubmenuPage extends StatelessWidget {
               title: Text('회원탈퇴'),
               subtitle: Text('This will delete your account and all your data'),
               isThreeLine: true,
+              onTap: () {
+                Navigator.push<Widget>(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AccountDeleteWidget(titleText:'Account Delete'),
+                                ));
+              },
             ),
           ),
           
