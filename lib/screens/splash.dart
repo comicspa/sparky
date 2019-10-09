@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_user_info.dart';
@@ -33,7 +34,6 @@ class _SplashScreenState extends State<SplashScreen>
   bool _enableAppVersion = true;
   String _uId;
   int _socialProviderType = 0;
-  int _switchPage = 0;
 
   @override
   void initState()
@@ -48,6 +48,17 @@ class _SplashScreenState extends State<SplashScreen>
 
   void initialize() async
   {
+
+    if(kDebugMode)
+    {
+      print('Debug Mode');
+      //ModelPreset.developerMode = true;
+    }
+    else {
+      print('Release Mode');
+    }
+
+
     _uId = await ManageSharedPreference.getString('uId');
     _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
     print('uId : $_uId , social_provider_type : $_socialProviderType');
@@ -72,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
-    if(1 == _switchPage)
+    if(true == ModelPreset.developerMode)
     {
       Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
       return;
@@ -156,10 +167,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   void navigationPage() {
 
-    if(0 == _switchPage)
       Navigator.of(context).pushReplacementNamed('/HomeScreen');
-    else if(2 == _switchPage)
-      Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
   }
 
   void applicationQuit() {
