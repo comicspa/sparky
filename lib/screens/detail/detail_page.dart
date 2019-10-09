@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/manage/manage_device_info.dart';
-import 'package:sparky/packets/packet_c2s_common.dart';
-import 'viewer.dart';
-
+import 'package:sparky/screens/viewer.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
-import 'common_widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:sparky/screens/common_widgets.dart';
+import 'package:sparky/screens/detail/detail_widget.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
@@ -16,7 +14,7 @@ class DetailPage extends StatefulWidget {
   final String _userId;
   final String _comicId;
   DetailPage(this._userId, this._comicId);
-  bool _favorited = true;
+  bool _Liked = true;
   
 
   @override
@@ -26,8 +24,8 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   final String _userId;
   final String _comicId;
-  bool _favorited = true;
-  int _favoriteCount = 41;
+  bool _Liked = true;
+  int _LikeCount = 41;
 
 
   _DetailPageState(this._userId, this._comicId);
@@ -355,7 +353,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        FavoriteWidget(),
+                        LikedWidget(),
                         SaveToViewList(),
                         ShareWidget(),
                       ]),
@@ -411,380 +409,5 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   }
 }
 
-class EpisodeListViewWidget extends StatelessWidget {
-  const EpisodeListViewWidget({
-    Key key,
-    @required this.c2sComicDetailInfo,
-  }) : super(key: key);
-
-  final PacketC2SComicDetailInfo c2sComicDetailInfo;
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<ModelComicDetailInfo>(
-      future: c2sComicDetailInfo.fetch(null),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData)
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: ManageDeviceInfo.resolutionHeight * .25,
-                  child: Center(child: LoadingIndicator()),
-                ),
-              ],
-            ),
-          );
-        {
-          return buildEpisodeListView();
-        }
-      },
-    );
-  }
-
-  ListView buildEpisodeListView() {
-    return ListView.separated(
-          separatorBuilder: (BuildContext context, index) =>
-              Divider(
-            height: ManageDeviceInfo.resolutionHeight * 0.004,
-          ),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          itemCount: ModelComicDetailInfo.getInstance().modelComicInfoList.length,
-          itemBuilder: (context, index) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-
-                  padding: EdgeInsets.all(ManageDeviceInfo.resolutionWidth * 0.02),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        flex: 4,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                  ViewerScreen(ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
-                                  ModelPreset.convertCountIndex2EpisodeId(index),
-                                ),
-                              ),
-                            );
-                          },
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(4.0),
-                            child: CachedNetworkImage(
-                              imageUrl: ModelComicDetailInfo.getInstance().modelComicInfoList[index].thumbnailImageUrl,
-                              placeholder: (context, url) => LoadingIndicator(),
-                              width: ManageDeviceInfo.resolutionWidth * 0.26,
-                              height: ManageDeviceInfo.resolutionHeight * 0.16,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 7,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ViewerScreen(ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
-                                  ModelPreset.convertCountIndex2EpisodeId(index),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            child: SizedBox(
-                              width: ManageDeviceInfo.resolutionWidth * 0.5,
-                              height: ManageDeviceInfo.resolutionHeight * 0.16,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    alignment:
-                                        Alignment.bottomLeft,
-                                    padding: EdgeInsets.only(
-                                        left: ManageDeviceInfo.resolutionWidth * 0.04),
-                                    child: Text(
-                                        '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].episode}화',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontFamily: 'Lato',
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
-                                          color: Colors.black87,
-                                        )),
-                                  ),
-                                  Container(
-                                    alignment:
-                                        Alignment.bottomLeft,
-                                    padding: EdgeInsets.only(
-                                        left: ManageDeviceInfo.resolutionWidth * 0.04),
-                                    child: Text(
-                                        '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].subTitleName}',
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontFamily: 'Lato',
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: ManageDeviceInfo.resolutionHeight * 0.02,
-                                          color: Colors.black87,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.timer,
-                              color: Colors.black87
-                            ),
-                          onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder:
-                                    (BuildContext context) {
-                                  return BuildAlertDialog(null);
-                                },
-                              );
-                            },
-                          ),
-                        )
-                      ),
-                      Flexible(
-                        flex: 2,
-                        child: Container(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.file_download,
-                              color: Colors.black54,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder:
-                                    (BuildContext context) {
-                                  return BuildAlertDialog(null);
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-  }
-}
-
-class FavoriteWidget extends StatefulWidget {
-  
-  FavoriteWidget({Key key}) : super(key: key);
-  
-  @override
-  _FavoriteWidgetState createState() => _FavoriteWidgetState();
-}
-
-class _FavoriteWidgetState extends State<FavoriteWidget> {
-  bool _isFavorited = false;
-  int _favoriteCount = 41;
-
-  void _toggleFavorite() {
-  setState(() {
-    if (_isFavorited) {
-      _favoriteCount -= 1;
-      _isFavorited = false;
-    } else {
-      _favoriteCount += 1;
-      _isFavorited = true;
-    }
-  });
-}
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(          
-          padding: EdgeInsets.all(0),
-          alignment: Alignment.center,
-            child: IconButton(
-              icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
-              color: Colors.red[500],
-              onPressed: _toggleFavorite,
-            ),
-        ),
-        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            '좋아요',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Lato',
-              fontWeight: FontWeight.normal,
-              fontSize: ManageDeviceInfo.resolutionHeight * 0.017,
-              color: Colors.black87,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-}
 
 
-class SaveToViewList extends StatefulWidget {
-  
-  SaveToViewList({Key key}) : super(key: key);
-
-  _SaveToViewListState createState() => _SaveToViewListState();
-}
-
-class _SaveToViewListState extends State<SaveToViewList> {
-  bool _saveToViewList = false;
-  int _saveToViewListCount = 0;
-  
-
-  void _toggleSaveToViewList() {
-  setState(() {
-    if (_saveToViewList) {
-      _saveToViewListCount -= -1;
-      _saveToViewList = false;
-    } else {
-      _saveToViewListCount += 1;
-      _saveToViewList = true;
-    }
-  });
-}
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(          
-          padding: EdgeInsets.all(0),
-          alignment: Alignment.center,
-            child: IconButton(
-              icon: (_saveToViewList ? Icon(CupertinoIcons.add) : Icon(CupertinoIcons.add_circled,)),
-              color: Colors.red[500],
-              onPressed: _toggleSaveToViewList,
-            ),
-        ),
-        SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            '나중에 보기',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Lato',
-              fontWeight: FontWeight.normal,
-              fontSize: ManageDeviceInfo.resolutionHeight * 0.017,
-              color: Colors.black87,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-}
-
-
-class ShareWidget extends StatefulWidget {
-  ShareWidget({Key key}) : super(key: key);
-
-  _ShareWidgetState createState() => _ShareWidgetState();
-}
-
-class _ShareWidgetState extends State<ShareWidget> {
-  bool _shareClicked = false;
-  int _sharedCount = 0;
-  
-
-  void _toggleShared() {
-    setState(() {
-      if (_shareClicked) {
-        _shareClicked = false;
-      } else {
-        _sharedCount += 1;
-        _shareClicked = true;
-        Share.share('check out my website https://superants.io');
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(          
-          padding: EdgeInsets.all(0),
-          alignment: Alignment.center,
-            child: IconButton(
-              icon: _shareClicked ? Icon(CupertinoIcons.share_solid) : Icon(CupertinoIcons.share_up),
-              color: Colors.deepOrangeAccent,
-              onPressed: _toggleShared,
-            ),
-        ),
-        SizedBox(
-          width:
-              ManageDeviceInfo.resolutionWidth * 0.015,
-        ),
-        Container(
-          alignment: Alignment.center,
-          child: Text(
-            '공유하기',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Lato',
-              fontWeight: FontWeight.normal,
-              fontSize:
-                  ManageDeviceInfo.resolutionHeight *
-                      0.017,
-              color: Colors.black87,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}

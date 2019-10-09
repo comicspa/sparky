@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:url_launcher/url_launcher.dart';
-import 'more_submenu_comming_soon.dart';
-import 'package:sparky/screens/menu/terms_of_service.dart';
+
 import 'package:sparky/manage/manage_service_center_info.dart';
 import 'common_widgets.dart';
 
