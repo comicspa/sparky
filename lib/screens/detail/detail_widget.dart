@@ -14,16 +14,29 @@ import 'package:sparky/models/model_preset.dart';
 
 
 
+class StoryTranslationIconWidget extends StatelessWidget {
+  const StoryTranslationIconWidget({Key key}) : super(key: key);
 
-class LikedWidget extends StatefulWidget {
-  
-  LikedWidget({Key key}) : super(key: key);
-  
   @override
-  _LikedWidgetState createState() => _LikedWidgetState();
+  Widget build(BuildContext context) {
+    return Container(
+      
+    );
+  }
 }
 
-class _LikedWidgetState extends State<LikedWidget> {
+
+class LikedIconWidget extends StatefulWidget {
+  
+  LikedIconWidget({Key key,
+  
+  }) : super(key: key);
+  
+  @override
+  _LikedIconWidgetState createState() => _LikedIconWidgetState();
+}
+
+class _LikedIconWidgetState extends State<LikedIconWidget> {
   bool _isLiked = false;
   int _LikeCount = 41;
 
@@ -76,14 +89,14 @@ class _LikedWidgetState extends State<LikedWidget> {
 }
 
 
-class SaveToViewList extends StatefulWidget {
+class SaveToViewListIcon extends StatefulWidget {
   
-  SaveToViewList({Key key}) : super(key: key);
+  SaveToViewListIcon({Key key}) : super(key: key);
 
-  _SaveToViewListState createState() => _SaveToViewListState();
+  _SaveToViewListIconState createState() => _SaveToViewListIconState();
 }
 
-class _SaveToViewListState extends State<SaveToViewList> {
+class _SaveToViewListIconState extends State<SaveToViewListIcon> {
   bool _saveToViewList = false;
   int _saveToViewListCount = 0;
   
@@ -137,13 +150,13 @@ class _SaveToViewListState extends State<SaveToViewList> {
 }
 
 
-class ShareWidget extends StatefulWidget {
-  ShareWidget({Key key}) : super(key: key);
+class ShareIconWidget extends StatefulWidget {
+  ShareIconWidget({Key key}) : super(key: key);
 
-  _ShareWidgetState createState() => _ShareWidgetState();
+  _ShareIconWidgetState createState() => _ShareIconWidgetState();
 }
 
-class _ShareWidgetState extends State<ShareWidget> {
+class _ShareIconWidgetState extends State<ShareIconWidget> {
   bool _shareClicked = false;
   int _sharedCount = 0;
   

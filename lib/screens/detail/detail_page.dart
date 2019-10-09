@@ -353,9 +353,9 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        LikedWidget(),
-                        SaveToViewList(),
-                        ShareWidget(),
+                        LikedIconWidget(),
+                        SaveToViewListIcon(),
+                        ShareIconWidget(),
                       ]),
                   ),
                   Divider(),
