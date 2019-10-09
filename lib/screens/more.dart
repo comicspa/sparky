@@ -1,12 +1,16 @@
-import 'package:sparky/screens/creator_submenu.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:sparky/screens/more/creator_submenu.dart';
+import 'package:sparky/screens/more/setting_submenu.dart';
+import 'package:sparky/screens/more/version_info.dart';
 import 'more_submenu_comming_soon.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'service_info_submenu.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
+import 'package:sparky/screens/common_widgets.dart';
 
 class MoreScreen extends StatefulWidget {
   @override
@@ -39,6 +43,37 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
 
   final textStyle = TextStyle(
         color: Colors.black87, fontSize: ManageDeviceInfo.resolutionHeight * 0.025, fontWeight: FontWeight.w600);
+  
+
+
+
+  Future<bool> _exitApp(BuildContext context) {
+    return showDialog(
+          context: context,
+          child: AlertDialog(
+            title: Text('Do you want to log-out from this application?'),
+            content: Text('We are sorry to see you leave...'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  print("you choose no");
+                  Navigator.of(context).pop(false);
+                },
+                child: Text('No'),
+              ),
+              FlatButton(
+                onPressed: () {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
+ 
   
   
   @override
@@ -184,7 +219,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SubMenuComingSoonScreen('Settings'),
+                    builder: (context) => SettingSubmenuPage(titleText: 'Settings'),
                   ),
                 );
               },
@@ -202,7 +237,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SubMenuComingSoonScreen('Settings'),
+                    builder: (context) => AboutContentsWidgets(titleText: 'About'),
                   ),
                 );
               },
@@ -218,12 +253,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
               textColor: const Color(0xFF807a6b),
               padding: EdgeInsets.all(20.0),
               onPressed: () {
-                Navigator.push<Widget>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SubMenuComingSoonScreen('Settings'),
-                  ),
-                );
+                _exitApp(context);
               },
               child: Row(
                 children: <Widget>[

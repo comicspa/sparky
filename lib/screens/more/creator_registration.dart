@@ -5,8 +5,8 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 
 // Coming soon page for multi-purpose
 
-class AboutContentsWidgets extends StatelessWidget {
-  const AboutContentsWidgets({
+class CreatorRegistrationWidget extends StatelessWidget {
+  const CreatorRegistrationWidget({
     Key key,
     this.titleText,
     }) : super(key: key);
@@ -41,17 +41,12 @@ class AboutContentsWidgets extends StatelessWidget {
           Card(
             child: ListTile(
               leading: Icon(CupertinoIcons.info),
-              title: Text('App Name: Sparky Toons'),
-              subtitle: Text('Version: 1.0.0'),
+              title: Text('This is the Creator registration page.'),
+              subtitle: Text('Please follow the steps'),
+              isThreeLine: true,
             ),
           ),
-          Card(
-            child: ListTile(
-              leading: Icon(CupertinoIcons.info),
-              title: Text('Deverloper: 수퍼앤츠 주식회사'),
-              
-            ),
-          ),
+          
           
          
         ],
