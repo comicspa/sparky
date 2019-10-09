@@ -85,10 +85,38 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
               //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
               centerTitle: true,
 
-              title: Text('Episode ${int.parse(_episodeId)} 화',
-                  style: TextStyle(
-                      color: Colors.black) //Todo need to bind the data
-                  ),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('Episode ${int.parse(_episodeId)}',
+                      style: TextStyle(
+                          color: Colors.black) //Todo need to bind the data
+                      ),
+                  SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        child: null != ModelViewComic.list
+                          //Todo Need to change Icon with direction
+                          ? e_comic_view_style.vertical == ModelViewComic.list[0].style 
+                                ? Icon(
+                                    Icons.arrow_downward,
+                                    size: ManageDeviceInfo.resolutionWidth * 0.04,
+                                  )
+                                  
+                                : Icon(
+                                    Icons.arrow_forward,
+                                    size: ManageDeviceInfo.resolutionWidth * 0.04
+                                  )
+                                
+                          : null 
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -170,148 +198,147 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
       bottomNavigationBar: Visibility(
         visible: _isVisible,
         child: BottomAppBar(
-          color: Colors.white.withOpacity(0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Material(
-                borderRadius: BorderRadius.all(Radius.circular(60.0)),
-              ),
-              
-              SizedBox(
-                height: ManageDeviceInfo.resolutionHeight * 0.04,
-                width: ManageDeviceInfo.resolutionWidth * 0.26,
-                child: Material(
-                  color: Colors.red[400],
-                  borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                  child: InkWell(
-              
-                    //Todo Need to apply loading indicator or a Message
-                    splashColor: Colors.red[50],
-                    onTap: int.parse(_episodeId) == 1
-                      ? () {  
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return BuildAlertDialog('This episode is the first episode');
-                          },
-                        );
-                      }
-                      : () {
+          color: Colors.transparent,
+          child: Container(
+            height: ManageDeviceInfo.resolutionHeight * 0.06,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(
+                  height: ManageDeviceInfo.resolutionHeight * 0.04,
+                  width: ManageDeviceInfo.resolutionWidth * 0.26,
+                  child: Material(
+                    color: Colors.red[400],
+                    borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                    child: InkWell(
+                
+                      //Todo Need to apply loading indicator or a Message
+                      splashColor: Colors.red[50],
+                      onTap: int.parse(_episodeId) == 1
+                        ? () {  
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return BuildAlertDialog('This episode is the first episode');
+                            },
+                          );
+                        }
+                        : () {
 
-                            ModelViewComic.reset();
-                            _episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(_episodeId);
-                            _c2sViewComic.generate(_userId, _comicId, _episodeId);
-                            _c2sViewComic.fetch(_onFetchDone);
+                              ModelViewComic.reset();
+                              _episodeId =  ModelComicDetailInfo.getInstance().getPrevEpisodeId(_episodeId);
+                              _c2sViewComic.generate(_userId, _comicId, _episodeId);
+                              _c2sViewComic.fetch(_onFetchDone);
 
-                      },
-                    child: Container(
-                      
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                        ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,),
-                          Icon(Icons.chevron_left, color: Colors.white), 
-                          Text('Prev. Ep.',
-                            style: TextStyle(
-                            color: Colors.white, 
-                            ),
+                        },
+                      child: Container(
+                        
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(Radius.circular(60.0)),
                           ),
-                        ],
-                        
-                      ),
-                    ),
-                  ),
-                ),
-                
-              ),
-              SizedBox(
-                height: ManageDeviceInfo.resolutionHeight * 0.046,
-                width: ManageDeviceInfo.resolutionWidth * 0.12,
-                child: Material(
-                  color: Colors.red[400],
-                  borderRadius: BorderRadius.all(Radius.circular(80.0)),
-                  child: InkWell(
-                    onTap: (){
-                      ModelTextDetection.reset();
-
-                      Navigator.push<Widget>(context,
-                        MaterialPageRoute(
-                          builder: (context) => DrawRectAndImage(),
-                        ));
-                    },
-                    child: Container(
-                      
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                        ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                         
-                          Icon(Icons.translate, color: Colors.white, size: ManageDeviceInfo.resolutionHeight * 0.026), 
-                        ],
-                        
-                      ),
-                    ),
-                  ),
-                ),
-                
-              ),
-              SizedBox(
-                height: ManageDeviceInfo.resolutionHeight * 0.04,
-                width: ManageDeviceInfo.resolutionWidth * 0.26,
-                child: Material(
-                  color: Colors.red[400],
-                  borderRadius: BorderRadius.all(Radius.circular(80.0)),
-                  child: InkWell(
-                    onTap: ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(_episodeId)
-                      ? () {  
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return BuildAlertDialog('Sorry, no more episode for this title');
-                          },
-                        );
-                      }
-                      : () {
-
-                            ModelViewComic.reset();
-                            _episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(_episodeId);
-                            _c2sViewComic.generate(_userId, _comicId,_episodeId);
-                            _c2sViewComic.fetch(_onFetchDone);
-
-                      },
-                    child: Container(
-                      
-                      decoration: BoxDecoration(
-                        color: Colors.red[400],
-                        borderRadius: BorderRadius.all(Radius.circular(60.0)),
-                        ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text('Next Ep.',
-                            style: TextStyle(
-                            color: Colors.white, 
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,),
+                            Icon(Icons.chevron_left, color: Colors.white), 
+                            Text('Prev. Ep.',
+                              style: TextStyle(
+                              color: Colors.white, 
+                              ),
                             ),
-                          ),
-                          Icon(Icons.chevron_right, color: Colors.white), 
-                          SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,)
-                        ],
-                        
+                          ],
+                          
+                        ),
                       ),
                     ),
                   ),
+                  
                 ),
-                
-              ),
-            ],
+                SizedBox(
+                  height: ManageDeviceInfo.resolutionHeight * 0.046,
+                  width: ManageDeviceInfo.resolutionWidth * 0.12,
+                  child: Material(
+                    color: Colors.red[400],
+                    borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                    child: InkWell(
+                      onTap: (){
+                        ModelTextDetection.reset();
+
+                        Navigator.push<Widget>(context,
+                          MaterialPageRoute(
+                            builder: (context) => DrawRectAndImage(),
+                          ));
+                      },
+                      child: Container(
+                        
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                           
+                            Icon(Icons.translate, color: Colors.white, size: ManageDeviceInfo.resolutionHeight * 0.026), 
+                          ],
+                          
+                        ),
+                      ),
+                    ),
+                  ),
+                  
+                ),
+                SizedBox(
+                  height: ManageDeviceInfo.resolutionHeight * 0.04,
+                  width: ManageDeviceInfo.resolutionWidth * 0.26,
+                  child: Material(
+                    color: Colors.red[400],
+                    borderRadius: BorderRadius.all(Radius.circular(80.0)),
+                    child: InkWell(
+                      onTap: ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(_episodeId)
+                        ? () {  
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return BuildAlertDialog('Sorry, no more episode for this title');
+                            },
+                          );
+                        }
+                        : () {
+
+                              ModelViewComic.reset();
+                              _episodeId =  ModelComicDetailInfo.getInstance().getNextEpisodeId(_episodeId);
+                              _c2sViewComic.generate(_userId, _comicId,_episodeId);
+                              _c2sViewComic.fetch(_onFetchDone);
+
+                        },
+                      child: Container(
+                        
+                        decoration: BoxDecoration(
+                          color: Colors.red[400],
+                          borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text('Next Ep.',
+                              style: TextStyle(
+                              color: Colors.white, 
+                              ),
+                            ),
+                            Icon(Icons.chevron_right, color: Colors.white), 
+                            SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.02,)
+                          ],
+                          
+                        ),
+                      ),
+                    ),
+                  ),
+                  
+                ),
+              ],
+            ),
           ),
         ),
       ),
