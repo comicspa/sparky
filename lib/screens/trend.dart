@@ -15,7 +15,7 @@ import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
-import 'detail_page.dart';
+import 'package:sparky/screens/detail/detail_page.dart';
 import 'common_widgets.dart';
 
 

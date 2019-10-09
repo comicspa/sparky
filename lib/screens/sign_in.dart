@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'detail_page.dart';
+import 'package:sparky/screens/detail/detail_page.dart';
 
 class SignInPage extends StatefulWidget {
   @override

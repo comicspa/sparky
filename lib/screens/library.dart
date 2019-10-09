@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/screens/common_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'detail_page.dart';
+import 'package:sparky/screens/detail/detail_page.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // usegirt this to make all the widget size responsive to the device size.
 import 'package:sparky/models/model_library_recent_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_recent_comic_info.dart';
