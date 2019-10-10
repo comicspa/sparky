@@ -160,6 +160,483 @@ class ManageFirebaseDatabase
   }
 
 
+  static void updateModelFeaturedComicInfo()
+  {
+    String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_featured_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+
+
+
+  }
+
+
+  static void updateModelRecommendedComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_recommended_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+
+
+
+  }
+
+  static void updateModelRealTimeTrendComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_real_time_trend_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+
+
+
+  }
+
+
+  static void updateModelNewComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_new_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+  }
+
+
+  static void updateModelTodayTrendComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_today_trend_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch (comicId) {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain =
+          '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain =
+          '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain =
+          '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+
+  }
+
+
+    static void updateModelWeeklyTrendComicInfo(String comicId)
+    {
+      //String comicId = '000003';
+      DatabaseReference modelReference = reference.child('model_weekly_trend_comic_info');
+
+      String title;
+      String creatorName;
+      String explain;
+      switch(comicId)
+      {
+        case '000001':
+          {
+            title = '명품열전 루비통편';
+            creatorName = 'Ⓒ조성황/김일민';
+            explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+          }
+          break;
+
+        case '000002':
+          {
+            title = '명품열전 샤넬편';
+            creatorName = 'Ⓒ조성황/이경렬';
+            explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+          }
+          break;
+
+        case '000003':
+          {
+            title = '명품열전 페라가모편';
+            creatorName = 'Ⓒ조성황/이경렬';
+            explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+          }
+          break;
+
+        default:
+          break;
+      }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+  }
+
+
+  static void updateModelLibraryContinueComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_library_continue_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+  }
+
+  static void updateModelLibraryOwnedComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_library_owned_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+  }
+
+  static void updateModelLibraryRecentComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_library_recent_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+  }
+
+  static void updateModelLibraryViewListComicInfo(String comicId)
+  {
+    //String comicId = '000003';
+    DatabaseReference modelReference = reference.child('model_library_view_list_comic_info');
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+  }
+
   static void setModelComicDetailInfo()
   {
     DatabaseReference modelReference = reference.child('model_comic_detail_info');

@@ -331,7 +331,7 @@ class LibraryListTile extends StatelessWidget {
                                   left:
                                       ManageDeviceInfo.resolutionWidth * 0.04),
                               child:
-                                  Text('글/그림   ${snapshot.data[index].title}',
+                                  Text('글/그림   ${snapshot.data[index].creatorName}',
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,

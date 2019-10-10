@@ -60,8 +60,9 @@ class _SplashScreenState extends State<SplashScreen>
       print('Release Mode');
     }
 
-    //ManageFirebaseDatabase.updateModelComicDetailInfo();
-
+    //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000001');
+    //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000002');
+    //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000003');
 
     _uId = await ManageSharedPreference.getString('uId');
     _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
