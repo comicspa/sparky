@@ -47,7 +47,7 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
       modelLibraryContinueComicInfo.userId = comicInfo['user_id'];
       modelLibraryContinueComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getBannerImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
       modelLibraryContinueComicInfo.thumbnailUrl = url;
       modelLibraryContinueComicInfo.image = await ManageResource.fetchImage(url);

@@ -56,7 +56,13 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       modelComicInfo.thumbnailImageUrl =
       //await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
       //   ModelComicDetailInfo.getInstance().comicId,'001','001','00001');
-      await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId);
+
+      //String userId,String comicId,String partId,String seasonId,String episodeId
+      await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
+        ModelComicDetailInfo.getInstance().comicId,
+        ModelComicDetailInfo.getInstance().partId,
+        ModelComicDetailInfo.getInstance().seasonId,
+          modelComicInfo.episodeId);
 
       print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicInfo.thumbnailImageUrl}');
       ++countIndex;

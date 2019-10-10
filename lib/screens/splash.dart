@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_storage.dart';
 
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_user_info.dart';
@@ -57,6 +59,8 @@ class _SplashScreenState extends State<SplashScreen>
     else {
       print('Release Mode');
     }
+
+    //ManageFirebaseDatabase.updateModelComicDetailInfo();
 
 
     _uId = await ManageSharedPreference.getString('uId');

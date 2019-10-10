@@ -103,7 +103,7 @@ class ManageFirebaseDatabase
     //print('update - key : ${modelUserInfoReference.key}');
 
 
-    modelUserInfoReference.set({
+    modelUserInfoReference.update({
       'id': '2222',
       'creator_id': '55555'
     }).then((_) {
@@ -133,7 +133,203 @@ class ManageFirebaseDatabase
   }
 
 
-  static void set()
+  static void setModelFeaturedComicInfo()
+  {
+    String comicId = '000004';
+    DatabaseReference modelReference = reference.child('model_featured_comic_info');
+
+
+
+    String title = '불의나라';
+
+
+    modelReference.child('1566811403000_$comicId').set({
+      'comic_id': comicId,
+      'creator_id': '1566811403000',
+      'creator_name': 'Ⓒ조성황/김일민',
+      'part_id':'001',
+      'season_id':'001',
+      'title':title,
+      'user_id':'1566811403000',
+    }).then((_) {
+      // ...
+    });
+
+
+
+  }
+
+
+  static void setModelComicDetailInfo()
+  {
+    DatabaseReference modelReference = reference.child('model_comic_detail_info');
+
+
+    String comicId = '000009';
+    String title = '개구쟁이';
+
+
+    modelReference.child('1566811403000_$comicId').set({
+      'comic_id': comicId,
+      'creator_id': '1566811403000',
+      'creator_name': '묵검향',
+      'explain':'explain',
+      'part_id':'001',
+      'point':4,
+      'season_id':'001',
+      'title':title,
+      'user_id':'1566811403000',
+    }).then((_) {
+      // ...
+    });
+
+    setModelComicDetailInfoComics(1,35,comicId,title);
+
+
+  }
+
+
+  static void updateModelComicDetailInfo()
+  {
+    DatabaseReference modelReference = reference.child('model_comic_detail_info');
+
+    String comicId = '000003';
+
+    String title;
+    String creatorName;
+    String explain;
+    switch(comicId)
+    {
+      case '000001':
+        {
+          title = '명품열전 루비통편';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000002':
+        {
+          title = '명품열전 샤넬편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      case '000003':
+        {
+          title = '명품열전 페라가모편';
+          creatorName = 'Ⓒ조성황/이경렬';
+          explain = '명품은 만들어지는 것. 처음부터 명품인 것은 없다. 도대체 명품이 무엇이기에 이토록 사람들을 미치고 환장하게 만드는가?';
+        }
+        break;
+
+      default:
+        break;
+    }
+
+
+
+    modelReference.child('1566811403000_$comicId').update({
+      'creator_name': creatorName,
+      'explain':explain,
+      'title':title,
+    }).then((_) {
+      // ...
+    });
+
+    updateModelComicDetailInfoComics(1,65,comicId,title);
+
+
+  }
+
+
+  static void updateModelComicDetailInfoComics(int startCountIndex,int finishCountIndex,String comicId,String title)
+  {
+    DatabaseReference modelReference = reference.child('model_comic_detail_info').child('1566811403000_$comicId').child('comics');
+
+    int i = startCountIndex;
+    for(;i<finishCountIndex+1;++i)
+    {
+      String t = i.toString();
+      String j;
+      if(i < 10)
+        j = '0000$i';
+      else if(9 < i && i < 100)
+        j = '000$i';
+      else if(99 < i && i < 1000)
+        j = '00$i';
+
+      modelReference.child('$j').update({
+        'title': '$title$t',
+      }).then((_) {
+
+      });
+    }
+  }
+
+
+  static void setModelComicDetailInfoComics(int startCountIndex,int finishCountIndex,String comicId,String title)
+  {
+    DatabaseReference modelReference = reference.child('model_comic_detail_info').child('1566811403000_$comicId').child('comics');
+
+    int i = startCountIndex;
+    for(;i<finishCountIndex+1;++i)
+    {
+      String t = i.toString();
+      String j;
+      if(i < 10)
+        j = '0000$i';
+      else if(9 < i && i < 100)
+        j = '000$i';
+      else if(99 < i && i < 1000)
+        j = '00$i';
+
+      modelReference.child('$j').set({
+        'collected': 0,
+        'episode_id': '$j',
+        'title': '$title$t',
+        'updated': 0,
+      }).then((_) {
+
+      });
+    }
+  }
+
+
+  static void setModelViewComicInfo()
+  {
+    DatabaseReference modelReference = reference.child('model_view_comic_info');
+
+    int i = 1;
+    for(;i<36;++i)
+    {
+      String t = i.toString();
+       String j;
+       if(i < 10)
+         j = '0000$i';
+       else if(9 < i && i < 100)
+         j = '000$i';
+       else if(99 < i && i < 1000)
+         j = '00$i';
+
+        modelReference.child('1566811403000_000009_$j').set({
+          'count': 6,
+          'file_ext': 'jpg',
+          'style': 0,
+          'title': '개구쟁이$t',
+        }).then((_) {
+
+        });
+    }
+  }
+
+
+
+
+
+
+  static void setModelWeeklyCreatorInfo()
   {
     DatabaseReference modelUserInfoReference = reference.child('model_weekly_creator_info');
 

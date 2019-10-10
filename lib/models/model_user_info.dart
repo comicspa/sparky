@@ -12,6 +12,7 @@ class ModelUserInfo
 {
   String _id;
   String _creatorId;
+  String _translatorId;
   e_social_provider_type _socialProviderType = e_social_provider_type.none;
   int _comi;
   bool _signedIn = false;
@@ -28,6 +29,7 @@ class ModelUserInfo
 
   String get id => _id;
   String get creatorId => _creatorId;
+  String get translatorId => _translatorId;
   e_social_provider_type get socialProviderType => _socialProviderType;
   int get comi => _comi;
   bool get signedIn => _signedIn;
@@ -51,6 +53,11 @@ class ModelUserInfo
   set creatorId(String creatorId)
   {
     _creatorId = creatorId;
+  }
+
+  set translatorId(String translatorId)
+  {
+    _translatorId = translatorId;
   }
 
   set socialProviderType(e_social_provider_type socialProviderType)

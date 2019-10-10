@@ -46,7 +46,7 @@ class PacketS2CNewComicInfo extends PacketS2CCommon
       modelNewComicInfo.userId = comicInfo['user_id'];
       modelNewComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getBannerImageDownloadUrl(modelNewComicInfo.userId, modelNewComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelNewComicInfo.userId, modelNewComicInfo.comicId);
       modelNewComicInfo.url = url;
       modelNewComicInfo.thumbnailUrl = url;
       modelNewComicInfo.image = await ManageResource.fetchImage(url);
