@@ -290,6 +290,7 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
                   color: Colors.redAccent,
                   child: Text('Sign up'),
                   onPressed: () {
+                    Navigator.pop(context);
                     showModalBottomSheet(
                       isScrollControlled: false, // true if model needs to cover entire screen
                       backgroundColor: Colors.white,
@@ -393,8 +394,17 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
                           fontSize: ManageDeviceInfo.resolutionHeight * 0.02,
                         ),
                         recognizer: TapGestureRecognizer()..onTap = () {
-                          signUpPage();
-                        },
+                            Navigator.pop(context);
+                            showModalBottomSheet(
+                              isScrollControlled: false, // true if model needs to cover entire screen
+                              backgroundColor: Colors.white,
+                              useRootNavigator: true,
+                              context: context,
+                              builder: (BuildContext context){
+                                return signUpPage();
+                              },
+                            );
+                          },
                       )
                     ]
                   )
@@ -496,7 +506,15 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
                             fontSize: ManageDeviceInfo.resolutionHeight * 0.02,
                           ),
                           recognizer: TapGestureRecognizer()..onTap = () {
-                            signInPage();
+                            showModalBottomSheet(
+                              isScrollControlled: false, // true if model needs to cover entire screen
+                              backgroundColor: Colors.white,
+                              useRootNavigator: true,
+                              context: context,
+                              builder: (BuildContext context){
+                                return signInPage();
+                                },
+                            );
                           },
                         )
                       ]
