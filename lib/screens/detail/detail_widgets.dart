@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:share/share.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 
 import 'package:sparky/manage/manage_device_info.dart';
@@ -596,7 +597,6 @@ class EpisodeListViewWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-
                   padding: EdgeInsets.all(ManageDeviceInfo.resolutionWidth * 0.02),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -740,5 +740,6 @@ class EpisodeListViewWidget extends StatelessWidget {
             );
           },
         );
+  
   }
 }
