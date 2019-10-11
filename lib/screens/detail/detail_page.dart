@@ -32,6 +32,26 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   PacketC2SComicDetailInfo c2sComicDetailInfo = new PacketC2SComicDetailInfo();
   // PacketC2SCommon ddd = new PacketC2SComicDetailInfo();
 
+//Todo need to implement lazy loading
+ /* Future _loadMore() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    // Add in an artificial delay
+    await new Future.delayed(const Duration(seconds: 2));
+    for (var i = currentLength; i <= currentLength + increment; i++) {
+      data.add(i);
+    }
+    setState(() {
+      isLoading = false;
+      currentLength = data.length;
+    });
+  }
+ */
+
+
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
