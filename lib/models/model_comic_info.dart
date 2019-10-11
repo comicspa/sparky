@@ -7,6 +7,7 @@ import 'package:sparky/manage/manage_firebase_storage.dart';
 
 class ModelComicInfo
 {
+  int _countIndex = -1;
   String _userId = '1111111111111';
   String _comicId = '000001';
   String _partId = '001';
@@ -21,6 +22,7 @@ class ModelComicInfo
   String _episode = '1';
   List<ui.Image> _imageCutList;
 
+  int get countIndex => _countIndex;
   String get userId => _userId;
   String get comicId => _comicId;
   String get partId => _partId;
@@ -36,6 +38,10 @@ class ModelComicInfo
   List<ui.Image> get imageCutList => _imageCutList;
 
 
+  set countIndex(int countIndex)
+  {
+    _countIndex = countIndex;
+  }
   set userId(String userId)
   {
     _userId = userId;

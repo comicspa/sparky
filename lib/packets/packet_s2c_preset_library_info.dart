@@ -47,7 +47,7 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       modelLibraryRecentComicInfo.comicId = readStringToByteBuffer();
       modelLibraryRecentComicInfo.title = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelLibraryRecentComicInfo.userId, modelLibraryRecentComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryRecentComicInfo.userId, modelLibraryRecentComicInfo.comicId);
       modelLibraryRecentComicInfo.url = url;
       modelLibraryRecentComicInfo.thumbnailUrl = url;
 
@@ -76,7 +76,7 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       modelLibraryViewListComicInfo.comicId = readStringToByteBuffer();
       modelLibraryViewListComicInfo.title = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
       modelLibraryViewListComicInfo.url = url;
       modelLibraryViewListComicInfo.thumbnailUrl = url;
 
@@ -105,7 +105,7 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       modelLibraryOwnedComicInfo.comicId = readStringToByteBuffer();
       modelLibraryOwnedComicInfo.title = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
       modelLibraryOwnedComicInfo.url = url;
       modelLibraryOwnedComicInfo.thumbnailUrl = url;
 
@@ -133,7 +133,7 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       modelLibraryContinueComicInfo.comicId = readStringToByteBuffer();
       modelLibraryContinueComicInfo.title = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
       modelLibraryContinueComicInfo.thumbnailUrl = url;
 

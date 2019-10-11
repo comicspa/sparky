@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ManageDeviceInfo
 {
-  static String _uniqueId;
+  static String _deviceId;
   static double _resolutionWidth = 0.0;
   static double _resolutionHeight = 0.0;
   static double _statusBarHeight = 0.0;
@@ -13,7 +13,7 @@ class ManageDeviceInfo
   static String _languageCode;
   static String _localeCode;
 
-  static String get uniqueId => _uniqueId;
+  static String get deviceId => _deviceId;
   static double get resolutionWidth => _resolutionWidth;
   static double get resolutionHeight => _resolutionHeight;
   static double get statusBarHeight => _statusBarHeight;
@@ -33,7 +33,7 @@ class ManageDeviceInfo
 
 
 
-  static Future<String> _getUniqueId(BuildContext context) async
+  static Future<String> _getDeviceId(BuildContext context) async
   {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Theme.of(context).platform == TargetPlatform.iOS)
@@ -59,14 +59,14 @@ class ManageDeviceInfo
     print('getResolution - Width : $_resolutionWidth , Height : $_resolutionHeight');
   }
 
-  static void getUniqueId(BuildContext context)
+  static void getDeviceId(BuildContext context)
   {
-    if(null != _uniqueId)
+    if(null != _deviceId)
       return;
 
-    _getUniqueId(context).then((s) {
-      _uniqueId = s;
-      print('getUniqueId : $_uniqueId');
+    _getDeviceId(context).then((s) {
+      _deviceId = s;
+      print('getDeviceId : $_deviceId');
     });
   }
 
@@ -120,7 +120,7 @@ class ManageDeviceInfo
   {
     getLanguageLocale();
     getResolution(context);
-    getUniqueId(context);
+    getDeviceId(context);
     getStatusBarHeight(context);
     //getLocale(context);
   }

@@ -45,7 +45,7 @@ class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
       modelRealTimeTrendComicInfo.userId = comicInfo['user_id'];
       modelRealTimeTrendComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelRealTimeTrendComicInfo.userId, modelRealTimeTrendComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRealTimeTrendComicInfo.userId, modelRealTimeTrendComicInfo.comicId);
       modelRealTimeTrendComicInfo.url = url;
       modelRealTimeTrendComicInfo.thumbnailUrl = url;
       modelRealTimeTrendComicInfo.image = await ManageResource.fetchImage(url);
@@ -61,6 +61,7 @@ class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
       onFetchDone(this);
   }
 
+  //
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);

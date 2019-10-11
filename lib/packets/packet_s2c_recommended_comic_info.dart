@@ -46,7 +46,7 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
       modelRecommendedComicInfo.userId = comicInfo['user_id'];
       modelRecommendedComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelRecommendedComicInfo.userId, modelRecommendedComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.userId, modelRecommendedComicInfo.comicId);
       modelRecommendedComicInfo.url = url;
       modelRecommendedComicInfo.thumbnailUrl = url;
       modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
@@ -62,6 +62,7 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
       onFetchDone(this);
   }
 
+  //
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize) async
   {
     print('[PacketS2CRecommendedComicInfo::parseBytes] start');

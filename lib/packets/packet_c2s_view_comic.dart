@@ -61,8 +61,10 @@ class PacketC2SViewComic extends PacketC2SCommon
         return ModelViewComic.list;
 
       case e_packet_status.none:
-        respondPacket.status = e_packet_status.start_dispatch_request;
-        break;
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
 
       case e_packet_status.start_dispatch_request:
         return null;
@@ -71,21 +73,28 @@ class PacketC2SViewComic extends PacketC2SCommon
         return null;
     }
 
-    String id = '${_userId}_${_comicId}_${_episodeId}';
-    print('id : $id');
-    DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase.reference.child('model_view_comic_info').child(id);
-    modelComicDetailInfoReference.once().then((DataSnapshot snapshot)
+    if(e_packet_status.start_dispatch_request == respondPacket.status)
     {
-      print('[PacketC2SViewComic : fetchFireBaseDB ] - ${snapshot.value}');
+      String id = '${_userId}_${_comicId}_${_episodeId}';
+      print('id : $id');
+      DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase
+          .reference.child('model_view_comic_info').child(id);
+      modelComicDetailInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SViewComic : fetchFireBaseDB ] - ${snapshot.value}');
 
-      (respondPacket as PacketS2CViewComic).parseFireBaseDBJson(_userId,_comicId,_partId,_seasonId,_episodeId,snapshot.value , onFetchDone);
+        (respondPacket as PacketS2CViewComic).parseFireBaseDBJson(
+            _userId,
+            _comicId,
+            _partId,
+            _seasonId,
+            _episodeId,
+            snapshot.value,
+            onFetchDone);
 
-      //_fetchStatus = 2;
-      return null;
 
-    });
+      });
+    }
 
-    //_fetchStatus = 1;
     return null;
   }
 

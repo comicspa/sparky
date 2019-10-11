@@ -131,16 +131,20 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
           future: _c2sViewComic.fetch(_onFetchDone),
           builder: (context, snapshot) {
 
-
             if(e_packet_status.finish_dispatch_respond != _c2sViewComic.getRespondStatus())
               {
+                //print('e_packet_status.finish_dispatch_respond != _c2sViewComic.getRespondStatus');
                 return PercentIndicator();
               }
             else
               {
+                //print('e_packet_status.finish_dispatch_respond == _c2sViewComic.getRespondStatus');
                 if (snapshot.hasError)
                   return new Text('Error: ${snapshot.error}');
                 else
+                {
+                  if(null != snapshot.data && 0 < snapshot.data.length)
+                  {
                   return ListView.builder(
                     shrinkWrap: true,
                     scrollDirection:
@@ -155,6 +159,10 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                           imageUrl: snapshot.data[0].imageUrlList[index],
                         ),
                   );
+                  }
+                  else
+                    return PercentIndicator();
+                  }
               }
 
 

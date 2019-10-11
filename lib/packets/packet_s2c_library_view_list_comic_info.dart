@@ -46,7 +46,7 @@ class PacketS2CLibraryViewListComicInfo extends PacketS2CCommon
       modelLibraryViewListComicInfo.userId = comicInfo['user_id'];
       modelLibraryViewListComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
       modelLibraryViewListComicInfo.url = url;
       modelLibraryViewListComicInfo.thumbnailUrl = url;
       modelLibraryViewListComicInfo.image = await ManageResource.fetchImage(url);
@@ -62,6 +62,8 @@ class PacketS2CLibraryViewListComicInfo extends PacketS2CCommon
       onFetchDone(this);
   }
 
+
+  //
   Future<void> parseBytes(int packetSize,ByteData byteDataExceptionSize,onFetchDone) async
   {
     parseHeaderChecked(packetSize,byteDataExceptionSize);
@@ -85,7 +87,7 @@ class PacketS2CLibraryViewListComicInfo extends PacketS2CCommon
       modelLibraryViewListComicInfo.comicId = readStringToByteBuffer();
       modelLibraryViewListComicInfo.title = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
       modelLibraryViewListComicInfo.url = url;
       modelLibraryViewListComicInfo.thumbnailUrl = url;
 

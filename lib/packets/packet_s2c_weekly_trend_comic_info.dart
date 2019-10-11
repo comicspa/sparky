@@ -45,7 +45,7 @@ class PacketS2CWeeklyTrendComicInfo extends PacketS2CCommon
       modelWeeklyTrendComicInfo.userId = comicInfo['user_id'];
       modelWeeklyTrendComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationVerticalImageDownloadUrl(modelWeeklyTrendComicInfo.userId, modelWeeklyTrendComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.userId, modelWeeklyTrendComicInfo.comicId);
       modelWeeklyTrendComicInfo.url = url;
       modelWeeklyTrendComicInfo.thumbnailUrl = url;
       modelWeeklyTrendComicInfo.image = await ManageResource.fetchImage(url);

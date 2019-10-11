@@ -29,7 +29,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     //  await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
     ModelComicDetailInfo.getInstance().representationImageUrl =
-    await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+    await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
     if(null == ModelComicDetailInfo.getInstance().modelComicInfoList)
       ModelComicDetailInfo.getInstance().modelComicInfoList = new List<ModelComicInfo>();
@@ -44,6 +44,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       ModelComicInfo modelComicInfo = new ModelComicInfo();
 
       modelComicInfo.episodeId = comics[key.toString()]['episode_id'];
+      modelComicInfo.countIndex = int.parse(modelComicInfo.episodeId);
       modelComicInfo.subTitleName = comics[key.toString()]['title'];
       modelComicInfo.collected = comics[key.toString()]['collected'];
       modelComicInfo.updated = comics[key.toString()]['updated'];
@@ -73,7 +74,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     //print('modelComicInfoList length2 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
     //sort
-    ModelComicDetailInfo.getInstance().modelComicInfoList.sort((a, b) => a.episodeId.compareTo(b.episodeId));
+    ModelComicDetailInfo.getInstance().modelComicInfoList.sort((a, b) => a.countIndex.compareTo(b.countIndex));
 
     //print('modelComicInfoList length3 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
@@ -106,7 +107,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     //  await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
     ModelComicDetailInfo.getInstance().representationImageUrl =
-      await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+      await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
 
     if(null == ModelComicDetailInfo.getInstance().modelComicInfoList)
@@ -131,8 +132,12 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       modelComicInfo.thumbnailImageUrl =
       //await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
        //   ModelComicDetailInfo.getInstance().comicId,'001','001','00001');
+      await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
+          ModelComicDetailInfo.getInstance().comicId,
+          ModelComicDetailInfo.getInstance().partId,
+          ModelComicDetailInfo.getInstance().seasonId,
+          modelComicInfo.episodeId);
 
-      await ModelPreset.getRepresentationHorizontalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId);
 
       print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicInfo.thumbnailImageUrl}');
 

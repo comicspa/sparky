@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_utility.dart';
@@ -43,10 +44,26 @@ class PacketC2SSignUp extends PacketC2SCommon
     //String emailAddressBase64 = base64Codec.encode(emailAddressBytes);
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
+
+   /*
+    modelUserInfoReference.child(_uId).once().then((DataSnapshot snapshot)
+    {
+      if(null == snapshot.value)
+        {
+
+        }
+      else
+        {
+
+        }
+    });
+    */
+
     modelUserInfoReference.child(_uId).set({
       'social_provider_type': _socialProviderType.index,
       'creator_id':'',
-      'bio':'자기 소개입니다.',
+      'translator_id':'',
+      'bio':'',
       'comi':0,
       'followers':0,
       'following':0,
@@ -56,10 +73,19 @@ class PacketC2SSignUp extends PacketC2SCommon
       'update_time':DateTime.now().millisecondsSinceEpoch.toString()
     }).then((_) {
 
-      PacketS2CSignUp packet = new PacketS2CSignUp();
-      packet.parseFireBaseDBJson(onFetchDone);
+      DatabaseReference modelUserInfoDeviceIdReference = modelUserInfoReference.child('device_id');
+      modelUserInfoDeviceIdReference.set({
+        '0': ManageDeviceInfo.deviceId,
+      }).then((_) {
+
+        PacketS2CSignUp packet = new PacketS2CSignUp();
+        packet.parseFireBaseDBJson(onFetchDone);
+
+      });
 
     });
+
+
 
   }
 
