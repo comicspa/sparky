@@ -265,6 +265,14 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
         context: context,
         tiles: [
 
+          ListTile(
+            title: Text('Go to Next Page !!'),
+            onTap: (){
+
+              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+
+            },
+          ),
 
           ListTile(
             title: Text('Check uid'),

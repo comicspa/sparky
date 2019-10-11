@@ -33,6 +33,16 @@ class _PageDevTestToastMessageState extends State<PageDevTestToastMessage> {
       children: ListTile.divideTiles(
         context: context,
         tiles: [
+
+          ListTile(
+            title: Text('Go to Next Page !!'),
+            onTap: (){
+
+              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+
+            },
+          ),
+
           ListTile(
             title: Text('duration - short'),
             onTap: (){

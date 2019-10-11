@@ -98,6 +98,9 @@ enum e_packet_type
   c2s_register_comic,
   s2c_register_comic,
 
+  c2s_check_sign_up,
+  s2c_check_sign_up,
+
 }
 
 

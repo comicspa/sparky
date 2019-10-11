@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   _ProfileScreenState();
 
-  PacketC2SUserInfo c2sUserInfo = PacketC2SUserInfo();
+  PacketC2SUserInfo _packetC2SUserInfo = PacketC2SUserInfo();
 
   @override
   void initState() {
@@ -45,8 +45,11 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   }
 
   void init() async {
-     c2sUserInfo.generate();
-     await c2sUserInfo.fetch(_onFetchDone);
+
+    if(null != _packetC2SUserInfo) {
+      _packetC2SUserInfo.generate();
+      await _packetC2SUserInfo.fetch(_onFetchDone);
+    }
 
     setState(() {
 

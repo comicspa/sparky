@@ -28,6 +28,12 @@ class ManageFirebaseAuth
     }
   }
 
+  static Future<bool> isGoogleSignIn() async
+  {
+    GoogleSignIn googleSignIn = ManageFirebaseAuth.processGoogleSignIn();
+    return await googleSignIn.isSignedIn();
+  }
+
   static Future<FirebaseUser> googleSignIn() async
   {
     GoogleSignIn googleSignIn = ManageFirebaseAuth.processGoogleSignIn();

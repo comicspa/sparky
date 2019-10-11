@@ -38,6 +38,15 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
         tiles: [
 
           ListTile(
+            title: Text('Go to Next Page !!'),
+            onTap: (){
+
+              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+
+            },
+          ),
+
+          ListTile(
             title: Text('Feature Comic Info'),
             onTap: (){
 
