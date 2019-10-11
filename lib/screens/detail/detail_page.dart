@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/manage/manage_device_info.dart';
-import 'package:sparky/screens/viewer.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/screens/common_widgets.dart';
@@ -24,6 +22,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   final String _userId;
   final String _comicId;
+  ScrollController controller;
   bool _Liked = true;
   int _LikeCount = 41;
 
@@ -127,6 +126,16 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
             : new DetailHeaderWidget(c2sComicDetailInfo: c2sComicDetailInfo),
       ),
     );
+
+  /* void _scrollListener() {
+    print(controller.position.extentAfter);
+    if (controller.position.extentAfter < 500) {
+      setState(() {
+        items.addAll(new List.generate(42, (index) => 'Inserted $index'));
+      });
+    }
+  } */
+
   }
 }
 

@@ -11,7 +11,6 @@ import 'package:sparky/screens/common_widgets.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/screens/viewer.dart';
-import 'package:sparky/screens/common_widgets.dart';
 import 'package:sparky/models/model_preset.dart';
 
 
@@ -552,9 +551,11 @@ class EpisodeListViewWidget extends StatelessWidget {
   const EpisodeListViewWidget({
     Key key,
     @required this.c2sComicDetailInfo,
+ 
   }) : super(key: key);
 
   final PacketC2SComicDetailInfo c2sComicDetailInfo;
+
 
   @override
   Widget build(BuildContext context) {
