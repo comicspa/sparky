@@ -11,6 +11,7 @@ import 'package:sparky/screens/more/service_info_submenu.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'package:sparky/screens/common_widgets.dart';
+import 'package:sparky/screens/more/translator_submenu.dart';
 
 class MoreScreen extends StatefulWidget {
   @override
@@ -183,6 +184,24 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CreatorSubmenuScreen('Creator'),
+                  ),
+                );
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.palette),
+              title: Text(
+                'Translator',
+                textAlign: TextAlign.left,
+                style: textStyle,
+              ),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.push<Widget>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TranslatorSubmenuScreen('Translator'),
                   ),
                 );
               },
