@@ -34,7 +34,7 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
               child: SizedBox(
                 width: ManageDeviceInfo.resolutionWidth * 0.7,
                 child: Text(
-                  'Language Screen',
+                  'Translators',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
@@ -57,9 +57,9 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
         ),
       ), 
     body: ListView(
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(6.0),
       children: <Widget>[
-        Card(
+        /* Card(
           child: ListTile(
             onTap: (){
               //Todo connect to the Viewer page
@@ -79,16 +79,37 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
             
             trailing: Icon(Icons.chevron_right),       
           ),
-        ),
-        CustomListItemTwo(
-        avatar: Container(
-          decoration: const BoxDecoration(color: Colors.blue),
+        ), */
+        CustomListItem(
+        avatar: SizedBox(
+          width: ManageDeviceInfo.resolutionWidth * 0.116,
+          height: ManageDeviceInfo.resolutionWidth * 0.116,
+          child: CircleAvatar(
+                backgroundColor: Colors.blueAccent,
+                //Todo add Url backgroundImage: NetworkImage(url),
+                ),
         ),
         userId: 'IamTheBest',
         aboutMe: 'I will continue translating this title till end and I promise that.  Also this needs to be tested for checking long description',
         
         publishDate: 'Feb 26',
-        views: '12 mins',
+        views: '123,234',
+      ),
+      Divider(),
+       CustomListItem(
+        avatar: SizedBox(
+          width: ManageDeviceInfo.resolutionWidth * 0.116,
+          height: ManageDeviceInfo.resolutionWidth * 0.116,
+          child: CircleAvatar(
+                backgroundColor: Colors.blueAccent,
+                //Todo add Url backgroundImage: NetworkImage(url),
+                ),
+        ),
+        userId: 'IamTheBest',
+        aboutMe: 'I will continue translating this title till end and I promise that.  Also this needs to be tested for checking long description',
+        
+        publishDate: 'Feb 26',
+        views: '123,234',
       ),
       ],
     )
@@ -126,19 +147,20 @@ class _ArticleDescription extends StatelessWidget {
             children: <Widget>[
               Text(
                 '$userId',
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
                 ),
               ),
-              const Padding(padding: EdgeInsets.only(bottom: 2.0)),
+              Padding(padding: EdgeInsets.only(bottom: ManageDeviceInfo.resolutionHeight * 0.003)),
               Text(
                 '$aboutMe',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 12.0,
+                style: TextStyle(
+                  fontSize: ManageDeviceInfo.resolutionWidth * 0.033,
                   color: Colors.black54,
                 ),
               ),
@@ -149,21 +171,19 @@ class _ArticleDescription extends StatelessWidget {
           flex: 1,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                '$author',
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.black87,
-                ),
-              ),
-              Text(
-                '$publishDate · $views ★',
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.black54,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '$publishDate · $views ★',
+                    style: TextStyle(
+                      fontSize: ManageDeviceInfo.resolutionWidth * 0.033,
+                      color: Colors.black54,
+                    ),                    
+                  ),
+                ],
               ),
             ],
           ),
@@ -174,8 +194,8 @@ class _ArticleDescription extends StatelessWidget {
 }
 
 
-class CustomListItemTwo extends StatelessWidget {
-  CustomListItemTwo({
+class CustomListItem extends StatelessWidget {
+  CustomListItem({
     Key key,
     this.avatar,
     this.userId,
@@ -193,27 +213,39 @@ class CustomListItemTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.only(
+        left: ManageDeviceInfo.resolutionWidth * 0.042,
+        top: ManageDeviceInfo.resolutionHeight * 0.0156, 
+        bottom: ManageDeviceInfo.resolutionHeight * 0.0156),
       child: SizedBox(
-        height: 100,
+        height: ManageDeviceInfo.resolutionHeight * 0.12 ,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            AspectRatio(
-              aspectRatio: 1.0,
-              child: avatar,
-            ),
+            
+            avatar,
+            
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 2.0, 0.0),
+                padding: EdgeInsets.fromLTRB(
+                  ManageDeviceInfo.resolutionWidth * 0.042,
+                  0.0,
+                  ManageDeviceInfo.resolutionWidth * 0.0005,
+                  0.0
+                  ),
                 child: _ArticleDescription(
                   userId: userId,
                   aboutMe: aboutMe,
                   publishDate: publishDate,
                   views: views,
                 ),
-              ),
-            )
+              ),                
+            ),
+            IconButton(
+              padding: EdgeInsets.all(0.0),
+              icon: Icon(Icons.chevron_right),
+              onPressed: (){},
+            ),
           ],
         ),
       ),

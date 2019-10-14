@@ -64,14 +64,7 @@ class _HomeScreenState extends State<HomeScreen>
             backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
                  //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
             centerTitle: true,
-
-            title: SvgPicture.asset(
-              'images/sparky_logo.svg',
-              width: ManageDeviceInfo.resolutionWidth * 0.045,
-              height: ManageDeviceInfo.resolutionHeight * 0.025,
-            ),
-            actions: <Widget>[
-              IconButton(
+            leading: IconButton(
                 tooltip: 'Profile',
                 icon: Icon(
                   Icons.person,
@@ -91,6 +84,14 @@ class _HomeScreenState extends State<HomeScreen>
                 );
                 },
               ),
+
+            title: SvgPicture.asset(
+              'images/sparky_logo.svg',
+              width: ManageDeviceInfo.resolutionWidth * 0.045,
+              height: ManageDeviceInfo.resolutionHeight * 0.025,
+            ),
+            actions: <Widget>[
+              
               IconButton(
                 icon: Icon(
                   Icons.search,
