@@ -609,6 +609,23 @@ class EpisodeListViewWidget extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
+//Todo check current language
+                                        /*
+                                    switch(ManageDeviceInfo.getLanguageLocaleCode())
+                                    {
+                                      case 'ko_kr':
+                                      {}
+                                      break;
+
+                                      case 'en_us':
+                                      {}
+                                      break;
+
+                                      default:
+                                      break;
+                                    }*/
+
+
                                   ViewerScreen(ModelComicDetailInfo.getInstance().userId,
                                   ModelComicDetailInfo.getInstance().comicId,
                                   ModelPreset.convertCountIndex2EpisodeId(index),
