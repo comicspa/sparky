@@ -27,6 +27,8 @@ import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_preset_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:sparky/packets/packet_c2s_localization_info.dart';
+import 'package:sparky/packets/packet_c2s_sign_in.dart';
+import 'package:sparky/packets/packet_c2s_user_info.dart';
 
 class ManageMessage
 {
@@ -340,7 +342,8 @@ class ManageMessage
           {
             PacketC2SCommon packetC2SCommon = __messageList[0];
 
-            switch (packetC2SCommon.type) {
+            switch (packetC2SCommon.type)
+            {
               case e_packet_type.c2s_featured_comic_info:
                 {
 
@@ -652,6 +655,52 @@ class ManageMessage
 
                   // print("Creating a stream...");
                   Stream<void> stream = new Stream.fromFuture(packet.fetch(null));
+                  // print("Created the stream");
+
+                  stream.listen((data) {
+                    //print('DataReceived - size :  ${data.size}');
+                    print('DataReceived');
+                  }, onDone: () {
+                    print("Task Done");
+
+                  }, onError: (error) {
+                    print("Some Error");
+
+                  });
+
+                  __messageList.removeAt(0);
+                }
+                break;
+
+              case e_packet_type.c2s_sign_in:
+                {
+                  PacketC2SSignIn packet = packetC2SCommon as PacketC2SSignIn;
+
+                  // print("Creating a stream...");
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
+                  // print("Created the stream");
+
+                  stream.listen((data) {
+                    //print('DataReceived - size :  ${data.size}');
+                    print('DataReceived');
+                  }, onDone: () {
+                    print("Task Done");
+
+                  }, onError: (error) {
+                    print("Some Error");
+
+                  });
+
+                  __messageList.removeAt(0);
+                }
+                break;
+
+              case e_packet_type.c2s_user_info:
+                {
+                  PacketC2SUserInfo packet = packetC2SCommon as PacketC2SUserInfo;
+
+                  // print("Creating a stream...");
+                  Stream<void> stream = new Stream.fromFuture(packet.fetch(_onFetchDone));
                   // print("Created the stream");
 
                   stream.listen((data) {

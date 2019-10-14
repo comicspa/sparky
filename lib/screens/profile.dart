@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   _ProfileScreenState();
 
-  PacketC2SUserInfo _packetC2SUserInfo = PacketC2SUserInfo();
+  PacketC2SUserInfo _packetC2SUserInfo;// = PacketC2SUserInfo();
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   void init() async {
 
     if(null != _packetC2SUserInfo) {
-      _packetC2SUserInfo.generate();
+      _packetC2SUserInfo.generate(ModelUserInfo.getInstance().uId);
       await _packetC2SUserInfo.fetch(_onFetchDone);
     }
 
@@ -277,6 +277,7 @@ class ProfileHeader extends StatelessWidget {
             ),
           ), */
           SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.06,),
+          null != ModelUserInfo.getInstance().photoUrl?
           CachedNetworkImage(
             imageUrl: ModelUserInfo.getInstance().photoUrl,
             placeholder: (context, url) => new CircularProgressIndicator(),
@@ -295,15 +296,15 @@ class ProfileHeader extends StatelessWidget {
                 ),
             ),
             errorWidget: (context, url, error) => Icon(Icons.error),
-          ),
+          ) : Image.asset('images/Comi.png'),
           // Padding(padding: const EdgeInsets.only(right: 20.0)),
           SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.04,),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(ModelUserInfo.getInstance().userName, style: mainTextStyle),
-              Text(ModelUserInfo.getInstance().displayName, style: subTextStyle),
+              Text(null != ModelUserInfo.getInstance().userName? ModelUserInfo.getInstance().userName:'', style: mainTextStyle),
+              Text(null != ModelUserInfo.getInstance().displayName? ModelUserInfo.getInstance().displayName:'', style: subTextStyle),
             ],
           ),
           /* IconButton(
@@ -328,7 +329,7 @@ class ProfileHeader extends StatelessWidget {
       children: <Widget>[
         _buildFollowerStat("Followers", ModelUserInfo.getInstance().followers.toString()),
         _buildVerticalDivider(),
-        _buildFollowerStat("Following", ModelUserInfo.getInstance().foloowing.toString()),
+        _buildFollowerStat("Following", ModelUserInfo.getInstance().following.toString()),
         _buildVerticalDivider(),
         _buildFollowerStat("Total Likes", ModelUserInfo.getInstance().likes.toString()),
       ],

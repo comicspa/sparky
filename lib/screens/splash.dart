@@ -8,7 +8,7 @@ import 'package:sparky/manage/manage_firebase_storage.dart';
 
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_user_info.dart';
-import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_common.dart';
@@ -64,9 +64,9 @@ class _SplashScreenState extends State<SplashScreen>
     //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000002');
     //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000003');
 
-    _uId = await ManageSharedPreference.getString('uId');
-    _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
-    print('uId : $_uId , social_provider_type : $_socialProviderType');
+     _uId = await ManageSharedPreference.getString('uId');
+     _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
+     print('uId : $_uId , social_provider_type : $_socialProviderType');
 
     _packetC2SPreset = new PacketC2SPreset();
     _packetC2SPreset.fetch(_onFetchDone);
@@ -106,6 +106,14 @@ class _SplashScreenState extends State<SplashScreen>
         {
           case e_packet_type.s2c_sign_in:
             {
+              PacketC2SUserInfo packetC2SUserInfo = new PacketC2SUserInfo();
+              packetC2SUserInfo.generate(_uId);
+              ManageMessage.add(packetC2SUserInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_user_info:
+            {
               PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
               packetC2SPresetComicInfo.generate();
               ManageMessage.add(packetC2SPresetComicInfo);
@@ -123,8 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
           case e_packet_type.s2c_preset_library_info:
             {
               PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
-              packetC2SLocalizationInfo.generate(
-                  ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
+              packetC2SLocalizationInfo.generate(ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
               ManageMessage.add(packetC2SLocalizationInfo);
             }
             break;
@@ -152,7 +159,28 @@ class _SplashScreenState extends State<SplashScreen>
         if(false == ModelUserInfo.getInstance().signedIn)
         {
           ModelUserInfo.getInstance().uId = _uId;
-          ModelUserInfo.getInstance().socialProviderType = _socialProviderType as e_social_provider_type;
+
+          switch(_socialProviderType)
+          {
+            case 1://google,
+            {
+              ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.google;
+            }
+            break;
+
+            case 2://facebook,
+            {
+              ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.facebook;
+            }
+            break;
+
+            case 3://twitter,
+            {
+              ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.twitter;
+            }
+            break;
+          }
+
           print('social_provider_type : ${ModelUserInfo.getInstance().socialProviderType.toString()}');
 
           PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();

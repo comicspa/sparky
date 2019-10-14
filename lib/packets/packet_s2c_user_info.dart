@@ -15,7 +15,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
-    //ModelUserInfo.getInstance().id = readStringToByteBuffer();
     ModelUserInfo.getInstance().creatorId = jsonMap['creator_id'];
     ModelUserInfo.getInstance().bio = jsonMap['bio'];
     ModelUserInfo.getInstance().comi = jsonMap['comi'];
@@ -23,9 +22,9 @@ class PacketS2CUserInfo extends PacketS2CCommon
     ModelUserInfo.getInstance().following = jsonMap['following'];
     ModelUserInfo.getInstance().likes = jsonMap['likes'];
     ModelUserInfo.getInstance().displayName = jsonMap['display_name'];
-    ModelUserInfo.getInstance().userName = jsonMap['user_name'];
-    ModelUserInfo.getInstance().email = jsonMap['email_address'];
-    ModelUserInfo.getInstance().photoUrl   = await ManageFirebaseStorage.getDownloadUrl(jsonMap['photo_url']);
+    //ModelUserInfo.getInstance().userName = jsonMap['user_name'];
+    //ModelUserInfo.getInstance().email = jsonMap['email_address'];
+    ModelUserInfo.getInstance().photoUrl   = jsonMap['photo_url'];
 
     if(null != onFetchDone)
       onFetchDone(this);

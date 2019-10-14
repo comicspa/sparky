@@ -17,6 +17,7 @@ import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SUserInfo extends PacketC2SCommon
 {
+  String _userId;
   String _accessToken = 'accessToken';
   int _fetchStatus = 0;
 
@@ -25,9 +26,10 @@ class PacketC2SUserInfo extends PacketC2SCommon
     type = e_packet_type.c2s_user_info;
   }
 
-  void generate()
+  void generate(String userId)
   {
     //_accessToken = accessToken;
+    _userId = userId;
   }
 
 
@@ -44,7 +46,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
     //if(2 == _fetchStatus)
     //  return ModelUserInfo.getInstance();
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child('000011111');
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child(_userId);
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {
       print('[PacketC2SUserInfo : fetchFireBaseDB ] - ${snapshot.value}');

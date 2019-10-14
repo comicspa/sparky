@@ -14,7 +14,7 @@ class ModelUserInfo
   String _creatorId;
   String _translatorId;
   e_social_provider_type _socialProviderType = e_social_provider_type.none;
-  int _comi;
+  int _comi = 0;
   bool _signedIn = false;
   String _email;
   String _userName;
@@ -23,9 +23,9 @@ class ModelUserInfo
   String _uId;
   String _accessToken;
   String _bio;
-  int _followers;
-  int _following;
-  int _likes;
+  int _followers = 0;
+  int _following = 0;
+  int _likes = 0;
 
   String get id => _id;
   String get creatorId => _creatorId;
@@ -42,7 +42,7 @@ class ModelUserInfo
   String get accessToken => _accessToken;
   String get bio => _bio;
   int get followers => _followers;
-  int get foloowing => _following;
+  int get following => _following;
   int get likes => _likes;
 
   set id(String id)
@@ -125,6 +125,25 @@ class ModelUserInfo
     _likes = likes;
   }
 
+  void signOut()
+  {
+    displayName = null;
+    photoUrl = null;
+    email = null;
+    signedIn = false;
+    followers = 0;
+    following = 0;
+    likes = 0;
+    comi = 0;
+  }
+
+  void withdrawal()
+  {
+    signOut();
+
+    socialProviderType = e_social_provider_type.none;
+    uId = null;
+  }
 
   static ModelUserInfo _instance;
   static ModelUserInfo getInstance() {

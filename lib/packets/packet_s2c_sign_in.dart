@@ -13,6 +13,8 @@ class PacketS2CSignIn extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
 
+    print('PacketS2CSignIn::parseFireBaseDBJson');
+
     ModelUserInfo.getInstance().signedIn = true;
 
 

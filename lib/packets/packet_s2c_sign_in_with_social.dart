@@ -2,6 +2,7 @@ import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sparky/manage/manage_shared_preference.dart';
 
 class PacketS2CSignInWithSocial extends PacketS2CCommon
 {
@@ -20,6 +21,11 @@ class PacketS2CSignInWithSocial extends PacketS2CCommon
     ModelUserInfo.getInstance().uId = user.uid;
 
     print('signInWithGoogle : ${ModelUserInfo.getInstance().toString()}');
+
+
+    ManageSharedPreference.setString('uId',user.uid);
+    ManageSharedPreference.setInt('social_provider_type',ModelUserInfo.getInstance().socialProviderType.index);
+
 
     if(null != onFetchDone)
       onFetchDone(this);

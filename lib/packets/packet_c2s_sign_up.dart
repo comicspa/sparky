@@ -55,18 +55,20 @@ class PacketC2SSignUp extends PacketC2SCommon
       'likes':0,
       'sign_in':1,
       'create_time':DateTime.now().millisecondsSinceEpoch.toString(),
-      'update_time':DateTime.now().millisecondsSinceEpoch.toString()
+      'update_time':DateTime.now().millisecondsSinceEpoch.toString(),
+      'display_name':ModelUserInfo.getInstance().displayName,
+      'photo_url':ModelUserInfo.getInstance().photoUrl,
     }).then((_) {
 
-      DatabaseReference modelUserInfoDeviceIdReference = modelUserInfoReference.child('device_id');
-      modelUserInfoDeviceIdReference.set({
-        '0': ManageDeviceInfo.deviceId,
-      }).then((_) {
+      //DatabaseReference modelUserInfoDeviceIdReference = modelUserInfoReference.child('device_id');
+      //modelUserInfoDeviceIdReference.set({
+      //  '0': ManageDeviceInfo.deviceId,
+      //}).then((_) {
 
         PacketS2CSignUp packet = new PacketS2CSignUp();
         packet.parseFireBaseDBJson(onFetchDone);
 
-      });
+      //});
 
     });
 
