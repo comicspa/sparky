@@ -16,11 +16,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 
 class SignInUpLandPage extends StatefulWidget {
+
+
   @override
   _SignInUpLandPageState createState() => new _SignInUpLandPageState();
 }
 
 class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindingObserver {
+ 
 
   List<PacketC2SCommon> _requestPacketList = new List<PacketC2SCommon>();
 
@@ -246,16 +249,16 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
             Container(
               child: Icon(
                 Icons.info_outline,
-                size: 35,
+                size: 20,
               ),
             ),
             SizedBox(
               width: ManageDeviceInfo.resolutionWidth * 0.7,
               child: Padding(padding: EdgeInsets.all(15.0),
                 child: Text(
-                  'Notification feature requires sign in, please sign in or sign up!',
+                  'Please Sign-In or Sign-Up',
                   maxLines: 2,
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.normal,

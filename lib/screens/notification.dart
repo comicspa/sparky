@@ -7,6 +7,8 @@ import 'sign_in_up_landing_page.dart';
 
 
 class NotificationScreen extends StatefulWidget {
+
+
   @override
   _NotificationScreenState createState() => new _NotificationScreenState();
 }
