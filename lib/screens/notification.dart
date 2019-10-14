@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'notification_landing_page.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:sparky/models/model_user_info.dart';
+
+import 'sign_in_up_landing_page.dart';
 
 
 
@@ -37,7 +38,7 @@ class _NotificationScreenState extends State<NotificationScreen>  with WidgetsBi
     ModelUserInfo.getInstance().signedIn = false; 
     return ModelUserInfo.getInstance().signedIn
         ? notificationPage(context)
-        : NotificationLandingPage();
+        : SignInUpLandPage();
   }
 
   Column notificationPage(BuildContext context) {

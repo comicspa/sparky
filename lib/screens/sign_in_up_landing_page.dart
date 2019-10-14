@@ -15,12 +15,12 @@ import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
-class NotificationLandingPage extends StatefulWidget {
+class SignInUpLandPage extends StatefulWidget {
   @override
-  _NotificationLandingPageState createState() => new _NotificationLandingPageState();
+  _SignInUpLandPageState createState() => new _SignInUpLandPageState();
 }
 
-class _NotificationLandingPageState extends State<NotificationLandingPage>  with WidgetsBindingObserver {
+class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindingObserver {
 
   List<PacketC2SCommon> _requestPacketList = new List<PacketC2SCommon>();
 
@@ -34,7 +34,7 @@ class _NotificationLandingPageState extends State<NotificationLandingPage>  with
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
-    print('[NotificationLandingPage] : onFetchDone');
+    print('[SignInUpLandPage] : onFetchDone');
 
 
     switch(s2cPacket.type)

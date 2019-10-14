@@ -4,10 +4,12 @@ import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'package:sparky/screens/test/edit_profile.dart'; 
+import 'sign_in_up_landing_page.dart';
 
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+
 
 
 class ProfileScreen extends StatefulWidget {
@@ -133,15 +135,17 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
           ),
         ),
       ), 
-    body: ListView(
-      padding: const EdgeInsets.all(0.0),
-      shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
-      children: <Widget>[
-        ProfileHeader(),
-        MainMenu(),
-      ],
-    ),
+    body: ModelUserInfo.getInstance().signedIn
+      ? ListView(
+        padding: const EdgeInsets.all(0.0),
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          ProfileHeader(),
+          MainMenu(),
+        ],
+      )
+      : SignInUpLandPage(),
     );
   }
 
@@ -211,6 +215,7 @@ class ProfileHeader extends StatelessWidget {
               children: <Widget>[
   
                 _buildAvatar(context),
+                SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.006,),
                 _buildFollowerStats()
                 //Todo need to add Bio here
               ],
@@ -286,7 +291,7 @@ class ProfileHeader extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: imageProvider,
-                  fit: BoxFit.cover
+                  fit: BoxFit.fitWidth
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
                 boxShadow: <BoxShadow>[
