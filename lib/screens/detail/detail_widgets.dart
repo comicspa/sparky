@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:share/share.dart';
-import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+// import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 
 import 'package:sparky/manage/manage_device_info.dart';
