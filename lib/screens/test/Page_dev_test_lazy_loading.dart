@@ -18,7 +18,6 @@ import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'package:sparky/screens/common_widgets.dart';
 import 'package:sparky/screens/detail/detail_page.dart';
 
-
 class Trend extends StatefulWidget {
   @override
   _TrendState createState() => new _TrendState();
@@ -39,8 +38,6 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
-
-
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -56,7 +53,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
     // WidgetsBinding.instance
     //     .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
-        // for pull to refresh
+    // for pull to refresh
   }
 
   @override
@@ -74,237 +71,282 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          //Todo need to add indicator for the CarouselSlider with auto scroll true
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: EdgeInsets.all(0.0),
-              child: FutureBuilder<List<ModelFeaturedComicInfo>>(
-                future: c2sFeaturedComicInfo.fetch(null),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
+        child: SafeArea(
+          child: AppBar(
+            elevation: 1,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
+            //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+            centerTitle: true,
+
+            title: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: SizedBox(
+                width: ManageDeviceInfo.resolutionWidth * 0.7,
+                child: Text(
+                  'Lazy test',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold,
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+            ),
+            /*SvgPicture.asset(
+              'images/sparky_logo.svg',
+              width: ManageDeviceInfo.resolutionWidth * 0.045,
+              height: ManageDeviceInfo.resolutionHeight * 0.025,
+
+            ),*/
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            //Todo need to add indicator for the CarouselSlider with auto scroll true
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: EdgeInsets.all(0.0),
+                child: FutureBuilder<List<ModelFeaturedComicInfo>>(
+                  future: c2sFeaturedComicInfo.fetch(null),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.none &&
+                        snapshot.hasData == null)
+                      return Center(child: LoadingIndicator());
+
+                    {
+                      return mainBannerWidget(snapshot);
+                    }
+                  },
+                ),
+              ),
+            ),
+
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(15, 5, 0, 2),
+              child: Text(
+                'Recommended' /* ModelLocalizationInfo.getText('trend','recommended') */,
+                style: TextStyle(
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(0),
+              height: ManageDeviceInfo.resolutionHeight * 0.28,
+              child: FutureBuilder<List<ModelRecommendedComicInfo>>(
+                future: c2sRecommendedComicInfo.fetch(null),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData)
-                    return Center(child: LoadingIndicator());
-
+                  if (!snapshot.hasData) return new LoadingIndicator();
                   {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CarouselSlider(
-                          items: snapshot.data.map((i) {
-                            return Builder(builder: (BuildContext context) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 0.0),
-                                decoration: BoxDecoration(color: Colors.white),
-                                child: GestureDetector(
-                                  child: FadeInImage.assetNetwork(
-                                    placeholder: 'images/mainTest.jpg',
-                                    image: i.thumbnailUrl,
-                                    fit: BoxFit.fitWidth,
-
-                                  ),
-                                  /* CachedNetworkImage(
-                                      imageUrl: i.thumbnailUrl,
-                                      placeholder: (context, url) =>
-                                          LoadingIndicator(),
-                                      fit: BoxFit.fitWidth), */
-                                  onTap: () {
-                                    Navigator.push<Widget>(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DetailPage(
-                                            i.userId,
-                                            i.comicId), // link to Actual viewer
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
-                            });
-                          }).toList(),
-                          autoPlay: false,
-                          enlargeCenterPage: true,
-                          aspectRatio: 1.4,
-                          onPageChanged: (index) {
-                            setState(() {
-                              _current = index;
-                            });
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: map<Widget>(
-                            ModelFeaturedComicInfo.list,
-                            (index, i) {
-                              return Container(
-                                width: 8.0,
-                                height: 8.0,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: _current == index
-                                        ? Color.fromRGBO(0, 0, 0, 0.9)
-                                        : Color.fromRGBO(0, 0, 0, 0.4)),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    );
+                    return TrendCardList(snapshot: snapshot);
                   }
                 },
               ),
             ),
-          ),
 
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 5, 0, 2),
-            child: Text(
-              'Recommended' /* ModelLocalizationInfo.getText('trend','recommended') */,
-              style: TextStyle(
-                  fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(15, 20, 0, 2),
+              child: Text(
+                'Realtime Trend',
+                style: TextStyle(
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(0),
-            height: ManageDeviceInfo.resolutionHeight * 0.28,
-            child: FutureBuilder<List<ModelRecommendedComicInfo>>(
-              future: c2sRecommendedComicInfo.fetch(null),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return new LoadingIndicator();
-                {
-                  return TrendCardList(snapshot: snapshot);
-                }
-              },
+            Container(
+              padding: EdgeInsets.all(0),
+              height: ManageDeviceInfo.resolutionHeight * 0.28,
+              child: FutureBuilder<List<ModelRealTimeTrendComicInfo>>(
+                future: c2sRealTimeTrendInfo.fetch(null),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData)
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            height: ManageDeviceInfo.resolutionHeight * .25,
+                            child: Center(child: CircularProgressIndicator()),
+                          ),
+                        ],
+                      ),
+                    );
+                  {
+                    return TrendCardList(snapshot: snapshot);
+                  }
+                },
+              ),
             ),
-          ),
 
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 20, 0, 2),
-            child: Text(
-              'Realtime Trend',
-              style: TextStyle(
-                  fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
+              child: Text(
+                'New Comics',
+                style: TextStyle(
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(0),
-            height: ManageDeviceInfo.resolutionHeight * 0.28,
-            child: FutureBuilder<List<ModelRealTimeTrendComicInfo>>(
-              future: c2sRealTimeTrendInfo.fetch(null),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          height: ManageDeviceInfo.resolutionHeight * .25,
-                          child: Center(child: CircularProgressIndicator()),
-                        ),
-                      ],
-                    ),
-                  );
-                {
-                  return TrendCardList(snapshot: snapshot);
-                }
-              },
+            Container(
+              padding: EdgeInsets.all(0),
+              height: ManageDeviceInfo.resolutionHeight * 0.28,
+              child: FutureBuilder<List<ModelNewComicInfo>>(
+                future: c2sNewComicInfo.fetch(null),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return LoadingIndicator();
+                  {
+                    return TrendCardList(snapshot: snapshot);
+                  }
+                },
+              ),
             ),
-          ),
 
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
-            child: Text(
-              'New Comics',
-              style: TextStyle(
-                  fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
+              child: Text(
+                'Today\'s Trend',
+                style: TextStyle(
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(0),
-            height: ManageDeviceInfo.resolutionHeight * 0.28,
-            child: FutureBuilder<List<ModelNewComicInfo>>(
-              future: c2sNewComicInfo.fetch(null),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return LoadingIndicator();
-                {
-                  return TrendCardList(snapshot: snapshot);
-                }
-              },
+            Container(
+              padding: EdgeInsets.all(0),
+              height: ManageDeviceInfo.resolutionHeight * 0.28,
+              child: FutureBuilder<List<ModelTodayTrendComicInfo>>(
+                future: c2STodayTrendComicInfo.fetch(null),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return LoadingIndicator();
+                  {
+                    return TrendCardList(snapshot: snapshot);
+                  }
+                },
+              ),
             ),
-          ),
 
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
-            child: Text(
-              'Today\'s Trend',
-              style: TextStyle(
-                  fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
+              child: Text(
+                'Weekly Trend',
+                style: TextStyle(
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(0),
-            height: ManageDeviceInfo.resolutionHeight * 0.28,
-            child: FutureBuilder<List<ModelTodayTrendComicInfo>>(
-              future: c2STodayTrendComicInfo.fetch(null),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return LoadingIndicator();
-                {
-                  return TrendCardList(snapshot: snapshot);
-                }
-              },
+            Container(
+              padding: EdgeInsets.all(0),
+              height: ManageDeviceInfo.resolutionHeight * 0.28,
+              child: FutureBuilder<List<ModelWeeklyTrendComicInfo>>(
+                future: c2sWeeklyTrendComicInfo.fetch(null),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) return LoadingIndicator();
+                  {
+                    return TrendCardList(snapshot: snapshot);
+                  }
+                },
+              ),
             ),
-          ),
-
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
-            child: Text(
-              'Weekly Trend',
-              style: TextStyle(
-                  fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(0),
-            height: ManageDeviceInfo.resolutionHeight * 0.28,
-            child: FutureBuilder<List<ModelWeeklyTrendComicInfo>>(
-              future: c2sWeeklyTrendComicInfo.fetch(null),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return LoadingIndicator();
-                {
-                  return TrendCardList(snapshot: snapshot);
-                }
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Column mainBannerWidget(
+      AsyncSnapshot<List<ModelFeaturedComicInfo>> snapshot) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        CarouselSlider(
+          items: snapshot.data.map((i) {
+            return Builder(builder: (BuildContext context) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(horizontal: 0.0),
+                decoration: BoxDecoration(color: Colors.white),
+                child: GestureDetector(
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'images/mainTest.jpg',
+                    image: i.thumbnailUrl,
+                    fit: BoxFit.fitWidth,
+                  ),
+                  /* CachedNetworkImage(
+                                      imageUrl: i.thumbnailUrl,
+                                      placeholder: (context, url) =>
+                                          LoadingIndicator(),
+                                      fit: BoxFit.fitWidth), */
+                  onTap: () {
+                    Navigator.push<Widget>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                            i.userId, i.comicId), // link to Actual viewer
+                      ),
+                    );
+                  },
+                ),
+              );
+            });
+          }).toList(),
+          autoPlay: false,
+          enlargeCenterPage: true,
+          aspectRatio: 1.4,
+          onPageChanged: (index) {
+            setState(() {
+              _current = index;
+            });
+          },
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: map<Widget>(
+            ModelFeaturedComicInfo.list,
+            (index, i) {
+              return Container(
+                width: 8.0,
+                height: 8.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _current == index
+                        ? Color.fromRGBO(0, 0, 0, 0.9)
+                        : Color.fromRGBO(0, 0, 0, 0.4)),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -320,10 +362,6 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     ]
   )
 ), */
-
-
-
-
 
 // Need handler for indicator
 List<T> map<T>(List list, Function handler) {
@@ -367,14 +405,12 @@ List bannerList = map<Widget>(
         child: FadeInImage.assetNetwork(
           placeholder: 'images/mainTest.jpg',
           image: i.thumbnailUrl,
-          fit: BoxFit.fitWidth,
-
-        ),/* CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill), */
+          fit: BoxFit.cover,
+        ), /* CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill), */
       ),
     );
   },
 ).toList();
-
 
 class TrendCardList extends StatelessWidget {
   const TrendCardList({
@@ -391,7 +427,7 @@ class TrendCardList extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-      itemCount: values.length,
+      itemCount: 4,
       itemBuilder: (BuildContext context, int index) => Padding(
         padding: const EdgeInsets.all(4.0),
         child: GestureDetector(
@@ -399,20 +435,18 @@ class TrendCardList extends StatelessWidget {
             Navigator.push<Widget>(
               context,
               MaterialPageRoute(
-                builder: (context) => DetailPage(
-                    snapshot.data[index].userId,
-                    snapshot.data[index]
-                        .comicId), // link to Actual viewer
+                builder: (context) => DetailPage(snapshot.data[index].userId,
+                    snapshot.data[index].comicId), // link to Actual viewer
               ),
             );
           },
-          child: Container(            
+          child: Container(
             child: FittedBox(
               child: Material(
                 color: Colors.white,
-                      elevation: 2.0,
-                      borderRadius: BorderRadius.circular(4.0),
-                      shadowColor: Color(0x802196F3),
+                elevation: 2.0,
+                borderRadius: BorderRadius.circular(4.0),
+                shadowColor: Color(0x802196F3),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -422,12 +456,11 @@ class TrendCardList extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: new BorderRadius.circular(2.0),
                         child: FadeInImage.assetNetwork(
-                                    placeholder: 'images/mainTest.jpg',
-                                    image: snapshot.data[index].thumnailUrl,
-                                    fit: BoxFit.fitWidth,
-                                    height: ManageDeviceInfo.resolutionHeight * 0.15,
-
-                                  ),
+                          placeholder: 'images/mainTest.jpg',
+                          image: snapshot.data[index].thumbnailUrl,
+                          fit: BoxFit.cover,
+                          height: ManageDeviceInfo.resolutionHeight * 0.15,
+                        ),
                         /* CachedNetworkImage(
                           imageUrl: snapshot.data[index].thumbnailUrl,
                           placeholder: (context, url) => LoadingIndicator(),
@@ -436,13 +469,14 @@ class TrendCardList extends StatelessWidget {
                         ), */
                       ),
                     ),
-                    SizedBox(
-                      height: ManageDeviceInfo.resolutionHeight * 0.002), 
+                    SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
                     Container(
-                      padding: EdgeInsets.only(left: ManageDeviceInfo.resolutionWidth * 0.01),
+                      padding: EdgeInsets.only(
+                          left: ManageDeviceInfo.resolutionWidth * 0.01),
                       height: ManageDeviceInfo.resolutionHeight * 0.048,
-                      width: ManageDeviceInfo.resolutionWidth * 0.41,                    
-                      child: Text(snapshot.data[index].title,
+                      width: ManageDeviceInfo.resolutionWidth * 0.41,
+                      child: Text(
+                        snapshot.data[index].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
@@ -453,14 +487,12 @@ class TrendCardList extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: ManageDeviceInfo.resolutionHeight * 0.002), 
+                    SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
                     Container(
                       width: ManageDeviceInfo.resolutionWidth * 0.41,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
-
                         children: <Widget>[
                           Container(
                             height: ManageDeviceInfo.resolutionHeight * 0.042,
@@ -474,15 +506,15 @@ class TrendCardList extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontFamily: 'Lato',
-                                  fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                  fontSize:
+                                      ManageDeviceInfo.resolutionHeight * 0.018,
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            width:
-                                ManageDeviceInfo.resolutionWidth * 0.02,
+                            width: ManageDeviceInfo.resolutionWidth * 0.02,
                           ),
                           Container(
                             height: ManageDeviceInfo.resolutionHeight * 0.032,
@@ -494,7 +526,9 @@ class TrendCardList extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.only(right: ManageDeviceInfo.resolutionWidth * 0.02),
+                              padding: EdgeInsets.only(
+                                  right:
+                                      ManageDeviceInfo.resolutionWidth * 0.02),
                               height: ManageDeviceInfo.resolutionHeight * 0.022,
                               width: ManageDeviceInfo.resolutionWidth * 0.22,
                               child: Align(
@@ -507,7 +541,9 @@ class TrendCardList extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: 'Lato',
                                     color: Colors.black87,
-                                    fontSize: ManageDeviceInfo.resolutionHeight * 0.018,
+                                    fontSize:
+                                        ManageDeviceInfo.resolutionHeight *
+                                            0.018,
                                   ),
                                 ),
                               ),
