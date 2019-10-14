@@ -25,27 +25,22 @@ class PacketC2SSignOutWithSocial extends PacketC2SCommon
   {
     switch(_socialProviderType)
     {
-
-      default:
-        break;
-    }
-
-    return _fetchGoogle(onFetchDone);
-  }
-
-  Future<void> _fetchGoogle(onFetchDone) async
-  {
-    switch(ModelUserInfo.getInstance().socialProviderType)
-    {
       case e_social_provider_type.google:
         {
-          ManageFirebaseAuth.googleSignOut();
+          _fetchGoogle(onFetchDone);
+
         }
         break;
 
       default:
         break;
     }
+
+  }
+
+  Future<void> _fetchGoogle(onFetchDone) async
+  {
+    ManageFirebaseAuth.googleSignOut();
 
     PacketS2CSignOutWithSocial packet = new PacketS2CSignOutWithSocial();
     packet.parseGoogle(onFetchDone);

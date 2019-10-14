@@ -6,7 +6,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:sparky/manage/manage_firebase_storage.dart';
-
+import 'package:sparky/models/model_user_info.dart';
+import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
+import 'package:sparky/packets/packet_c2s_withdrawal.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 // Coming soon page for multi-purpose
@@ -30,6 +36,7 @@ class _AccountDeleteWidgetState extends State<AccountDeleteWidget> with WidgetsB
 
   TextEditingController _textInputController = TextEditingController();
   String _showText = "";
+  List<PacketC2SCommon> _requestPacketList = new List<PacketC2SCommon>();
 
   @override
     void initState() {
@@ -52,10 +59,98 @@ class _AccountDeleteWidgetState extends State<AccountDeleteWidget> with WidgetsB
 
 
   _onPressed() {
+
+    PacketC2SWithdrawal packetC2SWithdrawal = new PacketC2SWithdrawal();
+    packetC2SWithdrawal.generate(ModelUserInfo.getInstance().uId);
+    _requestPacketList.add(packetC2SWithdrawal);
+
+    PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = new PacketC2SSignOutWithSocial();
+    packetC2SSignOutWithSocial.generate(ModelUserInfo.getInstance().socialProviderType);
+    _requestPacketList.add(packetC2SSignOutWithSocial);
+
+    packetC2SWithdrawal.fetch(_onFetchDone);
+
     setState(() {
       _showText = _textInputController.text;
     });
   }
+
+
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    print('[PageDevTestAccount] : onFetchDone');
+
+
+    switch(s2cPacket.type)
+    {
+
+      case e_packet_type.s2c_sign_out_with_social:
+        {
+
+          /*
+          Fluttertoast.showToast(
+              msg: "Sign out with social !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          */
+
+          _requestPacketList.removeAt(0);
+
+        }
+        break;
+
+      case e_packet_type.s2c_withdrawal:
+        {
+
+          Fluttertoast.showToast(
+              msg: "Withdrawal !!",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+              fontSize: 16.0);
+
+          _requestPacketList.removeAt(0);
+          //print('_list.length : ${_list.length}');
+
+          if(_requestPacketList.length > 0)
+          {
+            PacketC2SCommon current = _requestPacketList[0];
+            switch(current.type)
+            {
+              case e_packet_type.c2s_sign_out_with_social:
+                {
+                  PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = current as PacketC2SSignOutWithSocial;
+                  packetC2SSignOutWithSocial.generate(ModelUserInfo.getInstance().socialProviderType);
+                  packetC2SSignOutWithSocial.fetch(_onFetchDone);
+                }
+                break;
+
+              default:
+                break;
+            }
+          }
+
+        }
+        break;
+
+      default:
+        break;
+    }
+
+
+
+    setState(() {
+
+    });
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
