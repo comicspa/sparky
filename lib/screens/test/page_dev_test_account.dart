@@ -24,7 +24,6 @@ class PageDevTestAccount extends StatefulWidget {
 
 class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
-
   List<PacketC2SCommon> _requestPacketList = new List<PacketC2SCommon>();
 
   // TODO Add build() method

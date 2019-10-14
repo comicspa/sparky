@@ -101,6 +101,12 @@ enum e_packet_type
   c2s_check_sign_up,
   s2c_check_sign_up,
 
+  c2s_register_translator,
+  s2c_register_translator,
+
+  c2s_unregister_translator,
+  s2c_unregister_translator,
+
 }
 
 

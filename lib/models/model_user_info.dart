@@ -10,7 +10,7 @@ enum e_social_provider_type
 
 class ModelUserInfo
 {
-  String _id;
+  String _uId;
   String _creatorId;
   String _translatorId;
   e_social_provider_type _socialProviderType = e_social_provider_type.none;
@@ -20,35 +20,27 @@ class ModelUserInfo
   String _userName;
   String _displayName;
   String _photoUrl;
-  String _uId;
   String _accessToken;
   String _bio;
   int _followers = 0;
   int _following = 0;
   int _likes = 0;
 
-  String get id => _id;
+  String get uId => _uId;
   String get creatorId => _creatorId;
   String get translatorId => _translatorId;
   e_social_provider_type get socialProviderType => _socialProviderType;
   int get comi => _comi;
   bool get signedIn => _signedIn;
-  bool get me => _signedIn;
   String get email => _email;
   String get userName => _userName;
   String get displayName => _displayName;
   String get photoUrl => _photoUrl;
-  String get uId => _uId;
   String get accessToken => _accessToken;
   String get bio => _bio;
   int get followers => _followers;
   int get following => _following;
   int get likes => _likes;
-
-  set id(String id)
-  {
-    _id = id;
-  }
 
   set creatorId(String creatorId)
   {
@@ -135,6 +127,8 @@ class ModelUserInfo
     following = 0;
     likes = 0;
     comi = 0;
+    creatorId = null;
+    translatorId = null;
   }
 
   void withdrawal()

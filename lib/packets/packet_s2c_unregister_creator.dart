@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
@@ -13,7 +14,7 @@ class PacketS2CUnregisterCreator extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
-
+    ModelUserInfo.getInstance().creatorId = null;
 
     if(null != onFetchDone)
       onFetchDone(this);

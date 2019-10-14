@@ -1,20 +1,64 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
-
+import 'package:sparky/models/model_user_info.dart';
+import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_register_translator.dart';
+import 'package:sparky/packets/packet_c2s_unregister_translator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // Coming soon page for multi-purpose
 
 class TranslatorRegistrationWidget extends StatelessWidget {
-  const TranslatorRegistrationWidget({
+   TranslatorRegistrationWidget({
     Key key,
     this.titleText,
     }) : super(key: key);
   
   final String titleText;
 
-  
-  
+   void _onFetchDone(PacketS2CCommon s2cPacket)
+   {
+     print('[TranslatorRegistrationWidget] : onFetchDone');
+
+
+     switch (s2cPacket.type)
+     {
+       case e_packet_type.s2c_register_translator:
+         {
+
+           Fluttertoast.showToast(
+               msg: "Register Translator !!",
+               toastLength: Toast.LENGTH_SHORT,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIos: 1,
+               backgroundColor: Colors.black,
+               textColor: Colors.white,
+               fontSize: 16.0);
+
+         }
+         break;
+
+       case e_packet_type.s2c_unregister_translator:
+         {
+
+           Fluttertoast.showToast(
+               msg: "Unregister Translator !!",
+               toastLength: Toast.LENGTH_SHORT,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIos: 1,
+               backgroundColor: Colors.black,
+               textColor: Colors.white,
+               fontSize: 16.0);
+
+         }
+         break;
+
+       default:
+         break;
+     }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +88,37 @@ class TranslatorRegistrationWidget extends StatelessWidget {
               title: Text('This is the Translator registration page.'),
               subtitle: Text('Please follow the steps'),
               isThreeLine: true,
+              onTap:(){
+                print('onTap');
+
+                if(true == ModelUserInfo.getInstance().signedIn)
+                {
+                  if(null == ModelUserInfo.getInstance().creatorId)
+                  {
+                    PacketC2SRegisterTranslator packetC2SRegisterTranslator = new PacketC2SRegisterTranslator();
+                    packetC2SRegisterTranslator.generate(ModelUserInfo.getInstance().uId);
+                    packetC2SRegisterTranslator.fetch(_onFetchDone);
+                  }
+                  else
+                  {
+                    PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = new PacketC2SUnregisterTranslator();
+                    packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+                    packetC2SUnregisterTranslator.fetch(_onFetchDone);
+                  }
+                }
+                else
+                {
+                  Fluttertoast.showToast(
+                      msg: "Required SiginUp or SignIn",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIos: 1,
+                      backgroundColor: Colors.black,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
+                }
+
+              },
             ),
           ),
           
