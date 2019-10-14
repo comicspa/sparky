@@ -30,6 +30,7 @@ import 'package:sparky/manage/manage_paint_canvas.dart';
 import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
+import 'package:sparky/screens/test/Page_dev_test_lazy_loading.dart';
 import 'package:sparky/screens/test/page_dev_test_tflite.dart';
 import 'package:sparky/screens/test/page_dev_test_account.dart';
 import 'package:sparky/screens/test/page_dev_test_toast_message.dart';
@@ -213,6 +214,20 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
                 MaterialPageRoute(
                   builder: (context) => PageDevTestLocalization(
                   ),
+                ),
+              );
+
+            },
+          ),
+
+          ListTile(
+            title: Text('Lazy Loading Test'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Trend(),
                 ),
               );
 
