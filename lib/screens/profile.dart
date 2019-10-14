@@ -133,17 +133,15 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
           ),
         ),
       ), 
-    body: ModelUserInfo.getInstance().photoUrl == null
-      ? LoadingIndicator()
-      : ListView(
-        padding: const EdgeInsets.all(0.0),
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          ProfileHeader(),
-          MainMenu(),
-        ],
-      ),
+    body: ListView(
+      padding: const EdgeInsets.all(0.0),
+      shrinkWrap: true,
+      physics: BouncingScrollPhysics(),
+      children: <Widget>[
+        ProfileHeader(),
+        MainMenu(),
+      ],
+    ),
     );
   }
 
@@ -281,6 +279,7 @@ class ProfileHeader extends StatelessWidget {
           SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.06,),
           CachedNetworkImage(
             imageUrl: ModelUserInfo.getInstance().photoUrl,
+            placeholder: (context, url) => new CircularProgressIndicator(),
             imageBuilder: (context, imageProvider) => Container(
               width: ManageDeviceInfo.resolutionWidth * 0.12, height: ManageDeviceInfo.resolutionWidth * 0.12,
               decoration: BoxDecoration(
