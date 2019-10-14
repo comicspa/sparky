@@ -40,7 +40,7 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
     print('PackSize : $size , PacketType : $type , systemErrorCode : $systemErrorCode , serviceErrorCode : $serviceErrorCode');
 
-    ModelUserInfo.getInstance().id = readStringToByteBuffer();
+    ModelUserInfo.getInstance().uId = readStringToByteBuffer();
     ModelUserInfo.getInstance().creatorId = readStringToByteBuffer();
     ModelUserInfo.getInstance().bio = readStringToByteBuffer();
     ModelUserInfo.getInstance().comi = getUint32();

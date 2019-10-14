@@ -1,22 +1,69 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:sparky/models/model_user_info.dart';
+import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_register_creator.dart';
+import 'package:sparky/packets/packet_c2s_unregister_creator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 // Coming soon page for multi-purpose
 
 class CreatorRegistrationWidget extends StatelessWidget {
-  const CreatorRegistrationWidget({
+   CreatorRegistrationWidget({
     Key key,
     this.titleText,
     }) : super(key: key);
   
   final String titleText;
 
-  
-  
 
-  @override
+
+   void _onFetchDone(PacketS2CCommon s2cPacket)
+   {
+     print('[CreatorRegistrationWidget] : onFetchDone');
+
+
+     switch (s2cPacket.type)
+     {
+       case e_packet_type.s2c_register_creator:
+         {
+
+           Fluttertoast.showToast(
+               msg: "Register Creator !!",
+               toastLength: Toast.LENGTH_SHORT,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIos: 1,
+               backgroundColor: Colors.black,
+               textColor: Colors.white,
+               fontSize: 16.0);
+
+         }
+         break;
+
+       case e_packet_type.s2c_unregister_creator:
+         {
+
+           Fluttertoast.showToast(
+               msg: "Unregister Creator !!",
+               toastLength: Toast.LENGTH_SHORT,
+               gravity: ToastGravity.BOTTOM,
+               timeInSecForIos: 1,
+               backgroundColor: Colors.black,
+               textColor: Colors.white,
+               fontSize: 16.0);
+
+         }
+         break;
+
+       default:
+         break;
+     }
+   }
+
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -44,6 +91,41 @@ class CreatorRegistrationWidget extends StatelessWidget {
               title: Text('This is the Creator registration page.'),
               subtitle: Text('Please follow the steps'),
               isThreeLine: true,
+              onTap:(){
+                print('onTap');
+
+
+                if(true == ModelUserInfo.getInstance().signedIn)
+                {
+                  if(null == ModelUserInfo.getInstance().creatorId)
+                    {
+                      PacketC2SRegisterCreator packetC2SRegisterCreator = new PacketC2SRegisterCreator();
+                      packetC2SRegisterCreator.generate(ModelUserInfo.getInstance().uId);
+                      packetC2SRegisterCreator.fetch(_onFetchDone);
+                    }
+                  else
+                    {
+                      PacketC2SUnregisterCreator packetC2SUnregisterCreator = new PacketC2SUnregisterCreator();
+                      packetC2SUnregisterCreator.generate(ModelUserInfo.getInstance().uId);
+                      packetC2SUnregisterCreator.fetch(_onFetchDone);
+                    }
+                }
+                else
+                  {
+                    Fluttertoast.showToast(
+                        msg: "Required SiginUp or SignIn",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+
+
+
+              },
+
             ),
           ),
           

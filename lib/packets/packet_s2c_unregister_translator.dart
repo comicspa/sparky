@@ -5,23 +5,20 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
 
-class PacketS2CRegisterCreator extends PacketS2CCommon
+class PacketS2CUnregisterTranslator extends PacketS2CCommon
 {
-  PacketS2CRegisterCreator()
+  PacketS2CUnregisterTranslator()
   {
-    type = e_packet_type.s2c_register_creator;
+    type = e_packet_type.s2c_unregister_translator;
   }
 
-
-  Future<void> parseFireBaseDBJson(onFetchDone,String creatorId) async
+  Future<void> parseFireBaseDBJson(onFetchDone) async
   {
-    ModelUserInfo.getInstance().creatorId = creatorId;
-
+    ModelUserInfo.getInstance().translatorId = null;
 
     if(null != onFetchDone)
       onFetchDone(this);
   }
-
 
   void parseBytes(List<int> event)
   {
@@ -30,7 +27,7 @@ class PacketS2CRegisterCreator extends PacketS2CCommon
     systemErrorCode = getUint32();
     serviceErrorCode = getUint32();
 
-    print('PacketSize : $size , PacketType : $type');
+    print('PackSize : $size , PacketType : $type');
 
   }
 
