@@ -31,6 +31,10 @@ class ManageDeviceInfo
     _localeCode = localeCode;
   }
 
+  static String getLanguageLocaleCode()
+  {
+    return '${languageCode}_${localeCode}';
+  }
 
 
   static Future<String> _getDeviceId(BuildContext context) async
@@ -126,8 +130,8 @@ class ManageDeviceInfo
   }
 
 
-  static String getStringLanguageLocale()
-  {
-    return 'localeCode :  $localeCode, languageCode : $languageCode';
-  }
+  //static String getStringLanguageLocale()
+  //{
+  //  return 'localeCode :  $localeCode, languageCode : $languageCode';
+  //}
 }

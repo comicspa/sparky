@@ -60,7 +60,7 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
         case e_packet_type.s2c_preset_library_info:
           {
             print('[_PageDevTestApplyState::_onFetchDone] : e_packet_type.s2c_preset_library_info');
-            print(ManageDeviceInfo.getStringLanguageLocale());
+            print(ManageDeviceInfo.getLanguageLocaleCode());
 
             PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
             packetC2SLocalizationInfo.generate(

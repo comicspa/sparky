@@ -30,10 +30,12 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   _DetailPageState(this._userId, this._comicId);
 
   PacketC2SComicDetailInfo c2sComicDetailInfo = new PacketC2SComicDetailInfo();
-  // PacketC2SCommon ddd = new PacketC2SComicDetailInfo();
+
 
 //Todo need to implement lazy loading
- /* Future _loadMore() async {
+  /*
+ Future _loadMore() async
+ {
     setState(() {
       isLoading = true;
     });
@@ -48,18 +50,13 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
       currentLength = data.length;
     });
   }
- */
-
+*/
 
 
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-    // generating packet
-    // (ddd as PacketC2SComicDetailInfo).fetch(null);
-    // c2sComicDetailInfo.fetch(null);
-
 
     init();
   }
