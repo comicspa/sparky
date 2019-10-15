@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/models/model_localization_info.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';

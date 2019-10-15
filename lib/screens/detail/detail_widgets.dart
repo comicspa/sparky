@@ -13,6 +13,7 @@ import 'package:sparky/screens/common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/screens/viewer.dart';
 import 'package:sparky/models/model_preset.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 
 
@@ -236,12 +237,19 @@ class DeatilHeaderTitleWidget extends StatelessWidget {
                 ManageDeviceInfo.resolutionHeight * 0.01),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4.0),
-              child: CachedNetworkImage(
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: titleThumnailUrl,
+                width: ManageDeviceInfo.resolutionWidth * 0.35,
+                height: ManageDeviceInfo.resolutionWidth * 0.35,
+                fit: BoxFit.fill,
+              )
+              /* CachedNetworkImage(
                 imageUrl: titleThumnailUrl,
                 width: ManageDeviceInfo.resolutionWidth * 0.35,
                 height: ManageDeviceInfo.resolutionWidth * 0.35,
                 fit: BoxFit.fill,
-              ),
+              ), */
             ),
           ),
         ),
@@ -636,13 +644,20 @@ class EpisodeListViewWidget extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius:
                                 BorderRadius.circular(4.0),
-                            child: CachedNetworkImage(
+                            child: FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: ModelComicDetailInfo.getInstance().modelComicInfoList[index].thumbnailImageUrl,
+                              width: ManageDeviceInfo.resolutionWidth * 0.26,
+                              height: ManageDeviceInfo.resolutionHeight * 0.16,
+                              fit: BoxFit.fill,
+                            )
+                            /* CachedNetworkImage(
                               imageUrl: ModelComicDetailInfo.getInstance().modelComicInfoList[index].thumbnailImageUrl,
                               placeholder: (context, url) => LoadingIndicator(),
                               width: ManageDeviceInfo.resolutionWidth * 0.26,
                               height: ManageDeviceInfo.resolutionHeight * 0.16,
                               fit: BoxFit.fill,
-                            ),
+                            ) */,
                           ),
                         ),
                       ),

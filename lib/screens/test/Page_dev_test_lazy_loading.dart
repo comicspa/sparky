@@ -17,6 +17,9 @@ import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'package:sparky/screens/common_widgets.dart';
 import 'package:sparky/screens/detail/detail_page.dart';
+import 'package:transparent_image/transparent_image.dart';
+
+
 
 class Trend extends StatefulWidget {
   @override
@@ -257,8 +260,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                       height: ManageDeviceInfo.resolutionHeight * 0.15,
                                       child: ClipRRect(
                                         borderRadius: new BorderRadius.circular(2.0),
-                                        child: FadeInImage.assetNetwork(
-                                          placeholder: 'images/mainTest.jpg',
+                                        child: FadeInImage.memoryNetwork(
+                                          placeholder: kTransparentImage,
                                           image: snapshot.data[index].thumbnailUrl == null ? LinearProgressIndicator : snapshot.data[index].thumbnailUrl,
                                           fit: BoxFit.cover,
                                           height: ManageDeviceInfo.resolutionHeight * 0.15,
@@ -411,6 +414,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 
               ),
             ),
+           
 
           /*  Container(
               alignment: Alignment.centerLeft,
@@ -508,8 +512,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 margin: EdgeInsets.symmetric(horizontal: 0.0),
                 decoration: BoxDecoration(color: Colors.white),
                 child: GestureDetector(
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'images/mainTest.jpg',
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
                     image: i.thumbnailUrl,
                     fit: BoxFit.fitWidth,
                   ),
@@ -614,8 +618,8 @@ List bannerList = map<Widget>(
       margin: EdgeInsets.all(5.0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        child: FadeInImage.assetNetwork(
-          placeholder: 'images/mainTest.jpg',
+        child: FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
           image: i.thumbnailUrl,
           fit: BoxFit.cover,
         ), /* CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill), */
@@ -667,8 +671,8 @@ class TrendCardList extends StatelessWidget {
                     height: ManageDeviceInfo.resolutionHeight * 0.15,
                     child: ClipRRect(
                       borderRadius: new BorderRadius.circular(2.0),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: 'images/mainTest.jpg',
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
                         image: snapshot.data[index].thumbnailUrl,
                         fit: BoxFit.cover,
                         height: ManageDeviceInfo.resolutionHeight * 0.15,
