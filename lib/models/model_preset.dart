@@ -8,13 +8,6 @@ import 'package:sparky/models/model_common.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
 
 
-enum e_comic_genre
-{
-  romance,
-
-}
-
-
 class ModelPreset
 {
   static String _version = '1.0.0.0';
@@ -22,6 +15,8 @@ class ModelPreset
   static String _faqUrl = 'https://www.google.co.kr';
   static String _privacyPolicyUrl = 'https://www.google.co.kr';
   static String _termsOfUseUrl = 'https://www.google.co.kr';
+  static String _termsOfUseTranslateComicUrl = 'https://www.google.co.kr';
+  static String _termsOfUseRegisterComicUrl = 'https://www.google.co.kr';
   static bool _developerMode = false;
   static final String _comicBaseUrl = 'comics';
   static final String __representationHorizontalImageFileFullName = '000000.jpg';
@@ -34,6 +29,8 @@ class ModelPreset
   static String get faqUrl => _faqUrl;
   static String get privacyPolicyUrl => _privacyPolicyUrl;
   static String get termsOfUseUrl => _termsOfUseUrl;
+  static String get termsOfUseTranslateComicUrl => _termsOfUseTranslateComicUrl;
+  static String get termsOfUseRegisterComicUrl => _termsOfUseRegisterComicUrl;
   static String get comicBaseUrl => _comicBaseUrl;
   static String get representationHorizontalImageFileFullName => __representationHorizontalImageFileFullName;
   static String get representationSquareImageFileFullName => __representationSquareImageFileFullName;
@@ -57,6 +54,15 @@ class ModelPreset
   {
     _termsOfUseUrl = termsOfUseUrl;
   }
+  static set termsOfUseTranslateComicUrl(String termsOfUseTranslateComicUrl)
+  {
+    _termsOfUseTranslateComicUrl = termsOfUseTranslateComicUrl;
+  }
+  static set termsOfUseRegisterComicUrl(String termsOfUseRegisterComicUrl)
+  {
+    _termsOfUseRegisterComicUrl = termsOfUseRegisterComicUrl;
+  }
+
   static set developerMode(bool developerMode)
   {
     _developerMode = developerMode;
@@ -92,6 +98,12 @@ class ModelPreset
 
     _termsOfUseUrl = linkJson['terms_of_use'];
     print('terms_of_use : $_termsOfUseUrl');
+
+    _termsOfUseRegisterComicUrl = linkJson['terms_of_use_register_comic'];
+    print('terms_of_use_register_comic : $_termsOfUseRegisterComicUrl');
+
+    _termsOfUseTranslateComicUrl = linkJson['terms_of_use_translate_comic'];
+    print('terms_of_use_translate_comic : $_termsOfUseTranslateComicUrl');
 
     return true;
 

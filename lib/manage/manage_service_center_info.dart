@@ -41,4 +41,30 @@ class ManageServiceCenterInfo
 
     return ModelPreset.termsOfUseUrl;
   }
+
+
+  static Future<String> launchTermsOfUseTranslateComicPage() async
+  {
+    if (await canLaunch(ModelPreset.termsOfUseTranslateComicUrl)) {
+      await launch(ModelPreset.termsOfUseTranslateComicUrl);
+    }
+    else {
+      throw 'Could not launch ${ModelPreset.termsOfUseTranslateComicUrl}';
+    }
+
+    return ModelPreset.termsOfUseTranslateComicUrl;
+  }
+
+
+  static Future<String> launchTermsOfUseRegisterComicPage() async
+  {
+    if (await canLaunch(ModelPreset.termsOfUseRegisterComicUrl)) {
+      await launch(ModelPreset.termsOfUseRegisterComicUrl);
+    }
+    else {
+      throw 'Could not launch ${ModelPreset.termsOfUseRegisterComicUrl}';
+    }
+
+    return ModelPreset.termsOfUseRegisterComicUrl;
+  }
 }

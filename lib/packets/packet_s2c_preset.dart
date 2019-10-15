@@ -34,6 +34,12 @@ class PacketS2CPreset extends PacketS2CCommon
     ModelPreset.homepageUrl = linkJson['home_page'];
     print('parseJson - homepageUrl : ${ModelPreset.homepageUrl}');
 
+    ModelPreset.termsOfUseRegisterComicUrl = linkJson['terms_of_use_register_comic'];
+    print('parseJson - terms_of_use_register_comic : ${ModelPreset.termsOfUseRegisterComicUrl}');
+
+    ModelPreset.termsOfUseTranslateComicUrl = linkJson['terms_of_use_translate_comic'];
+    print('parseJson - terms_of_use_translate_comic : ${ModelPreset.termsOfUseTranslateComicUrl}');
+
     if(null != onFetchDone)
       onFetchDone(this);
   }

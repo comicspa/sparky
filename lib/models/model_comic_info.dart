@@ -3,7 +3,11 @@ import 'dart:ui' as ui;
 
 import 'package:sparky/manage/manage_firebase_storage.dart';
 
+enum e_comic_genre
+{
+  romance,
 
+}
 
 class ModelComicInfo
 {
