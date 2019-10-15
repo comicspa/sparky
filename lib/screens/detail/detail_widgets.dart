@@ -10,7 +10,6 @@ import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/screens/common_widgets.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/screens/viewer.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -244,12 +243,6 @@ class DeatilHeaderTitleWidget extends StatelessWidget {
                 height: ManageDeviceInfo.resolutionWidth * 0.35,
                 fit: BoxFit.fill,
               )
-              /* CachedNetworkImage(
-                imageUrl: titleThumnailUrl,
-                width: ManageDeviceInfo.resolutionWidth * 0.35,
-                height: ManageDeviceInfo.resolutionWidth * 0.35,
-                fit: BoxFit.fill,
-              ), */
             ),
           ),
         ),
@@ -651,13 +644,6 @@ class EpisodeListViewWidget extends StatelessWidget {
                               height: ManageDeviceInfo.resolutionHeight * 0.16,
                               fit: BoxFit.fill,
                             )
-                            /* CachedNetworkImage(
-                              imageUrl: ModelComicDetailInfo.getInstance().modelComicInfoList[index].thumbnailImageUrl,
-                              placeholder: (context, url) => LoadingIndicator(),
-                              width: ManageDeviceInfo.resolutionWidth * 0.26,
-                              height: ManageDeviceInfo.resolutionHeight * 0.16,
-                              fit: BoxFit.fill,
-                            ) */,
                           ),
                         ),
                       ),

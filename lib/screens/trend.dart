@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/models/model_localization_info.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
@@ -103,11 +102,16 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                 margin: EdgeInsets.symmetric(horizontal: 0.0),
                                 decoration: BoxDecoration(color: Colors.white),
                                 child: GestureDetector(
-                                  child: CachedNetworkImage(
+                                  child: FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: i.thumbnailUrl,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                  /* CachedNetworkImage(
                                       imageUrl: i.thumbnailUrl,
                                       placeholder: (context, url) =>
                                           LoadingIndicator(),
-                                      fit: BoxFit.fitWidth),
+                                      fit: BoxFit.fitWidth), */
                                   onTap: () {
                                     Navigator.push<Widget>(
                                       context,
@@ -359,7 +363,12 @@ List bannerList = map<Widget>(
       margin: EdgeInsets.all(5.0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        child: CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill),
+        child: FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: i.thumnailUrl,
+          fit: BoxFit.fill,
+        )
+        /* CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill), */
       ),
     );
   },
@@ -411,12 +420,18 @@ class TrendCardList extends StatelessWidget {
                       height: ManageDeviceInfo.resolutionHeight * 0.15,
                       child: ClipRRect(
                         borderRadius: new BorderRadius.circular(2.0),
-                        child: CachedNetworkImage(
+                        child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: snapshot.data[index].thumbnailUrl,
+                          fit: BoxFit.cover,
+                          height: ManageDeviceInfo.resolutionHeight * 0.15,
+                        )
+                        /* CachedNetworkImage(
                           imageUrl: snapshot.data[index].thumbnailUrl,
                           placeholder: (context, url) => LoadingIndicator(),
                           fit: BoxFit.cover,
                           height: ManageDeviceInfo.resolutionHeight * 0.15,
-                        ),
+                        ) */,
                       ),
                     ),
                     SizedBox(
