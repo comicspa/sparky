@@ -49,39 +49,14 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
                 ),
               ),
             ),
-            /*SvgPicture.asset(
-              'images/sparky_logo.svg',
-              width: ManageDeviceInfo.resolutionWidth * 0.045,
-              height: ManageDeviceInfo.resolutionHeight * 0.025,
-            
-            ),*/
+           
           ),
         ),
       ), 
     body: ListView(
       padding: EdgeInsets.all(6.0),
       children: <Widget>[
-        /* Card(
-          child: ListTile(
-            onTap: (){
-              //Todo connect to the Viewer page
-            },
-            leading: CircleAvatar(
-              backgroundColor: Colors.blueAccent,
-              //Todo add Url backgroundImage: NetworkImage(url),
-              ),
-            title: Text('User ID'),
-            subtitle: Text(
-                  'Feb 26 · views ★',
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.black54,
-                  ),
-                ),
-            
-            trailing: Icon(Icons.chevron_right),       
-          ),
-        ), */
+       
         TranslatorListWidget(
         avatar: SizedBox(
           width: ManageDeviceInfo.resolutionWidth * 0.116,

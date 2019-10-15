@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'dart:async';
+
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 /* //Todo need model with userID, 언어별 리스트, top 7 (조회 수 순위별로) , 
   Todo 번역 작품별 보기로 연결 할 인자, 현재 디바이스 언어 체크 ( 원작이 동일어 인 경우 현재 페이지 안보여줌: 이부분은 )*/
@@ -58,51 +61,36 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
           ),
         ),
       ), 
-    body: ListView(
-      padding: EdgeInsets.all(6.0),
-      children: <Widget>[
-        /* Card(
-          child: ListTile(
-            onTap: (){
-              //Todo connect to the Viewer page
-            },
-            leading: CircleAvatar(
-              backgroundColor: Colors.blueAccent,
-              //Todo add Url backgroundImage: NetworkImage(url),
-              ),
-            title: Text('User ID'),
-            subtitle: Text(
-                  'Feb 26 · views ★',
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.black54,
+    body: SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+
+          StreamBuilder<Object>(
+            stream: null,
+            builder: (context, snapshot) {
+              return CustomListItem(
+              avatar: SizedBox(
+                width: ManageDeviceInfo.resolutionWidth * 0.116,
+                height: ManageDeviceInfo.resolutionWidth * 0.116,
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueAccent,
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: ModelUserInfo.getInstance().photoUrl,
                   ),
                 ),
-            
-            trailing: Icon(Icons.chevron_right),       
+              ),
+              userId: 'IamTheBest',
+              aboutMe: 'I will continue translating this title till end and I promise that.  Also this needs to be tested for checking long description',
+              
+              publishDate: 'Feb 26',
+              views: '123,234',
+              );
+            }
           ),
-        ), */
-        CustomListItem(
-        avatar: SizedBox(
-          width: ManageDeviceInfo.resolutionWidth * 0.116,
-          height: ManageDeviceInfo.resolutionWidth * 0.116,
-          child: CircleAvatar(
-            backgroundColor: Colors.blueAccent,
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: ModelUserInfo.getInstance().photoUrl,
-            ),
-          ),
-        ),
-        userId: 'IamTheBest',
-        aboutMe: 'I will continue translating this title till end and I promise that.  Also this needs to be tested for checking long description',
-        
-        publishDate: 'Feb 26',
-        views: '123,234',
+          Divider(),
+        ],
       ),
-      Divider(),
-       
-      ],
     )
     );
   }
@@ -243,3 +231,26 @@ class CustomListItem extends StatelessWidget {
     );
   }
 }
+
+
+ /* Card(
+                child: ListTile(
+                  onTap: (){
+                    //Todo connect to the Viewer page
+                  },
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.blueAccent,
+                    //Todo add Url backgroundImage: NetworkImage(url),
+                    ),
+                  title: Text('User ID'),
+                  subtitle: Text(
+                        'Feb 26 · views ★',
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black54,
+                        ),
+                      ),
+                  
+                  trailing: Icon(Icons.chevron_right),       
+                ),
+              ), */
