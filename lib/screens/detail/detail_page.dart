@@ -85,8 +85,91 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
     });
   }
 
+  Future<bool> _onBackPressed() async
+  {
+    print('_onBackPressed');
+
+
+
+
+    // await showDialog or Show add banners or whatever
+    // then
+    return true; // return true if the route to be popped
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    return new WillPopScope(
+      onWillPop: _onBackPressed,
+      child: new  Scaffold(
+         appBar: PreferredSize(
+            preferredSize:
+            Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
+            child: SafeArea(
+              child: AppBar(
+                elevation: 1,
+                iconTheme: IconThemeData(
+                color: Colors.black, //change your color here
+    ),
+    backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
+    //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
+    // centerTitle: true,
+    leading: new IconButton(
+    icon: new Icon(Icons.arrow_back),
+    onPressed: () {
+
+      print('onPressed');
+      return Navigator.pop(context);
+      },
+    ),
+    title: FittedBox(
+    fit: BoxFit.fitWidth,
+    child: SizedBox(
+    width: ManageDeviceInfo.resolutionWidth * 0.7,
+    child: ModelComicDetailInfo.getInstance().mainTitleName == null
+    ? Text(
+    'Loading...',
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    textAlign: TextAlign.start,
+    style: TextStyle(
+    fontFamily: 'Lato',
+    fontWeight: FontWeight.bold,
+    fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+    color: Colors.black87,
+    ),
+    )
+        : Text(
+    ModelComicDetailInfo.getInstance().mainTitleName,
+    maxLines: 1,
+    overflow: TextOverflow.ellipsis,
+    textAlign: TextAlign.start,
+    style: TextStyle(
+    fontFamily: 'Lato',
+    fontWeight: FontWeight.bold,
+    fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+    color: Colors.black87,
+    ),
+    ),
+    ),
+    ),
+
+    ),
+    ),
+    ),
+    body: SingleChildScrollView(
+    physics: BouncingScrollPhysics(),
+    child: ModelComicDetailInfo.getInstance().representationImageUrl == null
+    ? LoadingIndicator()
+        : new DetailHeaderWidget(c2sComicDetailInfo: c2sComicDetailInfo),
+    ),
+    )
+    );
+
+
+    /*
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
@@ -146,15 +229,18 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
             : new DetailHeaderWidget(c2sComicDetailInfo: c2sComicDetailInfo),
       ),
     );
+    */
 
-  /* void _scrollListener() {
-    print(controller.position.extentAfter);
-    if (controller.position.extentAfter < 500) {
-      setState(() {
-        items.addAll(new List.generate(42, (index) => 'Inserted $index'));
-      });
-    }
-  } */
+
+  // void _scrollListener() {
+  //  print(controller.position.extentAfter);
+  //  if (controller.position.extentAfter < 500) {
+  //    setState(() {
+  //      items.addAll(new List.generate(42, (index) => 'Inserted $index'));
+  //    });
+  //  }
+  //}
+
 
   }
 }

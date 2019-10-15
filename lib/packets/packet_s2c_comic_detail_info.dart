@@ -53,10 +53,21 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
 
     //print('modelComicInfoList length1 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
+
+    if(null != onFetchDone)
+      onFetchDone(this);
+
     int countIndex = 0;
     var comics = jsonMap['comics'];
-    for(var key in comics.keys)
+
+
+    var newMap = Map.fromEntries(comics.entries.toList()..sort((e1, e2) =>
+        int.parse(e1.value["episode_id"]).compareTo(int.parse(e2.value["episode_id"]))));
+
+
+    for(var key in newMap.keys)
     {
+
       ModelComicInfo modelComicInfo = new ModelComicInfo();
 
       modelComicInfo.episodeId = comics[key.toString()]['episode_id'];
@@ -85,12 +96,25 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       ++countIndex;
 
       ModelComicDetailInfo.getInstance().modelComicInfoList.add(modelComicInfo);
+
+      if(0 == countIndex % 5) {
+        if (null != onFetchDone)
+          onFetchDone(this);
+      }
     }
 
     //print('modelComicInfoList length2 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
     //sort
-    ModelComicDetailInfo.getInstance().modelComicInfoList.sort((a, b) => a.countIndex.compareTo(b.countIndex));
+    /*
+    if(null != modelComicInfoList) {
+      modelComicInfoList..sort((a, b) => a.countIndex.compareTo(b.countIndex));
+      ModelComicDetailInfo
+          .getInstance()
+          .modelComicInfoList = modelComicInfoList;
+    }
+
+     */
 
     //print('modelComicInfoList length3 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
