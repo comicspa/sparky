@@ -82,7 +82,7 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
             trailing: Icon(Icons.chevron_right),       
           ),
         ), */
-        CustomListItem(
+        TranslatorListWidget(
         avatar: SizedBox(
           width: ManageDeviceInfo.resolutionWidth * 0.116,
           height: ManageDeviceInfo.resolutionWidth * 0.116,
@@ -110,8 +110,8 @@ class _TranslationListScreenState extends State<TranslationListScreen> {
 
 }
 
-class _ArticleDescription extends StatelessWidget {
-  _ArticleDescription({
+class _AboutMeDescription extends StatelessWidget {
+  _AboutMeDescription({
     Key key,
     this.userId,
     this.aboutMe,
@@ -185,8 +185,8 @@ class _ArticleDescription extends StatelessWidget {
 }
 
 
-class CustomListItem extends StatelessWidget {
-  CustomListItem({
+class TranslatorListWidget extends StatelessWidget {
+  TranslatorListWidget({
     Key key,
     this.avatar,
     this.userId,
@@ -224,7 +224,7 @@ class CustomListItem extends StatelessWidget {
                   ManageDeviceInfo.resolutionWidth * 0.0005,
                   0.0
                   ),
-                child: _ArticleDescription(
+                child: _AboutMeDescription(
                   userId: userId,
                   aboutMe: aboutMe,
                   publishDate: publishDate,

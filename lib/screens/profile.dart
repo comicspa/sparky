@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
+import 'package:sparky/screens/account/sign_in_up_landing_page.dart';
 import 'package:sparky/screens/test/edit_profile.dart'; 
-import 'sign_in_up_landing_page.dart';
+
 
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';

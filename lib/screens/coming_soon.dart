@@ -6,7 +6,7 @@ import 'package:sparky/screens/more.dart';
 import 'package:sparky/screens/creator.dart';
 import 'package:sparky/screens/testhome.dart';
 import 'package:sparky/screens/trend.dart';
-import 'package:sparky/screens/sign_in.dart';
+
 import 'package:sparky/screens/notification.dart';
 
 // Coming soon page for multi-purpose

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:sparky/models/model_user_info.dart';
+import 'package:sparky/screens/account/sign_in_up_landing_page.dart';
 
-import 'sign_in_up_landing_page.dart';
+
 
 
 

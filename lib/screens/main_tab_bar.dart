@@ -5,7 +5,7 @@ import 'library.dart';
 import 'more.dart';
 
 import 'trend.dart';
-import 'sign_in.dart';
+import 'package:sparky/screens/account/sign_in.dart';
 import 'notification.dart';
 import 'common_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
