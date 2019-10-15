@@ -98,9 +98,9 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        child: null != ModelViewComic.list
+                        child: null != ModelViewComic.getInstance().style
                           //Todo Need to change Icon with direction
-                          ? e_comic_view_style.vertical == ModelViewComic.list[0].style 
+                          ? e_comic_view_style.vertical == ModelViewComic.getInstance().style
                                 ? Icon(
                                     Icons.arrow_downward,
                                     size: ManageDeviceInfo.resolutionWidth * 0.04,
@@ -127,7 +127,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
             _isVisible = !_isVisible;
           });
         },
-        child: FutureBuilder<List<ModelViewComic>>(
+        child: FutureBuilder<ModelViewComic>(
           future: _c2sViewComic.fetch(_onFetchDone),
           builder: (context, snapshot) {
 
@@ -143,20 +143,20 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   return new Text('Error: ${snapshot.error}');
                 else
                 {
-                  if(null != snapshot.data && 0 < snapshot.data.length)
+                  if(null != snapshot.data)
                   {
                   return ListView.builder(
                     shrinkWrap: true,
                     scrollDirection:
-                    snapshot.data[0].style == e_comic_view_style.vertical
+                    snapshot.data.style == e_comic_view_style.vertical
                         ? Axis.vertical
                         : Axis.horizontal,
                     physics: BouncingScrollPhysics(),
-                    itemCount: snapshot.data[0].imageUrlList.length,
+                    itemCount: snapshot.data.imageUrlList.length,
                     //                      ModelViewComic.getInstance().comicImageUrlList.length,
                     itemBuilder: (BuildContext context, int index) =>
                         CachedNetworkImage(
-                          imageUrl: snapshot.data[0].imageUrlList[index],
+                          imageUrl: snapshot.data.imageUrlList[index],
                         ),
                   );
                   }

@@ -78,7 +78,7 @@ class _DrawRectAndImageState extends State<DrawRectAndImage>
           physics: BouncingScrollPhysics(),
           child: FutureBuilder<List<ModelTextDetection>>(
               future: ModelTextDetection.generate(
-                  ModelViewComic.list[0].imageUrlList, useCloud),
+                  ModelViewComic.getInstance().imageUrlList, useCloud),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
                   return Container(

@@ -13,6 +13,98 @@ class PacketS2CViewComic extends PacketS2CCommon
     type = e_packet_type.s2c_view_comic;
   }
 
+
+  Future<void> parseFireBaseDBJson(String userId,String comicId,String partId,String seasonId,String episodeId,Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  {
+    status = e_packet_status.start_dispatch_respond;
+
+    ModelViewComic.getInstance().userId = userId;
+    ModelViewComic.getInstance().id = comicId;
+    ModelViewComic.getInstance().episodeId = episodeId;
+    ModelViewComic.getInstance().title = jsonMap['title'];
+    int style = jsonMap['style'];
+    switch(style)
+    {
+      case 0:
+        {
+          ModelViewComic.getInstance().style = e_comic_view_style.vertical;
+        }
+        break;
+
+      case 1:
+        {
+          ModelViewComic.getInstance().style = e_comic_view_style.horizontal;
+        }
+        break;
+    }
+
+    int comicCount = jsonMap['count'];
+    print('cutImageCount : $comicCount');
+
+
+    if (null != ModelViewComic.getInstance().imageUrlList)
+    {
+      ModelViewComic
+          .getInstance()
+          .imageUrlList
+          .clear();
+      ModelViewComic
+          .getInstance()
+          .imageUrlList = null;
+    }
+
+    for(int countIndex=0; countIndex<comicCount; ++countIndex)
+        {
+          String imageId = '00001';
+          //String imageId = sprintf('%05d', (countIndex+1));
+
+          int number = countIndex + 1;
+
+          if(number < 10)
+          {
+            imageId = '0000$number';
+          }
+          else if(9 < number && number < 100)
+          {
+            imageId = '000$number';
+          }
+          else if(99 < number && number < 1000)
+          {
+            imageId = '00$number';
+          }
+          else if(999 < number && number < 10000)
+          {
+            imageId = '0$number';
+          }
+          else if(9999 < number && number < 100000)
+          {
+            imageId = '$number';
+          }
+
+          print('imageId[$countIndex / $comicCount] : $imageId');
+
+          String comicImageUrl =
+          await ModelPreset.getCutImageDownloadUrl(ModelViewComic.getInstance().userId,ModelViewComic.getInstance().id,'001','001',ModelViewComic.getInstance().episodeId,imageId);
+
+          print('comicImageUrl[$countIndex] : $comicImageUrl');
+
+          if(null == ModelViewComic.getInstance().imageUrlList)
+            ModelViewComic.getInstance().imageUrlList = new List<String>();
+          ModelViewComic.getInstance().imageUrlList.add(comicImageUrl);
+
+          if(null != onFetchDone)
+            onFetchDone(this);
+        }
+
+        print('[PacketS2CViewComic : fetchFireBaseDB finished]');
+
+        status = e_packet_status.finish_dispatch_respond;
+        if(null != onFetchDone)
+          onFetchDone(this);
+  }
+
+
+  /*
   Future<void> parseFireBaseDBJson(String userId,String comicId,String partId,String seasonId,String episodeId,Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     status = e_packet_status.start_dispatch_respond;
@@ -217,9 +309,8 @@ class PacketS2CViewComic extends PacketS2CCommon
     status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
-
   }
-
+  */
 
 
 }
