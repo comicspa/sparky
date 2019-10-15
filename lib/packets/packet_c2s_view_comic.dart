@@ -32,7 +32,7 @@ class PacketC2SViewComic extends PacketC2SCommon
   {
     reset();
 
-    ModelViewComic.list = null;
+    //ModelViewComic.list = null;
 
     _userId = userId;
     _comicId = comicId;
@@ -45,7 +45,62 @@ class PacketC2SViewComic extends PacketC2SCommon
     print('episodeId : $_episodeId');
   }
 
+  Future<ModelViewComic> fetch(onFetchDone) async
+  {
+    return await _fetchFireBaseDB(onFetchDone);
+  }
 
+
+  Future<ModelViewComic> _fetchFireBaseDB(onFetchDone) async
+  {
+    print('PacketC2SViewComic : fetchFireBaseDB started');
+
+    switch(respondPacket.status)
+    {
+      case e_packet_status.finish_dispatch_respond:
+        return ModelViewComic.getInstance();
+
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
+
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status)
+    {
+      String id = '${_userId}_${_comicId}_${_episodeId}';
+      print('id : $id');
+      DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase
+          .reference.child('model_view_comic_info').child(id);
+      modelComicDetailInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SViewComic : fetchFireBaseDB ] - ${snapshot.value}');
+
+        (respondPacket as PacketS2CViewComic).parseFireBaseDBJson(
+            _userId,
+            _comicId,
+            _partId,
+            _seasonId,
+            _episodeId,
+            snapshot.value,
+            onFetchDone);
+
+
+      });
+    }
+
+    return null;
+  }
+
+
+
+  /*
   Future<List<ModelViewComic>> fetch(onFetchDone) async
   {
     return await _fetchFireBaseDB(onFetchDone);
@@ -97,7 +152,6 @@ class PacketC2SViewComic extends PacketC2SCommon
 
     return null;
   }
-
 
 
   Future<List<ModelViewComic>> _fetchBytes(onFetchDone) async
@@ -156,5 +210,6 @@ class PacketC2SViewComic extends PacketC2SCommon
 
     return null;
   }
+  */
 
 }

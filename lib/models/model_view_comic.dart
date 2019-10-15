@@ -18,7 +18,7 @@ class ModelViewComic
   String _seasonId = '001';
   String _episodeId;
   List<String> _imageUrlList;
-  e_comic_view_style _style = e_comic_view_style.vertical;
+  e_comic_view_style _style;// = e_comic_view_style.vertical;
 
   String get userId => _userId;
   String get title => _title;
@@ -63,13 +63,13 @@ class ModelViewComic
   }
 
 
-  static List<ModelViewComic> list;
+  //static List<ModelViewComic> list;
 
   static void reset()
   {
   }
 
-  /*
+
   static ModelViewComic _instance;
   static ModelViewComic getInstance() {
     if(_instance == null) {
@@ -78,5 +78,5 @@ class ModelViewComic
     }
     return _instance;
   }
-  */
+
 }
