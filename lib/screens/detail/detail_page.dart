@@ -100,7 +100,10 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
             backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
             //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
             // centerTitle: true,
-
+            leading: new IconButton(
+              icon: new Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(context),
+            ),
             title: FittedBox(
               fit: BoxFit.fitWidth,
               child: SizedBox(
@@ -163,7 +166,7 @@ class DetailHeaderWidget extends StatelessWidget {
   }) : super(key: key);
 
   final PacketC2SComicDetailInfo c2sComicDetailInfo;
-
+  
   @override
   Widget build(BuildContext context) {
     return Column(

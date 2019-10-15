@@ -366,7 +366,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                   },
                 ),
               ),
+              
             ),
+            
 
             Container(
               alignment: Alignment.centerLeft,
