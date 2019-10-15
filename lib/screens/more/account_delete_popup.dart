@@ -6,13 +6,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:sparky/manage/manage_firebase_storage.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
 import 'package:sparky/packets/packet_c2s_withdrawal.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 
 // Coming soon page for multi-purpose
@@ -105,15 +106,7 @@ class _AccountDeleteWidgetState extends State<AccountDeleteWidget> with WidgetsB
 
       case e_packet_type.s2c_withdrawal:
         {
-
-          Fluttertoast.showToast(
-              msg: "Withdrawal !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          ManageToastMessage.showShort('Withdrawal !!');
 
           _requestPacketList.removeAt(0);
           //print('_list.length : ${_list.length}');

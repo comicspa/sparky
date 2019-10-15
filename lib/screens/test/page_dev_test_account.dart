@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_firebase_auth.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_sign_up.dart';
@@ -14,7 +15,7 @@ import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_c2s_sign_out.dart';
 import 'package:sparky/packets/packet_c2s_register_creator.dart';
 import 'package:sparky/packets/packet_c2s_unregister_creator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 
 class PageDevTestAccount extends StatefulWidget {
@@ -46,18 +47,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
     {
       case e_packet_type.s2c_sign_in_with_social:
         {
-
-          /*
-          Fluttertoast.showToast(
-              msg: "Sign in with social !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
-           */
+          //ManageToastMessage.showShortLength('Sign in with social !!');
 
           _requestPacketList.removeAt(0);
           if(_requestPacketList.length > 0)
@@ -92,19 +82,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_sign_out_with_social:
         {
-
-          /*
-          Fluttertoast.showToast(
-              msg: "Sign out with social !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          */
-
-
+          //ManageToastMessage.showShortLength('Sign out with social !!');
           _requestPacketList.removeAt(0);
 
         }
@@ -113,31 +91,13 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
       case e_packet_type.s2c_sign_up:
         {
           _requestPacketList.removeAt(0);
-
-
-          Fluttertoast.showToast(
-              msg: "SignUp !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          ManageToastMessage.showShort('SignUp !!');
         }
         break;
 
       case e_packet_type.s2c_withdrawal:
         {
-
-          Fluttertoast.showToast(
-              msg: "Withdrawal !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('Withdrawal !!');
           _requestPacketList.removeAt(0);
           //print('_list.length : ${_list.length}');
 
@@ -164,30 +124,13 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_sign_in:
         {
-
-          Fluttertoast.showToast(
-              msg: "SignIn !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('SignIn !!');
         }
         break;
 
       case e_packet_type.s2c_sign_out:
         {
-
-          Fluttertoast.showToast(
-              msg: "SignOut !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          ManageToastMessage.showShort('SignOut !!');
 
           _requestPacketList.removeAt(0);
           //print('_list.length : ${_list.length}');
@@ -215,39 +158,19 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_register_creator:
         {
-
-          Fluttertoast.showToast(
-              msg: "Register Creator !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('Register Creator !!');
         }
         break;
 
       case e_packet_type.s2c_unregister_creator:
         {
-
-          Fluttertoast.showToast(
-              msg: "Unregister Creator !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('Unregister Creator !!');
         }
         break;
 
       default:
         break;
     }
-
-
 
     setState(() {
 

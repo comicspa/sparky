@@ -18,6 +18,7 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
   String _userId;
   String _comicId;
   int _fetchStatus = 0;
+  PacketS2CComicDetailInfo _packetS2CComicDetailInfo;
 
   PacketC2SComicDetailInfo()
   {
@@ -29,6 +30,12 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
     _fetchStatus = 0;
     _userId = userId;
     _comicId = comicId;
+
+    if(null != _packetS2CComicDetailInfo)
+      _packetS2CComicDetailInfo.clear();
+    else
+      _packetS2CComicDetailInfo = new PacketS2CComicDetailInfo();
+
   }
 
   Future<ModelComicDetailInfo> fetch(onFetchDone) async
@@ -56,8 +63,8 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
 
         _fetchStatus = 2;
 
-        PacketS2CComicDetailInfo preset = new PacketS2CComicDetailInfo();
-        preset.parseFireBaseDBJson(snapshot.value, onFetchDone);
+        if(null != _packetS2CComicDetailInfo)
+          _packetS2CComicDetailInfo.parseFireBaseDBJson(snapshot.value, onFetchDone);
 
         _fetchStatus = 3;
        

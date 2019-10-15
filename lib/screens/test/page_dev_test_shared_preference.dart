@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_shared_preference.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 
 
 class PageDevTestSharedPreference extends StatefulWidget {
@@ -50,17 +50,7 @@ class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreferenc
             onTap: (){
 
               ManageSharedPreference.clear();
-
-              Fluttertoast.showToast(
-                  msg: "Clear All Shared Preference.",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0
-              );
-
+              ManageToastMessage.showShort('Clear All Shared Preference.');
             },
           ),
 
@@ -70,17 +60,7 @@ class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreferenc
             onTap: (){
 
               ManageSharedPreference.setString('test', 'test11');
-
-              Fluttertoast.showToast(
-                  msg: "set string  Shared Preference.",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0
-              );
-
+              ManageToastMessage.showShort('set string  Shared Preference.');
             },
           ),
 
@@ -90,31 +70,16 @@ class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreferenc
 
                ManageSharedPreference.getString('test').then((value)
                {
-                 if(null != value) {
+                 if(null != value)
+                 {
                    print(value.toString());
                    print('success');
 
-                   Fluttertoast.showToast(
-                       msg: 'get string  Shared Preference. : ${value.toString()}',
-                       toastLength: Toast.LENGTH_SHORT,
-                       gravity: ToastGravity.BOTTOM,
-                       timeInSecForIos: 1,
-                       backgroundColor: Colors.red,
-                       textColor: Colors.white,
-                       fontSize: 16.0
-                   );
+                   ManageToastMessage.showShort('get string  Shared Preference. : ${value.toString()}');
                  }
                  else
                    {
-                     Fluttertoast.showToast(
-                         msg: 'get string  Shared Preference. : null',
-                         toastLength: Toast.LENGTH_SHORT,
-                         gravity: ToastGravity.BOTTOM,
-                         timeInSecForIos: 1,
-                         backgroundColor: Colors.red,
-                         textColor: Colors.white,
-                         fontSize: 16.0
-                     );
+                     ManageToastMessage.showShort('get string  Shared Preference. : null');
                    }
 
                },
@@ -135,17 +100,7 @@ class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreferenc
             onTap: (){
 
               ManageSharedPreference.remove('test');
-
-              Fluttertoast.showToast(
-                  msg: "remove string  Shared Preference.",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0
-              );
-
+              ManageToastMessage.showShort('remove string  Shared Preference.');
             },
           ),
 

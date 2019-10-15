@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_register_translator.dart';
 import 'package:sparky/packets/packet_c2s_unregister_translator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 // Coming soon page for multi-purpose
 
@@ -27,31 +28,13 @@ class TranslatorRegistrationWidget extends StatelessWidget {
      {
        case e_packet_type.s2c_register_translator:
          {
-
-           Fluttertoast.showToast(
-               msg: "Register Translator !!",
-               toastLength: Toast.LENGTH_SHORT,
-               gravity: ToastGravity.BOTTOM,
-               timeInSecForIos: 1,
-               backgroundColor: Colors.black,
-               textColor: Colors.white,
-               fontSize: 16.0);
-
+           ManageToastMessage.showShort('Register Translator !!');
          }
          break;
 
        case e_packet_type.s2c_unregister_translator:
          {
-
-           Fluttertoast.showToast(
-               msg: "Unregister Translator !!",
-               toastLength: Toast.LENGTH_SHORT,
-               gravity: ToastGravity.BOTTOM,
-               timeInSecForIos: 1,
-               backgroundColor: Colors.black,
-               textColor: Colors.white,
-               fontSize: 16.0);
-
+           ManageToastMessage.showShort('Unregister Translator !!');
          }
          break;
 
@@ -108,14 +91,7 @@ class TranslatorRegistrationWidget extends StatelessWidget {
                 }
                 else
                 {
-                  Fluttertoast.showToast(
-                      msg: "Required SiginUp or SignIn",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIos: 1,
-                      backgroundColor: Colors.black,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
+                  ManageToastMessage.showShort('Required SiginUp or SignIn');
                 }
 
               },

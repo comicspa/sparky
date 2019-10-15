@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';// use this to make all the widget size responsive to the device size.
+import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:sparky/models/model_user_info.dart';
@@ -12,7 +13,7 @@ import 'package:sparky/packets/packet_c2s_sign_out.dart';
 import 'package:sparky/packets/packet_c2s_withdrawal.dart';
 import 'package:sparky/packets/packet_c2s_sign_in_with_social.dart';
 import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 
 class SignInUpLandPage extends StatefulWidget {
@@ -44,20 +45,7 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
     {
       case e_packet_type.s2c_sign_in_with_social:
         {
-
-          /*
-          Fluttertoast.showToast(
-              msg: "Sign in with social !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
-           */
-
-
+          //ManageToastMessage.showShortLength('Sign in with social !!');
 
           _requestPacketList.removeAt(0);
           if(_requestPacketList.length > 0)
@@ -84,19 +72,7 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
 
       case e_packet_type.s2c_sign_out_with_social:
         {
-
-          /*
-          Fluttertoast.showToast(
-              msg: "Sign out with social !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          */
-
-
+          //ManageToastMessage.showShortLength('Sign out with social !!');
           _requestPacketList.removeAt(0);
 
         }
@@ -106,30 +82,14 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
         {
           _requestPacketList.removeAt(0);
 
-
-          Fluttertoast.showToast(
-              msg: "SignUp !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
+          ManageToastMessage.showShort('SignUp !!');
         }
         break;
 
       case e_packet_type.s2c_withdrawal:
         {
 
-          Fluttertoast.showToast(
-              msg: "Withdrawal !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('Withdrawal !!');
           _requestPacketList.removeAt(0);
           //print('_list.length : ${_list.length}');
 
@@ -157,61 +117,25 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
 
       case e_packet_type.s2c_sign_in:
         {
-
-          Fluttertoast.showToast(
-              msg: "SignIn !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('SignIn !!');
         }
         break;
 
       case e_packet_type.s2c_sign_out:
         {
-
-          Fluttertoast.showToast(
-              msg: "SignOut !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('SignOut !!');
         }
         break;
 
       case e_packet_type.s2c_register_creator:
         {
-
-          Fluttertoast.showToast(
-              msg: "Register Creator !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('Register Creator !!');
         }
         break;
 
       case e_packet_type.s2c_unregister_creator:
         {
-
-          Fluttertoast.showToast(
-              msg: "Unregister Creator !!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-
+          ManageToastMessage.showShort('Unregister Creator !!');
         }
         break;
 

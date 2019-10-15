@@ -9,10 +9,26 @@ import 'package:sparky/models/model_preset.dart';
 
 class PacketS2CComicDetailInfo extends PacketS2CCommon
 {
+  List<ModelComicInfo> _modelComicInfoList;
+  List<ModelComicInfo> get modelComicInfoList => _modelComicInfoList;
+
   PacketS2CComicDetailInfo()
   {
     type = e_packet_type.s2c_comic_detail_info;
+    _modelComicInfoList = new List<ModelComicInfo>();
   }
+
+  void clear()
+  {
+    if(null != _modelComicInfoList)
+      _modelComicInfoList.clear();
+  }
+
+  void addModelComicInfo(int addCount,int currentCountIndex)
+  {
+
+  }
+
 
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {

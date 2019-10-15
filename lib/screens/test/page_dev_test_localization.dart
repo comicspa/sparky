@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 
 class PageDevTestLocalization extends StatefulWidget {
@@ -23,7 +23,7 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
 
   @override
   void dispose() {
-    Fluttertoast.cancel();
+    ManageToastMessage.cancel();
     super.dispose();
   }
 
@@ -50,18 +50,7 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
 
               ManageDeviceInfo.languageCode = 'ko';
               ManageDeviceInfo.localeCode = 'kr';
-
-              Fluttertoast.showToast(
-                  msg: "Select ko_kr",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.black,
-                  textColor: Colors.yellow,
-                  fontSize: 16.0
-              );
-
-
+              ManageToastMessage.showShort('Select ko_kr');
             },
           ),
           ListTile(
@@ -70,17 +59,7 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
 
               ManageDeviceInfo.languageCode = 'en';
               ManageDeviceInfo.localeCode = 'us';
-
-              Fluttertoast.showToast(
-                  msg: "Select en_us",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  timeInSecForIos: 1,
-                  backgroundColor: Colors.black,
-                  textColor: Colors.yellow,
-                  fontSize: 16.0
-              );
-
+              ManageToastMessage.showShort('Select en_us');
             },
           ),
 
