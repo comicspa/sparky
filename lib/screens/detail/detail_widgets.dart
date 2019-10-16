@@ -22,7 +22,7 @@ class EpisodeTotalNumberDisplayWidget extends StatelessWidget {
     this.episodeCount,
   }) : super(key: key);
 
-  final episodeCount;
+  final int episodeCount;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class EpisodeTotalNumberDisplayWidget extends StatelessWidget {
             0.0),
         child: SizedBox(
           width: ManageDeviceInfo.resolutionWidth * 0.8,
-          child: episodeCount == null
+          child: episodeCount == 0
               ? Text(
                   'Episodes( 0 )',
                   maxLines: 1,
@@ -51,7 +51,7 @@ class EpisodeTotalNumberDisplayWidget extends StatelessWidget {
                   ),
                 )
               : Text(
-                  'Episodes( ${episodeCount.length} )',
+                  'Episodes( ${episodeCount} )',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,

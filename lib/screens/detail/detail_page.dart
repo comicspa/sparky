@@ -314,7 +314,7 @@ class DetailHeaderWidget extends StatelessWidget {
               ]),
           ),
           Divider(),
-          new EpisodeTotalNumberDisplayWidget(episodeCount: ModelComicDetailInfo.getInstance().modelComicInfoList,),
+          new EpisodeTotalNumberDisplayWidget(episodeCount: ModelComicDetailInfo.getInstance().modelComicInfoLength,),
           SizedBox(
             height: ManageDeviceInfo.resolutionHeight * 0.02,
           ),

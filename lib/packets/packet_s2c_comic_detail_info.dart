@@ -51,20 +51,17 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       ModelComicDetailInfo.getInstance().modelComicInfoList = new List<ModelComicInfo>();
     ModelComicDetailInfo.getInstance().modelComicInfoList.clear();
 
-    //print('modelComicInfoList length1 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
+    int countIndex = 0;
+    var comics = jsonMap['comics'];
 
+    ModelComicDetailInfo.getInstance().modelComicInfoLength = comics.keys.length;
+    //print('modelComicInfoList length1 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
     if(null != onFetchDone)
       onFetchDone(this);
 
-    int countIndex = 0;
-    var comics = jsonMap['comics'];
-
-
     var newMap = Map.fromEntries(comics.entries.toList()..sort((e1, e2) =>
         int.parse(e1.value["episode_id"]).compareTo(int.parse(e2.value["episode_id"]))));
-
-
     for(var key in newMap.keys)
     {
 
