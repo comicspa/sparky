@@ -18,8 +18,20 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+    status = e_packet_status.start_dispatch_respond;
 
-    List<ModelLibraryContinueComicInfo>  list = new List<ModelLibraryContinueComicInfo>();
+    int countIndex = 0;
+    bool switchFlag = false;
+    List<ModelLibraryContinueComicInfo> modelLibraryContinueComicInfoList = null;
+    if(true == switchFlag)
+    {
+      if(null == ModelLibraryContinueComicInfo.list)
+        ModelLibraryContinueComicInfo.list = new List<ModelLibraryContinueComicInfo>();
+      else
+        ModelLibraryContinueComicInfo.list.clear();
+    }
+
+
     for(var key in jsonMap.keys)
     {
       print(key);
@@ -54,11 +66,33 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
 
       print(modelLibraryContinueComicInfo.toString());
 
-      list.add(modelLibraryContinueComicInfo);
+
+      if(false == switchFlag)
+      {
+        if(null == modelLibraryContinueComicInfoList)
+          modelLibraryContinueComicInfoList = new List<ModelLibraryContinueComicInfo>();
+        modelLibraryContinueComicInfoList.add(modelLibraryContinueComicInfo);
+      }
+      else
+      {
+        ModelLibraryContinueComicInfo.list.add(modelLibraryContinueComicInfo);
+        if(0 == countIndex % 3)
+        {
+          if (null != onFetchDone)
+            onFetchDone(this);
+        }
+      }
+
+      ++ countIndex;
 
     }
-    ModelLibraryContinueComicInfo.list = list;
 
+    if(false == switchFlag)
+    {
+      ModelLibraryContinueComicInfo.list = modelLibraryContinueComicInfoList;
+    }
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

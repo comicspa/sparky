@@ -17,8 +17,19 @@ class PacketS2CNewComicInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+    status = e_packet_status.start_dispatch_respond;
 
-    List<ModelNewComicInfo>  list = new List<ModelNewComicInfo>();
+    int countIndex = 0;
+    bool switchFlag = false;
+    List<ModelNewComicInfo> modelNewComicInfoList = null;
+    if(true == switchFlag)
+    {
+      if(null == ModelNewComicInfo.list)
+        ModelNewComicInfo.list  = new List<ModelNewComicInfo>();
+      else
+        ModelNewComicInfo.list.clear();
+    }
+
     for(var key in jsonMap.keys)
     {
       print(key);
@@ -53,11 +64,32 @@ class PacketS2CNewComicInfo extends PacketS2CCommon
 
       print(modelNewComicInfo.toString());
 
-      list.add(modelNewComicInfo);
+
+      if(false == switchFlag)
+      {
+        if(null == modelNewComicInfoList)
+          modelNewComicInfoList = new List<ModelNewComicInfo>();
+        modelNewComicInfoList.add(modelNewComicInfo);
+      }
+      else
+      {
+        ModelNewComicInfo.list.add(modelNewComicInfo);
+        if(0 == countIndex % 3)
+        {
+          if (null != onFetchDone)
+            onFetchDone(this);
+        }
+      }
+      ++ countIndex;
 
     }
-    ModelNewComicInfo.list = list;
 
+    if(false == switchFlag)
+    {
+      ModelNewComicInfo.list = modelNewComicInfoList;
+    }
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

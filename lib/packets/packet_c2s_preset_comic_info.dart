@@ -38,16 +38,19 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
   {
     _count = 0;
 
-    _packetC2SFeaturedComicInfo.generate(0, 0);
-    _packetC2SRecommendedComicInfo.generate(0, 0);
-    _packetC2sRealTimeTrendComicInfo.generate(0, 0);
-    _packetC2SNewComicInfo.generate(0, 0);
-    _packetC2STodayTrendComicInfo.generate(0, 0);
-    _packetC2SWeeklyTrendComicInfo.generate(0, 0);
+    _packetC2SFeaturedComicInfo.generate(0, 0,true);
+    _packetC2SRecommendedComicInfo.generate(0, 0,true);
+    _packetC2sRealTimeTrendComicInfo.generate(0, 0,true);
+    _packetC2SNewComicInfo.generate(0, 0,true);
+    _packetC2STodayTrendComicInfo.generate(0, 0,true);
+    _packetC2SWeeklyTrendComicInfo.generate(0, 0,true);
   }
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+      return;
+
     print('[PacketC2SPresetLibraryInfo] : onFetchDone - $_count');
 
     switch(_count)

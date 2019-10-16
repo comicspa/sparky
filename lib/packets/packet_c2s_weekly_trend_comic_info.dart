@@ -17,16 +17,22 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
 {
   int _pageCountIndex = 0;
   int _pageViewCount = 0;
+  int _fetchStatus = 0;
+  bool _wantLoad = false;
 
   PacketC2SWeeklyTrendComicInfo()
   {
     type = e_packet_type.c2s_weekly_trend_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex)
+  void generate(int pageViewCount,int pageCountIndex,bool wantLoad)
   {
     _pageViewCount = pageViewCount;
     _pageCountIndex = pageCountIndex;
+    _fetchStatus = 0;
+    respondPacket = null;
+    respondPacket = new PacketS2CWeeklyTrendComicInfo();
+    _wantLoad = wantLoad;
   }
 
   Future<List<ModelWeeklyTrendComicInfo>> fetch(onFetchDone) async
@@ -37,21 +43,70 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
   Future<List<ModelWeeklyTrendComicInfo>> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SWeeklyTrendComicInfo : fetchFireBaseDB started');
-
-    if(null != ModelWeeklyTrendComicInfo.list)
+    if(false == _wantLoad)
       return ModelWeeklyTrendComicInfo.list;
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_weekly_trend_comic_info');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    /*
+    switch(respondPacket.status)
     {
-      print('[PacketC2SWeeklyTrendComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+      case e_packet_status.finish_dispatch_respond:
+        return ModelWeeklyTrendComicInfo.list;
 
-      PacketS2CWeeklyTrendComicInfo packet = new PacketS2CWeeklyTrendComicInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
 
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status) {
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_weekly_trend_comic_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        (respondPacket as PacketS2CWeeklyTrendComicInfo).parseFireBaseDBJson(
+            snapshot.value, onFetchDone);
+
+        return ModelWeeklyTrendComicInfo.list;
+      });
+    }
+
+     */
+
+
+    if(3 == _fetchStatus)
       return ModelWeeklyTrendComicInfo.list;
 
-    });
+    else if(0 == _fetchStatus) {
+
+      _fetchStatus = 1;
+
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_weekly_trend_comic_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SWeeklyTrendComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        _fetchStatus = 2;
+
+        PacketS2CWeeklyTrendComicInfo packet = new PacketS2CWeeklyTrendComicInfo();
+        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+        _fetchStatus = 3;
+
+        return ModelWeeklyTrendComicInfo.list;
+      });
+    }
+
+
 
     return null;
   }

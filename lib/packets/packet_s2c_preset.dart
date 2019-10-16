@@ -18,6 +18,8 @@ class PacketS2CPreset extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
+    status = e_packet_status.start_dispatch_respond;
+
     String version = jsonMap['version'];
     print('parseJson - current version : $version , app version : ${ModelPreset.version}');
 
@@ -40,6 +42,7 @@ class PacketS2CPreset extends PacketS2CCommon
     ModelPreset.termsOfUseTranslateComicUrl = linkJson['terms_of_use_translate_comic'];
     print('parseJson - terms_of_use_translate_comic : ${ModelPreset.termsOfUseTranslateComicUrl}');
 
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

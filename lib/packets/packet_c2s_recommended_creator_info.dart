@@ -17,6 +17,7 @@ class PacketC2SRecommendedCreatorInfo extends PacketC2SCommon
 {
   int _pageCountIndex = 0;
   int _pageViewCount = 0;
+  int _fetchStatus = 0;
 
   PacketC2SRecommendedCreatorInfo()
   {
@@ -27,6 +28,9 @@ class PacketC2SRecommendedCreatorInfo extends PacketC2SCommon
   {
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
+    _fetchStatus = 0;
+    respondPacket = null;
+    respondPacket = new PacketS2CRecommendedCreatorInfo();
   }
 
   Future<List<ModelRecommendedCreatorInfo>> fetch(onFetchDone) async
@@ -37,21 +41,67 @@ class PacketC2SRecommendedCreatorInfo extends PacketC2SCommon
   Future<List<ModelRecommendedCreatorInfo>> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SRecommendedCreatorInfo : fetchFireBaseDB started');
-
-    if(null != ModelRecommendedCreatorInfo.list)
-      return ModelRecommendedCreatorInfo.list;
-
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_recommended_creator_info');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
+/*
+    switch(respondPacket.status)
     {
-      print('[PacketC2SRecommendedCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+      case e_packet_status.finish_dispatch_respond:
+        return ModelRecommendedCreatorInfo.list;
 
-      PacketS2CRecommendedCreatorInfo packet = new PacketS2CRecommendedCreatorInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
 
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status) {
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_recommended_creator_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        (respondPacket as PacketS2CRecommendedCreatorInfo).parseFireBaseDBJson(
+            snapshot.value, onFetchDone);
+
+        return ModelRecommendedCreatorInfo.list;
+      });
+    }
+
+
+ */
+
+
+    if(3 == _fetchStatus)
       return ModelRecommendedCreatorInfo.list;
+    else if(0 == _fetchStatus) {
+      _fetchStatus = 1;
 
-    });
+
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_recommended_creator_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SRecommendedCreatorInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        _fetchStatus = 2;
+
+        PacketS2CRecommendedCreatorInfo packet = new PacketS2CRecommendedCreatorInfo();
+        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+        _fetchStatus = 3;
+
+        return ModelRecommendedCreatorInfo.list;
+      });
+    }
+
+
 
     return null;
   }

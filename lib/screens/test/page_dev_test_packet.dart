@@ -51,7 +51,7 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
             onTap: (){
 
               PacketC2SFeaturedComicInfo c2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
-              c2SFeaturedComicInfo.generate(0, 0);
+              c2SFeaturedComicInfo.generate(0, 0,true);
               c2SFeaturedComicInfo.fetch(_onFetchDone);
 
 

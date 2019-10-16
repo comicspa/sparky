@@ -17,8 +17,19 @@ class PacketS2CRecommendedCreatorInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+    status = e_packet_status.start_dispatch_respond;
 
-    List<ModelRecommendedCreatorInfo>  list = new List<ModelRecommendedCreatorInfo>();
+    int countIndex = 0;
+    bool switchFlag = false;
+    List<ModelRecommendedCreatorInfo> modelRecommendedCreatorInfoList = null;
+    if(true == switchFlag)
+    {
+      if(null == ModelRecommendedCreatorInfo.list)
+        ModelRecommendedCreatorInfo.list = new List<ModelRecommendedCreatorInfo>();
+      else
+        ModelRecommendedCreatorInfo.list.clear();
+    }
+
     for(var key in jsonMap.keys)
     {
       print(key);
@@ -53,11 +64,31 @@ class PacketS2CRecommendedCreatorInfo extends PacketS2CCommon
 
       print(modelRecommendedCreatorInfo.toString());
 
-      list.add(modelRecommendedCreatorInfo);
+      if(false == switchFlag)
+      {
+        if(null == modelRecommendedCreatorInfoList)
+          modelRecommendedCreatorInfoList = new List<ModelRecommendedCreatorInfo>();
+        modelRecommendedCreatorInfoList.add(modelRecommendedCreatorInfo);
+      }
+      else
+      {
+        ModelRecommendedCreatorInfo.list.add(modelRecommendedCreatorInfo);
+        if(0 == countIndex % 3)
+        {
+          if (null != onFetchDone)
+            onFetchDone(this);
+        }
+      }
 
+      ++ countIndex;
     }
-    ModelRecommendedCreatorInfo.list = list;
 
+    if(false == switchFlag)
+    {
+      ModelRecommendedCreatorInfo.list = modelRecommendedCreatorInfoList;
+    }
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

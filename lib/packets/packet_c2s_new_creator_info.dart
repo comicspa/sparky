@@ -17,6 +17,7 @@ class PacketC2SNewCreatorInfo extends PacketC2SCommon
 {
   int _pageCountIndex = 0;
   int _pageViewCount = 0;
+  int _fetchStatus = 0;
 
   PacketC2SNewCreatorInfo()
   {
@@ -27,6 +28,9 @@ class PacketC2SNewCreatorInfo extends PacketC2SCommon
   {
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
+    _fetchStatus = 0;
+    respondPacket = null;
+    respondPacket = new PacketS2CNewCreatorInfo();
   }
 
   Future<List<ModelNewCreatorInfo>> fetch(onFetchDone) async
@@ -38,20 +42,64 @@ class PacketC2SNewCreatorInfo extends PacketC2SCommon
   {
     print('PacketC2SNewCreatorInfo : fetchFireBaseDB started');
 
-    if(null != ModelNewCreatorInfo.list)
-      return ModelNewCreatorInfo.list;
-
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_new_creator_info');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    /*
+    switch(respondPacket.status)
     {
-      print('[PacketC2SNewCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+      case e_packet_status.finish_dispatch_respond:
+        return ModelNewCreatorInfo.list;
 
-      PacketS2CNewCreatorInfo packet = new PacketS2CNewCreatorInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
 
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status) {
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_new_creator_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        (respondPacket as PacketS2CNewCreatorInfo).parseFireBaseDBJson(
+            snapshot.value, onFetchDone);
+
+        return ModelNewCreatorInfo.list;
+      });
+    }
+
+     */
+
+
+    if(3 == _fetchStatus)
       return ModelNewCreatorInfo.list;
+    else if(0 == _fetchStatus) {
+      _fetchStatus = 1;
 
-    });
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_new_creator_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SNewCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+
+        _fetchStatus = 2;
+
+        PacketS2CNewCreatorInfo packet = new PacketS2CNewCreatorInfo();
+        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+        _fetchStatus = 3;
+
+        return ModelNewCreatorInfo.list;
+      });
+    }
+
+
 
     return null;
   }

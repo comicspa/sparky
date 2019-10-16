@@ -17,16 +17,22 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
 {
   int _pageCountIndex = 0;
   int _pageViewCount = 0;
+  int _fetchStatus = 0;
+  bool _wantLoad = false;
 
   PacketC2SLibraryViewListComicInfo()
   {
     type = e_packet_type.c2s_library_view_list_comic_info;
   }
 
-  void generate()
+  void generate(bool wantLoad)
   {
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
+    _fetchStatus = 0;
+    respondPacket = null;
+    respondPacket = new PacketS2CLibraryViewListComicInfo();
+    _wantLoad = wantLoad;
   }
 
   Future<List<ModelLibraryViewListComicInfo>> fetch(onFetchDone) async
@@ -37,21 +43,68 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
   Future<List<ModelLibraryViewListComicInfo>> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SLibraryViewListComicInfo : fetchFireBaseDB started');
-
-    if(null != ModelLibraryViewListComicInfo.list)
+    if(false == _wantLoad)
       return ModelLibraryViewListComicInfo.list;
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_library_view_list_comic_info');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    /*
+    switch(respondPacket.status)
     {
-      print('[PacketC2SLibraryViewListComicInfo:fetchFireBaseDB ] - ${snapshot.value}');
+      case e_packet_status.finish_dispatch_respond:
+        return ModelLibraryViewListComicInfo.list;
 
-      PacketS2CLibraryViewListComicInfo packet = new PacketS2CLibraryViewListComicInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
 
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status)
+    {
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_library_view_list_comic_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        (respondPacket as PacketS2CLibraryViewListComicInfo).parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+        return ModelLibraryViewListComicInfo.list;
+      });
+    }
+
+     */
+
+
+
+
+    if(3 == _fetchStatus)
       return ModelLibraryViewListComicInfo.list;
+    else if(0 == _fetchStatus) {
+      _fetchStatus = 1;
 
-    });
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_library_view_list_comic_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLibraryViewListComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        _fetchStatus = 2;
+
+        PacketS2CLibraryViewListComicInfo packet = new PacketS2CLibraryViewListComicInfo();
+        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+        _fetchStatus = 3;
+
+        return ModelLibraryViewListComicInfo.list;
+      });
+    }
 
     return null;
   }

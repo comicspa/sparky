@@ -19,8 +19,20 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+    status = e_packet_status.start_dispatch_respond;
 
-    List<ModelFeaturedComicInfo>  list = new List<ModelFeaturedComicInfo>();
+    int countIndex = 0;
+
+    bool switchFlag = false;
+    List<ModelFeaturedComicInfo> modelFeaturedComicInfoList = null;
+    if(true == switchFlag)
+    {
+      if (null == ModelFeaturedComicInfo.list)
+        ModelFeaturedComicInfo.list = new List<ModelFeaturedComicInfo>();
+      else
+        ModelFeaturedComicInfo.list.clear();
+    }
+
     for(var key in jsonMap.keys)
       {
         print(key);
@@ -55,11 +67,33 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
 
         print(modelFeaturedComicInfo.toString());
 
-        list.add(modelFeaturedComicInfo);
+
+        if(false == switchFlag)
+          {
+            if(null == modelFeaturedComicInfoList)
+              modelFeaturedComicInfoList = new List<ModelFeaturedComicInfo>();
+            modelFeaturedComicInfoList.add(modelFeaturedComicInfo);
+          }
+        else
+          {
+            ModelFeaturedComicInfo.list.add(modelFeaturedComicInfo);
+            if(0 == countIndex % 3)
+            {
+              if (null != onFetchDone)
+                onFetchDone(this);
+            }
+          }
+
+        ++ countIndex;
 
       }
-    ModelFeaturedComicInfo.list = list;
 
+    if(false == switchFlag)
+    {
+      ModelFeaturedComicInfo.list = modelFeaturedComicInfoList;
+    }
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

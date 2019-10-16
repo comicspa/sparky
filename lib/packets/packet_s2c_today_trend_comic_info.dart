@@ -17,8 +17,19 @@ class PacketS2CTodayTrendComicInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+    status = e_packet_status.start_dispatch_respond;
 
-    List<ModelTodayTrendComicInfo>  list = new List<ModelTodayTrendComicInfo>();
+    int countIndex = 0;
+    bool switchFlag = false;
+    List<ModelTodayTrendComicInfo> modelTodayTrendComicInfoList = null;
+    if(true == switchFlag)
+    {
+      if(null == ModelTodayTrendComicInfo.list)
+        ModelTodayTrendComicInfo.list = new List<ModelTodayTrendComicInfo>();
+      else
+        ModelTodayTrendComicInfo.list.clear();
+    }
+
     for(var key in jsonMap.keys)
     {
       print(key);
@@ -53,11 +64,34 @@ class PacketS2CTodayTrendComicInfo extends PacketS2CCommon
 
       print(modelTodayTrendComicInfo.toString());
 
-      list.add(modelTodayTrendComicInfo);
+
+
+      if(false == switchFlag)
+      {
+        if(null == modelTodayTrendComicInfoList)
+          modelTodayTrendComicInfoList = new List<ModelTodayTrendComicInfo>();
+        modelTodayTrendComicInfoList.add(modelTodayTrendComicInfo);
+      }
+      else
+      {
+        ModelTodayTrendComicInfo.list.add(modelTodayTrendComicInfo);
+        if(0 == countIndex % 3)
+        {
+          if (null != onFetchDone)
+            onFetchDone(this);
+        }
+      }
+      ++ countIndex;
 
     }
-    ModelTodayTrendComicInfo.list = list;
 
+    if(false == switchFlag)
+    {
+      ModelTodayTrendComicInfo.list = modelTodayTrendComicInfoList;
+    }
+
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

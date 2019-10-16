@@ -55,13 +55,17 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
     }
 
 
-
+    respondPacket = null;
+    respondPacket = new PacketS2CLocalizationInfo();
 
   }
 
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+      return;
+
     print('[PacketC2SLocalizationInfo] : onFetchDone');
     ManageMessage.streamController.add(e_packet_type.s2c_localization_info);
   }
@@ -74,6 +78,43 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
   Future<Map<dynamic,dynamic>> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SLocalizationInfo : fetchFireBaseDB started - languageCode : ${_languageCode} , localeCode : ${_localeCode}');
+
+    /*
+    switch(respondPacket.status)
+    {
+      case e_packet_status.finish_dispatch_respond:
+        return ModelLocalizationInfo.languagePack;
+
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
+
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status) {
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_localization_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLocalizationInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        (respondPacket as PacketS2CLocalizationInfo).parseFireBaseDBJson(
+            snapshot.value, _onFetchDone);
+
+        return ModelLocalizationInfo.languagePack;
+      });
+    }
+
+     */
+
+
 
     if(null != ModelLocalizationInfo.languagePack)
       return ModelLocalizationInfo.languagePack;
@@ -92,6 +133,8 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
       return ModelLocalizationInfo.languagePack;
 
     });
+
+
 
     return null;
   }

@@ -18,8 +18,20 @@ class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     //{1566811403000_000001: {title: 아비향, creator_name: 묵검향, comic_id: 000001, user_id: 1566811403000, creator_id: 1566811403000}, 1566811403000_000002: {title: 반야, creator_name: 묵검향, comic_id: 000002, user_id: 1566811403000, creator_id: 1566811403000}, 1566811443000_000001: {title: sample, creator_name: sample, comic_id: 000001, user_id: 1566811443000, creator_id: 1566811443000}, 1566811403000_000003: {title: 개구쟁이, creator_name: 묵검향, comic_id: 000003, user_id: 1566811403000, creator_id: 1566811403000}}
+    status = e_packet_status.start_dispatch_respond;
 
-    List<ModelLibraryOwnedComicInfo>  list = new List<ModelLibraryOwnedComicInfo>();
+    int countIndex = 0;
+    bool switchFlag = false;
+    List<ModelLibraryOwnedComicInfo> modelLibraryOwnedComicInfoList = null;
+    if(true == switchFlag)
+    {
+      if(null == ModelLibraryOwnedComicInfo.list)
+        ModelLibraryOwnedComicInfo.list = new List<ModelLibraryOwnedComicInfo>();
+      else
+        ModelLibraryOwnedComicInfo.list.clear();
+    }
+
+
     for(var key in jsonMap.keys)
     {
       print(key);
@@ -54,11 +66,32 @@ class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
 
       print(modelLibraryOwnedComicInfo.toString());
 
-      list.add(modelLibraryOwnedComicInfo);
+      if(false == switchFlag)
+      {
+        if(null == modelLibraryOwnedComicInfoList)
+          modelLibraryOwnedComicInfoList = new List<ModelLibraryOwnedComicInfo>();
+        modelLibraryOwnedComicInfoList.add(modelLibraryOwnedComicInfo);
+      }
+      else
+      {
+        ModelLibraryOwnedComicInfo.list.add(modelLibraryOwnedComicInfo);
+        if(0 == countIndex % 3)
+        {
+          if (null != onFetchDone)
+            onFetchDone(this);
+        }
+      }
+
+      ++ countIndex;
 
     }
-    ModelLibraryOwnedComicInfo.list = list;
 
+    if(false == switchFlag)
+    {
+      ModelLibraryOwnedComicInfo.list = modelLibraryOwnedComicInfoList;
+    }
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

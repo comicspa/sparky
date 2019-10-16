@@ -17,6 +17,7 @@ class PacketC2SWeeklyCreatorInfo extends PacketC2SCommon
 {
   int _pageCountIndex = 0;
   int _pageViewCount = 0;
+  int _fetchStatus = 0;
 
   PacketC2SWeeklyCreatorInfo()
   {
@@ -27,6 +28,9 @@ class PacketC2SWeeklyCreatorInfo extends PacketC2SCommon
   {
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
+    _fetchStatus = 0;
+    respondPacket = null;
+    respondPacket = new PacketS2CWeeklyCreatorInfo();
   }
 
   Future<List<ModelWeeklyCreatorInfo>> fetch(onFetchDone) async
@@ -38,20 +42,65 @@ class PacketC2SWeeklyCreatorInfo extends PacketC2SCommon
   {
     print('PacketC2SWeeklyCreatorInfo : fetchFireBaseDB started');
 
-    if(null != ModelWeeklyCreatorInfo.list)
-      return ModelWeeklyCreatorInfo.list;
-
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_weekly_creator_info');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    /*
+    switch(respondPacket.status)
     {
-      print('[PacketC2SWeeklyCreatorInfo:fetchFireBaseDB ] - ${snapshot.value}');
+      case e_packet_status.finish_dispatch_respond:
+        return ModelWeeklyCreatorInfo.list;
 
-      PacketS2CWeeklyCreatorInfo packet = new PacketS2CWeeklyCreatorInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      case e_packet_status.none:
+        {
+          respondPacket.status = e_packet_status.start_dispatch_request;
+          break;
+        }
 
+      case e_packet_status.start_dispatch_request:
+        return null;
+
+      default:
+        return null;
+    }
+
+    if(e_packet_status.start_dispatch_request == respondPacket.status) {
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_weekly_creator_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        (respondPacket as PacketS2CWeeklyCreatorInfo).parseFireBaseDBJson(
+            snapshot.value, onFetchDone);
+
+        return ModelWeeklyCreatorInfo.list;
+      });
+    }
+
+     */
+
+
+    if(3 == _fetchStatus)
       return ModelWeeklyCreatorInfo.list;
+    else if(0 == _fetchStatus) {
+      _fetchStatus = 1;
 
-    });
+      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+          .reference.child('model_weekly_creator_info');
+      modelUserInfoReference.once().then((DataSnapshot snapshot) {
+        print('[PacketC2SWeeklyCreatorInfo:fetchFireBaseDB ] - ${snapshot
+            .value}');
+
+        _fetchStatus = 2;
+
+        PacketS2CWeeklyCreatorInfo packet = new PacketS2CWeeklyCreatorInfo();
+        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+        _fetchStatus = 3;
+
+        return ModelWeeklyCreatorInfo.list;
+      });
+    }
+
+
 
     return null;
   }

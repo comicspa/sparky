@@ -69,6 +69,7 @@ class _SplashScreenState extends State<SplashScreen>
      print('uId : $_uId , social_provider_type : $_socialProviderType');
 
     _packetC2SPreset = new PacketC2SPreset();
+    _packetC2SPreset.generate();
     _packetC2SPreset.fetch(_onFetchDone);
   }
 
@@ -93,6 +94,9 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
       return;
     }
+
+    //if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+    //  return;
 
     bool result = true;
     _enableAppVersion = result;
