@@ -737,8 +737,8 @@ class ManageMessage
 
   static void _onFetchDone(PacketS2CCommon s2cPacket)
   {
-    //if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
-    //  return;
+    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+      return;
 
     __streamController.add(s2cPacket.type);
   }

@@ -25,14 +25,14 @@ class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_real_time_trend_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex,bool wantLoad)
+  void generate(int pageViewCount,int pageCountIndex)
   {
     _pageViewCount = pageViewCount;
     _pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
     respondPacket = null;
     respondPacket = new PacketS2CRealTimeTrendComicInfo();
-    _wantLoad = wantLoad;
+    _wantLoad = true;
   }
 
   Future<List<ModelRealTimeTrendComicInfo>> fetch(onFetchDone) async

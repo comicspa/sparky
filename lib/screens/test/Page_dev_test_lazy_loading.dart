@@ -47,12 +47,12 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     super.initState();
     // generating packet
 
-    c2STodayTrendComicInfo.generate(0, 0,true);
-    c2sFeaturedComicInfo.generate(0, 0,true);
-    c2sRecommendedComicInfo.generate(0, 0,true);
-    c2sNewComicInfo.generate(0, 0,true);
-    c2sRealTimeTrendInfo.generate(0, 0,true);
-    c2sWeeklyTrendComicInfo.generate(0, 0,true);
+    c2STodayTrendComicInfo.generate(0, 0);
+    c2sFeaturedComicInfo.generate(0, 0);
+    c2sRecommendedComicInfo.generate(0, 0);
+    c2sNewComicInfo.generate(0, 0);
+    c2sRealTimeTrendInfo.generate(0, 0);
+    c2sWeeklyTrendComicInfo.generate(0, 0);
 
     // WidgetsBinding.instance
     //     .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());

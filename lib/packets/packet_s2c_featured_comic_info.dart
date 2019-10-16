@@ -23,7 +23,7 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
 
     int countIndex = 0;
 
-    bool switchFlag = false;
+    bool switchFlag = true;
     List<ModelFeaturedComicInfo> modelFeaturedComicInfoList = null;
     if(true == switchFlag)
     {
@@ -66,7 +66,6 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
         modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
 
         print(modelFeaturedComicInfo.toString());
-
 
         if(false == switchFlag)
           {

@@ -25,7 +25,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_featured_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex,bool wantLoad)
+  void generate(int pageViewCount,int pageCountIndex)
   {
     _fetchStatus = 0;
     _pageViewCount = pageViewCount;
@@ -34,7 +34,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     respondPacket = null;
     respondPacket = new PacketS2CFeaturedComicInfo();
 
-    _wantLoad = wantLoad;
+    _wantLoad = true;
   }
 
   Future<List<ModelFeaturedComicInfo>> fetch(onFetchDone) async
@@ -49,7 +49,34 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     if(false == _wantLoad)
       return ModelFeaturedComicInfo.list;
 
-    /*
+    bool switchFlag = true;
+    if(false == switchFlag) {
+      if (3 == _fetchStatus)
+        return ModelFeaturedComicInfo.list;
+      else if (0 == _fetchStatus) {
+        _fetchStatus = 1;
+
+        DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+            .reference.child('model_featured_comic_info');
+        modelUserInfoReference.once().then((DataSnapshot snapshot) {
+          print('[PacketC2SFeaturedComicInfo:fetchFireBaseDB ] - ${snapshot
+              .value}');
+
+          _fetchStatus = 2;
+
+          PacketS2CFeaturedComicInfo packet = new PacketS2CFeaturedComicInfo();
+          packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+
+          _fetchStatus = 3;
+
+          return ModelFeaturedComicInfo.list;
+        });
+      }
+    }
+    else
+      {
+
+
     switch(respondPacket.status)
     {
       case e_packet_status.finish_dispatch_respond:
@@ -81,33 +108,10 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
           return ModelFeaturedComicInfo.list;
         });
     }
-*/
 
-    print('_fetchStatus : $_fetchStatus');
 
-    if(3 == _fetchStatus)
-      return ModelFeaturedComicInfo.list;
-    else if(0 == _fetchStatus)
-    {
-      _fetchStatus = 1;
 
-      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-          .reference.child('model_featured_comic_info');
-      modelUserInfoReference.once().then((DataSnapshot snapshot) {
-        print('[PacketC2SFeaturedComicInfo:fetchFireBaseDB ] - ${snapshot
-            .value}');
-
-        _fetchStatus = 2;
-
-        PacketS2CFeaturedComicInfo packet = new PacketS2CFeaturedComicInfo();
-        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
-
-        _fetchStatus = 3;
-
-        return ModelFeaturedComicInfo.list;
-      });
-    }
-
+      }
 
 
     return null;

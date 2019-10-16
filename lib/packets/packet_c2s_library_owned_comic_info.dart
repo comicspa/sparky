@@ -23,7 +23,7 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_library_owned_comic_info;
   }
 
-  void generate(bool wantLoad)
+  void generate()
   {
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
@@ -31,7 +31,7 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
 
     respondPacket = null;
     respondPacket = new PacketS2CLibraryOwnedComicInfo();
-    _wantLoad = wantLoad;
+    _wantLoad = true;
   }
 
   Future<List<ModelLibraryOwnedComicInfo>> fetch(onFetchDone) async

@@ -35,10 +35,10 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
   {
     _count = 0;
 
-    _packetC2SLibraryContinueComicInfo.generate(true);
-    _packetC2SLibraryOwnedComicInfo.generate(true);
-    _packetC2SLibraryRecentComicInfo.generate(true);
-    _packetC2SLibraryViewListComicInfo.generate(true);
+    _packetC2SLibraryContinueComicInfo.generate();
+    _packetC2SLibraryOwnedComicInfo.generate();
+    _packetC2SLibraryRecentComicInfo.generate();
+    _packetC2SLibraryViewListComicInfo.generate();
   }
 
   void _onFetchDone(PacketS2CCommon s2cPacket)

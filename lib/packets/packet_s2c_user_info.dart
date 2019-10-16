@@ -52,27 +52,7 @@ class PacketS2CUserInfo extends PacketS2CCommon
     if(1 == testMode)
     {
       int testSocial = 1;
-      switch(testSocial)
-      {
-        case 1:
-          {
-            ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.google;
-          }
-          break;
-
-        case 2:
-          {
-            ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.facebook;
-          }
-          break;
-
-        case 3:
-          {
-            ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.twitter;
-          }
-          break;
-      }
-
+      ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[testSocial];
       ModelUserInfo.getInstance().email = 'testUser@test.com';
       ModelUserInfo.getInstance().userName = 'testUserName';
       ModelUserInfo.getInstance().displayName = 'testDisplayName';

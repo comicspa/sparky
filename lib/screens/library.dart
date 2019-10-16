@@ -38,11 +38,11 @@ class _LibraryScreenState extends State<LibraryScreen>
     super.initState();
     // generating packet
 
-    c2sLibraryRecentComicInfo.generate(false);
-    c2sMyLibraryViewListComicInfo.generate(false);
-    c2sLibraryOwnedComicInfo.generate(false);
-    c2sLibraryContinueComicInfo.generate(false);
-    c2sRecommendedComicInfo.generate(0, 0,false);
+    //c2sLibraryRecentComicInfo.generate();
+    //c2sMyLibraryViewListComicInfo.generate();
+    //c2sLibraryOwnedComicInfo.generate();
+    //c2sLibraryContinueComicInfo.generate();
+    //c2sRecommendedComicInfo.generate(0, 0);
   }
 
   @override

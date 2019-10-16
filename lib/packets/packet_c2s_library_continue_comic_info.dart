@@ -26,7 +26,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_library_continue_comic_info;
   }
 
-  void generate(bool wantLoad)
+  void generate()
   {
     _fetchStatus = 0;
     //_pageViewCount = pageViewCount;
@@ -34,7 +34,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
 
     respondPacket = null;
     respondPacket = new PacketS2CLibraryContinueComicInfo();
-    _wantLoad = wantLoad;
+    _wantLoad = true;
   }
 
 

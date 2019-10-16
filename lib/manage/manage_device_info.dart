@@ -111,15 +111,6 @@ class ManageDeviceInfo
     print('languageCode : $_languageCode , localeCode : $_localeCode');
   }
 
-  /*
-  static void getLocale(BuildContext context) async
-  {
-    if(null == _locale)
-      _locale = Localizations.localeOf(context);
-    print('getLocale - countryCode : ${_locale.countryCode} , languageCode : ${_locale.languageCode}');
-  }
-   */
-
   static void firstInitialize(BuildContext context)
   {
     getLanguageLocale();
@@ -129,6 +120,12 @@ class ManageDeviceInfo
     //getLocale(context);
   }
 
+  static bool equalLanguageLocaleCode(String languageLocaleCode)
+  {
+    if(0 == getLanguageLocaleCode().compareTo(languageLocaleCode.toLowerCase()))
+      return true;
+    return false;
+  }
 
   //static String getStringLanguageLocale()
   //{

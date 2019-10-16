@@ -25,14 +25,14 @@ class PacketC2SLibraryRecentComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_library_recent_comic_info;
   }
 
-  void generate(bool wantLoad )
+  void generate()
   {
     //_pageViewCount = pageViewCount;
     //_pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
     respondPacket = null;
     respondPacket = new PacketS2CLibraryRecentComicInfo();
-    _wantLoad = wantLoad;
+    _wantLoad = true;
   }
 
   Future<List<ModelLibraryRecentComicInfo>> fetch(onFetchDone) async

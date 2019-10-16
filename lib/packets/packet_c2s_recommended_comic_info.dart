@@ -25,14 +25,14 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_recommended_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex,bool wantLoad)
+  void generate(int pageViewCount,int pageCountIndex)
   {
     _pageViewCount = pageViewCount;
     _pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
     respondPacket = null;
     respondPacket = new PacketS2CRecommendedComicInfo();
-    _wantLoad = wantLoad;
+    _wantLoad = true;
   }
 
   Future<List<ModelRecommendedComicInfo>> fetch(onFetchDone) async

@@ -95,8 +95,8 @@ class _SplashScreenState extends State<SplashScreen>
       return;
     }
 
-    //if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
-    //  return;
+    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+      return;
 
     bool result = true;
     _enableAppVersion = result;
@@ -163,27 +163,7 @@ class _SplashScreenState extends State<SplashScreen>
         if(false == ModelUserInfo.getInstance().signedIn)
         {
           ModelUserInfo.getInstance().uId = _uId;
-
-          switch(_socialProviderType)
-          {
-            case 1://google,
-            {
-              ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.google;
-            }
-            break;
-
-            case 2://facebook,
-            {
-              ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.facebook;
-            }
-            break;
-
-            case 3://twitter,
-            {
-              ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.twitter;
-            }
-            break;
-          }
+          ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[_socialProviderType];
 
           print('social_provider_type : ${ModelUserInfo.getInstance().socialProviderType.toString()}');
 
