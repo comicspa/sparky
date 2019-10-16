@@ -63,6 +63,8 @@ class _SplashScreenState extends State<SplashScreen>
     //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000001');
     //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000002');
     //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000003');
+    //ManageFirebaseDatabase.updateModelComicDetailInfo();
+    //ManageFirebaseDatabase.updateModelViewComicInfo('1566811403000','000009','혈족금역',35);
 
      _uId = await ManageSharedPreference.getString('uId');
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');

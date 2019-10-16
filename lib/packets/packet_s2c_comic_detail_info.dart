@@ -38,7 +38,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     ModelComicDetailInfo.getInstance().mainTitleName = jsonMap['title'];
     ModelComicDetailInfo.getInstance().explain = jsonMap['explain'];
     //print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
-    ModelComicDetailInfo.getInstance().point = jsonMap['point'];
+    ModelComicDetailInfo.getInstance().point = double.parse(jsonMap['point'].toString());
     ModelComicDetailInfo.getInstance().creatorId = jsonMap['creator_id'];
 
     //ModelComicDetailInfo.getInstance().representationImageUrl =

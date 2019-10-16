@@ -642,14 +642,14 @@ class ManageFirebaseDatabase
     DatabaseReference modelReference = reference.child('model_comic_detail_info');
 
 
-    String comicId = '000009';
-    String title = '개구쟁이';
+    String comicId = '000006';
+    String title = '성형술사';
 
 
     modelReference.child('1566811403000_$comicId').set({
       'comic_id': comicId,
       'creator_id': '1566811403000',
-      'creator_name': '묵검향',
+      'creator_name': 'ⓒRIU',
       'explain':'explain',
       'part_id':'001',
       'point':4,
@@ -660,7 +660,7 @@ class ManageFirebaseDatabase
       // ...
     });
 
-    setModelComicDetailInfoComics(1,35,comicId,title);
+    setModelComicDetailInfoComics(1,309,comicId,title);
 
 
   }
@@ -670,7 +670,7 @@ class ManageFirebaseDatabase
   {
     DatabaseReference modelReference = reference.child('model_comic_detail_info');
 
-    String comicId = '000003';
+    String comicId = '000007';
 
     String title;
     String creatorName;
@@ -701,6 +701,38 @@ class ManageFirebaseDatabase
         }
         break;
 
+      case '000004':
+        {
+          title = '불의나라';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '지도를 만들기 위해 분투하는 김정호와 인동숙. 그리고 그들이 지도를 만들지 못하게 방해하는 명과 일본. 대동여지도를 만들기 위해 벌어지는 처절하고도 장엄한 이야기.';
+        }
+        break;
+
+      case '000005':
+        {
+          title = '성형술사';
+          creatorName = 'Ⓒ조성황/김일민';
+          explain = '천재 성형외과의 현진우, 전후무후한 추녀 허설지. 일련의 목표를 위해 두 사람이 모였다. 과연 그들의 목표는 무엇일까?';
+        }
+        break;
+
+      case '000006':
+        {
+          title = '성공CLUB';
+          creatorName = 'ⓒRIU';
+          explain = '별자리의 저주를 단서로 벌어지는 사건들.요리사가 되고 싶은 피아노 소녀는 일자리를 위해 남장을 하고 위장 취업을 하지만, 그녀를 기다리는 것은 신비로운 대저택과 천 년 동안 저주를 받고 있는 12성좌의 소년들이었다.소녀와 소년들은 운명이 걸린 별 하늘에서 어떤 궤적을 그리게 될 것인가.';
+        }
+        break;
+
+      case '000007':
+        {
+          title = '아적묘미상선';
+          creatorName = '유야오치/유야오치';
+          explain = '신선계 인호신궁의 아들이 운명의 사람을 찾아 인간계로 내려왔다.하지만 인간이 아닌 고양이로 변하게 될 줄은 누가 알았을까…?억겁의 응보를 이겨낼 운명의 사람, 그리고 그를 둘러싼 수많은 음모와 함정.고양이 신령은 운명의 사람과 함께 무사히 시험을 이겨낼 수 있을 것인가… ';
+        }
+        break;
+
       default:
         break;
     }
@@ -715,7 +747,7 @@ class ManageFirebaseDatabase
       // ...
     });
 
-    updateModelComicDetailInfoComics(1,65,comicId,title);
+    updateModelComicDetailInfoComics(1,24,comicId,title);
 
 
   }
@@ -798,6 +830,34 @@ class ManageFirebaseDatabase
         }).then((_) {
 
         });
+    }
+  }
+
+
+  static void updateModelViewComicInfo(String creatorId,String comicId,String title,int episodeTotalCount)
+  {
+    DatabaseReference modelReference = reference.child('model_view_comic_info');
+
+    int i = 1;
+    for(;i<episodeTotalCount+1;++i)
+    {
+      String t = i.toString();
+      String j;
+      if(i < 10)
+        j = '0000$i';
+      else if(9 < i && i < 100)
+        j = '000$i';
+      else if(99 < i && i < 1000)
+        j = '00$i';
+
+      modelReference.child('${creatorId}_${comicId}_${j}').update({
+        'count': 6,
+        'file_ext': 'jpg',
+        'style': 0,
+        'title': '$title$t',
+      }).then((_) {
+
+      });
     }
   }
 
