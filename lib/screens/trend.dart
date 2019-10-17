@@ -165,8 +165,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 5, 0, 2),
-            child: Text(
-              'Recommended' /* ModelLocalizationInfo.getText('trend','recommended') */,
+            child: Text(ModelLocalizationInfo.getText('trend', 'title_1')
+               /* ModelLocalizationInfo.getText('trend','recommended') */,
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
                   fontFamily: 'Lato',
@@ -254,8 +254,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
-            child: Text(
-              'Today\'s Trend',
+            child: Text(ModelLocalizationInfo.getText('trend', 'title_4'),
+              
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
                   fontFamily: 'Lato',
@@ -322,7 +322,44 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
 
 
+String checkTitle(int type) {
+  String title;
+  
 
+  switch (type) {
+    case 1:
+    {
+      title = 'title_1'; //Recommended
+    }
+    break;
+    case 2:    
+    {
+      title = 'title_2'; //Realtime Trend
+    }
+    break;
+    case 3:
+    {
+      title = 'title_3'; // New Comics
+    }
+    break;
+    case 4:
+    {
+      title = 'title_4'; // Today Trend
+    }
+    break;
+    case 5:
+    {
+      title = 'title_5'; // Weekly Trend
+    }
+    break;
+    
+    default:
+    {
+      title = 'title_2'; // Realtime Trend
+    }
+    break;
+  }
+}
 
 // Need handler for indicator
 List<T> map<T>(List list, Function handler) {
