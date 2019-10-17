@@ -39,6 +39,7 @@ import 'package:sparky/screens/test/page_dev_test_view_image.dart';
 import 'package:sparky/screens/test/page_dev_test_shared_preference.dart';
 import 'package:sparky/screens/test/page_dev_test_translation_page.dart';
 import 'package:sparky/screens/test/page_dev_test_localization.dart';
+import 'package:sparky/screens/more/uploading_center.dart';
 
 
 class PageDevTestMenu extends StatefulWidget
@@ -150,6 +151,21 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
+            title: Text('uploading center'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UploadingCenterScreen('test'
+                  ),
+                ),
+              );
+
+            },
+          ),
+
+          ListTile(
             title: Text('Language Selector'),
             onTap: (){
 
@@ -234,7 +250,10 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
             },
           ),
 
-        ], ).toList(), ); }
+        ], ).toList(), );
+
+  }
+
 
 }
 
