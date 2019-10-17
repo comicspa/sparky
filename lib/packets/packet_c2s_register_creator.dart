@@ -13,6 +13,7 @@ import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SRegisterCreator extends PacketC2SCommon
 {
+  String _nickName = 'onlyme';
   String _uId;
 
   PacketC2SRegisterCreator()
@@ -38,10 +39,11 @@ class PacketC2SRegisterCreator extends PacketC2SCommon
     //Base64Codec base64Codec = new Base64Codec();
     //String uIdBase64 = base64Codec.encode(uIdBytes);
 
-    String creatorId = DateTime.now().millisecondsSinceEpoch.toString();
+    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+    String creatorId = '${_uId}creator${currentTime}';
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).update({
-      'creator_id':creatorId
+    modelUserInfoReference.child(_uId).child('creators').update({
+      '0':creatorId
     }).then((_) {
 
       PacketS2CRegisterCreator packet = new PacketS2CRegisterCreator();

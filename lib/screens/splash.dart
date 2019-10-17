@@ -60,11 +60,8 @@ class _SplashScreenState extends State<SplashScreen>
       print('Release Mode');
     }
 
-    //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000001');
-    //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000002');
-    //ManageFirebaseDatabase.updateModelTodayTrendComicInfo('000003');
-    //ManageFirebaseDatabase.updateModelComicDetailInfo();
-    //ManageFirebaseDatabase.updateModelViewComicInfo('1566811403000','000009','혈족금역',35);
+    //ManageFirebaseDatabase.setModelInfo('model_weekly_trend_comic_info','1566811403000','000004');
+    //ManageFirebaseDatabase.ddd();
 
      _uId = await ManageSharedPreference.getString('uId');
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');

@@ -15,6 +15,8 @@ import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_c2s_sign_out.dart';
 import 'package:sparky/packets/packet_c2s_register_creator.dart';
 import 'package:sparky/packets/packet_c2s_unregister_creator.dart';
+import 'package:sparky/packets/packet_c2s_register_translator.dart';
+import 'package:sparky/packets/packet_c2s_unregister_translator.dart';
 
 
 
@@ -168,6 +170,18 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
         }
         break;
 
+      case e_packet_type.s2c_register_translator:
+        {
+          ManageToastMessage.showShort('Register Translator !!');
+        }
+        break;
+
+      case e_packet_type.s2c_unregister_translator:
+        {
+          ManageToastMessage.showShort('Unregister Translator !!');
+        }
+        break;
+
       default:
         break;
     }
@@ -276,6 +290,29 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               PacketC2SUnregisterCreator packetC2SUnregisterCreator = new PacketC2SUnregisterCreator();
               packetC2SUnregisterCreator.generate(ModelUserInfo.getInstance().uId);
               packetC2SUnregisterCreator.fetch(_onFetchDone);
+
+
+            },
+          ),
+
+          ListTile(
+            title: Text('Register Translator'),
+            onTap: (){
+
+              PacketC2SRegisterTranslator packetC2SRegisterTranslator = new PacketC2SRegisterTranslator();
+              packetC2SRegisterTranslator.generate(ModelUserInfo.getInstance().uId);
+              packetC2SRegisterTranslator.fetch(_onFetchDone);
+
+            },
+          ),
+
+          ListTile(
+            title: Text('Unregister Translator'),
+            onTap: (){
+
+              PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = new PacketC2SUnregisterTranslator();
+              packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+              packetC2SUnregisterTranslator.fetch(_onFetchDone);
 
 
             },

@@ -34,6 +34,7 @@ class PacketC2SWithdrawal extends PacketC2SCommon
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
     print('PacketC2SWithdrawal : fetchFireBaseDB started');
+    print('uId : ${_uId}');
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child(_uId);
     modelUserInfoReference.remove().then((_) {

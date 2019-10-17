@@ -44,10 +44,8 @@ class PacketC2SSignUp extends PacketC2SCommon
     //String emailAddressBase64 = base64Codec.encode(emailAddressBytes);
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).set({
+    modelUserInfoReference.child(_uId).update({
       'social_provider_type': _socialProviderType.index,
-      'creator_id':'',
-      'translator_id':'',
       'bio':'',
       'comi':0,
       'followers':0,

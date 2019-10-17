@@ -14,6 +14,7 @@ import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SUnregisterTranslator extends PacketC2SCommon
 {
+  String _nickName = 'onlyme';
   String _uId;
 
   PacketC2SUnregisterTranslator()
@@ -37,9 +38,7 @@ class PacketC2SUnregisterTranslator extends PacketC2SCommon
     print('PacketC2SUnregisterCreator : fetchFireBaseDB started');
 
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).update({
-      'translator_id':''
-    }).then((_) {
+    modelUserInfoReference.child(_uId).child('translators').child('0').remove().then((_) {
 
       PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
       packet.parseFireBaseDBJson(onFetchDone);

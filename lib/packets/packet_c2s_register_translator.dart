@@ -14,6 +14,7 @@ import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SRegisterTranslator extends PacketC2SCommon
 {
+  String _nickName = 'onlyme';
   String _uId;
 
   PacketC2SRegisterTranslator()
@@ -39,10 +40,11 @@ class PacketC2SRegisterTranslator extends PacketC2SCommon
     //Base64Codec base64Codec = new Base64Codec();
     //String uIdBase64 = base64Codec.encode(uIdBytes);
 
-    String translatorId = DateTime.now().millisecondsSinceEpoch.toString();
+    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+    String translatorId = '${_uId}translator${currentTime}';
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).update({
-      'translator_id':translatorId
+    modelUserInfoReference.child(_uId).child('translators').update({
+      '0':translatorId
     }).then((_) {
 
       PacketS2CRegisterTranslator packet = new PacketS2CRegisterTranslator();
