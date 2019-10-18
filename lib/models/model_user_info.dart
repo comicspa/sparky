@@ -11,8 +11,8 @@ enum e_social_provider_type
 class ModelUserInfo
 {
   String _uId;
-  String _creatorId;
-  String _translatorId;
+  List<String> _creatorList;
+  List<String> _translatorList;
   e_social_provider_type _socialProviderType = e_social_provider_type.none;
   int _comi = 0;
   bool _signedIn = false;
@@ -27,8 +27,8 @@ class ModelUserInfo
   int _likes = 0;
 
   String get uId => _uId;
-  String get creatorId => _creatorId;
-  String get translatorId => _translatorId;
+  List<String> get creatorList => _creatorList;
+  List<String> get translatorList => _translatorList;
   e_social_provider_type get socialProviderType => _socialProviderType;
   int get comi => _comi;
   bool get signedIn => _signedIn;
@@ -42,14 +42,14 @@ class ModelUserInfo
   int get following => _following;
   int get likes => _likes;
 
-  set creatorId(String creatorId)
+  set creatorList(List<String> creatorList)
   {
-    _creatorId = creatorId;
+    _creatorList = creatorList;
   }
 
-  set translatorId(String translatorId)
+  set translatorList(List<String> translatorList)
   {
-    _translatorId = translatorId;
+    _translatorList = translatorList;
   }
 
   set socialProviderType(e_social_provider_type socialProviderType)
@@ -117,6 +117,63 @@ class ModelUserInfo
     _likes = likes;
   }
 
+  void searchAddCreator(String creatorId)
+  {
+    if(null == _creatorList)
+      _creatorList = new List<String>();
+    if(-1 != _creatorList.indexOf(creatorId))
+      return;
+    _creatorList.add(creatorId);
+  }
+
+  void removeCreator(String creatorId)
+  {
+    if(null == _creatorList)
+      return;
+    if(-1 == _creatorList.indexOf(creatorId))
+      return;
+    _creatorList.remove(creatorId);
+  }
+
+  void removeCreatorAt(int countIndex)
+  {
+    if(null == _creatorList)
+      return;
+    if(0 == _creatorList.length)
+      return;
+    _creatorList.removeAt(countIndex);
+  }
+
+
+  void searchAddTranslator(String translatorId)
+  {
+    if(null == _translatorList)
+      _translatorList = new List<String>();
+    if(-1 != _translatorList.indexOf(translatorId))
+      return;
+    _translatorList.add(translatorId);
+  }
+
+  void removeTranslator(String translatorId)
+  {
+    if(null == _translatorList)
+      return;
+    if(-1 == _translatorList.indexOf(translatorId))
+      return;
+    _translatorList.remove(translatorId);
+  }
+
+  void removeTranslatorAt(int countIndex)
+  {
+    if(null == _translatorList)
+      return;
+    if(0 == _translatorList.length)
+      return;
+    _translatorList.removeAt(countIndex);
+  }
+
+
+
   void signOut()
   {
     displayName = null;
@@ -127,8 +184,8 @@ class ModelUserInfo
     following = 0;
     likes = 0;
     comi = 0;
-    creatorId = null;
-    translatorId = null;
+    creatorList = null;
+    translatorList = null;
   }
 
   void withdrawal()
@@ -137,6 +194,12 @@ class ModelUserInfo
 
     socialProviderType = e_social_provider_type.none;
     uId = null;
+  }
+
+  @override
+  String toString()
+  {
+    return 'email : $_email , displayName : $_displayName , photoUrl : $_photoUrl , _followers : $_followers , bio : $_bio , uid : $_uId';
   }
 
   static ModelUserInfo _instance;
@@ -153,10 +216,5 @@ class ModelUserInfo
   }
 
 
-  @override
-  String toString()
-  {
-    return 'email : $_email , displayName : $_displayName , photoUrl : $_photoUrl , _followers : $_followers , bio : $_bio , uid : $_uId';
-  }
 
 }

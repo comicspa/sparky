@@ -15,7 +15,9 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
-    ModelUserInfo.getInstance().creatorId = jsonMap['creator_id'];
+    status = e_packet_status.start_dispatch_respond;
+
+
     ModelUserInfo.getInstance().bio = jsonMap['bio'];
     ModelUserInfo.getInstance().comi = jsonMap['comi'];
     ModelUserInfo.getInstance().followers = jsonMap['followers'];
@@ -26,6 +28,17 @@ class PacketS2CUserInfo extends PacketS2CCommon
     //ModelUserInfo.getInstance().email = jsonMap['email_address'];
     ModelUserInfo.getInstance().photoUrl   = jsonMap['photo_url'];
 
+    if(jsonMap.containsKey('creators')) {
+      ModelUserInfo
+          .getInstance()
+          .creatorList = jsonMap['creators'].cast<String>();
+    }
+
+
+    //ModelUserInfo.getInstance().creatorId = creatorsMap[0];
+    //print('creatorId : ${ModelUserInfo.getInstance().creatorId}');
+
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }
@@ -41,7 +54,7 @@ class PacketS2CUserInfo extends PacketS2CCommon
     print('PackSize : $size , PacketType : $type , systemErrorCode : $systemErrorCode , serviceErrorCode : $serviceErrorCode');
 
     ModelUserInfo.getInstance().uId = readStringToByteBuffer();
-    ModelUserInfo.getInstance().creatorId = readStringToByteBuffer();
+    //ModelUserInfo.getInstance().creatorId = readStringToByteBuffer();
     ModelUserInfo.getInstance().bio = readStringToByteBuffer();
     ModelUserInfo.getInstance().comi = getUint32();
     ModelUserInfo.getInstance().followers = getUint32();

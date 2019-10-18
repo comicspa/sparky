@@ -14,6 +14,8 @@ class PacketS2CSignInWithSocial extends PacketS2CCommon
 
   Future<void> parseGoogle(FirebaseUser user,onFetchDone) async
   {
+    status = e_packet_status.start_dispatch_respond;
+
     ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.google;
     ModelUserInfo.getInstance().displayName = user.displayName;
     ModelUserInfo.getInstance().photoUrl = user.photoUrl;
@@ -26,7 +28,7 @@ class PacketS2CSignInWithSocial extends PacketS2CCommon
     ManageSharedPreference.setString('uId',user.uid);
     ManageSharedPreference.setInt('social_provider_type',ModelUserInfo.getInstance().socialProviderType.index);
 
-
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

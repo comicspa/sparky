@@ -15,11 +15,14 @@ class PacketS2CSignUp extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
+    status = e_packet_status.start_dispatch_respond;
+
     ManageSharedPreference.setString('uId',ModelUserInfo.getInstance().uId);
     ManageSharedPreference.setInt('social_provider_type',ModelUserInfo.getInstance().socialProviderType.index);
 
     ModelUserInfo.getInstance().signedIn = true;
 
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

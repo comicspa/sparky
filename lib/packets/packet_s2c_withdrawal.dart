@@ -15,12 +15,14 @@ class PacketS2CWithdrawal extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
+    status = e_packet_status.start_dispatch_respond;
 
     ManageSharedPreference.remove('uId');
     ManageSharedPreference.remove('social_provider_type');
 
     ModelUserInfo.getInstance().withdrawal();
 
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

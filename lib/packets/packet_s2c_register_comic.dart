@@ -13,8 +13,10 @@ class PacketS2CRegisterComic extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
+    status = e_packet_status.start_dispatch_respond;
 
 
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }

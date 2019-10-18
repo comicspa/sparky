@@ -16,12 +16,14 @@ class PacketS2CUploadFile extends PacketS2CCommon
 
   void parseBytes(List<int> event)
   {
+    status = e_packet_status.start_dispatch_respond;
     parseHeader(event);
 
     systemErrorCode = getUint32();
     serviceErrorCode = getUint32();
 
     print('PackSize : $size , PacketType : $type');
+    status = e_packet_status.finish_dispatch_respond;
 
   }
 

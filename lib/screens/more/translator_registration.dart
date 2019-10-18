@@ -76,7 +76,7 @@ class TranslatorRegistrationWidget extends StatelessWidget {
 
                 if(true == ModelUserInfo.getInstance().signedIn)
                 {
-                  if(null == ModelUserInfo.getInstance().creatorId)
+                  if(null == ModelUserInfo.getInstance().translatorList)
                   {
                     PacketC2SRegisterTranslator packetC2SRegisterTranslator = new PacketC2SRegisterTranslator();
                     packetC2SRegisterTranslator.generate(ModelUserInfo.getInstance().uId);

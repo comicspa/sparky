@@ -79,7 +79,7 @@ class CreatorRegistrationWidget extends StatelessWidget {
 
                 if(true == ModelUserInfo.getInstance().signedIn)
                 {
-                  if(null == ModelUserInfo.getInstance().creatorId)
+                  if(null == ModelUserInfo.getInstance().creatorList)
                     {
                       PacketC2SRegisterCreator packetC2SRegisterCreator = new PacketC2SRegisterCreator();
                       packetC2SRegisterCreator.generate(ModelUserInfo.getInstance().uId);

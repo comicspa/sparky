@@ -14,8 +14,10 @@ class PacketS2CUnregisterTranslator extends PacketS2CCommon
 
   Future<void> parseFireBaseDBJson(onFetchDone) async
   {
-    ModelUserInfo.getInstance().translatorId = null;
+    status = e_packet_status.start_dispatch_respond;
+    ModelUserInfo.getInstance().removeTranslatorAt(0);
 
+    status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
   }
