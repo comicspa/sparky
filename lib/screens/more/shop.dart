@@ -7,18 +7,18 @@ import 'package:sparky/screens/more/uploading_center.dart';
 
 // Coming soon page for multi-purpose
 
-class TranslatorSubmenuScreen extends StatefulWidget {
-  TranslatorSubmenuScreen(this.titleText);
+class ShopMenuScreen extends StatefulWidget {
+  ShopMenuScreen(this.titleText);
   final String titleText;
 
   @override
-  _TranslatorSubmenuScreenState createState() =>
-      new _TranslatorSubmenuScreenState(titleText);
+  _ShopMenuScreenState createState() =>
+      new _ShopMenuScreenState(titleText);
 }
 
-class _TranslatorSubmenuScreenState extends State<TranslatorSubmenuScreen>
+class _ShopMenuScreenState extends State<ShopMenuScreen>
     with WidgetsBindingObserver {
-  _TranslatorSubmenuScreenState(this.titleText);
+  _ShopMenuScreenState(this.titleText);
   String titleText;
 
   @override

@@ -9,6 +9,7 @@ import 'more_submenu_comming_soon.dart';
 import 'package:sparky/screens/more/service_info_submenu.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'package:sparky/screens/more/translator_submenu.dart';
+import 'package:sparky/screens/more/shop.dart';
 
 class MoreScreen extends StatefulWidget {
   @override
@@ -145,7 +146,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      SubMenuComingSoonScreen('Shop'),
+                                      ShopMenuScreen('Shop'),
                                 ));
                           },
                           child: Text(
