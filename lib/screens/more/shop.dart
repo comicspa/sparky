@@ -111,6 +111,7 @@ class _TranslatorSubmenuScreenState extends State<TranslatorSubmenuScreen>
             ),
           ),
             Container(
+              color: Colors.grey,
               child: Column(
                 children: <Widget>[
                   ListTile(
@@ -124,6 +125,7 @@ class _TranslatorSubmenuScreenState extends State<TranslatorSubmenuScreen>
                         color: Colors.black87,
                       ),
                     ),
+                    
                     trailing: Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.push<Widget>(
