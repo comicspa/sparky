@@ -4,6 +4,7 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 
 import 'package:sparky/screens/more/uploading_center.dart';
 import 'package:sparky/screens/coming_soon.dart';
+import 'package:sparky/models/model_price_info.dart';
 
 
 // Coming soon page for multi-purpose
