@@ -82,29 +82,17 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
       children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          
           children: <Widget>[
             Stack(
               children: <Widget>[
                 Container(
                   width: ManageDeviceInfo.resolutionWidth * 1.0,
-                  height: ManageDeviceInfo.resolutionHeight * 0.22,
+                  height: ManageDeviceInfo.resolutionHeight * 0.18,
                   color: Color.fromRGBO(21, 24, 45, 1.0),
-                ),
-                Positioned(
-                  top: ManageDeviceInfo.resolutionHeight * 0.03,
-                  right: ManageDeviceInfo.resolutionWidth / 2.3,
-                  child: CircleAvatar(
-                    radius: ManageDeviceInfo.resolutionHeight * 0.04,
-                    backgroundImage: AssetImage('images/catHouse.jpg'),
-                    child: Icon(Icons.person),
-                  ),
-                ),
-                Positioned(
-                  bottom: ManageDeviceInfo.resolutionHeight * 0.03,
-                  left: ManageDeviceInfo.resolutionWidth * 0.23,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    
                     children: <Widget>[
                       SizedBox(
                         height: ManageDeviceInfo.resolutionHeight * 0.05,
@@ -131,9 +119,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: ManageDeviceInfo.resolutionWidth * 0.05,
-                      ),
+                      SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.1,),
                       SizedBox(
                         height: ManageDeviceInfo.resolutionHeight * 0.05,
                         width: ManageDeviceInfo.resolutionWidth * 0.25,
@@ -161,14 +147,16 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                       ),
                     ],
                   ),
-                )
+                ),
+                
               ],
             ),
-            Container(
-              color: Colors.white10,
-              height: ManageDeviceInfo.resolutionHeight * 0.03,
+            Divider(
+              thickness: ManageDeviceInfo.resolutionHeight * 0.03,
+              color: Colors.grey[300],
             ),
-            Divider(),
+            
+            
             ListTile(
               leading: Icon(Icons.palette),
               title: Text(
@@ -186,9 +174,9 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 );
               },
             ),
-            Divider(),
+            
             ListTile(
-              leading: Icon(Icons.palette),
+              leading: Icon(Icons.translate),
               title: Text(
                 'Translator',
                 textAlign: TextAlign.left,
@@ -204,7 +192,11 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 );
               },
             ),
-            Divider(),
+            Divider(
+              thickness: ManageDeviceInfo.resolutionHeight * 0.03,
+              color: Colors.grey[300],
+            ),
+            
             ListTile(
               leading: Icon(Icons.info),
               title: Text(
@@ -259,51 +251,58 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 );
               },
             ),
-            SizedBox(
-              height: ManageDeviceInfo.resolutionHeight * 0.05,
+            Divider(
+              thickness: ManageDeviceInfo.resolutionHeight * 0.03,
+              color: Colors.grey[300],
             ),
             Container(
+              padding: EdgeInsets.only(top: ManageDeviceInfo.resolutionHeight * 0.05, bottom: ManageDeviceInfo.resolutionHeight * 0.05),
               color: Colors.white60,
-              height: ManageDeviceInfo.resolutionHeight * 0.02,
+              height: ManageDeviceInfo.resolutionHeight * 0.18,
+              child: FlatButton(
+                color: Colors.redAccent,
+                onPressed: () {
+                  Navigator.push<Widget>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SubMenuComingSoonScreen('Settings'),
+                    ),
+                  );
+                },
+                child: Text(
+                  "Sign-in   or   Sign-up",
+                  style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white70,
+                ),
+                  
+                ),
+              ),
             ),
-            MaterialButton(
-              textColor: const Color(0xFF807a6b),
-              padding: EdgeInsets.all(20.0),
-              onPressed: () {
+            
+           
+            
+            Divider(
+              thickness: ManageDeviceInfo.resolutionHeight * 0.03,
+              color: Colors.grey[300],
+            ),
+           
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text(
+                'Sign-Out',
+                style: TextStyle(
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black54,
+                ),
+              ),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
                 _exitApp(context);
               },
-              child: Row(
-                children: <Widget>[
-                  Icon(Icons.exit_to_app),
-                  SizedBox(width: 20.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text('Sign-Out'),
-                      SizedBox(height: 5.0),
-                    ],
-                  ),
-                ],
-              ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            FlatButton(
-              color: Colors.redAccent,
-              onPressed: () {
-                Navigator.push<Widget>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SubMenuComingSoonScreen('Settings'),
-                  ),
-                );
-              },
-              child: Text(
-                "Sign-in   or   Sign-up",
-              ),
-            ),
-            Divider(),
           ],
         ),
       ],
