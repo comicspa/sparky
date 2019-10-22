@@ -51,7 +51,7 @@ class EpisodeTotalNumberDisplayWidget extends StatelessWidget {
                   ),
                 )
               : Text(
-                  'Episodes( ${episodeCount} )',
+                  'Episodes( $episodeCount )',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
@@ -550,13 +550,14 @@ class _ShareIconWidgetState extends State<ShareIconWidget> {
 }
 
 class EpisodeListViewWidget extends StatelessWidget {
-  const EpisodeListViewWidget({
+  EpisodeListViewWidget({
     Key key,
     @required this.c2sComicDetailInfo,
  
   }) : super(key: key);
 
   final PacketC2SComicDetailInfo c2sComicDetailInfo;
+  String comicsOriginalLanguage = 'ko_kr';//String comicsOriginalLanguage = 'en_us';
 
 
   @override
@@ -606,11 +607,13 @@ class EpisodeListViewWidget extends StatelessWidget {
                         flex: 4,
                         child: GestureDetector(
                           onTap: () {
+                            if (true == ManageDeviceInfo.equalLanguageLocaleCode(comicsOriginalLanguage))
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-//Todo check current language
+                                builder: (context) => 
+
+
                                         /*
                                     switch(ManageDeviceInfo.getLanguageLocaleCode())
                                     {
