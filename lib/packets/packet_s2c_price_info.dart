@@ -1,0 +1,12 @@
+
+
+
+class PacketS2CPriceInfo
+{
+
+
+
+
+}
+
+

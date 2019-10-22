@@ -6,7 +6,22 @@ import 'package:sparky/manage/manage_firebase_storage.dart';
 enum e_comic_genre
 {
   romance,
+  drama,
+  daily_life,
+  thriller,
+  fantasy,
+  comic,
+  action,
+  sports,
+  sf,
+  school,
+}
 
+enum e_comic_status
+{
+  in_series,
+  in_suspension,
+  completed,
 }
 
 class ModelComicInfo

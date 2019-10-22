@@ -1,7 +1,4 @@
 
-import 'package:sparky/models/model_view_comic_detect_text_info.dart';
-
-
 enum e_comic_view_style
 {
   vertical,
@@ -62,12 +59,10 @@ class ModelViewComic
     _style = style;
   }
 
-
   //static List<ModelViewComic> list;
 
   static void reset()
-  {
-  }
+  {}
 
 
   static ModelViewComic _instance;
