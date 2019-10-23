@@ -16,20 +16,20 @@ class PacketS2CPriceInfo extends PacketS2CCommon
   {
     status = e_packet_status.start_dispatch_respond;
 
-    /*
+
     for(var key in jsonMap.keys)
     {
       print(key);
 
-      print('${jsonMap[key]['gift']}');
-      print('${jsonMap[key]['credit_card']}');
-      print('${jsonMap[key]['apple']}');
-      print('${jsonMap[key]['google']}');
-      print('${jsonMap[key]['happy_money']}');
-      print('${jsonMap[key]['phone']}');
-      print('${jsonMap[key]['wire']}');
+      //print('${jsonMap[key]['gift']}');
+      //print('${jsonMap[key]['credit_card']}');
+      //print('${jsonMap[key]['apple']}');
+      //print('${jsonMap[key]['google']}');
+      //print('${jsonMap[key]['happy_money']}');
+      //print('${jsonMap[key]['phone']}');
+      //print('${jsonMap[key]['wire']}');
     }
-    */
+
 
     ModelPriceInfo.map = jsonMap;
 

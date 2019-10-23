@@ -25,8 +25,8 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
     with WidgetsBindingObserver {
   _ShopMenuScreenState(this.titleText);
   String titleText;
-  PacketC2SPriceInfo _packetC2SPriceInfo = new PacketC2SPriceInfo();
-
+  PacketC2SPriceInfo _packetC2SPriceInfo;
+  List<int> _priceIndexList;
 
   @override
   void initState() {
@@ -35,8 +35,12 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
     print('titleText : $titleText');
 
-    _packetC2SPriceInfo.generate();
-    _packetC2SPriceInfo.fetch(_onFetchDone);
+    if(null == _packetC2SPriceInfo)
+    {
+      _packetC2SPriceInfo = new PacketC2SPriceInfo();
+      _packetC2SPriceInfo.generate();
+      _packetC2SPriceInfo.fetch(_onFetchDone);
+    }
   }
 
   @override
@@ -53,6 +57,19 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    if(null == _priceIndexList)
+      _priceIndexList = new List<int>();
+
+    /*
+    _priceIndexList.clear();
+    _priceIndexList = ModelPriceInfo.map.keys.toList().cast<int>();
+    //_priceIndexList.sort((a, b) => a.compareTo(b));
+
+
+    print(_priceIndexList);
+
+     */
+
     setState(() {
 
     });
