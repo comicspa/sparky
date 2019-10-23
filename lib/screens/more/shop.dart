@@ -86,7 +86,6 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
-              
               title: Text(
                 '내 코미 수:   ${ModelUserInfo.getInstance().comi} 코미', 
                 textAlign: TextAlign.left,
@@ -109,27 +108,33 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
             ),
             Divider(),
             Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
-            child: Text(
-              'Package Lists',
-              style: TextStyle(
-                  fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
+              child: Text(
+                'Package Lists',
+                style: TextStyle(
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
             ),
-          ),
             Container(
               padding: EdgeInsets.all( ManageDeviceInfo.resolutionWidth * 0.02 ),
               color: Colors.grey,
               child: Container(
                 color: Colors.white,
-                child: Column(
-                  
-                  children: <Widget>[
-                    
-                    ListTile(
+                child: ListView.separated(
+                  separatorBuilder: (BuildContext context, index) =>
+                    Divider(
+                      height: ManageDeviceInfo.resolutionHeight * 0.004,
+                    ),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return ListTile(
                       leading: SizedBox(
                         height: ManageDeviceInfo.resolutionHeight * 0.04,
                         child: Image.asset('images/Comi.png')
@@ -174,126 +179,14 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                           ),
                         );
                       },
-                    ),
-                    Divider(),
-                    ListTile(
-                      leading: Icon(Icons.cloud_upload),
-                      title: Text(
-                        '쿠키 50',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.push<Widget>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                UploadingCenterScreen('Translation Center'),
-                          ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.cloud_upload),
-                      title: Text(
-                        '쿠키 100',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.push<Widget>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                UploadingCenterScreen('Translation Center'),
-                          ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.cloud_upload),
-                      title: Text(
-                        '쿠키 200',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.push<Widget>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                UploadingCenterScreen('Translation Center'),
-                          ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.cloud_upload),
-                      title: Text(
-                        '쿠키 300',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.push<Widget>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                UploadingCenterScreen('Translation Center'),
-                          ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.cloud_upload),
-                      title: Text(
-                        '쿠키 500',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.push<Widget>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                UploadingCenterScreen('Translation Center'),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                    );
+                  }
                 ),
               ),
             ),
-            Divider(),
           ],
-        ),
       ),
+    ),
     );
   }
 }
