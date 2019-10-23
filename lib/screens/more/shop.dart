@@ -153,7 +153,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                           children: <Widget>[
                             
                             Text(
-                              ModelPriceInfo.getPlatform('10'),
+                              '10',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Lato',
