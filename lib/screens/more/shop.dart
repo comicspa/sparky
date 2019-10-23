@@ -5,6 +5,7 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 import 'package:sparky/screens/more/uploading_center.dart';
 import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/models/model_price_info.dart';
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
 
@@ -87,7 +88,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
             ListTile(
               
               title: Text(
-                '내 코미 수:   12 코미',
+                '내 코미 수:   ${ModelUserInfo.getInstance().comi} 코미', 
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontFamily: 'Lato',
@@ -127,13 +128,14 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                 child: Column(
                   
                   children: <Widget>[
+                    
                     ListTile(
                       leading: SizedBox(
                         height: ManageDeviceInfo.resolutionHeight * 0.04,
                         child: Image.asset('images/Comi.png')
                       ),
                       title: Text(
-                        '코미 10',
+                        '코미10',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Lato',
@@ -151,7 +153,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                           children: <Widget>[
                             
                             Text(
-                              '1000 원',
+                              ModelPriceInfo.getPlatform('10'),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Lato',
