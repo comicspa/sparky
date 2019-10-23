@@ -2,6 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:sparky/models/model_localization_info.dart';
+import 'package:sparky/screens/account/sign_in_up_landing_page.dart';
 import 'package:sparky/screens/more/creator_submenu.dart';
 import 'package:sparky/screens/more/setting_submenu.dart';
 import 'package:sparky/screens/more/version_info.dart';
@@ -50,21 +52,21 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
     return showDialog(
           context: context,
           child: AlertDialog(
-            title: Text('Do you want to log-out from this application?'),
-            content: Text('We are sorry to see you leave...'),
+            title: Text(ModelLocalizationInfo.getText('dialog', 'exit_dialog_1')),
+            content: Text(ModelLocalizationInfo.getText('dialog', 'exit_dialog_2')),
             actions: <Widget>[
               FlatButton(
                 onPressed: () {
                   print("you choose no");
                   Navigator.of(context).pop(false);
                 },
-                child: Text('No'),
+                child: Text(ModelLocalizationInfo.getText('common', 'text_no')),
               ),
               FlatButton(
                 onPressed: () { //todo need more processing for logout
                   SystemChannels.platform.invokeMethod('SystemNavigator.pop');
                 },
-                child: Text('Yes'),
+                child: Text(ModelLocalizationInfo.getText('common', 'text_yes')),
               ),
             ],
           ),
@@ -106,11 +108,11 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      SubMenuComingSoonScreen('Redeem'),
+                                      SubMenuComingSoonScreen(ModelLocalizationInfo.getText('common', 'button_redeem')),
                                 ));
                           },
                           child: Text(
-                            'Redeem',
+                            ModelLocalizationInfo.getText('common', 'button_redeem'),
                             style: TextStyle(
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
@@ -132,11 +134,11 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      ShopMenuScreen('Shop'),
+                                      ShopMenuScreen(ModelLocalizationInfo.getText('common', 'button_shop')),
                                 ));
                           },
                           child: Text(
-                            'Shop',
+                            ModelLocalizationInfo.getText('common', 'button_shop'),
                             style: TextStyle(
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
@@ -160,7 +162,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
             ListTile(
               leading: Icon(Icons.palette),
               title: Text(
-                'Creator',
+                ModelLocalizationInfo.getText('more', 'title_creator'),
                 textAlign: TextAlign.left,
                 style: textStyle,
               ),
@@ -169,7 +171,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CreatorSubmenuScreen('Creator'),
+                    builder: (context) => CreatorSubmenuScreen(ModelLocalizationInfo.getText('more', 'title_creator')),
                   ),
                 );
               },
@@ -178,7 +180,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
             ListTile(
               leading: Icon(Icons.translate),
               title: Text(
-                'Translator',
+                ModelLocalizationInfo.getText('more', 'title_translator'),
                 textAlign: TextAlign.left,
                 style: textStyle,
               ),
@@ -187,7 +189,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TranslatorSubmenuScreen('Translator'),
+                    builder: (context) => TranslatorSubmenuScreen(ModelLocalizationInfo.getText('more', 'title_translator')),
                   ),
                 );
               },
@@ -200,7 +202,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
             ListTile(
               leading: Icon(Icons.info),
               title: Text(
-                'Service Info',
+                ModelLocalizationInfo.getText('more', 'menu_service_info'),
                 textAlign: TextAlign.left,
                 style: textStyle
               ),
@@ -210,7 +212,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        ServiceInfoSubmenuScreen('Service Info.'),
+                        ServiceInfoSubmenuScreen(ModelLocalizationInfo.getText('more', 'menu_service_info')),
                   ),
                 );
               },
@@ -219,7 +221,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
             ListTile(
               leading: Icon(Icons.settings),
               title: Text(
-                'Settings',
+                ModelLocalizationInfo.getText('more', 'menu_setting'),
                 textAlign: TextAlign.left,
                 style: textStyle,
               ),
@@ -228,7 +230,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingSubmenuPage(titleText: 'Settings'),
+                    builder: (context) => SettingSubmenuPage(titleText: ModelLocalizationInfo.getText('more', 'menu_setting')),
                   ),
                 );
               },
@@ -237,7 +239,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
             ListTile(
               leading: Icon(Icons.info),
               title: Text(
-                'About',
+                ModelLocalizationInfo.getText('more', 'menu_about'),
                 textAlign: TextAlign.left,
                 style: textStyle,
               ),
@@ -246,7 +248,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                 Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AboutContentsWidgets(titleText: 'About'),
+                    builder: (context) => AboutContentsWidgets(titleText: ModelLocalizationInfo.getText('more', 'menu_about')),
                   ),
                 );
               },
@@ -265,12 +267,14 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
                   Navigator.push<Widget>(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SubMenuComingSoonScreen('Settings'),
+                      builder: (context) => SignInUpLandPage(),
                     ),
                   );
                 },
                 child: Text(
-                  "Sign-in   or   Sign-up",
+                  ModelLocalizationInfo.getText('common', 'sign_in') 
+                  + ModelLocalizationInfo.getText('common', 'or') 
+                  + ModelLocalizationInfo.getText('common', 'sign_out'),
                   style: TextStyle(
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.bold,
@@ -291,7 +295,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text(
-                'Sign-Out',
+                ModelLocalizationInfo.getText('common', 'sign_out'),
                 style: TextStyle(
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.normal,

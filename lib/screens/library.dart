@@ -13,6 +13,7 @@ import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
 import 'package:sparky/models/model_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
+import 'package:sparky/models/model_localization_info.dart';
 
 class LibraryScreen extends StatefulWidget {
   @override
@@ -73,10 +74,10 @@ class _LibraryScreenState extends State<LibraryScreen>
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.redAccent,
             tabs: [
-              Tab(text: "Recent"),
-              Tab(text: "View List"),
-              Tab(text: "Owned"),
-              Tab(text: "Download")
+              Tab(text: ModelLocalizationInfo.getText('library','tab_recent')),
+              Tab(text: ModelLocalizationInfo.getText('library','tab_viewList')),
+              Tab(text: ModelLocalizationInfo.getText('library','tab_owned')),
+              Tab(text: ModelLocalizationInfo.getText('library','tab_downloaded'))
             ]
           ),
           
@@ -312,7 +313,7 @@ class LibraryListTile extends StatelessWidget {
                               padding: EdgeInsets.only(
                                   left:
                                       ManageDeviceInfo.resolutionWidth * 0.04),
-                              child: Text('작품   ${snapshot.data[index].title}',
+                              child: Text(ModelLocalizationInfo.getText('library','text_title')+'${snapshot.data[index].title}',
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
@@ -331,7 +332,7 @@ class LibraryListTile extends StatelessWidget {
                                   left:
                                       ManageDeviceInfo.resolutionWidth * 0.04),
                               child:
-                                  Text('글/그림   ${snapshot.data[index].creatorName}',
+                                  Text(ModelLocalizationInfo.getText('library','text_creator')+'${snapshot.data[index].creatorName}',
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,

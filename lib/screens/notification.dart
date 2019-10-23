@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
+import 'package:sparky/models/model_localization_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/screens/account/sign_in_up_landing_page.dart';
 
@@ -89,11 +90,11 @@ class PopupMenuButtonWidget extends StatelessWidget {
         itemBuilder: (context) => [
           PopupMenuItem(
             value: 1,
-            child: Text("Delete"),
+            child: Text(ModelLocalizationInfo.getText('inbox','menu_delete')),
           ),
           PopupMenuItem(
             value: 2,
-            child: Text("Turn off all from This"),
+            child: Text(ModelLocalizationInfo.getText('inbox','menu_reject')),
           ),
           PopupMenuItem(
             value: 3,

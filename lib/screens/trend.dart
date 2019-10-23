@@ -165,7 +165,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 5, 0, 2),
-            child: Text(ModelLocalizationInfo.getText('trend', 'title_1')
+            child: Text(ModelLocalizationInfo.getText('trend', 'title_1') //Recommended
                /* ModelLocalizationInfo.getText('trend','recommended') */,
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
@@ -192,7 +192,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 20, 0, 2),
             child: Text(
-              'Realtime Trend',
+              ModelLocalizationInfo.getText('trend', 'title_2'), //Realtime Trend
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
                   fontFamily: 'Lato',
@@ -229,7 +229,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
             child: Text(
-              'New Comics',
+              ModelLocalizationInfo.getText('trend', 'title_3'), //New Comics
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
                   fontFamily: 'Lato',
@@ -254,7 +254,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
-            child: Text(ModelLocalizationInfo.getText('trend', 'title_4'),
+            child: Text(ModelLocalizationInfo.getText('trend', 'title_5'), //Today's Trend
               
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
@@ -281,7 +281,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
             child: Text(
-              'Weekly Trend',
+              ModelLocalizationInfo.getText('trend', 'title_4'), //Weekly Trend
               style: TextStyle(
                   fontSize: ManageDeviceInfo.resolutionHeight * 0.024,
                   fontFamily: 'Lato',

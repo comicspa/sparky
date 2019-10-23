@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:sparky/manage/manage_firebase_storage.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
+import 'package:sparky/models/model_localization_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
@@ -162,12 +163,12 @@ class _AccountDeleteWidgetState extends State<AccountDeleteWidget> with WidgetsB
                 child: TextField(
                   controller: _textInputController,
                   autocorrect: true,
-                  decoration: InputDecoration(hintText: 'Enter a \'delete\' here'),
+                  decoration: InputDecoration(hintText: ModelLocalizationInfo.getText('more', 'account_delete')),
                 ),
               ),
               RaisedButton(
                 onPressed: _onPressed,
-                child: Text('Submit'),
+                child: Text(ModelLocalizationInfo.getText('common', 'Submit')),
               )
             ],
           ),
