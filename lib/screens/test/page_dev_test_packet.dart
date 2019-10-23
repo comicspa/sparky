@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_price_info.dart';
 
 class PageDevTestPacket extends StatefulWidget {
   @override
@@ -65,6 +66,19 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
               PacketC2SComicDetailInfo c2SComicDetailInfo = new PacketC2SComicDetailInfo();
               c2SComicDetailInfo.generate('1566811403000','000001');
               c2SComicDetailInfo.fetch(_onFetchDone);
+
+
+            },
+          ),
+
+
+          ListTile(
+            title: Text('Price Info'),
+            onTap: (){
+
+              PacketC2SPriceInfo packetC2SPriceInfo = new PacketC2SPriceInfo();
+              packetC2SPriceInfo.generate();
+              packetC2SPriceInfo.fetch(_onFetchDone);
 
 
             },

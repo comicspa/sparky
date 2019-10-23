@@ -3,6 +3,14 @@ import 'package:devicelocale/devicelocale.dart';
 import 'package:flutter/material.dart';
 
 
+enum e_platform_type
+{
+  none,
+  ios,
+  android,
+}
+
+
 class ManageDeviceInfo
 {
   static String _deviceId;
@@ -12,6 +20,7 @@ class ManageDeviceInfo
   //static Locale _locale;
   static String _languageCode;
   static String _localeCode;
+  static e_platform_type _platformType;
 
   static String get deviceId => _deviceId;
   static double get resolutionWidth => _resolutionWidth;
@@ -20,6 +29,7 @@ class ManageDeviceInfo
   //static Locale get locale => _locale;
   static String get languageCode => _languageCode;
   static String get localeCode => _localeCode;
+  static e_platform_type get platformType => _platformType;
 
   static set languageCode(String languageCode)
   {
@@ -42,11 +52,13 @@ class ManageDeviceInfo
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Theme.of(context).platform == TargetPlatform.iOS)
     {
+      _platformType = e_platform_type.ios;
       IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
       return iosDeviceInfo.identifierForVendor; // unique ID on iOS
     }
     else
     {
+      _platformType = e_platform_type.android;
       AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
       return androidDeviceInfo.androidId; // unique ID on Android
     }

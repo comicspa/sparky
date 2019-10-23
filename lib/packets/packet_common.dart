@@ -107,6 +107,9 @@ enum e_packet_type
   c2s_unregister_translator,
   s2c_unregister_translator,
 
+  c2s_price_info,
+  s2c_price_info,
+
 }
 
 

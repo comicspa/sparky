@@ -1,56 +1,65 @@
+import 'package:sparky/manage/manage_device_info.dart';
 
 
 class ModelPriceInfo
 {
-  double _apple;
-  double _creditCard;
-  double _gift;
-  double _google;
-  double _happyMoney;
-  double _phone;
-  double _wire;
 
-  double get apple => _apple;
-  double get creditCard => _creditCard;
-  double get gift => _gift;
-  double get google => _google;
-  double get happyMoney => _happyMoney;
-  double get phone => _phone;
-  double get wire => _wire;
-
-  set apple(double apple)
+  static dynamic getCreditCard(String unit)
   {
-    _apple = apple;
+    return map[unit]['credit_card'];
   }
 
-  set creditCard(double creditCard)
+  static dynamic getGift(String unit)
   {
-    _creditCard = creditCard;
+    return map[unit]['gift'];
   }
 
-  set gift(double gift)
+  static dynamic getHappyMoney(String unit)
   {
-    _gift = gift;
-  }
-  set google(double google)
-  {
-    _google = google;
+    return map[unit]['happy_money'];
   }
 
-  set happyMoney(double happyMoney)
+  static dynamic getPhone(String unit)
   {
-    _happyMoney = happyMoney;
+    return map[unit]['phone'];
   }
 
-  set phone(double phone)
+  static dynamic getWire(String unit)
   {
-    _phone = phone;
+    return map[unit]['wire'];
   }
 
-  set wire(double wire)
+  static dynamic getPlatform(String unit)
   {
-    _wire = wire;
+    switch(ManageDeviceInfo.platformType)
+    {
+      case e_platform_type.ios:
+        return map[unit]['apple'];
+
+      case e_platform_type.android:
+        return map[unit]['google'];
+
+      default:
+        break;
+    }
+
+    return null;
   }
 
-  static List<ModelPriceInfo> list;
+
+  static dynamic get(String unit,String type)
+  {
+    if(0 == type.compareTo('platform'))
+      {
+        return getPlatform(unit);
+      }
+
+    return map[unit][type];
+  }
+
+  static Map<dynamic,dynamic> map;
 }
+
+//usage
+//ModelPriceInfo.get('10','gift');
+//ModelPriceInfo.get('10','platform');
