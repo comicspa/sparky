@@ -5,6 +5,8 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 import 'package:sparky/screens/more/uploading_center.dart';
 import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/models/model_price_info.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_price_info.dart';
 
 
 // Coming soon page for multi-purpose
@@ -22,6 +24,8 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
     with WidgetsBindingObserver {
   _ShopMenuScreenState(this.titleText);
   String titleText;
+  PacketC2SPriceInfo _packetC2SPriceInfo = new PacketC2SPriceInfo();
+
 
   @override
   void initState() {
@@ -29,6 +33,9 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
     super.initState();
 
     print('titleText : $titleText');
+
+    _packetC2SPriceInfo.generate();
+    _packetC2SPriceInfo.fetch(_onFetchDone);
   }
 
   @override
@@ -40,6 +47,14 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('state = $state');
+  }
+
+
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    setState(() {
+
+    });
   }
 
   @override
