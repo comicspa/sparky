@@ -1,56 +1,27 @@
+import 'package:sparky/manage/manage_device_info.dart';
 
 
 class ModelPriceInfo
 {
-  double _apple;
-  double _creditCard;
-  double _gift;
-  double _google;
-  double _happyMoney;
-  double _phone;
-  double _wire;
-
-  double get apple => _apple;
-  double get creditCard => _creditCard;
-  double get gift => _gift;
-  double get google => _google;
-  double get happyMoney => _happyMoney;
-  double get phone => _phone;
-  double get wire => _wire;
-
-  set apple(double apple)
+  static dynamic get(String unit,String type)
   {
-    _apple = apple;
+    if(0 == type.compareTo('platform'))
+      {
+        switch(ManageDeviceInfo.platformType)
+        {
+          case e_platform_type.ios:
+            return map[unit]['apple'];
+
+          case e_platform_type.android:
+            return map[unit]['google'];
+
+          default:
+            break;
+        }
+      }
+
+    return map[unit][type];
   }
 
-  set creditCard(double creditCard)
-  {
-    _creditCard = creditCard;
-  }
-
-  set gift(double gift)
-  {
-    _gift = gift;
-  }
-  set google(double google)
-  {
-    _google = google;
-  }
-
-  set happyMoney(double happyMoney)
-  {
-    _happyMoney = happyMoney;
-  }
-
-  set phone(double phone)
-  {
-    _phone = phone;
-  }
-
-  set wire(double wire)
-  {
-    _wire = wire;
-  }
-
-  static List<ModelPriceInfo> list;
+  static Map<dynamic,dynamic> map;
 }
