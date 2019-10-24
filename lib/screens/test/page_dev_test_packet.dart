@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:sparky/models/model_price_info.dart';
+import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
@@ -25,6 +27,27 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
+    switch(s2cPacket.type)
+    {
+      case e_packet_type.s2c_price_info:
+        {
+          List<String> _priceIndexList = ModelPriceInfo.map.keys.toList().cast<String>();
+          _priceIndexList.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+
+          for(int i=0; i<_priceIndexList.length; ++i)
+          {
+            print('$i:${_priceIndexList[i]}');
+          }
+
+
+        }
+        break;
+
+      default:
+        break;
+    }
+
+
     setState(() {
 
     });
@@ -79,7 +102,6 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
               PacketC2SPriceInfo packetC2SPriceInfo = new PacketC2SPriceInfo();
               packetC2SPriceInfo.generate();
               packetC2SPriceInfo.fetch(_onFetchDone);
-
 
             },
           ),

@@ -6,6 +6,7 @@ import 'package:sparky/screens/more/uploading_center.dart';
 import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/models/model_price_info.dart';
 import 'package:sparky/models/model_user_info.dart';
+import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
 
@@ -26,7 +27,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
   _ShopMenuScreenState(this.titleText);
   String titleText;
   PacketC2SPriceInfo _packetC2SPriceInfo;
-  List<int> _priceIndexList;
+  List<String> _priceIndexList;
 
   @override
   void initState() {
@@ -57,18 +58,32 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
-    if(null == _priceIndexList)
-      _priceIndexList = new List<int>();
 
-    /*
-    _priceIndexList.clear();
-    _priceIndexList = ModelPriceInfo.map.keys.toList().cast<int>();
-    //_priceIndexList.sort((a, b) => a.compareTo(b));
+    switch(s2cPacket.type)
+    {
+      case e_packet_type.s2c_price_info:
+        {
+          if(null != _priceIndexList)
+            _priceIndexList = null;
+
+          _priceIndexList = ModelPriceInfo.map.keys.toList().cast<String>();
+          _priceIndexList.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+
+          for(int i=0; i<_priceIndexList.length; ++i)
+          {
+            print('$i:${_priceIndexList[i]}');
+          }
 
 
-    print(_priceIndexList);
+        }
+        break;
 
-     */
+      default:
+        break;
+    }
+
+
+
 
     setState(() {
 
@@ -149,7 +164,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
-                  itemCount: 6,
+                  itemCount: 6,// (null != _priceIndexList)? _priceIndexList.length : 0,
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: SizedBox(
@@ -157,7 +172,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                         child: Image.asset('images/Comi.png')
                       ),
                       title: Text(
-                        '코미10',
+                        '코미10',//'코미${_priceIndexList[index]}',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Lato',
@@ -175,7 +190,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                           children: <Widget>[
                             
                             Text(
-                              '10',
+                              '10',//'${ModelPriceInfo.getPlatform(_priceIndexList[index])}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Lato',
