@@ -40,6 +40,31 @@ class PacketC2SCommon extends PacketCommon
   }
 
 
+  int resetHeader(int packetBodySize)
+  {
+    this.size = 4 + 2;
+    this.size += packetBodySize;
+    print('packetSize : ${this.size} , packetType : ${this.type}');
+
+
+    packet = null;
+    packet = Uint8List(this.size);
+    byteData = null;
+    byteData = ByteData.view(packet.buffer);
+
+    currentOffset = 0;
+    setUint32(this.size);
+    setUint16(this.type.index);
+
+    return 0;
+  }
+
+  void clear()
+  {
+
+  }
+
+
   bool setUint32(int value)
   {
     if(null == byteData)

@@ -43,7 +43,7 @@ class PacketS2CCommon extends PacketCommon
     byteData = byteDataExceptionSize;
 
     size = packetSize;
-    currentOffset += 4;
+    currentOffset = 4;
     type = e_packet_type.values[getUint16()];
 
     return true;
