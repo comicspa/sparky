@@ -6,27 +6,27 @@ class ModelPriceInfo
 
   static dynamic getCreditCard(String unit)
   {
-    return map[unit]['credit_card'];
+    return _map[unit]['credit_card'];
   }
 
   static dynamic getGift(String unit)
   {
-    return map[unit]['gift'];
+    return _map[unit]['gift'];
   }
 
   static dynamic getHappyMoney(String unit)
   {
-    return map[unit]['happy_money'];
+    return _map[unit]['happy_money'];
   }
 
   static dynamic getPhone(String unit)
   {
-    return map[unit]['phone'];
+    return _map[unit]['phone'];
   }
 
   static dynamic getWire(String unit)
   {
-    return map[unit]['wire'];
+    return _map[unit]['wire'];
   }
 
   static dynamic getPlatform(String unit)
@@ -34,10 +34,10 @@ class ModelPriceInfo
     switch(ManageDeviceInfo.platformType)
     {
       case e_platform_type.ios:
-        return map[unit]['apple'];
+        return _map[unit]['apple'];
 
       case e_platform_type.android:
-        return map[unit]['google'];
+        return _map[unit]['google'];
 
       default:
         break;
@@ -54,10 +54,29 @@ class ModelPriceInfo
         return getPlatform(unit);
       }
 
-    return map[unit][type];
+    return _map[unit][type];
   }
 
-  static Map<dynamic,dynamic> map;
+  static Map<dynamic,dynamic> _map;
+  static List<String> priceIndexList;
+
+  static Map<dynamic,dynamic> get map => _map;
+  static set map(Map<dynamic,dynamic> map)
+  {
+    _map = map;
+
+    priceIndexList = _map.keys.toList().cast<String>();
+    priceIndexList.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+    //priceIndexList = ModelPriceInfo.map.keys.toList()..sort((a, b) => (int.parse(a)).compareTo(int.parse(b)));
+
+    for(int i=0; i<priceIndexList.length; ++i)
+    {
+      print('$i:${priceIndexList[i]}');
+    }
+
+  }
+
+
 }
 
 //usage

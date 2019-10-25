@@ -12,7 +12,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:badges/badges.dart';
 
-
 //import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {

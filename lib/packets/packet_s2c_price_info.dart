@@ -30,7 +30,6 @@ class PacketS2CPriceInfo extends PacketS2CCommon
       //print('${jsonMap[key]['wire']}');
     }
 
-
     ModelPriceInfo.map = jsonMap;
 
     //print('${ModelPriceInfo.get('10','gift')}');
