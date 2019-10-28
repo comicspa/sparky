@@ -1,8 +1,11 @@
 import 'dart:ui' as ui;
 
+import 'package:sparky/models/model_comic_info.dart';
+
 
 class ModelComicEpisodeInfo
 {
+  e_view_direction_type _viewDirectionType;
   String _thumbnailUrl;
   int _imageCutCount = 0;
   List<String> _imageCutUrlList;
@@ -16,6 +19,7 @@ class ModelComicEpisodeInfo
   //List<ui.Image> get imageCutList => _imageCutList;
   String get episodeId => _episodeId;
   String get titleName => _titleName;
+  e_view_direction_type get viewDirectionType => _viewDirectionType;
 
   set thumbnailUrl(String thumbnailUrl)
   {
@@ -47,6 +51,10 @@ class ModelComicEpisodeInfo
     _titleName = titleName;
   }
 
+  set viewDirectionType(e_view_direction_type viewDirectionType)
+  {
+    _viewDirectionType = viewDirectionType;
+  }
 
 /*
   Future<List<String>> getImageCutDownloadUrl() async

@@ -1,9 +1,6 @@
 
 import 'dart:ui' as ui;
 
-import 'package:sparky/manage/manage_firebase_storage.dart';
-
-
 class ModelFeaturedComicInfo
 {
   String _comicId;

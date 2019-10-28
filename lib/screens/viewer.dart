@@ -6,11 +6,10 @@ import 'package:sparky/packets/packet_common.dart';
 import 'common_widgets.dart';
 import 'text_editor.dart';
 
-
 import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_view_comic.dart';
-
+import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/models/model_text_detection.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
@@ -98,9 +97,9 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        child: null != ModelViewComic.getInstance().style
+                        child: null != ModelViewComic.getInstance().viewDirectionType
                           //Todo Need to change Icon with direction
-                          ? e_comic_view_style.vertical == ModelViewComic.getInstance().style
+                          ? e_view_direction_type.vertical == ModelViewComic.getInstance().viewDirectionType
                                 ? Icon(
                                     Icons.arrow_downward,
                                     size: ManageDeviceInfo.resolutionWidth * 0.04,
@@ -148,7 +147,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                   return ListView.builder(
                     shrinkWrap: true,
                     scrollDirection:
-                    snapshot.data.style == e_comic_view_style.vertical
+                    snapshot.data.viewDirectionType == e_view_direction_type.vertical
                         ? Axis.vertical
                         : Axis.horizontal,
                     physics: BouncingScrollPhysics(),

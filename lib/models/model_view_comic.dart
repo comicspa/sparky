@@ -1,30 +1,25 @@
 
-enum e_comic_view_style
-{
-  vertical,
-  horizontal,
-}
+import 'package:sparky/models/model_comic_info.dart';
+import 'package:sparky/models/model_comic_episode_info.dart';
 
 
 class ModelViewComic
 {
+  ModelComicEpisodeInfo _modelComicEpisodeInfo = new ModelComicEpisodeInfo();
+
   String _userId;
-  String _title;
   String _id;
   String _partId = '001';
   String _seasonId = '001';
-  String _episodeId;
-  List<String> _imageUrlList;
-  e_comic_view_style _style;// = e_comic_view_style.vertical;
 
   String get userId => _userId;
-  String get title => _title;
-  String get episodeId => _episodeId;
+  String get title => _modelComicEpisodeInfo.titleName;
+  String get episodeId => _modelComicEpisodeInfo.episodeId;
   String get id => _id;
   String get partId => _partId;
   String get seasonId => _seasonId;
-  List<String> get imageUrlList => _imageUrlList;
-  e_comic_view_style get style => _style;
+  List<String> get imageUrlList => _modelComicEpisodeInfo.imageCutUrlList;
+  e_view_direction_type get viewDirectionType => _modelComicEpisodeInfo.viewDirectionType;
 
   set userId(String userId)
   {
@@ -32,11 +27,11 @@ class ModelViewComic
   }
   set title(String title)
   {
-    _title = title;
+    _modelComicEpisodeInfo.titleName = title;
   }
   set episodeId(String episodeId)
   {
-    _episodeId = episodeId;
+    _modelComicEpisodeInfo.episodeId = episodeId;
   }
   set id(String id)
   {
@@ -52,14 +47,12 @@ class ModelViewComic
   }
   set imageUrlList(List<String> imageUrlList)
   {
-    _imageUrlList = imageUrlList;
+    _modelComicEpisodeInfo.imageCutUrlList = imageUrlList;
   }
-  set style(e_comic_view_style style)
+  set viewDirectionType(e_view_direction_type viewDirectionType)
   {
-    _style = style;
+    _modelComicEpisodeInfo.viewDirectionType = viewDirectionType;
   }
-
-  //static List<ModelViewComic> list;
 
   static void reset()
   {}

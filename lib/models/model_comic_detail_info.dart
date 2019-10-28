@@ -9,7 +9,7 @@ class ModelComicDetailInfo
   String _comicId = '000001';
   String _partId = '001';
   String _seasonId = '001';
-  String _mainTitleName;
+  String _titleName;
   String _representationImageUrl;
   String _explain;
   String _creatorId;
@@ -23,7 +23,7 @@ class ModelComicDetailInfo
   String get comicId => _comicId;
   String get partId => _partId;
   String get seasonId => _seasonId;
-  String get mainTitleName => _mainTitleName;
+  String get titleName => _titleName;
   String get representationImageUrl => _representationImageUrl;
   String get explain => _explain;
   String get creatorName => _creatorName;
@@ -49,9 +49,9 @@ class ModelComicDetailInfo
   {
     _seasonId = seasonId;
   }
-  set mainTitleName(String mainTitleName)
+  set titleName(String titleName)
   {
-    _mainTitleName = mainTitleName;
+    _titleName = titleName;
   }
   set representationImageUrl(String representationImageUrl)
   {
