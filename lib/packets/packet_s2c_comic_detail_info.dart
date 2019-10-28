@@ -69,7 +69,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
 
       modelComicInfo.episodeId = comics[key.toString()]['episode_id'];
       modelComicInfo.countIndex = int.parse(modelComicInfo.episodeId);
-      modelComicInfo.subTitleName = comics[key.toString()]['title'];
+      modelComicInfo.titleName = comics[key.toString()]['title'];
       modelComicInfo.collected = comics[key.toString()]['collected'];
       modelComicInfo.updated = comics[key.toString()]['updated'];
 
@@ -159,7 +159,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       ModelComicInfo modelComicInfo = new ModelComicInfo();
 
       modelComicInfo.episodeId = readStringToByteBuffer();
-      modelComicInfo.subTitleName = readStringToByteBuffer();
+      modelComicInfo.titleName = readStringToByteBuffer();
       modelComicInfo.collected = getUint32();
       modelComicInfo.updated = getUint32();
 

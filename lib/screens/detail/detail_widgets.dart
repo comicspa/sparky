@@ -696,7 +696,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                                     padding: EdgeInsets.only(
                                         left: ManageDeviceInfo.resolutionWidth * 0.04),
                                     child: Text(
-                                        '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].subTitleName}',
+                                        '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].titleName}',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
