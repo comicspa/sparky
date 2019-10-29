@@ -16664,3 +16664,9 @@ android/gradle.properties
 .dart_tool/flutter_build/66b97d0ca0f407926d87958233682490/copy_flutter_bundle.stamp
 
 .dart_tool/flutter_build/66b97d0ca0f407926d87958233682490/kernel_snapshot.stamp
+
+.dart_tool/flutter_build/80d1ddda7957886a417a94feef69648a/.filecache
+
+.dart_tool/flutter_build/80d1ddda7957886a417a94feef69648a/app.dill
+
+.dart_tool/flutter_build/80d1ddda7957886a417a94feef69648a/kernel_snapshot.d
