@@ -535,7 +535,7 @@ class TrendCardList extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  snapshot.data[index].viewCount, 
+                                  '${snapshot.data[index].viewCount}', 
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.right,
