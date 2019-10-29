@@ -45,7 +45,7 @@ dependencies:
   flutter_signin_button: ^0.2.8
   firebase_database: ^3.0.5
   flutter_cache_manager: ^1.1.1
-  cached_network_image: ^1.1.2+1
+  cached_network_image: ^2.0.0-rc
   corsac_jwt: ^0.1.2
   image: ^2.1.4
   path_provider: ^1.2.0

@@ -6,16 +6,17 @@ import 'package:sparky/screens/splash.dart';
 import 'package:sparky/screens/test/page_dev_test_apply.dart';
 import 'package:sparky/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.white, //top bar color
+      statusBarColor: Colors.black, //top bar color
       statusBarIconBrightness: Brightness.dark, //top bar icons
       systemNavigationBarColor: Colors.white, //bottom bar color
       systemNavigationBarIconBrightness: Brightness.dark, //bottom bar icons
     )
   );
-  SystemChrome.setPreferredOrientations(
+  await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) => runApp(new MyApp()));
 }
