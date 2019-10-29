@@ -791,6 +791,48 @@ class ManageFirebaseDatabase
   }
 
 
+  static void updateModelComicDetailInfoLike()
+  {
+    DatabaseReference modelReference = reference.child('model_comic_detail_info').child('1566811403000_000001');
+    modelReference.child('like').update({
+      '22222': '3333333'
+    }).then((_) {
+      // ...
+    });
+  }
+
+
+  static void deleteModelComicDetailInfoLike()
+  {
+
+    String key;
+    String value = '3333333';
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('1566811403000_000001').child('like');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[deleteModelComicDetailInfoLike] - ${snapshot.value}');
+
+      Map map = snapshot.value;
+
+      //print(map['22222']);
+
+      //map.containsValue(value)
+
+    });
+
+
+    /*
+    modelReference.remove().then((_) {
+      // ...
+    });
+
+     */
+
+  }
+
+
+
   static void updateModelComicDetailInfo()
   {
     DatabaseReference modelReference = reference.child('model_comic_detail_info');

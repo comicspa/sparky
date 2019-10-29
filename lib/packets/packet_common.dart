@@ -110,6 +110,12 @@ enum e_packet_type
   c2s_price_info,
   s2c_price_info,
 
+  c2s_like_comic,
+  s2c_like_comic,
+
+  c2s_subscribe_comic,
+  s2c_subscribe_comic,
+
 }
 
 
