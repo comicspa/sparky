@@ -36,6 +36,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       new PacketC2SRealTimeTrendComicInfo();
   PacketC2SWeeklyTrendComicInfo c2sWeeklyTrendComicInfo =
       new PacketC2SWeeklyTrendComicInfo();
+  
 
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
@@ -503,7 +504,7 @@ class TrendCardList extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                snapshot.data[index].userId,
+                                snapshot.data[index].creatorId,
                                 textAlign: TextAlign.right,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
