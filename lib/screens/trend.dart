@@ -504,7 +504,7 @@ class TrendCardList extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                snapshot.data[index].creatorId,
+                                snapshot.data[index].creatorName,
                                 textAlign: TextAlign.right,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -536,7 +536,7 @@ class TrendCardList extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  '250,589,938', //Todo need to create 조회수 data
+                                  snapshot.data[index].viewCount, 
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.right,
