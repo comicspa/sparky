@@ -11,8 +11,9 @@ class ModelLibraryContinueComicInfo
   String _url;
   String _thumbnailUrl;
   ui.Image _image;
-  String _creatorName;
+  String _creatorName = 'Cretor';
   String _creatorId;
+  int _viewCount = 10000;
 
   String get comicId => _comicId;
   String get userId => _userId;
@@ -24,6 +25,7 @@ class ModelLibraryContinueComicInfo
   ui.Image get image => _image;
   String get creatorName => _creatorName;
   String get creatorId => _creatorId;
+  int get viewCount => _viewCount;
 
   set comicId(String comicId)
   {
@@ -72,6 +74,11 @@ class ModelLibraryContinueComicInfo
   set creatorId(String creatorId)
   {
     _creatorId = creatorId;
+  }
+
+  set viewCount(int viewCount)
+  {
+    _viewCount = viewCount;
   }
 
   @override
