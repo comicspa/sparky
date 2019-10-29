@@ -14,7 +14,7 @@ enum e_comic_genre
   school,
 }
 
-enum e_comic_status
+enum e_story_status
 {
   in_series,
   in_suspension,
@@ -30,12 +30,18 @@ enum e_division_type
 
 enum e_view_direction_type
 {
-  horizontal,
   vertical,
+  horizontal,
 }
+
 
 class ModelComicInfo
 {
+  static const int AgeRestriction_All = 0;
+  static const int AgeRestriction_12_Under = 12;
+  static const int AgeRestriction_16_Under = 16;
+  static const int AgeRestriction_19_MoreThan = 19;
+
   int _countIndex = -1;
   String _userId;
   String _creatorId;
@@ -50,7 +56,7 @@ class ModelComicInfo
   int _collected = 0;
   int _updated = 0;
   String _cp;
-  e_comic_status _status;
+  e_story_status _storyStatus;
   String _genre1;
   String _genre2;
   String _genre3;
@@ -58,6 +64,16 @@ class ModelComicInfo
   e_division_type _divisionType;
   e_view_direction_type _viewDirectionType;
   String _description;
+  int _ageRestriction = AgeRestriction_All;
+  int _totalNumberBook = 0;
+  int _totalNumberEpisode = 0;
+  int _pricePerEpisode = 0;
+  int _pricePerRent = 0;
+  int _freeEpisode = -1;
+  String _languageLocaleCode;
+  int _profitModelType;
+  String _dateCreated;
+  String _datePublished;
 
   String get creatorId => _creatorId;
   int get countIndex => _countIndex;
@@ -74,7 +90,7 @@ class ModelComicInfo
   String get titleName => _titleName;
   int get collected => _collected;
   int get updated => _updated;
-  e_comic_status get status => _status;
+  e_story_status get storyStatus => _storyStatus;
   String get genre1 => _genre1;
   String get genre2 => _genre2;
   String get genre3 => _genre3;
@@ -84,6 +100,17 @@ class ModelComicInfo
   String get description => _description;
   String get creatorName1 => _creatorName1;
   String get creatorName2 => _creatorName2;
+  int get ageRestriction => _ageRestriction;
+  int get totalNumberBook => _totalNumberBook;
+  int get totalNumberEpisode => _totalNumberEpisode;
+  int get pricePerEpisode => _pricePerEpisode;
+  int get pricePerRent => _pricePerRent;
+  int get freeEpisode => _freeEpisode;
+  String get languageLocaleCode => _languageLocaleCode;
+  int get profitModelType => _profitModelType;
+  String get dateCreated => _dateCreated;
+  String get datePublished => _datePublished;
+
 
   set creatorId(String creatorId)
   {
@@ -129,9 +156,9 @@ class ModelComicInfo
   {
     _updated = updated;
   }
-  set status(e_comic_status status)
+  set storyStatus(e_story_status storyStatus)
   {
-    _status = status;
+    _storyStatus = storyStatus;
   }
   set genre1(String genre1)
   {
@@ -169,4 +196,45 @@ class ModelComicInfo
   {
     _creatorName2 = creatorName2;
   }
+  set ageRestriction(int ageRestriction)
+  {
+    _ageRestriction = ageRestriction;
+  }
+  set totalNumberBook(int totalNumberBook)
+  {
+    _totalNumberBook = totalNumberBook;
+  }
+  set totalNumberEpisode(int totalNumberEpisode)
+  {
+    _totalNumberEpisode = totalNumberEpisode;
+  }
+  set pricePerEpisode(int pricePerEpisode)
+  {
+    _pricePerEpisode = pricePerEpisode;
+  }
+  set pricePerRent(int pricePerRent)
+  {
+    _pricePerRent = pricePerRent;
+  }
+  set freeEpisode(int freeEpisode)
+  {
+    _freeEpisode = freeEpisode;
+  }
+  set languageLocaleCode(String languageLocaleCode)
+  {
+    _languageLocaleCode = languageLocaleCode;
+  }
+  set profitModelType(int profitModelType)
+  {
+    _profitModelType = profitModelType;
+  }
+  set dateCreated(String dateCreated)
+  {
+    _dateCreated = dateCreated;
+  }
+  set datePublished(String datePublished)
+  {
+    _datePublished = datePublished;
+  }
+
 }

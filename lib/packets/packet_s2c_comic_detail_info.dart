@@ -35,7 +35,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     ModelComicDetailInfo.getInstance().userId = jsonMap['user_id'];
     ModelComicDetailInfo.getInstance().comicId = jsonMap['comic_id'];
     ModelComicDetailInfo.getInstance().creatorName = jsonMap['creator_name'];
-    ModelComicDetailInfo.getInstance().mainTitleName = jsonMap['title'];
+    ModelComicDetailInfo.getInstance().titleName = jsonMap['title'];
     ModelComicDetailInfo.getInstance().explain = jsonMap['explain'];
     //print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
     ModelComicDetailInfo.getInstance().point = double.parse(jsonMap['point'].toString());
@@ -135,7 +135,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     ModelComicDetailInfo.getInstance().userId = readStringToByteBuffer();
     ModelComicDetailInfo.getInstance().comicId = readStringToByteBuffer();
     ModelComicDetailInfo.getInstance().creatorName = readStringToByteBuffer();
-    ModelComicDetailInfo.getInstance().mainTitleName = readStringToByteBuffer();
+    ModelComicDetailInfo.getInstance().titleName = readStringToByteBuffer();
     ModelComicDetailInfo.getInstance().explain = readStringToByteBuffer();
     print('comicDetailInfo_explain : ${ModelComicDetailInfo.getInstance().explain}');
     ModelComicDetailInfo.getInstance().point = getDouble();

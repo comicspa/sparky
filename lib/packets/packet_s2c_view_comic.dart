@@ -4,6 +4,7 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_view_comic.dart';
 import 'package:sparky/models/model_preset.dart';
+import 'package:sparky/models/model_comic_info.dart';
 
 
 class PacketS2CViewComic extends PacketS2CCommon
@@ -23,20 +24,8 @@ class PacketS2CViewComic extends PacketS2CCommon
     ModelViewComic.getInstance().episodeId = episodeId;
     ModelViewComic.getInstance().title = jsonMap['title'];
     int style = jsonMap['style'];
-    switch(style)
-    {
-      case 0:
-        {
-          ModelViewComic.getInstance().style = e_comic_view_style.vertical;
-        }
-        break;
+    ModelViewComic.getInstance().viewDirectionType = e_view_direction_type.values[style];
 
-      case 1:
-        {
-          ModelViewComic.getInstance().style = e_comic_view_style.horizontal;
-        }
-        break;
-    }
 
     int comicCount = jsonMap['count'];
     print('cutImageCount : $comicCount');

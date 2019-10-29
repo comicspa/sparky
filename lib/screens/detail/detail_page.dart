@@ -128,7 +128,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
     fit: BoxFit.fitWidth,
     child: SizedBox(
     width: ManageDeviceInfo.resolutionWidth * 0.7,
-    child: ModelComicDetailInfo.getInstance().mainTitleName == null
+    child: ModelComicDetailInfo.getInstance().titleName == null
     ? Text(
     'Loading...',
     maxLines: 1,
@@ -142,7 +142,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
     ),
     )
         : Text(
-    ModelComicDetailInfo.getInstance().mainTitleName,
+    ModelComicDetailInfo.getInstance().titleName,
     maxLines: 1,
     overflow: TextOverflow.ellipsis,
     textAlign: TextAlign.start,
@@ -264,7 +264,7 @@ class DetailHeaderWidget extends StatelessWidget {
           ),
           new DeatilHeaderTitleWidget(
             titleThumnailUrl: ModelComicDetailInfo.getInstance().representationImageUrl,
-            titleName: ModelComicDetailInfo.getInstance().mainTitleName,
+            titleName: ModelComicDetailInfo.getInstance().titleName,
             creatorName: ModelComicDetailInfo.getInstance().creatorName
           ),
           Divider(),
