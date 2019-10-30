@@ -791,11 +791,11 @@ class ManageFirebaseDatabase
   }
 
 
-  static void updateModelComicDetailInfoLike()
+  static void updateModelComicDetailInfoSubscribe()
   {
     DatabaseReference modelReference = reference.child('model_comic_detail_info').child('1566811403000_000001');
     modelReference.child('subscribers').update({
-      '22222': 1
+      '44444': 1
     }).then((_) {
       // ...
     });
@@ -803,7 +803,7 @@ class ManageFirebaseDatabase
 
   static void searchModelComicDetailInfoSubscribe()
   {
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('1566811403000_000001').child('subscribers');
+    DatabaseReference modelUserInfoReference = reference.child('model_comic_detail_info').child('1566811403000_000001').child('subscribers');
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {
       print('[searchModelComicDetailInfoSubscribe] - ${snapshot.value}');
@@ -811,36 +811,18 @@ class ManageFirebaseDatabase
       //Map map = snapshot.value;
       //print(map['22222']);
 
-
     });
   }
 
   static void deleteModelComicDetailInfoSubscribe()
   {
 
-    String key;
-    String value = '3333333';
-
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('1566811403000_000001').child('subscribers');
-    modelUserInfoReference.once().then((DataSnapshot snapshot)
-    {
-      print('[deleteModelComicDetailInfoSubscribe] - ${snapshot.value}');
-
-      Map map = snapshot.value;
-
-      //print(map['22222']);
-
-      //map.containsValue(value)
-
-    });
-
-
-    /*
-    modelReference.remove().then((_) {
+    modelUserInfoReference.child('44444').remove().then((_) {
       // ...
     });
 
-     */
+
 
   }
 

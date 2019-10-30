@@ -10,10 +10,12 @@ import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SSubscribeComic extends PacketC2SCommon
 {
+  String _creatorId;
   String _comicId;
   String _partId;
   String _seasonId;
-  bool _like;
+  int _subscribed;
+  String _userId;
 
   PacketC2SSubscribeComic()
   {
@@ -21,12 +23,14 @@ class PacketC2SSubscribeComic extends PacketC2SCommon
   }
 
 
-  void generate(String comicId,String partId,String seasonId,bool like)
+  void generate(String userId,String creatorId,String comicId,String partId,String seasonId,int subscribed)
   {
+    _creatorId = creatorId;
+    _userId = userId;
     _comicId = comicId;
     _partId = partId;
     _seasonId = seasonId;
-    _like = like;
+    _subscribed = subscribed;
 
     respondPacket = null;
     respondPacket = new PacketS2CSubscribeComic();
@@ -64,25 +68,27 @@ class PacketC2SSubscribeComic extends PacketC2SCommon
 
     if(e_packet_status.start_dispatch_request == respondPacket.status)
     {
-      String userId;
-      if(null == ModelUserInfo.getInstance().uId)
+      String userId = ModelUserInfo.getInstance().uId;
+
+
+      DatabaseReference modelReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('${_creatorId}_${_comicId}').child('subscribers');
+
+      if(1 == _subscribed)
       {
-        userId = ManageDeviceInfo.deviceId;
+        modelReference.update({
+          userId: 1
+        }).then((_) {
+          (respondPacket as PacketS2CSubscribeComic).parseFireBaseDBJson(1, onFetchDone);
+        });
       }
       else
       {
-        userId = ModelUserInfo.getInstance().uId;
+        modelReference.child(_userId).remove().then((_)
+        {
+          (respondPacket as PacketS2CSubscribeComic).parseFireBaseDBJson(0, onFetchDone);
+        });
       }
 
-
-      DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('likes');
-      modelUserInfoReference.once().then((DataSnapshot snapshot) {
-        print('[PacketC2SSubscribeComic:fetchFireBaseDB ] - ${snapshot.value}');
-
-        (respondPacket as PacketS2CSubscribeComic).parseFireBaseDBJson(snapshot.value, onFetchDone);
-
-        return true;
-      });
     }
 
 

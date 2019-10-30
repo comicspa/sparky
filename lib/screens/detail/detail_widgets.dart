@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:share/share.dart';
 // import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
-
-
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/manage/manage_device_info.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
+import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
+import 'package:sparky/packets/packet_c2s_subscribe_comic.dart';
 import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/screens/common_widgets.dart';
 
 import 'package:sparky/screens/viewer.dart';
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -374,20 +377,65 @@ class LikedIconWidget extends StatefulWidget {
 }
 
 class _LikedIconWidgetState extends State<LikedIconWidget> {
-  bool _isLiked = false;
-  int _LikeCount = 41;
 
-  void _toggleLike() {
-  setState(() {
-    if (_isLiked) {
-      _LikeCount -= 1;
-      _isLiked = false;
-    } else {
-      _LikeCount += 1;
-      _isLiked = true;
+  PacketC2SSubscribeComic _packetC2SSubscribeComic = new PacketC2SSubscribeComic();
+  bool _fetchStatus = false;
+
+  void _onFetchDone(PacketS2CCommon packetS2cPacket)
+  {
+    switch(packetS2cPacket.type)
+    {
+      case e_packet_type.s2c_subscribe_comic:
+        {
+          if(1 == ModelComicDetailInfo.getInstance().subscribed)
+            {
+              ManageToastMessage.showShort('구독 되었습니다.');
+            }
+          else
+            {
+              ManageToastMessage.showShort('구독 취소되었습니다.');
+            }
+
+        }
+        break;
+
+      default:
+        break;
     }
-  });
-}
+
+    _fetchStatus = false;
+
+    setState(()
+    {
+
+    });
+  }
+
+
+  void _toggleSubscribe()
+  {
+    if(false == ModelUserInfo.getInstance().signedIn)
+    {
+      ManageToastMessage.showShort('로그인이 필요합니다.');
+      return;
+    }
+
+
+    if(true == _fetchStatus)
+    {
+      ManageToastMessage.showShort('잠시 기다려 주세요.');
+      return;
+    }
+    _fetchStatus = true;
+
+    _packetC2SSubscribeComic.generate(ModelUserInfo.getInstance().uId,
+        ModelComicDetailInfo.getInstance().creatorId,
+        ModelComicDetailInfo.getInstance().comicId,
+        ModelComicDetailInfo.getInstance().partId,
+        ModelComicDetailInfo.getInstance().seasonId,
+        1 == ModelComicDetailInfo.getInstance().subscribed? 0 : 1);
+    _packetC2SSubscribeComic.fetch(_onFetchDone);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -398,16 +446,16 @@ class _LikedIconWidgetState extends State<LikedIconWidget> {
           padding: EdgeInsets.all(0),
           alignment: Alignment.center,
             child: IconButton(
-              icon: (_isLiked ? Icon(Icons.star) : Icon(Icons.star_border)),
+              icon: (1 == ModelComicDetailInfo.getInstance().subscribed? Icon(Icons.star) : Icon(Icons.star_border)),
               color: Colors.red[500],
-              onPressed: _toggleLike,
+              onPressed: _toggleSubscribe,
             ),
         ),
         SizedBox(width: ManageDeviceInfo.resolutionWidth * 0.015,),
         Container(
           alignment: Alignment.center,
           child: Text(
-            '좋아요',
+            '구독하기',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
