@@ -18,6 +18,7 @@ class ModelComicDetailInfo
   List<ModelComicInfo> _modelComicInfoList;
   ui.Image _representationImage;
   int _modelComicInfoLength = 0;
+  int _subscribed = 0;
 
   String get userId => _userId;
   String get comicId => _comicId;
@@ -32,6 +33,7 @@ class ModelComicDetailInfo
   ui.Image get representationImage => _representationImage;
   String get creatorId => _creatorId;
   int get modelComicInfoLength => _modelComicInfoLength;
+  int get subscribed => _subscribed;
 
   set userId(String userId)
   {
@@ -86,6 +88,11 @@ class ModelComicDetailInfo
   set modelComicInfoLength(int modelComicInfoLength)
   {
     _modelComicInfoLength = modelComicInfoLength;
+  }
+
+  set subscribed(int subscribed)
+  {
+    _subscribed = subscribed;
   }
 
   String getPrevEpisodeId(String episodeId)

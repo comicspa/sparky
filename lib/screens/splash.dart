@@ -62,6 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     //ManageFirebaseDatabase.setModelInfo('model_weekly_trend_comic_info','1566811403000','000004');
     //ManageFirebaseDatabase.deleteModelComicDetailInfoLike();
+    //ManageFirebaseDatabase.deleteModelComicDetailInfoSubscribe();
 
      _uId = await ManageSharedPreference.getString('uId');
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');

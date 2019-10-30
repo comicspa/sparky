@@ -154,7 +154,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   physics: BouncingScrollPhysics(),
-                  itemCount: 6,// (null != ModelPriceInfo.priceIndexList)? ModelPriceInfo.priceIndexList.length : 0,
+                  itemCount: /*6,*/ (null != ModelPriceInfo.priceIndexList)? ModelPriceInfo.priceIndexList.length : 0,
                   itemBuilder: (context, index) {
                     return ListTile(
                       leading: SizedBox(
@@ -162,7 +162,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                         child: Image.asset('images/Comi.png')
                       ),
                       title: Text(
-                        '코미10',//'코미${ModelPriceInfo.priceIndexList[index]}',
+                        /*'코미10',*/'코미${ModelPriceInfo.priceIndexList[index]}',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Lato',
@@ -180,7 +180,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                           children: <Widget>[
                             
                             Text(
-                              '10',//'${ModelPriceInfo.getPlatform(ModelPriceInfo.priceIndexList[index])}',
+                              /*'10',*/'${ModelPriceInfo.getPlatform(ModelPriceInfo.priceIndexList[index])}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Lato',

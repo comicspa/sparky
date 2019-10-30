@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:sparky/manage/manage_device_info.dart';
+import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
@@ -52,6 +54,28 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     ModelComicDetailInfo.getInstance().modelComicInfoList.clear();
 
     int countIndex = 0;
+
+    var subscribersMap = jsonMap['subscribers'];
+    if(true == ModelUserInfo.getInstance().signedIn)
+    {
+      if(null != subscribersMap)
+      {
+        if (subscribersMap.containsKey(ModelUserInfo
+            .getInstance()
+            .uId)) {
+          ModelComicDetailInfo
+              .getInstance()
+              .subscribed = 1;
+        }
+        else {
+          ModelComicDetailInfo
+              .getInstance()
+              .subscribed = 0;
+        }
+      }
+    }
+
+
     var comics = jsonMap['comics'];
 
     ModelComicDetailInfo.getInstance().modelComicInfoLength = comics.keys.length;
