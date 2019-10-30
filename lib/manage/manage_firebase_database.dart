@@ -794,24 +794,37 @@ class ManageFirebaseDatabase
   static void updateModelComicDetailInfoLike()
   {
     DatabaseReference modelReference = reference.child('model_comic_detail_info').child('1566811403000_000001');
-    modelReference.child('like').update({
-      '22222': '3333333'
+    modelReference.child('subscribers').update({
+      '22222': 1
     }).then((_) {
       // ...
     });
   }
 
+  static void searchModelComicDetailInfoSubscribe()
+  {
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('1566811403000_000001').child('subscribers');
+    modelUserInfoReference.once().then((DataSnapshot snapshot)
+    {
+      print('[searchModelComicDetailInfoSubscribe] - ${snapshot.value}');
 
-  static void deleteModelComicDetailInfoLike()
+      //Map map = snapshot.value;
+      //print(map['22222']);
+
+
+    });
+  }
+
+  static void deleteModelComicDetailInfoSubscribe()
   {
 
     String key;
     String value = '3333333';
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('1566811403000_000001').child('like');
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_comic_detail_info').child('1566811403000_000001').child('subscribers');
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {
-      print('[deleteModelComicDetailInfoLike] - ${snapshot.value}');
+      print('[deleteModelComicDetailInfoSubscribe] - ${snapshot.value}');
 
       Map map = snapshot.value;
 

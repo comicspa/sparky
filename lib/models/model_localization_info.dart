@@ -14,7 +14,15 @@ class ModelLocalizationInfo
   {
     if(null == _languagePack)
       return '';
-    return _languagePack[category][key];
+
+    String value = _languagePack[category][key];
+    if(null == value)
+    {
+      print('getText == null - category : $category , key : $key');
+      return '';
+    }
+
+    return value;
   }
 
 }
