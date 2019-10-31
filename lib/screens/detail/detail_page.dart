@@ -7,6 +7,7 @@ import 'package:sparky/screens/common_widgets.dart';
 import 'package:sparky/screens/detail/detail_widgets.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_s2c_subscribe_comic.dart';
 
 class DetailPage extends StatefulWidget {
   final String _userId;
