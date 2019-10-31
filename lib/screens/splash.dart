@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
-
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
@@ -63,6 +63,7 @@ class _SplashScreenState extends State<SplashScreen>
     //ManageFirebaseDatabase.setModelInfo('model_weekly_trend_comic_info','1566811403000','000004');
     //ManageFirebaseDatabase.deleteModelComicDetailInfoLike();
     //ManageFirebaseDatabase.deleteModelComicDetailInfoSubscribe();
+    //ManageFireBaseCloudFireStore.getData();
 
      _uId = await ManageSharedPreference.getString('uId');
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
