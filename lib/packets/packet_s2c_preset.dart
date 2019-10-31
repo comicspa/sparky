@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_preset.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class PacketS2CPreset extends PacketS2CCommon
@@ -13,34 +14,41 @@ class PacketS2CPreset extends PacketS2CCommon
     type = e_packet_type.s2c_preset;
   }
 
+  void parseInfo(Map<dynamic,dynamic> jsonMap)
+  {
+    String version = jsonMap['version'];
+    print('parseInfo - current version : $version , app version : ${ModelPreset.version}');
+  }
+
+  void parseLink(Map<dynamic,dynamic> jsonMap)
+  {
+    ModelPreset.faqUrl = jsonMap['faq'];
+    print('parseLink - faq : ${ModelPreset.faqUrl}');
+
+    ModelPreset.privacyPolicyUrl = jsonMap['privacy_policy'];
+    print('parseLink - privacy_policy : ${ModelPreset.privacyPolicyUrl}');
+
+    ModelPreset.termsOfUseUrl = jsonMap['terms_of_use'];
+    print('parseLink - terms_of_use : ${ModelPreset.termsOfUseUrl}');
+
+    ModelPreset.homepageUrl = jsonMap['home_page'];
+    print('parseLink - homepageUrl : ${ModelPreset.homepageUrl}');
+
+    ModelPreset.termsOfUseRegisterComicUrl = jsonMap['terms_of_use_register_comic'];
+    print('parseLink - terms_of_use_register_comic : ${ModelPreset.termsOfUseRegisterComicUrl}');
+
+    ModelPreset.termsOfUseTranslateComicUrl = jsonMap['terms_of_use_translate_comic'];
+    print('parseLink - terms_of_use_translate_comic : ${ModelPreset.termsOfUseTranslateComicUrl}');
+  }
 
 
-
-  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  Future<void> parseRealtimeDatabaseJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     status = e_packet_status.start_dispatch_respond;
-
-    String version = jsonMap['version'];
-    print('parseJson - current version : $version , app version : ${ModelPreset.version}');
+    parseInfo(jsonMap);
 
     var linkJson = jsonMap['link'];
-    ModelPreset.faqUrl = linkJson['faq'];
-    print('parseJson - faq : ${ModelPreset.faqUrl}');
-
-    ModelPreset.privacyPolicyUrl = linkJson['privacy_policy'];
-    print('parseJson - privacy_policy : ${ModelPreset.privacyPolicyUrl}');
-
-    ModelPreset.termsOfUseUrl = linkJson['terms_of_use'];
-    print('parsejson - terms_of_use : ${ModelPreset.termsOfUseUrl}');
-
-    ModelPreset.homepageUrl = linkJson['home_page'];
-    print('parseJson - homepageUrl : ${ModelPreset.homepageUrl}');
-
-    ModelPreset.termsOfUseRegisterComicUrl = linkJson['terms_of_use_register_comic'];
-    print('parseJson - terms_of_use_register_comic : ${ModelPreset.termsOfUseRegisterComicUrl}');
-
-    ModelPreset.termsOfUseTranslateComicUrl = linkJson['terms_of_use_translate_comic'];
-    print('parseJson - terms_of_use_translate_comic : ${ModelPreset.termsOfUseTranslateComicUrl}');
+    parseLink(linkJson);
 
     status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
@@ -48,5 +56,30 @@ class PacketS2CPreset extends PacketS2CCommon
   }
 
 
+  Future<void> parseCloudFirestoreJson(List<DocumentSnapshot> jsonList , onFetchDone) async
+  {
+    status = e_packet_status.start_dispatch_respond;
+    for(int i=0; i<jsonList.length; ++i)
+    {
+      switch(jsonList[i].documentID)
+      {
+        case 'info':
+          {
+            parseInfo(jsonList[i].data);
+          }
+          break;
+
+        case 'link':
+          {
+            parseLink(jsonList[i].data);
+          }
+          break;
+      }
+    }
+
+    status = e_packet_status.finish_dispatch_respond;
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
 
 }
