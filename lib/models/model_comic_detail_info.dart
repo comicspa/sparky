@@ -2,6 +2,7 @@
 import 'dart:ui' as ui;
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_comic_info.dart';
+import 'package:sparky/models/model_comic_episode_info.dart';
 
 class ModelComicDetailInfo
 {
@@ -15,7 +16,7 @@ class ModelComicDetailInfo
   String _creatorId;
   String _creatorName;
   double _point;
-  List<ModelComicInfo> _modelComicInfoList;
+  List<ModelComicEpisodeInfo> _modelComicEpisodeInfoList;
   ui.Image _representationImage;
   int _modelComicInfoLength = 0;
   int _subscribed = 0;
@@ -29,7 +30,7 @@ class ModelComicDetailInfo
   String get explain => _explain;
   String get creatorName => _creatorName;
   double get point => _point;
-  List<ModelComicInfo> get modelComicInfoList => _modelComicInfoList;
+  List<ModelComicEpisodeInfo> get modelComicEpisodeInfoList => _modelComicEpisodeInfoList;
   ui.Image get representationImage => _representationImage;
   String get creatorId => _creatorId;
   int get modelComicInfoLength => _modelComicInfoLength;
@@ -71,9 +72,9 @@ class ModelComicDetailInfo
   {
     _point = point;
   }
-  set modelComicInfoList(List<ModelComicInfo> modelComicInfoList)
+  set modelComicEpisodeInfoList(List<ModelComicEpisodeInfo> modelComicEpisodeInfoList)
   {
-    _modelComicInfoList = modelComicInfoList;
+    _modelComicEpisodeInfoList = modelComicEpisodeInfoList;
   }
   set representationImage(ui.Image representationImage)
   {
@@ -109,21 +110,21 @@ class ModelComicDetailInfo
     int episodeNumber = int.parse(episodeId);
     ++ episodeNumber;
 
-    if(episodeNumber < _modelComicInfoList.length + 1)
+    if(episodeNumber < _modelComicEpisodeInfoList.length + 1)
       episodeId = ModelPreset.convertNumber2EpisodeId(episodeNumber);
     return episodeId;
   }
 
 
 
-  ModelComicInfo searchModelComicInfo(String episodeId)
+  ModelComicEpisodeInfo searchModelComicInfo(String episodeId)
   {
-    if(null == _modelComicInfoList)
+    if(null == _modelComicEpisodeInfoList)
       return null;
-    for(int countIndex=0; countIndex<_modelComicInfoList.length; ++countIndex)
+    for(int countIndex=0; countIndex<_modelComicEpisodeInfoList.length; ++countIndex)
       {
-        if(0 == _modelComicInfoList[countIndex].episodeId.compareTo(episodeId))
-          return _modelComicInfoList[countIndex];
+        if(0 == _modelComicEpisodeInfoList[countIndex].episodeId.compareTo(episodeId))
+          return _modelComicEpisodeInfoList[countIndex];
       }
 
     return null;

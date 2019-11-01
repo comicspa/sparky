@@ -641,7 +641,7 @@ class EpisodeListViewWidget extends StatelessWidget {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
-          itemCount: ModelComicDetailInfo.getInstance().modelComicInfoList.length,
+          itemCount: ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList.length,
           itemBuilder: (context, index) {
             return Column(
               mainAxisSize: MainAxisSize.min,
@@ -690,7 +690,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                                 BorderRadius.circular(4.0),
                             child: FadeInImage.memoryNetwork(
                               placeholder: kTransparentImage,
-                              image: ModelComicDetailInfo.getInstance().modelComicInfoList[index].thumbnailImageUrl,
+                              image: ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList[index].thumbnailUrl,
                               width: ManageDeviceInfo.resolutionWidth * 0.26,
                               height: ManageDeviceInfo.resolutionHeight * 0.16,
                               fit: BoxFit.fill,
@@ -727,7 +727,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                                     padding: EdgeInsets.only(
                                         left: ManageDeviceInfo.resolutionWidth * 0.04),
                                     child: Text(
-                                        '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].episode}화',
+                                        '${ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList[index].episodeNumber}화',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
@@ -744,7 +744,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                                     padding: EdgeInsets.only(
                                         left: ManageDeviceInfo.resolutionWidth * 0.04),
                                     child: Text(
-                                        '${ModelComicDetailInfo.getInstance().modelComicInfoList[index].titleName}',
+                                        '${ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList[index].titleName}',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,

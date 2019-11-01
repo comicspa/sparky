@@ -18,6 +18,7 @@ class ModelComicEpisodeInfo
   List<String> get imageCutUrlList => _imageCutUrlList;
   //List<ui.Image> get imageCutList => _imageCutList;
   String get episodeId => _episodeId;
+  int get episodeNumber {return int.parse(_episodeId); }
   String get titleName => _titleName;
   e_view_direction_type get viewDirectionType => _viewDirectionType;
 
@@ -72,8 +73,6 @@ class ModelComicEpisodeInfo
 
       _imageCutUrlList.add(imageUrl);
     }
-
-
    */
 
 

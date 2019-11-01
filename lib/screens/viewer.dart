@@ -303,7 +303,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
                     color: Colors.red[400],
                     borderRadius: BorderRadius.all(Radius.circular(80.0)),
                     child: InkWell(
-                      onTap: ModelComicDetailInfo.getInstance().modelComicInfoList.length == int.parse(_episodeId)
+                      onTap: ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList.length == int.parse(_episodeId)
                         ? () {  
                           showDialog(
                             context: context,

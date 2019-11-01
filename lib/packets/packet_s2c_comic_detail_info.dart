@@ -6,6 +6,7 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/models/model_comic_info.dart';
+import 'package:sparky/models/model_comic_episode_info.dart';
 import 'package:sparky/models/model_preset.dart';
 
 
@@ -49,9 +50,9 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     ModelComicDetailInfo.getInstance().representationImageUrl =
     await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
-    if(null == ModelComicDetailInfo.getInstance().modelComicInfoList)
-      ModelComicDetailInfo.getInstance().modelComicInfoList = new List<ModelComicInfo>();
-    ModelComicDetailInfo.getInstance().modelComicInfoList.clear();
+    if(null == ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList)
+      ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList = new List<ModelComicEpisodeInfo>();
+    ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList.clear();
 
     int countIndex = 0;
 
@@ -89,20 +90,19 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     for(var key in newMap.keys)
     {
 
-      ModelComicInfo modelComicInfo = new ModelComicInfo();
+      ModelComicEpisodeInfo modelComicEpisodeInfo = new ModelComicEpisodeInfo();
 
-      modelComicInfo.episodeId = comics[key.toString()]['episode_id'];
-      modelComicInfo.countIndex = int.parse(modelComicInfo.episodeId);
-      modelComicInfo.titleName = comics[key.toString()]['title'];
-      modelComicInfo.collected = comics[key.toString()]['collected'];
-      modelComicInfo.updated = comics[key.toString()]['updated'];
+      modelComicEpisodeInfo.episodeId = comics[key.toString()]['episode_id'];
+      modelComicEpisodeInfo.titleName = comics[key.toString()]['title'];
+      int collected = comics[key.toString()]['collected'];
+      int updated = comics[key.toString()]['updated'];
 
-      print('episode_id : ${modelComicInfo.episodeId}');
+      print('episode_id : ${modelComicEpisodeInfo.episodeId}');
 
-      modelComicInfo.userId = ModelComicDetailInfo.getInstance().userId;
-      modelComicInfo.comicId = ModelComicDetailInfo.getInstance().comicId;
+      //modelComicEpisodeInfo.userId = ModelComicDetailInfo.getInstance().userId;
+      //modelComicEpisodeInfo.comicId = ModelComicDetailInfo.getInstance().comicId;
 
-      modelComicInfo.thumbnailImageUrl =
+      modelComicEpisodeInfo.thumbnailUrl =
       //await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
       //   ModelComicDetailInfo.getInstance().comicId,'001','001','00001');
 
@@ -111,12 +111,12 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
         ModelComicDetailInfo.getInstance().comicId,
         ModelComicDetailInfo.getInstance().partId,
         ModelComicDetailInfo.getInstance().seasonId,
-          modelComicInfo.episodeId);
+          modelComicEpisodeInfo.episodeId);
 
-      print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicInfo.thumbnailImageUrl}');
+      print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicEpisodeInfo.thumbnailUrl}');
       ++countIndex;
 
-      ModelComicDetailInfo.getInstance().modelComicInfoList.add(modelComicInfo);
+      ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList.add(modelComicEpisodeInfo);
 
       if(0 == countIndex % 5) {
         if (null != onFetchDone)
@@ -171,38 +171,38 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
 
-    if(null == ModelComicDetailInfo.getInstance().modelComicInfoList)
-      ModelComicDetailInfo.getInstance().modelComicInfoList = new List<ModelComicInfo>();
+    if(null == ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList)
+      ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList = new List<ModelComicEpisodeInfo>();
     else
-      ModelComicDetailInfo.getInstance().modelComicInfoList.clear();
+      ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList.clear();
 
     int comicInfoCount = getUint32();
     print('comicInfoCount : $comicInfoCount');
     for(int countIndex=0; countIndex<comicInfoCount; ++countIndex)
     {
-      ModelComicInfo modelComicInfo = new ModelComicInfo();
+      ModelComicEpisodeInfo modelComicEpisodeInfo = new ModelComicEpisodeInfo();
 
-      modelComicInfo.episodeId = readStringToByteBuffer();
-      modelComicInfo.titleName = readStringToByteBuffer();
-      modelComicInfo.collected = getUint32();
-      modelComicInfo.updated = getUint32();
+      String episodeId = readStringToByteBuffer();
+      modelComicEpisodeInfo.titleName = readStringToByteBuffer();
+      int collected = getUint32();
+      int updated = getUint32();
 
-      modelComicInfo.userId = ModelComicDetailInfo.getInstance().userId;
-      modelComicInfo.comicId = ModelComicDetailInfo.getInstance().comicId;
+      //modelComicEpisodeInfo.userId = ModelComicDetailInfo.getInstance().userId;
+      //modelComicEpisodeInfo.comicId = ModelComicDetailInfo.getInstance().comicId;
 
-      modelComicInfo.thumbnailImageUrl =
+      modelComicEpisodeInfo.thumbnailUrl =
       //await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
        //   ModelComicDetailInfo.getInstance().comicId,'001','001','00001');
       await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
           ModelComicDetailInfo.getInstance().comicId,
           ModelComicDetailInfo.getInstance().partId,
           ModelComicDetailInfo.getInstance().seasonId,
-          modelComicInfo.episodeId);
+          modelComicEpisodeInfo.episodeId);
 
 
-      print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicInfo.thumbnailImageUrl}');
+      print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicEpisodeInfo.thumbnailUrl}');
 
-      ModelComicDetailInfo.getInstance().modelComicInfoList.add(modelComicInfo);
+      ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList.add(modelComicEpisodeInfo);
     }
 
     if(null != onFetchDone)

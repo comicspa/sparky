@@ -1,5 +1,7 @@
 
 
+import 'package:sparky/models/model_comic_episode_info.dart';
+
 enum e_comic_genre
 {
   romance,
@@ -50,11 +52,7 @@ class ModelComicInfo
   String _comicId = '000001';
   String _partId = '001';
   String _seasonId = '001';
-  String _episodeId = '00001';
-  String _thumbnailImageURL;
   String _titleName;
-  int _collected = 0;
-  int _updated = 0;
   String _cp;
   e_story_status _storyStatus;
   String _genre1;
@@ -74,6 +72,7 @@ class ModelComicInfo
   int _profitModelType;
   String _dateCreated;
   String _datePublished;
+  List<ModelComicEpisodeInfo> _modelComicEpisodeInfoList;
 
   String get creatorId => _creatorId;
   int get countIndex => _countIndex;
@@ -81,16 +80,17 @@ class ModelComicInfo
   String get comicId => _comicId;
   String get partId => _partId;
   String get seasonId => _seasonId;
+
+  /*
   int get episode
   {
     return int.parse(_episodeId);
   }
-  String get episodeId => _episodeId;
-  String get thumbnailImageUrl => _thumbnailImageURL;
+
+   */
   String get titleName => _titleName;
-  int get collected => _collected;
-  int get updated => _updated;
   e_story_status get storyStatus => _storyStatus;
+  String get cp => _cp;
   String get genre1 => _genre1;
   String get genre2 => _genre2;
   String get genre3 => _genre3;
@@ -110,8 +110,12 @@ class ModelComicInfo
   int get profitModelType => _profitModelType;
   String get dateCreated => _dateCreated;
   String get datePublished => _datePublished;
+  List<ModelComicEpisodeInfo> get modelComicEpisodeInfoList => _modelComicEpisodeInfoList;
 
-
+  set cp(String cp)
+  {
+    _cp = cp;
+  }
   set creatorId(String creatorId)
   {
     _creatorId = creatorId;
@@ -136,25 +140,9 @@ class ModelComicInfo
   {
     _seasonId = seasonId;
   }
-  set episodeId(String episodeId)
-  {
-    _episodeId = episodeId;
-  }
-  set thumbnailImageUrl(String thumbnailImageUrl)
-  {
-    _thumbnailImageURL = thumbnailImageUrl;
-  }
   set titleName(String titleName)
   {
     _titleName = titleName;
-  }
-  set collected(int collected)
-  {
-    _collected = collected;
-  }
-  set updated(int updated)
-  {
-    _updated = updated;
   }
   set storyStatus(e_story_status storyStatus)
   {
@@ -235,6 +223,10 @@ class ModelComicInfo
   set datePublished(String datePublished)
   {
     _datePublished = datePublished;
+  }
+  set modelComicEpisodeInfoList(List<ModelComicEpisodeInfo> modelComicEpisodeInfoList)
+  {
+    _modelComicEpisodeInfoList = modelComicEpisodeInfoList;
   }
 
 }
