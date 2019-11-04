@@ -62,7 +62,7 @@ class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
       modelLibraryOwnedComicInfo.url = url;
       modelLibraryOwnedComicInfo.thumbnailUrl = url;
-      modelLibraryOwnedComicInfo.image = await ManageResource.fetchImage(url);
+      //modelLibraryOwnedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelLibraryOwnedComicInfo.toString());
 

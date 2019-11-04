@@ -52,7 +52,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       modelFeaturedComicInfo.url = url;
       modelFeaturedComicInfo.thumbnailUrl = url;
 
-      modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
+      //modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelFeaturedComicInfo.toString());
 
@@ -80,7 +80,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       modelRecommendedComicInfo.url = url;
       modelRecommendedComicInfo.thumbnailUrl = url;
 
-      modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
+      //modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRecommendedComicInfo.toString());
 
@@ -108,7 +108,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       modelRealTimeTrendInfo.url = url;
       modelRealTimeTrendInfo.thumbnailUrl = url;
 
-      modelRealTimeTrendInfo.image = await ManageResource.fetchImage(url);
+      //modelRealTimeTrendInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRealTimeTrendInfo.toString());
 
@@ -135,7 +135,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       modelNewComicInfo.url = url;
       modelNewComicInfo.thumbnailUrl = url;
 
-      modelNewComicInfo.image = await ManageResource.fetchImage(url);
+      //modelNewComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelNewComicInfo.toString());
 
@@ -164,7 +164,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       modelTodayTrendComicInfo.url = url;
       modelTodayTrendComicInfo.thumbnailUrl = url;
 
-      modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
+      //modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelTodayTrendComicInfo.toString());
 
@@ -192,7 +192,7 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
       modelWeeklyTrendComicInfo.url = url;
       modelWeeklyTrendComicInfo.thumbnailUrl = url;
 
-      modelWeeklyTrendComicInfo.image = await ManageResource.fetchImage(url);
+      //modelWeeklyTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelWeeklyTrendComicInfo.toString());
 

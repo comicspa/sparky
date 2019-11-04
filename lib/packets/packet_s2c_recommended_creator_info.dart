@@ -60,7 +60,7 @@ class PacketS2CRecommendedCreatorInfo extends PacketS2CCommon
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedCreatorInfo.userId, modelRecommendedCreatorInfo.comicId);
       modelRecommendedCreatorInfo.url = url;
       modelRecommendedCreatorInfo.thumbnailUrl = url;
-      modelRecommendedCreatorInfo.image = await ManageResource.fetchImage(url);
+      //modelRecommendedCreatorInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRecommendedCreatorInfo.toString());
 
@@ -120,7 +120,7 @@ class PacketS2CRecommendedCreatorInfo extends PacketS2CCommon
       modelRecommendedCreatorInfo.url = url;
       modelRecommendedCreatorInfo.thumbnailUrl = url;
 
-      modelRecommendedCreatorInfo.image = await ManageResource.fetchImage(url);
+      //modelRecommendedCreatorInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRecommendedCreatorInfo.toString());
 

@@ -80,14 +80,6 @@ class ModelComicInfo
   String get comicId => _comicId;
   String get partId => _partId;
   String get seasonId => _seasonId;
-
-  /*
-  int get episode
-  {
-    return int.parse(_episodeId);
-  }
-
-   */
   String get titleName => _titleName;
   e_story_status get storyStatus => _storyStatus;
   String get cp => _cp;

@@ -60,7 +60,7 @@ class PacketS2CNewCreatorInfo extends PacketS2CCommon
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelNewCreatorInfo.userId, modelNewCreatorInfo.comicId);
       modelNewCreatorInfo.url = url;
       modelNewCreatorInfo.thumbnailUrl = url;
-      modelNewCreatorInfo.image = await ManageResource.fetchImage(url);
+      //modelNewCreatorInfo.image = await ManageResource.fetchImage(url);
 
       print(modelNewCreatorInfo.toString());
 

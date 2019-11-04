@@ -17,6 +17,7 @@ import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'package:sparky/screens/detail/detail_page.dart';
 import 'common_widgets.dart';
+import 'package:sparky/manage/manage_firebase_messaging.dart';
 
 
 class Trend extends StatefulWidget {
@@ -36,7 +37,6 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       new PacketC2SRealTimeTrendComicInfo();
   PacketC2SWeeklyTrendComicInfo c2sWeeklyTrendComicInfo =
       new PacketC2SWeeklyTrendComicInfo();
-
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
 
@@ -45,6 +45,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+    ManageFireBaseMessaging.initialize();
     // generating packet
 
     //c2STodayTrendComicInfo.generate(0, 0,false);

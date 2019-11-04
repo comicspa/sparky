@@ -63,7 +63,7 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
         String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.userId, modelFeaturedComicInfo.comicId);
         modelFeaturedComicInfo.url = url;
         modelFeaturedComicInfo.thumbnailUrl = url;
-        modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
+        //modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
 
         print(modelFeaturedComicInfo.toString());
 
@@ -124,7 +124,7 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
       modelFeaturedComicInfo.url = url;
       modelFeaturedComicInfo.thumbnailUrl = url;
 
-      modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
+      //modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
 
 
       print(modelFeaturedComicInfo.toString());

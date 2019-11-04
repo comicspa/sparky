@@ -10,7 +10,7 @@ class ModelFeaturedComicInfo
   String _title;
   String _url;
   String _thumbnailUrl;
-  ui.Image _image;
+  //ui.Image _image;
   String _creatorName = 'Cretor';
   String _creatorId;
   int _viewCount = 10000;
@@ -23,7 +23,7 @@ class ModelFeaturedComicInfo
   String get title => _title;
   String get url => _url;
   String get thumbnailUrl => _thumbnailUrl;
-  ui.Image get image => _image;
+  //ui.Image get image => _image;
   String get creatorName => _creatorName;
   String get creatorId => _creatorId;
   int get viewCount => _viewCount;
@@ -61,10 +61,7 @@ class ModelFeaturedComicInfo
     _thumbnailUrl = thumbnailUrl;
   }
 
-  set image(ui.Image image)
-  {
-    _image = image;
-  }
+  //set image(ui.Image image) {_image = image;}
 
   set creatorName(String creatorName)
   {

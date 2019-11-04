@@ -60,7 +60,7 @@ class PacketS2CTodayTrendComicInfo extends PacketS2CCommon
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelTodayTrendComicInfo.userId, modelTodayTrendComicInfo.comicId);
       modelTodayTrendComicInfo.url = url;
       modelTodayTrendComicInfo.thumbnailUrl = url;
-      modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
+      //modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelTodayTrendComicInfo.toString());
 
@@ -123,7 +123,7 @@ class PacketS2CTodayTrendComicInfo extends PacketS2CCommon
       modelTodayTrendComicInfo.url = url;
       modelTodayTrendComicInfo.thumbnailUrl = url;
 
-      modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
+      //modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelTodayTrendComicInfo.toString());
 

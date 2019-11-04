@@ -60,7 +60,7 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.userId, modelRecommendedComicInfo.comicId);
       modelRecommendedComicInfo.url = url;
       modelRecommendedComicInfo.thumbnailUrl = url;
-      modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
+      //modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRecommendedComicInfo.toString());
 
@@ -123,7 +123,7 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
       modelRecommendedComicInfo.url = url;
       modelRecommendedComicInfo.thumbnailUrl = url;
 
-      modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
+      //modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRecommendedComicInfo.toString());
 

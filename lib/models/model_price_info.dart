@@ -1,5 +1,4 @@
-import 'package:sparky/manage/manage_device_info.dart';
-
+import 'dart:io';
 
 class ModelPriceInfo
 {
@@ -31,17 +30,14 @@ class ModelPriceInfo
 
   static dynamic getPlatform(String unit)
   {
-    switch(ManageDeviceInfo.platformType)
-    {
-      case e_platform_type.ios:
+    if(Platform.isIOS)
+      {
         return _map[unit]['apple'];
-
-      case e_platform_type.android:
+      }
+    else if(Platform.isAndroid)
+      {
         return _map[unit]['google'];
-
-      default:
-        break;
-    }
+      }
 
     return null;
   }

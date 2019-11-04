@@ -10,13 +10,11 @@ class ModelComicEpisodeInfo
   int _imageCutCount = 0;
   List<String> _imageCutUrlList;
   String _episodeId = '00001';
-  //List<ui.Image> _imageCutList;
   String _titleName;
 
   String get thumbnailUrl => _thumbnailUrl;
   int get imageCutCount => _imageCutCount;
   List<String> get imageCutUrlList => _imageCutUrlList;
-  //List<ui.Image> get imageCutList => _imageCutList;
   String get episodeId => _episodeId;
   int get episodeNumber {return int.parse(_episodeId); }
   String get titleName => _titleName;
@@ -36,11 +34,6 @@ class ModelComicEpisodeInfo
   {
     _imageCutUrlList = imageCutUrlList;
   }
-
-  //set imageCutList(List<ui.Image> imageCutList)
-  //{
-  //  _imageCutList = imageCutList;
-  //}
 
   set episodeId(String episodeId)
   {
