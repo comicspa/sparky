@@ -1,10 +1,11 @@
-import 'dart:ui' as ui;
 
 import 'package:sparky/models/model_comic_info.dart';
 
 
 class ModelComicEpisodeInfo
 {
+  static const String ModelName = "model_comic_episode_info";
+
   e_view_direction_type _viewDirectionType;
   String _thumbnailUrl;
   int _imageCutCount = 0;
@@ -63,25 +64,5 @@ class ModelComicEpisodeInfo
   }
 
   static List<ModelComicEpisodeInfo> list;
-
-
-/*
-  Future<List<String>> getImageCutDownloadUrl() async
-  {
-    for(int countIndex=0; countIndex<_imageCutCount; ++countIndex)
-    {
-      if(null == _imageCutUrlList)
-        _imageCutUrlList = new List<String>();
-
-      String fileName = sprintf('%05d.jpg', (countIndex+1));
-      print('getImageCutDownloadUrl[$countIndex/$_imageCutCount)] : $fileName');
-
-      String imageUrl = await ManageFirebaseStorage.getDownloadUrl('comics/$_userId/$_comicId/$_partId/$_seasonId/$_episodeId/$fileName');
-      print('getImageCutDownloadUrl[$countIndex/$_imageCutCount)] : $imageUrl');
-
-      _imageCutUrlList.add(imageUrl);
-    }
-   */
-
 
 }

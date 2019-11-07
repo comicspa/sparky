@@ -10,6 +10,8 @@ enum e_social_provider_type
 
 class ModelUserInfo
 {
+  static const String ModelName = "model_user_info";
+
   String _uId;
   List<String> _creatorList;
   List<String> _translatorList;

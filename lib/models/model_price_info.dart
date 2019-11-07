@@ -2,6 +2,7 @@ import 'dart:io';
 
 class ModelPriceInfo
 {
+  static const String ModelName = "model_price_info";
 
   static dynamic getCreditCard(String unit)
   {

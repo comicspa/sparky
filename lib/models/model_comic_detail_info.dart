@@ -1,17 +1,17 @@
 
-//import 'dart:ui' as ui;
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/models/model_comic_episode_info.dart';
 
 class ModelComicDetailInfo
 {
+  static const String ModelName = "model_comic_detail_info";
+
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
   String _representationImageUrl;
   double _point;
   List<ModelComicEpisodeInfo> _modelComicEpisodeInfoList;
-  //ui.Image _representationImage;
   int _modelComicInfoLength = 0;
   int _subscribed = 0;
 
@@ -25,7 +25,6 @@ class ModelComicDetailInfo
   String get creatorName => _modelComicInfo.creatorName1;
   double get point => _point;
   List<ModelComicEpisodeInfo> get modelComicEpisodeInfoList => _modelComicEpisodeInfoList;
-  //ui.Image get representationImage => _representationImage;
   String get creatorId => _modelComicInfo.creatorId;
   int get modelComicInfoLength => _modelComicInfoLength;
   int get subscribed => _subscribed;
@@ -70,7 +69,6 @@ class ModelComicDetailInfo
   {
     _modelComicEpisodeInfoList = modelComicEpisodeInfoList;
   }
-  //set representationImage(ui.Image representationImage) {_representationImage = representationImage;}
 
   set creatorId(String creatorId)
   {

@@ -10,6 +10,8 @@ import 'package:sparky/manage/manage_firebase_storage.dart';
 
 class ModelPreset
 {
+  static const String ModelName = "model_preset";
+
   static String _version = '1.0.0.0';
   static String _homepageUrl = 'https://www.google.co.kr';
   static String _faqUrl = 'https://www.google.co.kr';

@@ -4,6 +4,7 @@ import 'package:sparky/models/model_comic_info.dart';
 
 class ModelLibraryRecentComicInfo
 {
+  static const String ModelName = "model_library_recent_comic_info";
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
   String get comicId => _modelComicInfo.comicId;

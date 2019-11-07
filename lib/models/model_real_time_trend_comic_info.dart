@@ -3,6 +3,7 @@ import 'package:sparky/models/model_comic_info.dart';
 
 class ModelRealTimeTrendComicInfo
 {
+  static const String ModelName = "model_real_time_trend_comic_info";
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
   String get comicId => _modelComicInfo.comicId;

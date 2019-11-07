@@ -9,43 +9,55 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_comic_info.dart';
 import 'package:sparky/models/model_comic_info.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 class PacketC2SComicInfo extends PacketC2SCommon
 {
-  String _userId;
+  String _creatorId;
   String _comicId;
+  String _partId;
+  String _seasonId;
   int _fetchStatus = 0;
-  PacketS2CComicInfo _packetS2CComicInfo;
+
 
   PacketC2SComicInfo()
   {
     type = e_packet_type.c2s_comic_info;
   }
 
-  void generate(String userId,String comicId)
+  void generate(String creatorId,String comicId,String partId,String seasonId)
   {
     _fetchStatus = 0;
-    _userId = userId;
+    _creatorId = creatorId;
     _comicId = comicId;
+    _seasonId = seasonId;
 
-    if(null != _packetS2CComicInfo)
-      _packetS2CComicInfo.clear();
-    else
-      _packetS2CComicInfo = new PacketS2CComicInfo();
-
+    respondPacket = null;
+    respondPacket = new PacketS2CComicInfo();
   }
 
   Future<ModelComicInfo> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    return _fetchFireStoreDB(onFetchDone);
   }
 
-  Future<ModelComicInfo> _fetchFireBaseDB(onFetchDone) async
+  Future<ModelComicInfo> _fetchFireStoreDB(onFetchDone) async
   {
-    print('PacketC2SComicDetailInfo : fetchFireBaseDB started');
+    print('PacketC2SComicInfo : fetchFireSotreDB started');
+
+
+    Firestore.instance
+        .collection(ModelComicInfo.ModelName)
+        .getDocuments()
+        .then((QuerySnapshot snapshot)
+    {
+      snapshot.documents..forEach((f) => print('${f.data}}'));
+
+      //(respondPacket as PacketS2CComicInfo).parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+
+    });
 
     /*
     if(3 == _fetchStatus)

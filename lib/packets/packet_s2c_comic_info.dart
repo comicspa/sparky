@@ -33,7 +33,7 @@ class PacketS2CComicInfo extends PacketS2CCommon
   }
 
 
-  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+  Future<void> parseCloudFirestoreJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     /*
     ModelComicInfo.getInstance().userId = jsonMap['user_id'];
@@ -128,7 +128,6 @@ class PacketS2CComicInfo extends PacketS2CCommon
     //print('modelComicInfoList length2 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
     //sort
-
     //if(null != modelComicInfoList) {
     //  modelComicInfoList..sort((a, b) => a.countIndex.compareTo(b.countIndex));
     //  ModelComicDetailInfo
@@ -138,9 +137,9 @@ class PacketS2CComicInfo extends PacketS2CCommon
 
     //print('modelComicInfoList length3 : ${ModelComicDetailInfo.getInstance().modelComicInfoList.length}');
 
-     */
+    */
 
-    print('[PacketC2SComicDetailInfo : fetchFireBaseDB finished]');
+    print('[PacketS2CComicInfo : parseCloudFirestoreJson finished]');
 
     if(null != onFetchDone)
       onFetchDone(this);

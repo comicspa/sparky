@@ -2,6 +2,8 @@
 
 class ModelLocalizationInfo
 {
+  static const String ModelName = "model_localization_info";
+
   static Map<dynamic,dynamic> _languagePack;
   static Map<dynamic,dynamic> get languagePack  => _languagePack;
 

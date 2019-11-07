@@ -37,6 +37,8 @@ enum e_view_direction_type
 
 class ModelComicInfo
 {
+  static const String ModelName = "model_comic_info";
+
   static const int AgeRestriction_All = 0;
   static const int AgeRestriction_12_Under = 12;
   static const int AgeRestriction_16_Under = 16;
