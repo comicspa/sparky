@@ -1,60 +1,54 @@
 
-import 'dart:ui' as ui;
+//import 'dart:ui' as ui;
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/models/model_comic_episode_info.dart';
 
 class ModelComicDetailInfo
 {
-  String _userId = '1111111111111';
-  String _comicId = '000001';
-  String _partId = '001';
-  String _seasonId = '001';
-  String _titleName;
+  ModelComicInfo _modelComicInfo = new ModelComicInfo();
+
   String _representationImageUrl;
-  String _explain;
-  String _creatorId;
-  String _creatorName;
   double _point;
   List<ModelComicEpisodeInfo> _modelComicEpisodeInfoList;
-  ui.Image _representationImage;
+  //ui.Image _representationImage;
   int _modelComicInfoLength = 0;
   int _subscribed = 0;
 
-  String get userId => _userId;
-  String get comicId => _comicId;
-  String get partId => _partId;
-  String get seasonId => _seasonId;
-  String get titleName => _titleName;
+  String get userId => _modelComicInfo.userId;
+  String get comicId => _modelComicInfo.comicId;
+  String get partId => _modelComicInfo.partId;
+  String get seasonId => _modelComicInfo.seasonId;
+  String get titleName => _modelComicInfo.titleName;
   String get representationImageUrl => _representationImageUrl;
-  String get explain => _explain;
-  String get creatorName => _creatorName;
+  String get explain => _modelComicInfo.description;
+  String get creatorName => _modelComicInfo.creatorName1;
   double get point => _point;
   List<ModelComicEpisodeInfo> get modelComicEpisodeInfoList => _modelComicEpisodeInfoList;
-  ui.Image get representationImage => _representationImage;
-  String get creatorId => _creatorId;
+  //ui.Image get representationImage => _representationImage;
+  String get creatorId => _modelComicInfo.creatorId;
   int get modelComicInfoLength => _modelComicInfoLength;
   int get subscribed => _subscribed;
 
   set userId(String userId)
   {
-    _userId = userId;
+    _modelComicInfo.userId = userId;
   }
   set comicId(String comicId)
   {
-    _comicId = comicId;
+    _modelComicInfo.comicId = comicId;
   }
   set partId(String partId)
   {
-    _partId = partId;
+    _modelComicInfo.partId = partId;
   }
   set seasonId(String seasonId)
   {
-    _seasonId = seasonId;
+    _modelComicInfo.seasonId = seasonId;
   }
   set titleName(String titleName)
   {
-    _titleName = titleName;
+    _modelComicInfo.titleName = titleName;
   }
   set representationImageUrl(String representationImageUrl)
   {
@@ -62,11 +56,11 @@ class ModelComicDetailInfo
   }
   set explain(String explain)
   {
-    _explain = explain;
+    _modelComicInfo.description = explain;
   }
   set creatorName(String creatorName)
   {
-    _creatorName = creatorName;
+    _modelComicInfo.creatorName1 = creatorName;
   }
   set point(double point)
   {
@@ -76,14 +70,11 @@ class ModelComicDetailInfo
   {
     _modelComicEpisodeInfoList = modelComicEpisodeInfoList;
   }
-  set representationImage(ui.Image representationImage)
-  {
-    _representationImage = representationImage;
-  }
+  //set representationImage(ui.Image representationImage) {_representationImage = representationImage;}
 
   set creatorId(String creatorId)
   {
-    _creatorId = creatorId;
+    _modelComicInfo.creatorId = creatorId;
   }
 
   set modelComicInfoLength(int modelComicInfoLength)

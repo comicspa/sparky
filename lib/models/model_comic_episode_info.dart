@@ -11,6 +11,7 @@ class ModelComicEpisodeInfo
   List<String> _imageCutUrlList;
   String _episodeId = '00001';
   String _titleName;
+  String _fileExt = 'jpg';
 
   String get thumbnailUrl => _thumbnailUrl;
   int get imageCutCount => _imageCutCount;
@@ -19,6 +20,7 @@ class ModelComicEpisodeInfo
   int get episodeNumber {return int.parse(_episodeId); }
   String get titleName => _titleName;
   e_view_direction_type get viewDirectionType => _viewDirectionType;
+  String get fileExt => _fileExt;
 
   set thumbnailUrl(String thumbnailUrl)
   {
@@ -49,6 +51,11 @@ class ModelComicEpisodeInfo
   {
     _viewDirectionType = viewDirectionType;
   }
+  set fileExt(String fileExt)
+  {
+    _fileExt = fileExt;
+  }
+
 
 /*
   Future<List<String>> getImageCutDownloadUrl() async

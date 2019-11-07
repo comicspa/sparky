@@ -1,0 +1,10 @@
+
+
+
+
+class PacketC2SComicEpisodeInfo
+{
+
+
+
+}

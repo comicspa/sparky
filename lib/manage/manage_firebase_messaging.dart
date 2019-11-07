@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:sparky/models/model_user_info.dart';
 
+// test
+// https://pushtry.com/
 
 class ManageFireBaseMessaging
 {
@@ -17,17 +20,22 @@ class ManageFireBaseMessaging
     _firebaseMessaging.getToken().then((token)
     {
       print('firebaseMessaging.getToken() : $token');
+      ModelUserInfo.getInstance().cloudMessagingToken = token;
+
     });
 
     _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
+      onMessage: (Map<String, dynamic> message) async
+      {
         print('on message $message');
       },
       onBackgroundMessage: fcmBackgroundMessageHandler,
-      onResume: (Map<String, dynamic> message) async {
+      onResume: (Map<String, dynamic> message) async
+      {
         print('on resume $message');
       },
-      onLaunch: (Map<String, dynamic> message) async {
+      onLaunch: (Map<String, dynamic> message) async
+      {
         print('on launch $message');
       },
     );

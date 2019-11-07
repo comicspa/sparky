@@ -22,6 +22,7 @@ class ModelUserInfo
   String _photoUrl;
   String _accessToken;
   String _bio;
+  String _cloudMessagingToken;
   int _followers = 0;
   int _following = 0;
   int _likes = 0;
@@ -38,6 +39,7 @@ class ModelUserInfo
   String get photoUrl => _photoUrl;
   String get accessToken => _accessToken;
   String get bio => _bio;
+  String get cloudMessagingToken => _cloudMessagingToken;
   int get followers => _followers;
   int get following => _following;
   int get likes => _likes;
@@ -117,6 +119,11 @@ class ModelUserInfo
     _likes = likes;
   }
 
+  set cloudMessagingToken(String cloudMessagingToken)
+  {
+    _cloudMessagingToken = cloudMessagingToken;
+  }
+
   void searchAddCreator(String creatorId)
   {
     if(null == _creatorList)
@@ -134,6 +141,7 @@ class ModelUserInfo
       return;
     _creatorList.remove(creatorId);
   }
+
 
   void removeCreatorAt(int countIndex)
   {
@@ -172,8 +180,6 @@ class ModelUserInfo
     _translatorList.removeAt(countIndex);
   }
 
-
-
   void signOut()
   {
     displayName = null;
@@ -203,18 +209,18 @@ class ModelUserInfo
   }
 
   static ModelUserInfo _instance;
-  static ModelUserInfo getInstance() {
-
-
-    if(_instance == null) {
-      _instance = ModelUserInfo();
-      return _instance;
+  static ModelUserInfo getInstance()
+  {
+    if(_instance == null)
+    {
+        _instance = ModelUserInfo();
+        return _instance;
     }
-
 
     return _instance;
   }
 
-
-
 }
+
+
+

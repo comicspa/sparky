@@ -116,6 +116,15 @@ enum e_packet_type
   c2s_subscribe_comic,
   s2c_subscribe_comic,
 
+  c2s_storage_file_real_url,
+  s2c_storage_file_real_url,
+
+  c2s_comic_info,
+  s2c_comic_info,
+
+  c2s_comic_episode_info,
+  s2c_comic_episode_info,
+
 }
 
 

@@ -80,10 +80,10 @@ class ModelPreset
     {
       String appName = packageInfo.appName;
       String packageName = packageInfo.packageName;
-      String version = packageInfo.version;
-      String buildNumber = packageInfo.buildNumber;
+      String packageVersion = packageInfo.version;
+      String packageBuildNumber = packageInfo.buildNumber;
 
-      print('package version : $version , package buildNumber : $buildNumber');
+      print('appName : $appName , packageName : $packageName , packageVersion : $packageVersion , packageBuildNumber : $packageBuildNumber');
     });
     if(0 != version.compareTo(_version))
       return false;
@@ -112,7 +112,7 @@ class ModelPreset
   static void fetch(onPresetFetchDone)
   {
     HttpClient client = new HttpClient();
-    client.getUrl(Uri.parse('${ModelCommon.storageServerBaseURL}/preset.txt')).then((
+    client.getUrl(Uri.parse('${ModelCommon.testStorageServerBaseURL}/preset.txt')).then((
         HttpClientRequest request) {
       return request.close();
     }).then((HttpClientResponse response) {
@@ -209,38 +209,38 @@ class ModelPreset
   }
 
 
-  static Future<String> getRepresentationHorizontalImageDownloadUrl(String userId,String comicId) async
+  static Future<String> getRepresentationHorizontalImageDownloadUrl(String creatorId,String comicId) async
   {
-    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$userId/$comicId/$representationHorizontalImageFileFullName');
+    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$creatorId/$comicId/$representationHorizontalImageFileFullName');
     print('getRepresentationHorizontalImageDownloadUrl : $url');
     return url;
   }
 
-  static Future<String> getRepresentationSquareImageDownloadUrl(String userId,String comicId) async
+  static Future<String> getRepresentationSquareImageDownloadUrl(String creatorId,String comicId) async
   {
-    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$userId/$comicId/$representationSquareImageFileFullName');
+    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$creatorId/$comicId/$representationSquareImageFileFullName');
     print('getRepresentationSquareImageDownloadUrl : $url');
     return url;
   }
 
 
-  static Future<String> getBannerImageDownloadUrl(String userId,String comicId) async
+  static Future<String> getBannerImageDownloadUrl(String creatorId,String comicId) async
   {
-    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$userId/$comicId/$bannerImageFileFullName');
+    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$creatorId/$comicId/$bannerImageFileFullName');
     print('getBannerImageDownloadUrl : $url');
     return url;
   }
 
-  static Future<String> getThumbnailImageDownloadUrl(String userId,String comicId,String partId,String seasonId,String episodeId) async
+  static Future<String> getThumbnailImageDownloadUrl(String creatorId,String comicId,String partId,String seasonId,String episodeId) async
   {
-    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$userId/$comicId/$partId/$seasonId/$episodeId/$thumbnailImageFileFullName');
+    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$creatorId/$comicId/$partId/$seasonId/$episodeId/$thumbnailImageFileFullName');
     print('getThumbnailImageDownloadUrl : $url');
     return url;
   }
 
-  static Future<String> getCutImageDownloadUrl(String userId,String comicId,String partId,String seasonId,String episodeId,String imageId) async
+  static Future<String> getCutImageDownloadUrl(String creatorId,String comicId,String partId,String seasonId,String episodeId,String imageId) async
   {
-    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$userId/$comicId/$partId/$seasonId/$episodeId/$imageId.jpg');
+    String url  = await ManageFirebaseStorage.getDownloadUrl('$comicBaseUrl/$creatorId/$comicId/$partId/$seasonId/$episodeId/$imageId.jpg');
     print('getCutImageDownloadUrl : $url');
     return url;
   }

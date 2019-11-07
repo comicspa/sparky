@@ -4,12 +4,12 @@ import 'dart:typed_data';
 
 class ModelCommon
 {
-  static final String _serviceServerBaseURL = 'http://221.165.42.119:9000';
-  static final String _storageServerBaseURL = 'http://221.165.42.119/ComicSpa';
+  static final String _testServiceServerBaseURL = 'http://221.165.42.119:9000';
+  static final String _testStorageServerBaseURL = 'http://221.165.42.119/ComicSpa';
   static final String _fireBaseStorageServerBaseURL = 'gs://comicspa-248608.appspot.com/comics';
 
-  static String get serviceServerBaseURL => _serviceServerBaseURL;
-  static String get storageServerBaseURL => _storageServerBaseURL;
+  static String get testServiceServerBaseURL => _testServiceServerBaseURL;
+  static String get testStorageServerBaseURL => _testStorageServerBaseURL;
   static String get fireBaseStorageServerBaseURL => _fireBaseStorageServerBaseURL;
 
   static Future<Socket> createServiceSocket()
