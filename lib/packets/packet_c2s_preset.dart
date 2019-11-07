@@ -60,41 +60,38 @@ class PacketC2SPreset extends PacketC2SCommon
  */
 
 
-    switch (_databaseSwitch) {
-      case 0:
-        {
-          DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-              .reference.child('model_preset');
-          modelUserInfoReference.once().then((DataSnapshot snapshot) {
-            print('[PacketC2SPreset:fetch] - ${snapshot.value}');
-
-            PacketS2CPreset preset = new PacketS2CPreset();
-            preset.parseRealtimeDatabaseJson(snapshot.value, onFetchDone);
-          });
-        }
-        break;
-
-    case 1:
+    switch (_databaseSwitch)
     {
-      Firestore.instance
-          .collection("model_preset")
-          .getDocuments()
-          .then((QuerySnapshot snapshot)
+      case 1:
       {
-        snapshot.documents..forEach((f) => print('${f.data}}'));
+        Firestore.instance
+            .collection("model_preset")
+            .getDocuments()
+            .then((QuerySnapshot snapshot)
+        {
+          snapshot.documents..forEach((f) => print('${f.data}}'));
 
-        PacketS2CPreset preset = new PacketS2CPreset();
-        preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+          PacketS2CPreset preset = new PacketS2CPreset();
+          preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
 
-      });
+        });
 
-
-    }
-    break;
+      }
+      break;
 
       default:
         break;
-  }
+    }
+
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
+        .reference.child('model_preset');
+    modelUserInfoReference.once().then((DataSnapshot snapshot) {
+      print('[PacketC2SPreset:fetch] - ${snapshot.value}');
+
+      PacketS2CPreset preset = new PacketS2CPreset();
+      preset.parseRealtimeDatabaseJson(snapshot.value, onFetchDone);
+    });
 
   }
 

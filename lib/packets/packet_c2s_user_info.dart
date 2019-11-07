@@ -11,7 +11,8 @@ import 'package:sparky/packets/packet_s2c_user_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 
@@ -20,6 +21,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
   String _userId;
   String _accessToken = 'accessToken';
   int _fetchStatus = 0;
+  int _databaseSwitch = 1;
 
   PacketC2SUserInfo()
   {
@@ -36,20 +38,29 @@ class PacketC2SUserInfo extends PacketC2SCommon
 
   Future<ModelUserInfo> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseSwitch)
+    {
+      case 1:
+        return _fetchFireStoreDB(onFetchDone);
+
+      default:
+        break;
+    }
+
+    return _fetchRealTimeDB(onFetchDone);
   }
 
-  Future<ModelUserInfo> _fetchFireBaseDB(onFetchDone) async
+  Future<ModelUserInfo> _fetchRealTimeDB(onFetchDone) async
   {
-    print('PacketC2SUserInfo : fetchFireBaseDB started');
+    print('PacketC2SUserInfo : _fetchRealTimeDB started');
 
     //if(2 == _fetchStatus)
     //  return ModelUserInfo.getInstance();
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info').child(_userId);
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName).child(_userId);
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {
-      print('[PacketC2SUserInfo : fetchFireBaseDB ] - ${snapshot.value}');
+      print('[PacketC2SUserInfo : _fetchRealTimeDB ] - ${snapshot.value}');
 
       PacketS2CUserInfo packet = new PacketS2CUserInfo();
       packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
@@ -61,6 +72,30 @@ class PacketC2SUserInfo extends PacketC2SCommon
     return ModelUserInfo.getInstance();
   }
 
+
+  //
+  Future<ModelUserInfo> _fetchFireStoreDB(onFetchDone) async
+  {
+    print('PacketC2SUserInfo : _fetchFireStoreDB started');
+
+    //if(2 == _fetchStatus)
+    //  return ModelUserInfo.getInstance();
+
+    Firestore.instance
+        .collection(ModelUserInfo.ModelName)
+        .getDocuments()
+        .then((QuerySnapshot snapshot)
+    {
+      snapshot.documents..forEach((f) => print('${f.data}}'));
+
+      //PacketS2CPreset preset = new PacketS2CPreset();
+      //preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+
+      return ModelUserInfo.getInstance();
+    });
+
+    return ModelUserInfo.getInstance();
+  }
 
 
   Future<ModelUserInfo> _fetchBytes(onFetchDone) async
