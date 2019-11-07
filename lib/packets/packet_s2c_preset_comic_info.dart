@@ -11,7 +11,7 @@ import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
-import 'package:sparky/manage/manage_resource.dart';
+
 
 
 
@@ -50,9 +50,6 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.userId, modelFeaturedComicInfo.comicId);
       modelFeaturedComicInfo.url = url;
-      modelFeaturedComicInfo.thumbnailUrl = url;
-
-      //modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelFeaturedComicInfo.toString());
 
@@ -78,9 +75,6 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.userId, modelRecommendedComicInfo.comicId);
       modelRecommendedComicInfo.url = url;
-      modelRecommendedComicInfo.thumbnailUrl = url;
-
-      //modelRecommendedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRecommendedComicInfo.toString());
 
@@ -106,9 +100,6 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRealTimeTrendInfo.userId, modelRealTimeTrendInfo.comicId);
       modelRealTimeTrendInfo.url = url;
-      modelRealTimeTrendInfo.thumbnailUrl = url;
-
-      //modelRealTimeTrendInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRealTimeTrendInfo.toString());
 
@@ -133,9 +124,6 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelNewComicInfo.userId, modelNewComicInfo.comicId);
       modelNewComicInfo.url = url;
-      modelNewComicInfo.thumbnailUrl = url;
-
-      //modelNewComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelNewComicInfo.toString());
 
@@ -162,9 +150,6 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelTodayTrendComicInfo.userId, modelTodayTrendComicInfo.comicId);
       modelTodayTrendComicInfo.url = url;
-      modelTodayTrendComicInfo.thumbnailUrl = url;
-
-      //modelTodayTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelTodayTrendComicInfo.toString());
 
@@ -190,9 +175,6 @@ class PacketS2CPresetComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.userId, modelWeeklyTrendComicInfo.comicId);
       modelWeeklyTrendComicInfo.url = url;
-      modelWeeklyTrendComicInfo.thumbnailUrl = url;
-
-      //modelWeeklyTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelWeeklyTrendComicInfo.toString());
 

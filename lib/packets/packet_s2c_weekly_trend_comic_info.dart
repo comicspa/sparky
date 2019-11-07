@@ -4,7 +4,6 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
-import 'package:sparky/manage/manage_resource.dart';
 
 class PacketS2CWeeklyTrendComicInfo extends PacketS2CCommon
 {
@@ -58,8 +57,6 @@ class PacketS2CWeeklyTrendComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.userId, modelWeeklyTrendComicInfo.comicId);
       modelWeeklyTrendComicInfo.url = url;
-      modelWeeklyTrendComicInfo.thumbnailUrl = url;
-      //modelWeeklyTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelWeeklyTrendComicInfo.toString());
 
@@ -117,9 +114,6 @@ class PacketS2CWeeklyTrendComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.userId, modelWeeklyTrendComicInfo.comicId);
       modelWeeklyTrendComicInfo.url = url;
-      modelWeeklyTrendComicInfo.thumbnailUrl = url;
-
-      //modelWeeklyTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelWeeklyTrendComicInfo.toString());
 

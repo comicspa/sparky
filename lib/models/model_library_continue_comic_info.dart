@@ -1,90 +1,68 @@
-import 'dart:ui' as ui;
 
+import 'package:sparky/models/model_comic_info.dart';
 
 class ModelLibraryContinueComicInfo
 {
-  String _comicId;
-  String _userId;
-  String _partId = '001';
-  String _seasonId = '001';
-  String _title;
-  String _url;
-  String _thumbnailUrl;
-  ui.Image _image;
-  String _creatorName = 'Cretor';
-  String _creatorId;
-  int _viewCount = 10000;
+  ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
-  String get comicId => _comicId;
-  String get userId => _userId;
-  String get partId => _partId;
-  String get seasonId => _seasonId;
-  String get title => _title;
-  String get url => _url;
-  String get thumbnailUrl => _thumbnailUrl;
-  ui.Image get image => _image;
-  String get creatorName => _creatorName;
-  String get creatorId => _creatorId;
-  int get viewCount => _viewCount;
+  String get comicId => _modelComicInfo.comicId;
+  String get userId => _modelComicInfo.userId;
+  String get partId => _modelComicInfo.partId;
+  String get seasonId => _modelComicInfo.seasonId;
+  String get title => _modelComicInfo.titleName;
+  String get url => _modelComicInfo.urlAddress;
+  String get creatorName => _modelComicInfo.creatorName1;
+  String get creatorId => _modelComicInfo.creatorId;
+  int get viewCount => _modelComicInfo.viewCount;
 
   set comicId(String comicId)
   {
-    _comicId = comicId;
+    _modelComicInfo.comicId = comicId;
   }
 
   set userId(String userId)
   {
-    _userId = userId;
+    _modelComicInfo.userId = userId;
   }
 
   set partId(String partId)
   {
-    _partId = partId;
+    _modelComicInfo.partId = partId;
   }
   set seasonId(String seasonId)
   {
-    _seasonId = seasonId;
+    _modelComicInfo.seasonId = seasonId;
   }
 
   set title(String title)
   {
-    _title = title;
+    _modelComicInfo.titleName = title;
   }
 
   set url(String url)
   {
-    _url = url;
-  }
-
-  set thumbnailUrl(String thumbnailUrl)
-  {
-    _thumbnailUrl = thumbnailUrl;
-  }
-
-  set image(ui.Image image)
-  {
-    _image = image;
+    _modelComicInfo.urlAddress = url;
   }
 
   set creatorName(String creatorName)
   {
-    _creatorName = creatorName;
+    _modelComicInfo.creatorName1 = creatorName;
   }
 
   set creatorId(String creatorId)
   {
-    _creatorId = creatorId;
+    _modelComicInfo.creatorId = creatorId;
   }
 
   set viewCount(int viewCount)
   {
-    _viewCount = viewCount;
+    _modelComicInfo.viewCount = viewCount;
   }
 
   @override
   String toString()
   {
-    return 'title : $title , creatorName : $creatorName , comicId : $comicId, userId : $userId , creatorId : $creatorId , thumbnailUrl : $thumbnailUrl';
+    return 'title : $title , creatorName : $creatorName , comicId : $comicId, userId : $userId , creatorId : $creatorId , url : $url';
   }
 
   static List<ModelLibraryContinueComicInfo> list;

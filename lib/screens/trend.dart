@@ -105,7 +105,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                 child: GestureDetector(
                                   child: FadeInImage.memoryNetwork(
                                     placeholder: kTransparentImage,
-                                    image: i.thumbnailUrl,
+                                    image: i.url,
                                     fit: BoxFit.fitWidth,
                                   ),
                                   /* CachedNetworkImage(
@@ -386,8 +386,8 @@ List<String> countBanner(List<ModelFeaturedComicInfo> countBanner) {
   if (count > 6) count = 6;
 
   for (int i = 0; i < count; ++i) {
-    featuredComicsList.add(countBanner.elementAt(i).thumbnailUrl);
-    print(countBanner.elementAt(i).thumbnailUrl);
+    featuredComicsList.add(countBanner.elementAt(i).url);
+    print(countBanner.elementAt(i).url);
   }
 
   return featuredComicsList;

@@ -4,8 +4,6 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_library_owned_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
-import 'package:sparky/manage/manage_resource.dart';
-
 
 
 class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
@@ -61,8 +59,6 @@ class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
       modelLibraryOwnedComicInfo.url = url;
-      modelLibraryOwnedComicInfo.thumbnailUrl = url;
-      //modelLibraryOwnedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelLibraryOwnedComicInfo.toString());
 
@@ -122,9 +118,6 @@ class PacketS2CLibraryOwnedComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
       modelLibraryOwnedComicInfo.url = url;
-      modelLibraryOwnedComicInfo.thumbnailUrl = url;
-
-      modelLibraryOwnedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelLibraryOwnedComicInfo.toString());
 

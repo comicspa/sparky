@@ -1,7 +1,5 @@
 
 
-import 'package:sparky/models/model_comic_episode_info.dart';
-
 enum e_comic_genre
 {
   romance,
@@ -72,7 +70,8 @@ class ModelComicInfo
   int _profitModelType;
   String _dateCreated;
   String _datePublished;
-  List<ModelComicEpisodeInfo> _modelComicEpisodeInfoList;
+  String _urlAddress;
+  int _viewCount = 10000;
 
   String get creatorId => _creatorId;
   int get countIndex => _countIndex;
@@ -102,7 +101,8 @@ class ModelComicInfo
   int get profitModelType => _profitModelType;
   String get dateCreated => _dateCreated;
   String get datePublished => _datePublished;
-  List<ModelComicEpisodeInfo> get modelComicEpisodeInfoList => _modelComicEpisodeInfoList;
+  String get urlAddress => _urlAddress;
+  int get viewCount => _viewCount;
 
   set cp(String cp)
   {
@@ -216,9 +216,13 @@ class ModelComicInfo
   {
     _datePublished = datePublished;
   }
-  set modelComicEpisodeInfoList(List<ModelComicEpisodeInfo> modelComicEpisodeInfoList)
+  set urlAddress(String urlAddress)
   {
-    _modelComicEpisodeInfoList = modelComicEpisodeInfoList;
+    _urlAddress = urlAddress;
+  }
+  set viewCount(int viewCount)
+  {
+    _viewCount = viewCount;
   }
 
 }

@@ -4,7 +4,6 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
-import 'package:sparky/manage/manage_resource.dart';
 
 class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
 {
@@ -58,8 +57,6 @@ class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRealTimeTrendComicInfo.userId, modelRealTimeTrendComicInfo.comicId);
       modelRealTimeTrendComicInfo.url = url;
-      modelRealTimeTrendComicInfo.thumbnailUrl = url;
-      //modelRealTimeTrendComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRealTimeTrendComicInfo.toString());
 
@@ -119,9 +116,6 @@ class PacketS2CRealTimeTrendComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRealTimeTrendInfo.userId, modelRealTimeTrendInfo.comicId);
       modelRealTimeTrendInfo.url = url;
-      modelRealTimeTrendInfo.thumbnailUrl = url;
-
-      //modelRealTimeTrendInfo.image = await ManageResource.fetchImage(url);
 
       print(modelRealTimeTrendInfo.toString());
 

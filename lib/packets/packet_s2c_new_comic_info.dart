@@ -4,7 +4,7 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
-import 'package:sparky/manage/manage_resource.dart';
+//import 'package:sparky/manage/manage_resource.dart';
 
 
 class PacketS2CNewComicInfo extends PacketS2CCommon
@@ -59,8 +59,6 @@ class PacketS2CNewComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelNewComicInfo.userId, modelNewComicInfo.comicId);
       modelNewComicInfo.url = url;
-      modelNewComicInfo.thumbnailUrl = url;
-      //modelNewComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelNewComicInfo.toString());
 
@@ -118,9 +116,6 @@ class PacketS2CNewComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelNewComicInfo.userId, modelNewComicInfo.comicId);
       modelNewComicInfo.url = url;
-      modelNewComicInfo.thumbnailUrl = url;
-
-      modelNewComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelNewComicInfo.toString());
 

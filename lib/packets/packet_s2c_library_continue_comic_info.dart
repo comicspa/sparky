@@ -4,7 +4,7 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_library_continue_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
-import 'package:sparky/manage/manage_resource.dart';
+//import 'package:sparky/manage/manage_resource.dart';
 
 
 
@@ -61,8 +61,7 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
-      modelLibraryContinueComicInfo.thumbnailUrl = url;
-      //modelLibraryContinueComicInfo.image = await ManageResource.fetchImage(url);
+      //modelLibraryContinueComicInfo.thumbnailUrl = url;
 
       print(modelLibraryContinueComicInfo.toString());
 
@@ -122,10 +121,7 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
-      modelLibraryContinueComicInfo.thumbnailUrl = url;
-
-      modelLibraryContinueComicInfo.image = await ManageResource.fetchImage(url);
-
+      //modelLibraryContinueComicInfo.thumbnailUrl = url;
       print(modelLibraryContinueComicInfo.toString());
 
       list.add(modelLibraryContinueComicInfo);

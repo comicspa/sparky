@@ -4,7 +4,6 @@ import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';
-import 'package:sparky/manage/manage_resource.dart';
 
 
 class PacketS2CFeaturedComicInfo extends PacketS2CCommon
@@ -62,8 +61,6 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
 
         String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.userId, modelFeaturedComicInfo.comicId);
         modelFeaturedComicInfo.url = url;
-        modelFeaturedComicInfo.thumbnailUrl = url;
-        //modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
 
         print(modelFeaturedComicInfo.toString());
 
@@ -122,10 +119,6 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.userId, modelFeaturedComicInfo.comicId);
       modelFeaturedComicInfo.url = url;
-      modelFeaturedComicInfo.thumbnailUrl = url;
-
-      //modelFeaturedComicInfo.image = await ManageResource.fetchImage(url);
-
 
       print(modelFeaturedComicInfo.toString());
 

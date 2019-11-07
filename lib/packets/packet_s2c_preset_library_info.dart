@@ -49,9 +49,6 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryRecentComicInfo.userId, modelLibraryRecentComicInfo.comicId);
       modelLibraryRecentComicInfo.url = url;
-      modelLibraryRecentComicInfo.thumbnailUrl = url;
-
-      //modelLibraryRecentComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelLibraryRecentComicInfo.toString());
 
@@ -78,9 +75,6 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryViewListComicInfo.userId, modelLibraryViewListComicInfo.comicId);
       modelLibraryViewListComicInfo.url = url;
-      modelLibraryViewListComicInfo.thumbnailUrl = url;
-
-      //modelLibraryViewListComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelLibraryViewListComicInfo.toString());
 
@@ -107,9 +101,6 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.userId, modelLibraryOwnedComicInfo.comicId);
       modelLibraryOwnedComicInfo.url = url;
-      modelLibraryOwnedComicInfo.thumbnailUrl = url;
-
-      //modelLibraryOwnedComicInfo.image = await ManageResource.fetchImage(url);
 
       print(modelLibraryOwnedComicInfo.toString());
 
@@ -135,9 +126,7 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
-      modelLibraryContinueComicInfo.thumbnailUrl = url;
-
-      //modelLibraryContinueComicInfo.image = await ManageResource.fetchImage(url);
+      //modelLibraryContinueComicInfo.thumbnailUrl = url;
 
       print(modelLibraryContinueComicInfo.toString());
 

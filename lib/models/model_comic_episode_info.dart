@@ -12,6 +12,7 @@ class ModelComicEpisodeInfo
   String _episodeId = '00001';
   String _titleName;
   String _fileExt = 'jpg';
+  int _viewCount = 10000;
 
   String get thumbnailUrl => _thumbnailUrl;
   int get imageCutCount => _imageCutCount;
@@ -21,6 +22,7 @@ class ModelComicEpisodeInfo
   String get titleName => _titleName;
   e_view_direction_type get viewDirectionType => _viewDirectionType;
   String get fileExt => _fileExt;
+  int get viewCount => _viewCount;
 
   set thumbnailUrl(String thumbnailUrl)
   {
@@ -55,6 +57,12 @@ class ModelComicEpisodeInfo
   {
     _fileExt = fileExt;
   }
+  set viewCount(int viewCount)
+  {
+    _viewCount = viewCount;
+  }
+
+  static List<ModelComicEpisodeInfo> list;
 
 
 /*

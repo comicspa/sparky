@@ -58,8 +58,6 @@ class PacketS2CWeeklyCreatorInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyCreatorInfo.userId, modelWeeklyCreatorInfo.comicId);
       modelWeeklyCreatorInfo.url = url;
-      modelWeeklyCreatorInfo.thumbnailUrl = url;
-      //modelWeeklyCreatorInfo.image = await ManageResource.fetchImage(url);
 
       print(modelWeeklyCreatorInfo.toString());
 
@@ -117,9 +115,6 @@ class PacketS2CWeeklyCreatorInfo extends PacketS2CCommon
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyCreatorInfo.userId, modelWeeklyCreatorInfo.comicId);
       modelWeeklyCreatorInfo.url = url;
-      modelWeeklyCreatorInfo.thumbnailUrl = url;
-
-      //modelWeeklyCreatorInfo.image = await ManageResource.fetchImage(url);
 
       print(modelWeeklyCreatorInfo.toString());
 
