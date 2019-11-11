@@ -11,8 +11,9 @@ class ManageFireBaseMessaging
 
   static void initialize()
   {
-     if(null == _firebaseMessaging)
-       _firebaseMessaging = new FirebaseMessaging();
+     if(null != _firebaseMessaging)
+       return;
+     _firebaseMessaging = new FirebaseMessaging();
 
     if (Platform.isIOS)
       _iosSettingsRegistered();

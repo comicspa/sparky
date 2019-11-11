@@ -10,12 +10,15 @@ import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_register_translator.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 
 class PacketC2SRegisterTranslator extends PacketC2SCommon
 {
   //String _nickName = 'onlyme';
   String _uId;
+  int _databaseType = 1;
 
   PacketC2SRegisterTranslator()
   {
@@ -29,12 +32,51 @@ class PacketC2SRegisterTranslator extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    Future<void> fetch(onFetchDone) async
+    {
+      switch(_databaseType)
+      {
+        case 0:
+          {
+            _fetchRealtimeDB(onFetchDone);
+          }
+          break;
+
+        case 1:
+          {
+            _fetchFirestoreDB(onFetchDone);
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 
-  Future<void> _fetchFireBaseDB(onFetchDone) async
+  Future<void> _fetchFirestoreDB(onFetchDone) async
   {
-    print('PacketC2SSignUp : fetchFireBaseDB started');
+    print('PacketC2SRegisterTranslator : _fetchFirestoreDB started');
+
+    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+    String translatorId = '${_uId}translator$currentTime';
+    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId).collection('translators').document(translatorId)
+        .updateData({
+      'create_time':currentTime,
+    }).then((_) {
+
+      PacketS2CRegisterTranslator packet = new PacketS2CRegisterTranslator();
+      packet.parseFireBaseDBJson(onFetchDone,translatorId);
+
+      //});
+    });
+  }
+
+
+  Future<void> _fetchRealtimeDB(onFetchDone) async
+  {
+    print('PacketC2SRegisterTranslator : _fetchRealtimeDB started');
 
     //List<int> uIdBytes = utf8.encode(_uId);
     //Base64Codec base64Codec = new Base64Codec();
@@ -42,17 +84,17 @@ class PacketC2SRegisterTranslator extends PacketC2SCommon
 
     String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
     String translatorId = '${_uId}translator$currentTime';
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).child('translators').update({
-      '0':translatorId
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
+    modelUserInfoReference.child(_uId).child('translators').child(translatorId).update({
+      'create_time':currentTime,
     }).then((_) {
 
       PacketS2CRegisterTranslator packet = new PacketS2CRegisterTranslator();
       packet.parseFireBaseDBJson(onFetchDone,translatorId);
 
     });
-
   }
+
 
   void fetchBytes(onPacketRegisterCreatorFetchDone) async
   {

@@ -2,17 +2,19 @@ import 'dart:io';
 
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_user_info.dart';
-import 'package:sparky/packets/packet_utility.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_sign_in.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 
 class PacketC2SSignIn extends PacketC2SCommon
 {
   String _uId;
+  int _databaseType = 1;
 
   PacketC2SSignIn()
   {
@@ -26,25 +28,61 @@ class PacketC2SSignIn extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        {
+          _fetchRealtimeDB(onFetchDone);
+        }
+        break;
+
+      case 1:
+        {
+          _fetchFirestoreDB(onFetchDone);
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
-  Future<void> _fetchFireBaseDB(onFetchDone) async
-  {
-    print('PacketC2SSignIn : fetchFireBaseDB started');
 
-    String updateTime = DateTime.now().millisecondsSinceEpoch.toString();
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
+
+  Future<void> _fetchFirestoreDB(onFetchDone) async
+  {
+    print('PacketC2SSignUp : _fetchFirestoreDB started');
+
+    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId)
+        .updateData({
+      'sign_in':1,
+      'update_time':DateTime.now().millisecondsSinceEpoch.toString(),
+    }).then((_) {
+
+      PacketS2CSignIn packet = new PacketS2CSignIn();
+      packet.parseFireBaseDBJson(onFetchDone);
+
+      //});
+    });
+  }
+
+
+
+  Future<void> _fetchRealtimeDB(onFetchDone) async
+  {
+    print('PacketC2SSignIn : _fetchRealtimeDB started');
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
     modelUserInfoReference.child(_uId).update({
       'sign_in':1,
-      'update_time':updateTime
+      'update_time':DateTime.now().millisecondsSinceEpoch.toString(),
     }).then((_) {
 
       PacketS2CSignIn packet = new PacketS2CSignIn();
       packet.parseFireBaseDBJson(onFetchDone);
 
     });
-
   }
 
 
@@ -77,9 +115,7 @@ class PacketC2SSignIn extends PacketC2SCommon
     // wait 5 seconds
     await Future.delayed(Duration(seconds: 5));
     socket.close();
-
-     */
-
+    */
   }
 
 }

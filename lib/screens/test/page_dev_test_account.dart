@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_firebase_auth.dart';
+import 'package:sparky/manage/manage_firebase_messaging.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/models/model_user_info.dart';
@@ -207,6 +208,16 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
 
             },
+          ),
+
+
+          ListTile(
+            title: Text('Get Firebase Messaging Token'),
+            onTap: (){
+
+              ManageFireBaseMessaging.initialize();
+
+              },
           ),
 
           ListTile(

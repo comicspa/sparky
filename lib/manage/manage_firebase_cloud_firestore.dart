@@ -47,6 +47,30 @@ class ManageFireBaseCloudFireStore
   }
 
 
+  static void updateData2()
+  {
+    print('updateData2');
+
+    try{
+     ManageFireBaseCloudFireStore.reference.collection('model_user_info')
+        .document('BmmwNKFniiet5LeRS2GhK1oTeUw1').collection('creators').document('0')
+        .setData({
+      '1111':'22222',
+    }).
+    then((_) {
+       print('=======================================>');
+
+    });
+    }
+    catch (e) {
+      print('=======================================> ${e.toString()}');
+    }
+
+  }
+
+
+
+
   static void deleteData() {
     try {
       reference

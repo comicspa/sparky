@@ -9,12 +9,15 @@ import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_register_creator.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 
 class PacketC2SRegisterCreator extends PacketC2SCommon
 {
   //String _nickName = 'onlyme';
   String _uId;
+  int _databaseType = 1;
 
   PacketC2SRegisterCreator()
   {
@@ -28,12 +31,56 @@ class PacketC2SRegisterCreator extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    Future<void> fetch(onFetchDone) async
+    {
+      switch(_databaseType)
+      {
+        case 0:
+          {
+            _fetchRealtimeDB(onFetchDone);
+          }
+          break;
+
+        case 1:
+          {
+            _fetchFirestoreDB(onFetchDone);
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 
-  Future<void> _fetchFireBaseDB(onFetchDone) async
+  //
+  Future<void> _fetchFirestoreDB(onFetchDone) async
   {
-    print('PacketC2SSignUp : fetchFireBaseDB started');
+    print('PacketC2SRegisterCreator : _fetchFirestoreDB started');
+
+    String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+    String creatorId = '${_uId}creator$currentTime';
+
+    //Map<String,dynamic> map = new Map<String,dynamic>();
+    //map[creatorId] = currentTime;
+
+     ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId).collection('creators').document(creatorId)
+        .setData({
+       'create_time':currentTime,
+        }).
+      then((_) {
+
+      PacketS2CRegisterCreator packet = new PacketS2CRegisterCreator();
+      packet.parseFireBaseDBJson(onFetchDone,creatorId);
+
+    });
+  }
+
+
+  Future<void> _fetchRealtimeDB(onFetchDone) async
+  {
+    print('PacketC2SRegisterCreator : _fetchRealtimeDB started');
 
     //List<int> uIdBytes = utf8.encode(_uId);
     //Base64Codec base64Codec = new Base64Codec();
@@ -41,17 +88,17 @@ class PacketC2SRegisterCreator extends PacketC2SCommon
 
     String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
     String creatorId = '${_uId}creator$currentTime';
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).child('creators').update({
-      '0':creatorId
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
+    modelUserInfoReference.child(_uId).child('creators').child(creatorId).update({
+      'create_time':currentTime,
     }).then((_) {
 
       PacketS2CRegisterCreator packet = new PacketS2CRegisterCreator();
       packet.parseFireBaseDBJson(onFetchDone,creatorId);
 
     });
-
   }
+
 
   void fetchBytes(onPacketRegisterCreatorFetchDone) async
   {

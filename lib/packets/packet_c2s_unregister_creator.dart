@@ -9,12 +9,14 @@ import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_unregister_creator.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 class PacketC2SUnregisterCreator extends PacketC2SCommon
 {
   String _nickName = 'onlyme';
   String _uId;
+  int _databaseType = 1;
 
   PacketC2SUnregisterCreator()
   {
@@ -29,21 +31,53 @@ class PacketC2SUnregisterCreator extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        {
+          _fetchRealtimeDB(onFetchDone);
+        }
+        break;
+
+      case 1:
+        {
+          _fetchFirestoreDB(onFetchDone);
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
-  Future<void> _fetchFireBaseDB(onFetchDone) async
-  {
-    print('PacketC2SUnregisterCreator : fetchFireBaseDB started');
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).child('creators').child('0').remove().then((_) {
+  Future<void> _fetchFirestoreDB(onFetchDone) async
+  {
+    print('PacketC2SUnregisterCreator : _fetchFirestoreDB started');
+
+    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId).collection('creators').document(ModelUserInfo.getInstance().creatorList[0])
+        .delete().then((_) {
+
+      PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
+      packet.parseFireBaseDBJson(onFetchDone);
+
+      //});
+    });
+  }
+
+
+  Future<void> _fetchRealtimeDB(onFetchDone) async
+  {
+    print('PacketC2SUnregisterCreator : _fetchRealtimeDB started');
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
+    modelUserInfoReference.child(_uId).child('creators').child(ModelUserInfo.getInstance().creatorList[0]).remove().then((_) {
 
       PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
       packet.parseFireBaseDBJson(onFetchDone);
 
     });
-
   }
 
 

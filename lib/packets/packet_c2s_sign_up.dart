@@ -10,6 +10,8 @@ import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_sign_up.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 
 class PacketC2SSignUp extends PacketC2SCommon
@@ -17,6 +19,7 @@ class PacketC2SSignUp extends PacketC2SCommon
   String _uId;
   e_social_provider_type _socialProviderType;
   String _emailAddress;
+  int _databaseType = 1;
 
   PacketC2SSignUp()
   {
@@ -32,12 +35,58 @@ class PacketC2SSignUp extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        {
+          _fetchRealtimeDB(onFetchDone);
+        }
+        break;
+
+      case 1:
+        {
+          _fetchFirestoreDB(onFetchDone);
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
-  Future<void> _fetchFireBaseDB(onFetchDone) async
+
+  Future<void> _fetchFirestoreDB(onFetchDone) async
   {
-    print('PacketC2SSignUp : fetchFireBaseDB started');
+    print('PacketC2SSignUp : _fetchFirestoreDB started');
+
+    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId)
+        .setData({
+      'social_provider_type': _socialProviderType.index,
+      'bio':'',
+      'comi':0,
+      'followers':0,
+      'following':0,
+      'likes':0,
+      'sign_in':1,
+      'create_time':DateTime.now().millisecondsSinceEpoch.toString(),
+      'update_time':DateTime.now().millisecondsSinceEpoch.toString(),
+      'display_name':ModelUserInfo.getInstance().displayName,
+      'photo_url':ModelUserInfo.getInstance().photoUrl,
+      'cloud_messaging_token':ModelUserInfo.getInstance().cloudMessagingToken,
+    }).then((_) {
+
+      PacketS2CSignUp packet = new PacketS2CSignUp();
+      packet.parseFireBaseDBJson(onFetchDone);
+
+      //});
+    });
+  }
+
+
+  Future<void> _fetchRealtimeDB(onFetchDone) async
+  {
+    print('PacketC2SSignUp : _fetchRealtimeDB started');
 
     //List<int> emailAddressBytes = utf8.encode(_emailAddress);
     //Base64Codec base64Codec = new Base64Codec();
@@ -56,6 +105,7 @@ class PacketC2SSignUp extends PacketC2SCommon
       'update_time':DateTime.now().millisecondsSinceEpoch.toString(),
       'display_name':ModelUserInfo.getInstance().displayName,
       'photo_url':ModelUserInfo.getInstance().photoUrl,
+      'cloud_messaging_token':ModelUserInfo.getInstance().cloudMessagingToken,
     }).then((_) {
 
       //DatabaseReference modelUserInfoDeviceIdReference = modelUserInfoReference.child('device_id');
@@ -67,11 +117,7 @@ class PacketC2SSignUp extends PacketC2SCommon
         packet.parseFireBaseDBJson(onFetchDone);
 
       //});
-
     });
-
-
-
   }
 
 
@@ -103,7 +149,6 @@ class PacketC2SSignUp extends PacketC2SCommon
     // wait 5 seconds
     await Future.delayed(Duration(seconds: 5));
     socket.close();
-
   }
 
 }

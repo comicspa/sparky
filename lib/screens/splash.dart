@@ -74,8 +74,6 @@ class _SplashScreenState extends State<SplashScreen>
     _packetC2SPreset.fetch(_onFetchDone);
   }
 
-
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);

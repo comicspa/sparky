@@ -10,12 +10,15 @@ import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_unregister_translator.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 
 class PacketC2SUnregisterTranslator extends PacketC2SCommon
 {
   String _nickName = 'onlyme';
   String _uId;
+  int _databaseType = 1;
 
   PacketC2SUnregisterTranslator()
   {
@@ -30,21 +33,52 @@ class PacketC2SUnregisterTranslator extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        {
+          _fetchRealtimeDB(onFetchDone);
+        }
+        break;
+
+      case 1:
+        {
+          _fetchFirestoreDB(onFetchDone);
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
-  Future<void> _fetchFireBaseDB(onFetchDone) async
+  Future<void> _fetchFirestoreDB(onFetchDone) async
   {
-    print('PacketC2SUnregisterCreator : fetchFireBaseDB started');
+    print('PacketC2SUnregisterTranslator : _fetchFirestoreDB started');
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_user_info');
-    modelUserInfoReference.child(_uId).child('translators').child('0').remove().then((_) {
+    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId).collection('translators').document(ModelUserInfo.getInstance().translatorList[0])
+        .delete().then((_) {
+
+      PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
+      packet.parseFireBaseDBJson(onFetchDone);
+
+      //});
+    });
+  }
+
+
+  Future<void> _fetchRealtimeDB(onFetchDone) async
+  {
+    print('PacketC2SUnregisterTranslator : _fetchRealtimeDB started');
+
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
+    modelUserInfoReference.child(_uId).child('translators').child(ModelUserInfo.getInstance().translatorList[0]).remove().then((_) {
 
       PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
       packet.parseFireBaseDBJson(onFetchDone);
 
     });
-
   }
 
 
