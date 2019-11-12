@@ -277,7 +277,7 @@ class LibraryListTile extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(3.0),
                       child: CachedNetworkImage(
-                        imageUrl: snapshot.data[index].thumbnailUrl,
+                        imageUrl: snapshot.data[index].url,
                         placeholder: (context, url) => LoadingIndicator(),
                         width: ManageDeviceInfo.resolutionWidth * 0.25,
                         height: ManageDeviceInfo.resolutionWidth * 0.25,

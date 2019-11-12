@@ -460,12 +460,12 @@ class TrendCardList extends StatelessWidget {
                         borderRadius: new BorderRadius.circular(2.0),
                         child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image: snapshot.data[index].thumbnailUrl,
+                          image: snapshot.data[index].url,
                           fit: BoxFit.cover,
                           height: ManageDeviceInfo.resolutionHeight * 0.15,
                         )
                         /* CachedNetworkImage(
-                          imageUrl: snapshot.data[index].thumbnailUrl,
+                          imageUrl: snapshot.data[index].url,
                           placeholder: (context, url) => LoadingIndicator(),
                           fit: BoxFit.cover,
                           height: ManageDeviceInfo.resolutionHeight * 0.15,
