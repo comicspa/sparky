@@ -13,8 +13,8 @@ class ModelUserInfo
   static const String ModelName = "model_user_info";
 
   String _uId;
-  List<String> _creatorList;
-  List<String> _translatorList;
+  List<String> _creatorIdList;
+  List<String> _translatorIdList;
   e_social_provider_type _socialProviderType = e_social_provider_type.none;
   int _comi = 0;
   bool _signedIn = false;
@@ -30,8 +30,8 @@ class ModelUserInfo
   int _likes = 0;
 
   String get uId => _uId;
-  List<String> get creatorList => _creatorList;
-  List<String> get translatorList => _translatorList;
+  List<String> get creatorIdList => _creatorIdList;
+  List<String> get translatorIdList => _translatorIdList;
   e_social_provider_type get socialProviderType => _socialProviderType;
   int get comi => _comi;
   bool get signedIn => _signedIn;
@@ -46,14 +46,14 @@ class ModelUserInfo
   int get following => _following;
   int get likes => _likes;
 
-  set creatorList(List<String> creatorList)
+  set creatorIdList(List<String> creatorIdList)
   {
-    _creatorList = creatorList;
+    _creatorIdList = creatorIdList;
   }
 
-  set translatorList(List<String> translatorList)
+  set translatorIdList(List<String> translatorIdList)
   {
-    _translatorList = translatorList;
+    _translatorIdList = translatorIdList;
   }
 
   set socialProviderType(e_social_provider_type socialProviderType)
@@ -126,60 +126,74 @@ class ModelUserInfo
     _cloudMessagingToken = cloudMessagingToken;
   }
 
-  void searchAddCreator(String creatorId)
+  int getCreatorIdCount()
   {
-    if(null == _creatorList)
-      _creatorList = new List<String>();
-    if(-1 != _creatorList.indexOf(creatorId))
-      return;
-    _creatorList.add(creatorId);
+    if(null == _creatorIdList)
+      return 0;
+    return _creatorIdList.length;
   }
 
-  void removeCreator(String creatorId)
+  void searchAddCreatorId(String creatorId)
   {
-    if(null == _creatorList)
+    if(null == _creatorIdList)
+      _creatorIdList = new List<String>();
+    if(-1 != _creatorIdList.indexOf(creatorId))
       return;
-    if(-1 == _creatorList.indexOf(creatorId))
-      return;
-    _creatorList.remove(creatorId);
+    _creatorIdList.add(creatorId);
   }
 
-
-  void removeCreatorAt(int countIndex)
+  void removeCreatorId(String creatorId)
   {
-    if(null == _creatorList)
+    if(null == _creatorIdList)
       return;
-    if(0 == _creatorList.length)
+    if(-1 == _creatorIdList.indexOf(creatorId))
       return;
-    _creatorList.removeAt(countIndex);
+    _creatorIdList.remove(creatorId);
   }
 
 
-  void searchAddTranslator(String translatorId)
+  void removeCreatorIdAt(int countIndex)
   {
-    if(null == _translatorList)
-      _translatorList = new List<String>();
-    if(-1 != _translatorList.indexOf(translatorId))
+    if(null == _creatorIdList)
       return;
-    _translatorList.add(translatorId);
+    if(0 == _creatorIdList.length)
+      return;
+    _creatorIdList.removeAt(countIndex);
   }
 
-  void removeTranslator(String translatorId)
+
+  void searchAddTranslatorId(String translatorId)
   {
-    if(null == _translatorList)
+    if(null == _translatorIdList)
+      _translatorIdList = new List<String>();
+    if(-1 != _translatorIdList.indexOf(translatorId))
       return;
-    if(-1 == _translatorList.indexOf(translatorId))
-      return;
-    _translatorList.remove(translatorId);
+    _translatorIdList.add(translatorId);
   }
 
-  void removeTranslatorAt(int countIndex)
+  void removeTranslatorId(String translatorId)
   {
-    if(null == _translatorList)
+    if(null == _translatorIdList)
       return;
-    if(0 == _translatorList.length)
+    if(-1 == _translatorIdList.indexOf(translatorId))
       return;
-    _translatorList.removeAt(countIndex);
+    _translatorIdList.remove(translatorId);
+  }
+
+  void removeTranslatorIdAt(int countIndex)
+  {
+    if(null == _translatorIdList)
+      return;
+    if(0 == _translatorIdList.length)
+      return;
+    _translatorIdList.removeAt(countIndex);
+  }
+
+  int getTranslatorIdCount()
+  {
+    if(null == _translatorIdList)
+      return 0;
+    return _translatorIdList.length;
   }
 
   void signOut()
@@ -192,8 +206,8 @@ class ModelUserInfo
     following = 0;
     likes = 0;
     comi = 0;
-    creatorList = null;
-    translatorList = null;
+    creatorIdList = null;
+    translatorIdList = null;
   }
 
   void withdrawal()

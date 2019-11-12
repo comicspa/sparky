@@ -16,7 +16,6 @@ import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 class PacketC2SUnregisterTranslator extends PacketC2SCommon
 {
-  String _nickName = 'onlyme';
   String _uId;
   int _databaseType = 1;
 
@@ -55,16 +54,55 @@ class PacketC2SUnregisterTranslator extends PacketC2SCommon
   Future<void> _fetchFirestoreDB(onFetchDone) async
   {
     print('PacketC2SUnregisterTranslator : _fetchFirestoreDB started');
+    if(0 == ModelUserInfo.getInstance().getTranslatorIdCount())
+      {
+        if(null != onFetchDone)
+        {
+          PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
+          onFetchDone(packet);
+        }
+        return;
+      }
 
-    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
-        .document(_uId).collection('translators').document(ModelUserInfo.getInstance().translatorList[0])
-        .delete().then((_) {
 
-      PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
-      packet.parseFireBaseDBJson(onFetchDone);
+    if(null == _uId)
+      {
+        bool locked = false;
+        while(ModelUserInfo.getInstance().getTranslatorIdCount() > 0)
+          {
+            if(false == locked)
+              {
+                locked = true;
 
-      //});
-    });
+                String translatorId = ModelUserInfo.getInstance().translatorIdList[0];
+                await ManageFireBaseCloudFireStore.reference.collection(
+                    ModelUserInfo.ModelName)
+                    .document(_uId).collection('translators').document(translatorId)
+                    .delete().then((_) {
+
+                  PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
+                  packet.parseFireBaseDBJson(onFetchDone);
+
+                  locked = false;
+
+                });
+
+              }
+          }
+      }
+    else
+      {
+      String translatorId = ModelUserInfo.getInstance().translatorIdList[0];
+      await ManageFireBaseCloudFireStore.reference.collection(
+          ModelUserInfo.ModelName)
+          .document(_uId).collection('translators').document(translatorId)
+          .delete().then((_) {
+
+        PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
+        packet.parseFireBaseDBJson(onFetchDone);
+
+      });
+    }
   }
 
 
@@ -72,8 +110,9 @@ class PacketC2SUnregisterTranslator extends PacketC2SCommon
   {
     print('PacketC2SUnregisterTranslator : _fetchRealtimeDB started');
 
+    String translatorId = ModelUserInfo.getInstance().translatorIdList[0];
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
-    modelUserInfoReference.child(_uId).child('translators').child(ModelUserInfo.getInstance().translatorList[0]).remove().then((_) {
+    modelUserInfoReference.child(_uId).child('translators').child(translatorId).remove().then((_) {
 
       PacketS2CUnregisterTranslator packet = new PacketS2CUnregisterTranslator();
       packet.parseFireBaseDBJson(onFetchDone);

@@ -54,6 +54,11 @@ class PacketC2SWithdrawal extends PacketC2SCommon
 
     try
     {
+
+
+
+
+
       ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
           .document(_uId)
           .delete().then((_) {

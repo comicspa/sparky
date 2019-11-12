@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
     if(kDebugMode)
     {
       print('Debug Mode');
-      //ModelPreset.developerMode = true;
+      ModelPreset.developerMode = true;
     }
     else {
       print('Release Mode');
@@ -64,6 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
     //ManageFirebaseDatabase.deleteModelComicDetailInfoLike();
     //ManageFirebaseDatabase.deleteModelComicDetailInfoSubscribe();
     //ManageFireBaseCloudFireStore.getData();
+    //ManageFireBaseCloudFireStore.deleteData();
 
      _uId = await ManageSharedPreference.getString('uId');
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');

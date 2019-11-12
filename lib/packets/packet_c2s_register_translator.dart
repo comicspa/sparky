@@ -16,7 +16,6 @@ import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 class PacketC2SRegisterTranslator extends PacketC2SCommon
 {
-  //String _nickName = 'onlyme';
   String _uId;
   int _databaseType = 1;
 
@@ -32,26 +31,24 @@ class PacketC2SRegisterTranslator extends PacketC2SCommon
 
   Future<void> fetch(onFetchDone) async
   {
-    Future<void> fetch(onFetchDone) async
+    switch(_databaseType)
     {
-      switch(_databaseType)
-      {
-        case 0:
-          {
+      case 0:
+        {
             _fetchRealtimeDB(onFetchDone);
-          }
-          break;
+        }
+        break;
 
-        case 1:
-          {
-            _fetchFirestoreDB(onFetchDone);
-          }
-          break;
+      case 1:
+        {
+          _fetchFirestoreDB(onFetchDone);
+        }
+        break;
 
-        default:
-          break;
-      }
+      default:
+        break;
     }
+
   }
 
   Future<void> _fetchFirestoreDB(onFetchDone) async
@@ -60,17 +57,32 @@ class PacketC2SRegisterTranslator extends PacketC2SCommon
 
     String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
     String translatorId = '${_uId}translator$currentTime';
-    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
-        .document(_uId).collection('translators').document(translatorId)
-        .updateData({
-      'create_time':currentTime,
-    }).then((_) {
 
-      PacketS2CRegisterTranslator packet = new PacketS2CRegisterTranslator();
-      packet.parseFireBaseDBJson(onFetchDone,translatorId);
+    DocumentReference reference = ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
+        .document(_uId).collection('translators').document(translatorId);
 
-      //});
-    });
+    if(0 == ModelUserInfo.getInstance().getTranslatorIdCount())
+    {
+      await reference.setData({
+        'create_time': currentTime,
+      }).then((_) {
+
+        PacketS2CRegisterTranslator packet = new PacketS2CRegisterTranslator();
+        packet.parseFireBaseDBJson(onFetchDone, translatorId);
+
+      });
+    }
+    else
+      {
+        await reference.updateData({
+          'create_time': currentTime,
+        }).then((_) {
+
+          PacketS2CRegisterTranslator packet = new PacketS2CRegisterTranslator();
+          packet.parseFireBaseDBJson(onFetchDone, translatorId);
+
+        });
+      }
   }
 
 

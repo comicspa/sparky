@@ -52,10 +52,10 @@ class ManageFireBaseCloudFireStore
     print('updateData2');
 
     try{
-     ManageFireBaseCloudFireStore.reference.collection('model_user_info')
-        .document('BmmwNKFniiet5LeRS2GhK1oTeUw1').collection('creators').document('0')
+     reference.collection('model_user_info')
+        .document('BmmwNKFniiet5LeRS2GhK1oTeUw1').collection('creators').document('BmmwNKFniiet5LeRS2GhK1oTeUw1creator111111111')
         .setData({
-      '1111':'22222',
+      'create_time':'22222',
     }).
     then((_) {
        print('=======================================>');
@@ -69,13 +69,23 @@ class ManageFireBaseCloudFireStore
   }
 
 
+  static void deleteData2() {
+    try {
+      reference
+          .collection('model_user_info')
+          .document('BmmwNKFniiet5LeRS2GhK1oTeUw1').collection('creators').document('BmmwNKFniiet5LeRS2GhK1oTeUw1creator1573526700381')
+          .delete();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
 
   static void deleteData() {
     try {
       reference
-          .collection('books')
-          .document('1')
+          .collection('model_user_info')
+          .document('BmmwNKFniiet5LeRS2GhK1oTeUw1')
           .delete();
     } catch (e) {
       print(e.toString());

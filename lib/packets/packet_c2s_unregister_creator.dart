@@ -14,7 +14,6 @@ import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 class PacketC2SUnregisterCreator extends PacketC2SCommon
 {
-  String _nickName = 'onlyme';
   String _uId;
   int _databaseType = 1;
 
@@ -54,16 +53,56 @@ class PacketC2SUnregisterCreator extends PacketC2SCommon
   Future<void> _fetchFirestoreDB(onFetchDone) async
   {
     print('PacketC2SUnregisterCreator : _fetchFirestoreDB started');
+    if(0 == ModelUserInfo.getInstance().getCreatorIdCount())
+    {
+      if(null != onFetchDone)
+      {
+        PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
+        onFetchDone(packet);
+      }
+      return;
+    }
 
-    await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
-        .document(_uId).collection('creators').document(ModelUserInfo.getInstance().creatorList[0])
-        .delete().then((_) {
 
-      PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
-      packet.parseFireBaseDBJson(onFetchDone);
+    if(null == _uId)
+    {
+      bool locked = false;
+      while(ModelUserInfo.getInstance().getCreatorIdCount() > 0)
+      {
+        if(false == locked)
+        {
+          locked = true;
 
-      //});
-    });
+          String creatorId = ModelUserInfo.getInstance().creatorIdList[0];
+          await ManageFireBaseCloudFireStore.reference.collection(
+              ModelUserInfo.ModelName)
+              .document(_uId).collection('creators').document(creatorId)
+              .delete().then((_) {
+
+            PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
+            packet.parseFireBaseDBJson(onFetchDone);
+
+            locked = false;
+
+          });
+
+        }
+      }
+    }
+    else {
+      String creatorId = ModelUserInfo
+          .getInstance()
+          .creatorIdList[0];
+      await ManageFireBaseCloudFireStore.reference.collection(
+          ModelUserInfo.ModelName)
+          .document(_uId).collection('creators').document(creatorId)
+          .delete().then((_) {
+
+        PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
+        packet.parseFireBaseDBJson(onFetchDone);
+
+      });
+    }
   }
 
 
@@ -71,8 +110,10 @@ class PacketC2SUnregisterCreator extends PacketC2SCommon
   {
     print('PacketC2SUnregisterCreator : _fetchRealtimeDB started');
 
+    String creatorId = ModelUserInfo.getInstance().creatorIdList[0];
     DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelUserInfo.ModelName);
-    modelUserInfoReference.child(_uId).child('creators').child(ModelUserInfo.getInstance().creatorList[0]).remove().then((_) {
+    modelUserInfoReference.child(_uId).child('creators').child(creatorId).remove()
+        .then((_) {
 
       PacketS2CUnregisterCreator packet = new PacketS2CUnregisterCreator();
       packet.parseFireBaseDBJson(onFetchDone);

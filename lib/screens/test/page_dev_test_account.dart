@@ -85,26 +85,27 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_sign_out_with_social:
         {
-          //ManageToastMessage.showShortLength('Sign out with social !!');
           _requestPacketList.removeAt(0);
-
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Sign out with social !!');
         }
         break;
 
       case e_packet_type.s2c_sign_up:
         {
           _requestPacketList.removeAt(0);
-          ManageToastMessage.showShort('SignUp !!');
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('SignUp !!');
         }
         break;
 
       case e_packet_type.s2c_withdrawal:
         {
-          ManageToastMessage.showShort('Withdrawal !!');
           _requestPacketList.removeAt(0);
-          //print('_list.length : ${_list.length}');
 
-          if(_requestPacketList.length > 0)
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Withdrawal !!');
+          else
           {
             PacketC2SCommon current = _requestPacketList[0];
             switch(current.type)
@@ -127,18 +128,18 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_sign_in:
         {
+
           ManageToastMessage.showShort('SignIn !!');
         }
         break;
 
       case e_packet_type.s2c_sign_out:
         {
-          ManageToastMessage.showShort('SignOut !!');
-
           _requestPacketList.removeAt(0);
-          //print('_list.length : ${_list.length}');
 
-          if(_requestPacketList.length > 0)
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('SignOut !!');
+          else
           {
             PacketC2SCommon current = _requestPacketList[0];
             switch(current.type)
@@ -161,25 +162,76 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_register_creator:
         {
-          ManageToastMessage.showShort('Register Creator !!');
+          _requestPacketList.removeAt(0);
+
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Register Creator !!');
+          else
+            {
+
+            }
+
         }
         break;
 
       case e_packet_type.s2c_unregister_creator:
         {
-          ManageToastMessage.showShort('Unregister Creator !!');
+          _requestPacketList.removeAt(0);
+
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Unregister Creator !!');
+          else
+            {
+              PacketC2SCommon current = _requestPacketList[0];
+              switch(current.type)
+              {
+                case e_packet_type.c2s_unregister_translator:
+                  {
+                    PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = current as PacketC2SUnregisterTranslator;
+                    packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+                    packetC2SUnregisterTranslator.fetch(_onFetchDone);
+                  }
+                  break;
+
+                default:
+                  break;
+              }
+            }
         }
         break;
 
       case e_packet_type.s2c_register_translator:
         {
-          ManageToastMessage.showShort('Register Translator !!');
+          _requestPacketList.removeAt(0);
+
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Register Translator !!');
         }
         break;
 
       case e_packet_type.s2c_unregister_translator:
         {
-          ManageToastMessage.showShort('Unregister Translator !!');
+          _requestPacketList.removeAt(0);
+
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Unregister Translator !!');
+          else
+          {
+            PacketC2SCommon current = _requestPacketList[0];
+            switch(current.type)
+            {
+              case e_packet_type.c2s_withdrawal:
+                {
+                  PacketC2SWithdrawal packetC2SWithdrawal = current as PacketC2SWithdrawal;
+                  packetC2SWithdrawal.generate(ModelUserInfo.getInstance().uId);
+                  packetC2SWithdrawal.fetch(_onFetchDone);
+                }
+                break;
+
+              default:
+                break;
+            }
+          }
         }
         break;
 
@@ -287,8 +339,12 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Register Creator'),
             onTap: (){
 
+              print('Register Creator : ${ModelUserInfo.getInstance().uId}');
+
               PacketC2SRegisterCreator packetC2SRegisterCreator = new PacketC2SRegisterCreator();
               packetC2SRegisterCreator.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SRegisterCreator);
+
               packetC2SRegisterCreator.fetch(_onFetchDone);
 
             },
@@ -300,6 +356,8 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               PacketC2SUnregisterCreator packetC2SUnregisterCreator = new PacketC2SUnregisterCreator();
               packetC2SUnregisterCreator.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SUnregisterCreator);
+
               packetC2SUnregisterCreator.fetch(_onFetchDone);
 
 
@@ -312,6 +370,8 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               PacketC2SRegisterTranslator packetC2SRegisterTranslator = new PacketC2SRegisterTranslator();
               packetC2SRegisterTranslator.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SRegisterTranslator);
+
               packetC2SRegisterTranslator.fetch(_onFetchDone);
 
             },
@@ -323,6 +383,8 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = new PacketC2SUnregisterTranslator();
               packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SUnregisterTranslator);
+
               packetC2SUnregisterTranslator.fetch(_onFetchDone);
 
 
@@ -351,15 +413,24 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Withdrawal'),
             onTap: (){
 
+              PacketC2SUnregisterCreator packetC2SUnregisterCreator = new PacketC2SUnregisterCreator();
+              packetC2SUnregisterCreator.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SUnregisterCreator);
+
+              PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = new PacketC2SUnregisterTranslator();
+              packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+              _requestPacketList.add(packetC2SUnregisterTranslator);
+
               PacketC2SWithdrawal packetC2SWithdrawal = new PacketC2SWithdrawal();
               packetC2SWithdrawal.generate(ModelUserInfo.getInstance().uId);
               _requestPacketList.add(packetC2SWithdrawal);
 
               PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = new PacketC2SSignOutWithSocial();
-              packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
+              packetC2SSignOutWithSocial.generate(ModelUserInfo.getInstance().socialProviderType);
               _requestPacketList.add(packetC2SSignOutWithSocial);
 
-              packetC2SWithdrawal.fetch(_onFetchDone);
+              //packetC2SWithdrawal.fetch(_onFetchDone);
+              packetC2SUnregisterCreator.fetch(_onFetchDone);
 
             },
           ),

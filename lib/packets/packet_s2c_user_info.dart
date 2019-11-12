@@ -31,7 +31,7 @@ class PacketS2CUserInfo extends PacketS2CCommon
     if(jsonMap.containsKey('creators')) {
       ModelUserInfo
           .getInstance()
-          .creatorList = jsonMap['creators'].cast<String>();
+          .creatorIdList = jsonMap['creators'].cast<String>();
     }
 
 

@@ -16,7 +16,7 @@ class PacketS2CRegisterCreator extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(onFetchDone,String creatorId) async
   {
     status = e_packet_status.start_dispatch_respond;
-    ModelUserInfo.getInstance().searchAddCreator(creatorId);
+    ModelUserInfo.getInstance().searchAddCreatorId(creatorId);
 
 
     status = e_packet_status.finish_dispatch_respond;
