@@ -13,6 +13,8 @@ import 'package:sparky/packets/packet_c2s_sign_out.dart';
 import 'package:sparky/packets/packet_c2s_withdrawal.dart';
 import 'package:sparky/packets/packet_c2s_sign_in_with_social.dart';
 import 'package:sparky/packets/packet_c2s_sign_out_with_social.dart';
+import 'package:sparky/packets/packet_c2s_unregister_creator.dart';
+import 'package:sparky/packets/packet_c2s_unregister_translator.dart';
 
 
 
@@ -367,24 +369,35 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
               if(null == ModelUserInfo.getInstance().uId)
               {
                 PacketC2SSignInWithSocial packetC2SSignInWithSocial = new PacketC2SSignInWithSocial();
-                packetC2SSignInWithSocial.generate(
-                    e_social_provider_type.google);
+                packetC2SSignInWithSocial.generate(e_social_provider_type.google);
                 _requestPacketList.add(packetC2SSignInWithSocial);
 
                 PacketC2SSignUp packetC2SSignUp = new PacketC2SSignUp();
                 _requestPacketList.add(packetC2SSignUp);
+
                 packetC2SSignInWithSocial.fetch(_onFetchDone);
               }
               else
                 {
+
+                  PacketC2SUnregisterCreator packetC2SUnregisterCreator = new PacketC2SUnregisterCreator();
+                  packetC2SUnregisterCreator.generate(ModelUserInfo.getInstance().uId);
+                  _requestPacketList.add(packetC2SUnregisterCreator);
+
+                  PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = new PacketC2SUnregisterTranslator();
+                  packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+                  _requestPacketList.add(packetC2SUnregisterTranslator);
+
                   PacketC2SWithdrawal packetC2SWithdrawal = new PacketC2SWithdrawal();
                   packetC2SWithdrawal.generate(ModelUserInfo.getInstance().uId);
                   _requestPacketList.add(packetC2SWithdrawal);
 
                   PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = new PacketC2SSignOutWithSocial();
-                  packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
+                  packetC2SSignOutWithSocial.generate(ModelUserInfo.getInstance().socialProviderType);
                   _requestPacketList.add(packetC2SSignOutWithSocial);
-                  packetC2SWithdrawal.fetch(_onFetchDone);
+
+                  //packetC2SWithdrawal.fetch(_onFetchDone);
+                  packetC2SUnregisterCreator.fetch(_onFetchDone);
                 }
 
             },

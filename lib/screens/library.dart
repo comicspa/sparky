@@ -313,7 +313,7 @@ class LibraryListTile extends StatelessWidget {
                               padding: EdgeInsets.only(
                                   left:
                                       ManageDeviceInfo.resolutionWidth * 0.04),
-                              child: Text(ModelLocalizationInfo.getText('library','text_title')+'${snapshot.data[index].title}',
+                              child: Text(ModelLocalizationInfo.getText('library','text_title')+'${snapshot.data[index].titleName}',
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,

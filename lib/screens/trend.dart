@@ -118,7 +118,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => DetailPage(
-                                            i.userId,
+                                            i.creatorId,
                                             i.comicId), // link to Actual viewer
                                       ),
                                     );
@@ -478,7 +478,7 @@ class TrendCardList extends StatelessWidget {
                       padding: EdgeInsets.only(left: ManageDeviceInfo.resolutionWidth * 0.01),
                       height: ManageDeviceInfo.resolutionHeight * 0.048,
                       width: ManageDeviceInfo.resolutionWidth * 0.41,                    
-                      child: Text(snapshot.data[index].title,
+                      child: Text(snapshot.data[index].titleName,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,

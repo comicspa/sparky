@@ -10,25 +10,22 @@ import 'package:sparky/packets/packet_s2c_recommended_comic_info.dart';
 import 'package:sparky/models/model_recommended_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 {
-  int _pageCountIndex = 0;
-  int _pageViewCount = 0;
   int _fetchStatus = 0;
   bool _wantLoad = false;
+  int _databaseType = 1;
 
   PacketC2SRecommendedComicInfo()
   {
     type = e_packet_type.c2s_recommended_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex)
+  void generate()
   {
-    _pageViewCount = pageViewCount;
-    _pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
     respondPacket = null;
     respondPacket = new PacketS2CRecommendedComicInfo();
@@ -37,12 +34,57 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 
   Future<List<ModelRecommendedComicInfo>> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        return _fetchRealTimeDB(onFetchDone);
+
+      case 1:
+        return _fetchFireStoreDB(onFetchDone);
+
+      default:
+        break;
+    }
+
+    return null;
   }
 
-  Future<List<ModelRecommendedComicInfo>> _fetchFireBaseDB(onFetchDone) async
+
+  Future<List<ModelRecommendedComicInfo>> _fetchFireStoreDB(onFetchDone) async
   {
-    print('PacketC2SRecommendedComicInfo : fetchFireBaseDB started');
+    print('PacketC2SRecommendedComicInfo : _fetchRealTimeDB started');
+    if(false == _wantLoad)
+      return ModelRecommendedComicInfo.list;
+
+    if(3 == _fetchStatus)
+      return ModelRecommendedComicInfo.list;
+    else if(0 == _fetchStatus)
+    {
+      _fetchStatus = 1;
+
+      Firestore.instance.collection(ModelRecommendedComicInfo.ModelName).getDocuments().then((QuerySnapshot snapshot)
+      {
+        _fetchStatus = 2;
+        //snapshot.documents.forEach((f) => print('AAAAAAAAAA : ${f.data}}'));
+
+        PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
+        packet.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+
+        _fetchStatus = 3;
+        return ModelRecommendedComicInfo.list;
+
+      });
+
+    }
+
+    return null;
+  }
+
+
+
+  Future<List<ModelRecommendedComicInfo>> _fetchRealTimeDB(onFetchDone) async
+  {
+    print('PacketC2SRecommendedComicInfo : _fetchRealTimeDB started');
     if(false == _wantLoad)
       return ModelRecommendedComicInfo.list;
 
@@ -88,7 +130,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
       _fetchStatus = 1;
 
       DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-          .reference.child('model_recommended_comic_info');
+          .reference.child(ModelRecommendedComicInfo.ModelName);
       modelUserInfoReference.once().then((DataSnapshot snapshot) {
         print('[PacketC2SRecommendedComicInfo:fetchFireBaseDB ] - ${snapshot
             .value}');
@@ -96,7 +138,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
         _fetchStatus = 2;
 
         PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
-        packet.parseFireBaseDBJson(snapshot.value, onFetchDone);
+        packet.parseRealtimeDBJson(snapshot.value, onFetchDone);
 
         _fetchStatus = 3;
 
@@ -152,8 +194,8 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
     int packetBodySize  = 4 + 4;
 
     if(0 == generateHeader(packetBodySize)) {
-      setUint32(_pageCountIndex);
-      setUint32(_pageViewCount);
+      //setUint32(_pageCountIndex);
+      //setUint32(_pageViewCount);
       socket.add(packet);
     }
 

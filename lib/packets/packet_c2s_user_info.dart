@@ -12,16 +12,14 @@ import 'package:sparky/models/model_user_info.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sparky/manage/manage_firebase_database.dart';
 
 
 
 class PacketC2SUserInfo extends PacketC2SCommon
 {
   String _userId;
-  String _accessToken = 'accessToken';
   int _fetchStatus = 0;
-  int _databaseSwitch = 1;
+  int _databaseType = 1;
 
   PacketC2SUserInfo()
   {
@@ -30,16 +28,16 @@ class PacketC2SUserInfo extends PacketC2SCommon
 
   void generate(String userId)
   {
-    //_accessToken = accessToken;
     _userId = userId;
   }
 
-
-
   Future<ModelUserInfo> fetch(onFetchDone) async
   {
-    switch(_databaseSwitch)
+    switch(_databaseType)
     {
+      case 0:
+        return _fetchRealTimeDB(onFetchDone);
+
       case 1:
         return _fetchFireStoreDB(onFetchDone);
 
@@ -47,9 +45,93 @@ class PacketC2SUserInfo extends PacketC2SCommon
         break;
     }
 
-    return _fetchRealTimeDB(onFetchDone);
+    return null;
   }
 
+
+
+  //
+  Future<ModelUserInfo> _fetchFireStoreDB(onFetchDone) async
+  {
+    print('PacketC2SUserInfo : _fetchFireStoreDB started');
+
+    //if(2 == _fetchStatus)
+    //  return ModelUserInfo.getInstance();
+
+    Firestore.instance
+        .collection(ModelUserInfo.ModelName)
+        .document(_userId).get()
+        .then((documentSnapshot)
+    {
+
+      CollectionReference creatorsCollectionReference = documentSnapshot.reference.collection('creators');
+      if(null != creatorsCollectionReference)
+      {
+        creatorsCollectionReference.getDocuments().then((QuerySnapshot snapshot)
+        {
+          for(int documentCountIndex=0; documentCountIndex<snapshot.documents.length; ++documentCountIndex)
+            {
+              print(snapshot.documents[documentCountIndex].documentID);
+              ModelUserInfo.getInstance().searchAddCreatorId(snapshot.documents[documentCountIndex].documentID);
+            }
+          //snapshot.documents.forEach((f) => print('${f.data}}'));
+        });
+      }
+      else
+      {
+        print('null == creatorsCollectionReference');
+      }
+
+      CollectionReference translatorsCollectionReference = documentSnapshot.reference.collection('translators');
+      if(null != translatorsCollectionReference)
+      {
+        translatorsCollectionReference.getDocuments().then((QuerySnapshot snapshot)
+        {
+          for(int documentCountIndex=0; documentCountIndex<snapshot.documents.length; ++documentCountIndex)
+          {
+            print(snapshot.documents[documentCountIndex].documentID);
+            ModelUserInfo.getInstance().searchAddTranslatorId(snapshot.documents[documentCountIndex].documentID);
+          }
+          //snapshot.documents.forEach((f) => print('${f.data}}'));
+        });
+      }
+      else
+      {
+        print('null == translatorsCollectionReference');
+      }
+
+      /*
+      //test
+      CollectionReference test = documentSnapshot.reference.collection('test');
+      if(null == test)
+        {
+          print('null == test');
+        }
+      else
+        {
+          print('null != test11111');
+
+          test.getDocuments().then((QuerySnapshot snapshot)
+          {
+            snapshot.documents.forEach((f) => print('${f.data}}'));
+          });
+
+          print('null != test22222');
+        }
+      */
+
+      print('document : ${documentSnapshot.data.toString()}');
+
+      PacketS2CUserInfo packet = new PacketS2CUserInfo();
+      packet.parseCloudFirestoreJson(documentSnapshot.data , onFetchDone);
+
+      return ModelUserInfo.getInstance();
+    });
+
+    return ModelUserInfo.getInstance();
+  }
+
+  //
   Future<ModelUserInfo> _fetchRealTimeDB(onFetchDone) async
   {
     print('PacketC2SUserInfo : _fetchRealTimeDB started');
@@ -63,35 +145,10 @@ class PacketC2SUserInfo extends PacketC2SCommon
       print('[PacketC2SUserInfo : _fetchRealTimeDB ] - ${snapshot.value}');
 
       PacketS2CUserInfo packet = new PacketS2CUserInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      packet.parseRealtimeDBJson(snapshot.value , onFetchDone);
 
       return ModelUserInfo.getInstance();
 
-    });
-
-    return ModelUserInfo.getInstance();
-  }
-
-
-  //
-  Future<ModelUserInfo> _fetchFireStoreDB(onFetchDone) async
-  {
-    print('PacketC2SUserInfo : _fetchFireStoreDB started');
-
-    //if(2 == _fetchStatus)
-    //  return ModelUserInfo.getInstance();
-
-    Firestore.instance
-        .collection(ModelUserInfo.ModelName)
-        .getDocuments()
-        .then((QuerySnapshot snapshot)
-    {
-      snapshot.documents..forEach((f) => print('${f.data}}'));
-
-      //PacketS2CPreset preset = new PacketS2CPreset();
-      //preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
-
-      return ModelUserInfo.getInstance();
     });
 
     return ModelUserInfo.getInstance();
@@ -129,8 +186,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
         return null;
       });
 
-
-      List<int> accessTokenList = readyWriteStringToByteBuffer(_accessToken);
+      List<int> accessTokenList = readyWriteStringToByteBuffer(_userId);
       int packetBodySize = getStringTotalLength(accessTokenList);
       generateHeader(packetBodySize);
 

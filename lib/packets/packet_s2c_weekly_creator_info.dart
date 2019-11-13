@@ -50,7 +50,7 @@ class PacketS2CWeeklyCreatorInfo extends PacketS2CCommon
 
       ModelWeeklyCreatorInfo modelWeeklyCreatorInfo = new ModelWeeklyCreatorInfo();
 
-      modelWeeklyCreatorInfo.title = comicInfo['title'];
+      modelWeeklyCreatorInfo.titleName = comicInfo['title'];
       modelWeeklyCreatorInfo.creatorName = comicInfo['creator_name'];
       modelWeeklyCreatorInfo.comicId = comicInfo['comic_id'];
       modelWeeklyCreatorInfo.userId = comicInfo['user_id'];
@@ -111,7 +111,7 @@ class PacketS2CWeeklyCreatorInfo extends PacketS2CCommon
 
       modelWeeklyCreatorInfo.userId = readStringToByteBuffer();
       modelWeeklyCreatorInfo.comicId = readStringToByteBuffer();
-      modelWeeklyCreatorInfo.title = readStringToByteBuffer();
+      modelWeeklyCreatorInfo.titleName = readStringToByteBuffer();
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyCreatorInfo.userId, modelWeeklyCreatorInfo.comicId);
       modelWeeklyCreatorInfo.url = url;

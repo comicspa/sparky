@@ -49,7 +49,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
     c2STodayTrendComicInfo.generate(0, 0);
     c2sFeaturedComicInfo.generate(0, 0);
-    c2sRecommendedComicInfo.generate(0, 0);
+    c2sRecommendedComicInfo.generate();
     c2sNewComicInfo.generate(0, 0);
     c2sRealTimeTrendInfo.generate(0, 0);
     c2sWeeklyTrendComicInfo.generate(0, 0);
@@ -240,7 +240,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                             Navigator.push<Widget>(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DetailPage(snapshot.data[index].userId,
+                                builder: (context) => DetailPage(snapshot.data[index].creatorId,
                                     snapshot.data[index].comicId), // link to Actual viewer
                               ),
                             );
@@ -281,7 +281,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                       height: ManageDeviceInfo.resolutionHeight * 0.048,
                                       width: ManageDeviceInfo.resolutionWidth * 0.41,
                                       child: Text(
-                                        snapshot.data[index].title == null ? '' : snapshot.data[index].title,
+                                        snapshot.data[index].titleName == null ? '' : snapshot.data[index].titleName,
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
@@ -305,7 +305,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                             child: Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
-                                                snapshot.data[index].userId == null ? '' : snapshot.data[index].userId,
+                                                snapshot.data[index].creatorId == null ? '' : snapshot.data[index].creatorId,
                                                 textAlign: TextAlign.right,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
@@ -527,7 +527,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailPage(
-                            i.userId, i.comicId), // link to Actual viewer
+                            i.creatorId, i.comicId), // link to Actual viewer
                       ),
                     );
                   },

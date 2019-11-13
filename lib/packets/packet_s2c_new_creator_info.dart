@@ -51,7 +51,7 @@ class PacketS2CNewCreatorInfo extends PacketS2CCommon
 
       ModelNewCreatorInfo modelNewCreatorInfo = new ModelNewCreatorInfo();
 
-      modelNewCreatorInfo.title = comicInfo['title'];
+      modelNewCreatorInfo.titleName = comicInfo['title'];
       modelNewCreatorInfo.creatorName = comicInfo['creator_name'];
       modelNewCreatorInfo.comicId = comicInfo['comic_id'];
       modelNewCreatorInfo.userId = comicInfo['user_id'];
@@ -112,7 +112,7 @@ class PacketS2CNewCreatorInfo extends PacketS2CCommon
 
       modelNewCreatorInfo.userId = readStringToByteBuffer();
       modelNewCreatorInfo.comicId = readStringToByteBuffer();
-      modelNewCreatorInfo.title = readStringToByteBuffer();
+      modelNewCreatorInfo.titleName = readStringToByteBuffer();
 
       String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelNewCreatorInfo.userId, modelNewCreatorInfo.comicId);
       modelNewCreatorInfo.url = url;

@@ -53,13 +53,13 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
 
       ModelLibraryContinueComicInfo modelLibraryContinueComicInfo = new ModelLibraryContinueComicInfo();
 
-      modelLibraryContinueComicInfo.title = comicInfo['title'];
+      modelLibraryContinueComicInfo.titleName = comicInfo['title'];
       modelLibraryContinueComicInfo.creatorName = comicInfo['creator_name'];
       modelLibraryContinueComicInfo.comicId = comicInfo['comic_id'];
-      modelLibraryContinueComicInfo.userId = comicInfo['user_id'];
+     // modelLibraryContinueComicInfo.userId = comicInfo['user_id'];
       modelLibraryContinueComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.creatorId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
       //modelLibraryContinueComicInfo.thumbnailUrl = url;
 
@@ -115,11 +115,11 @@ class PacketS2CLibraryContinueComicInfo extends PacketS2CCommon
     {
       ModelLibraryContinueComicInfo modelLibraryContinueComicInfo = new ModelLibraryContinueComicInfo();
 
-      modelLibraryContinueComicInfo.userId = readStringToByteBuffer();
+      modelLibraryContinueComicInfo.creatorId = readStringToByteBuffer();
       modelLibraryContinueComicInfo.comicId = readStringToByteBuffer();
-      modelLibraryContinueComicInfo.title = readStringToByteBuffer();
+      modelLibraryContinueComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.userId, modelLibraryContinueComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.creatorId, modelLibraryContinueComicInfo.comicId);
       modelLibraryContinueComicInfo.url = url;
       //modelLibraryContinueComicInfo.thumbnailUrl = url;
       print(modelLibraryContinueComicInfo.toString());

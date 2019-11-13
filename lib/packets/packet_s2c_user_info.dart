@@ -1,19 +1,50 @@
 import 'dart:typed_data';
 
+import 'package:sparky/models/model_user_info.dart' as prefix0;
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/manage/manage_firebase_storage.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PacketS2CUserInfo extends PacketS2CCommon
 {
+
   PacketS2CUserInfo()
   {
     type = e_packet_type.s2c_user_info;
   }
 
-  Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
+
+  Future<void> parseCloudFirestoreJson(Map<String,dynamic> jsonMap , onFetchDone) async
+  {
+    status = e_packet_status.start_dispatch_respond;
+
+    ModelUserInfo.getInstance().bio = jsonMap['bio'];
+    ModelUserInfo.getInstance().cloudMessagingToken = jsonMap['cloud_messaging_token'];
+    ModelUserInfo.getInstance().comi = jsonMap['comi'];
+    ModelUserInfo.getInstance().displayName = jsonMap['display_name'];
+    ModelUserInfo.getInstance().followers = jsonMap['followers'];
+    ModelUserInfo.getInstance().following = jsonMap['following'];
+    ModelUserInfo.getInstance().likes = jsonMap['likes'];
+    ModelUserInfo.getInstance().photoUrl = jsonMap['photo_url'];
+
+    if(1 == jsonMap['sign_in'])
+      ModelUserInfo.getInstance().signedIn = true;
+    else
+      ModelUserInfo.getInstance().signedIn = false;
+    ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[jsonMap['social_provider_type']];
+
+    print(ModelUserInfo.getInstance().toString());
+
+    status = e_packet_status.finish_dispatch_respond;
+    if(null != onFetchDone)
+      onFetchDone(this);
+  }
+
+
+
+  Future<void> parseRealtimeDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     status = e_packet_status.start_dispatch_respond;
 
@@ -33,7 +64,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
           .getInstance()
           .creatorIdList = jsonMap['creators'].cast<String>();
     }
-
 
     //ModelUserInfo.getInstance().creatorId = creatorsMap[0];
     //print('creatorId : ${ModelUserInfo.getInstance().creatorId}');
@@ -73,7 +103,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
 
       print('1 : ${ModelUserInfo.getInstance().photoUrl}');
     }
-
 
     if(null != onFetchDone)
       onFetchDone(this);

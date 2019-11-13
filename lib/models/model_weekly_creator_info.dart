@@ -10,7 +10,7 @@ class ModelWeeklyCreatorInfo
   String get userId => _modelComicInfo.userId;
   String get partId => _modelComicInfo.partId;
   String get seasonId => _modelComicInfo.seasonId;
-  String get title => _modelComicInfo.titleName;
+  String get titleName => _modelComicInfo.titleName;
   String get url => _modelComicInfo.urlAddress;
   String get explain => _modelComicInfo.description;
   String get creatorName => _modelComicInfo.creatorName1;
@@ -36,9 +36,9 @@ class ModelWeeklyCreatorInfo
     _modelComicInfo.seasonId = seasonId;
   }
 
-  set title(String title)
+  set titleName(String titleName)
   {
-    _modelComicInfo.titleName = title;
+    _modelComicInfo.titleName = titleName;
   }
 
   set url(String url)
@@ -64,7 +64,7 @@ class ModelWeeklyCreatorInfo
   @override
   String toString()
   {
-    return 'title : $title , creatorName : $creatorName , comicId : $comicId, userId : $userId , creatorId : $creatorId , url : $url';
+    return 'titleName : $titleName , creatorName : $creatorName , comicId : $comicId, userId : $userId , creatorId : $creatorId , url : $url';
   }
 
   static List<ModelWeeklyCreatorInfo> list;

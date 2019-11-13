@@ -46,6 +46,23 @@ class PacketC2SPreset extends PacketC2SCommon
     }
   }
 
+  Future<void> _fetchFirestoreDB(onFetchDone) async
+  {
+    print('PacketC2SPreset : _fetchFirestoreDB started');
+
+    Firestore.instance
+        .collection(ModelPreset.ModelName)
+        .getDocuments()
+        .then((QuerySnapshot snapshot)
+    {
+      snapshot.documents..forEach((f) => print('${f.data}}'));
+
+      PacketS2CPreset preset = new PacketS2CPreset();
+      preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+
+    });
+  }
+
   Future<void> _fetchRealtimeDB(onFetchDone) async
   {
     print('PacketC2SPreset : _fetchRealtimeDB started');
@@ -89,23 +106,6 @@ class PacketC2SPreset extends PacketC2SCommon
 
       PacketS2CPreset preset = new PacketS2CPreset();
       preset.parseRealtimeDatabaseJson(snapshot.value, onFetchDone);
-    });
-  }
-
-  Future<void> _fetchFirestoreDB(onFetchDone) async
-  {
-    print('PacketC2SPreset : _fetchFirestoreDB started');
-
-    Firestore.instance
-        .collection(ModelPreset.ModelName)
-        .getDocuments()
-        .then((QuerySnapshot snapshot)
-    {
-      snapshot.documents..forEach((f) => print('${f.data}}'));
-
-      PacketS2CPreset preset = new PacketS2CPreset();
-      preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
-
     });
   }
 }

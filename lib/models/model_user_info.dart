@@ -221,7 +221,7 @@ class ModelUserInfo
   @override
   String toString()
   {
-    return 'email : $_email , displayName : $_displayName , photoUrl : $_photoUrl , _followers : $_followers , bio : $_bio , uid : $_uId';
+    return 'displayName : $_displayName , photoUrl : $_photoUrl , _followers : $_followers , bio : $_bio , uid : $_uId';
   }
 
   static ModelUserInfo _instance;

@@ -51,13 +51,13 @@ class PacketS2CTodayTrendComicInfo extends PacketS2CCommon
 
       ModelTodayTrendComicInfo modelTodayTrendComicInfo = new ModelTodayTrendComicInfo();
 
-      modelTodayTrendComicInfo.title = comicInfo['title'];
+      modelTodayTrendComicInfo.titleName = comicInfo['title'];
       modelTodayTrendComicInfo.creatorName = comicInfo['creator_name'];
       modelTodayTrendComicInfo.comicId = comicInfo['comic_id'];
-      modelTodayTrendComicInfo.userId = comicInfo['user_id'];
+      //modelTodayTrendComicInfo.userId = comicInfo['user_id'];
       modelTodayTrendComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelTodayTrendComicInfo.userId, modelTodayTrendComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelTodayTrendComicInfo.creatorId, modelTodayTrendComicInfo.comicId);
       modelTodayTrendComicInfo.url = url;
 
       print(modelTodayTrendComicInfo.toString());
@@ -113,11 +113,11 @@ class PacketS2CTodayTrendComicInfo extends PacketS2CCommon
     {
       ModelTodayTrendComicInfo modelTodayTrendComicInfo = new ModelTodayTrendComicInfo();
 
-      modelTodayTrendComicInfo.userId = readStringToByteBuffer();
+      modelTodayTrendComicInfo.creatorId = readStringToByteBuffer();
       modelTodayTrendComicInfo.comicId = readStringToByteBuffer();
-      modelTodayTrendComicInfo.title = readStringToByteBuffer();
+      modelTodayTrendComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelTodayTrendComicInfo.userId, modelTodayTrendComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelTodayTrendComicInfo.creatorId, modelTodayTrendComicInfo.comicId);
       modelTodayTrendComicInfo.url = url;
 
       print(modelTodayTrendComicInfo.toString());

@@ -18,7 +18,7 @@ import 'package:sparky/packets/packet_c2s_register_creator.dart';
 import 'package:sparky/packets/packet_c2s_unregister_creator.dart';
 import 'package:sparky/packets/packet_c2s_register_translator.dart';
 import 'package:sparky/packets/packet_c2s_unregister_translator.dart';
-
+import 'package:sparky/packets/packet_c2s_user_info.dart';
 
 
 class PageDevTestAccount extends StatefulWidget {
@@ -45,15 +45,22 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
   {
     print('[PageDevTestAccount] : onFetchDone');
 
-
     switch(s2cPacket.type)
     {
+      case e_packet_type.s2c_user_info:
+        {
+          _requestPacketList.removeAt(0);
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Get User Info !!');
+        }
+        break;
+
       case e_packet_type.s2c_sign_in_with_social:
         {
-          //ManageToastMessage.showShortLength('Sign in with social !!');
-
           _requestPacketList.removeAt(0);
-          if(_requestPacketList.length > 0)
+          if(0 == _requestPacketList.length)
+            ManageToastMessage.showShort('Sign in with social !!');
+          else
             {
               PacketC2SCommon current = _requestPacketList[0];
               switch(current.type)
@@ -113,7 +120,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               case e_packet_type.c2s_sign_out_with_social:
                 {
                   PacketC2SSignOutWithSocial packetC2SSignOutWithSocial = current as PacketC2SSignOutWithSocial;
-                  packetC2SSignOutWithSocial.generate(e_social_provider_type.google);
+                  packetC2SSignOutWithSocial.generate(ModelUserInfo.getInstance().socialProviderType);
                   packetC2SSignOutWithSocial.fetch(_onFetchDone);
                 }
                 break;
@@ -128,7 +135,6 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
       case e_packet_type.s2c_sign_in:
         {
-
           ManageToastMessage.showShort('SignIn !!');
         }
         break;
@@ -302,7 +308,6 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
             },
           ),
-
            */
 
           ListTile(
@@ -429,11 +434,25 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
               packetC2SSignOutWithSocial.generate(ModelUserInfo.getInstance().socialProviderType);
               _requestPacketList.add(packetC2SSignOutWithSocial);
 
-              //packetC2SWithdrawal.fetch(_onFetchDone);
               packetC2SUnregisterCreator.fetch(_onFetchDone);
 
             },
           ),
+
+
+          ListTile(
+            title: Text('Get User Info'),
+            onTap: (){
+
+              PacketC2SUserInfo packetC2SUserInfo = new PacketC2SUserInfo();
+              packetC2SUserInfo.generate('BmmwNKFniiet5LeRS2GhK1oTeUw1');
+              _requestPacketList.add(packetC2SUserInfo);
+
+              packetC2SUserInfo.fetch(_onFetchDone);
+
+            },
+          ),
+
 
         ], ).toList(), ); }
 
