@@ -37,16 +37,18 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
 
       var comicInfo = list[countIndex].data;
 
+
+
       ModelRecommendedComicInfo modelRecommendedComicInfo = new ModelRecommendedComicInfo();
 
       modelRecommendedComicInfo.titleName = comicInfo['title_name'];
-      modelRecommendedComicInfo.creatorName = comicInfo['creator_name1']+'/'+comicInfo['creator_name2'];
-      modelRecommendedComicInfo.comicId = comicInfo['comic_id'];
+      //modelRecommendedComicInfo.creatorName = comicInfo['creator_name1']+'/'+comicInfo['creator_name2'];
+      modelRecommendedComicInfo.comicNumber = comicInfo['comic_id'];
       //modelRecommendedComicInfo.userId = comicInfo['creator_id'];
       modelRecommendedComicInfo.creatorId = comicInfo['creator_id'];
 
       String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, modelRecommendedComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, modelRecommendedComicInfo.comicNumber);
       modelRecommendedComicInfo.url = url;
       print(modelRecommendedComicInfo.toString());
 
@@ -65,6 +67,8 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
             onFetchDone(this);
         }
       }
+
+
     }
 
     if(false == switchFlag)
@@ -119,11 +123,10 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
 
       modelRecommendedComicInfo.titleName = comicInfo['title'];
       modelRecommendedComicInfo.creatorName = comicInfo['creator_name'];
-      modelRecommendedComicInfo.comicId = comicInfo['comic_id'];
-      //modelRecommendedComicInfo.userId = comicInfo['user_id'];
+      modelRecommendedComicInfo.comicNumber = comicInfo['comic_id'];
       modelRecommendedComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.creatorId, modelRecommendedComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.creatorId, modelRecommendedComicInfo.comicNumber);
       modelRecommendedComicInfo.url = url;
       print(modelRecommendedComicInfo.toString());
 
@@ -179,10 +182,10 @@ class PacketS2CRecommendedComicInfo extends PacketS2CCommon
       ModelRecommendedComicInfo modelRecommendedComicInfo = new ModelRecommendedComicInfo();
 
       //modelRecommendedComicInfo.userId = readStringToByteBuffer();
-      modelRecommendedComicInfo.comicId = readStringToByteBuffer();
+      modelRecommendedComicInfo.comicNumber = readStringToByteBuffer();
       modelRecommendedComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.creatorId, modelRecommendedComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedComicInfo.creatorId, modelRecommendedComicInfo.comicNumber);
       modelRecommendedComicInfo.url = url;
 
       print(modelRecommendedComicInfo.toString());

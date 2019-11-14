@@ -430,9 +430,9 @@ class _LikedIconWidgetState extends State<LikedIconWidget> {
 
     _packetC2SSubscribeComic.generate(ModelUserInfo.getInstance().uId,
         ModelComicDetailInfo.getInstance().creatorId,
-        ModelComicDetailInfo.getInstance().comicId,
-        ModelComicDetailInfo.getInstance().partId,
-        ModelComicDetailInfo.getInstance().seasonId,
+        ModelComicDetailInfo.getInstance().comicNumber,
+        ModelComicDetailInfo.getInstance().partNumber,
+        ModelComicDetailInfo.getInstance().seasonNumber,
         1 == ModelComicDetailInfo.getInstance().subscribed? 0 : 1);
     _packetC2SSubscribeComic.fetch(_onFetchDone);
   }
@@ -679,7 +679,7 @@ class EpisodeListViewWidget extends StatelessWidget {
 
 
                                   ViewerScreen(ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
+                                  ModelComicDetailInfo.getInstance().comicNumber,
                                   ModelPreset.convertCountIndex2EpisodeId(index),
                                 ),
                               ),
@@ -706,7 +706,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ViewerScreen(ModelComicDetailInfo.getInstance().userId,
-                                  ModelComicDetailInfo.getInstance().comicId,
+                                  ModelComicDetailInfo.getInstance().comicNumber,
                                   ModelPreset.convertCountIndex2EpisodeId(index),
                                 ),
                               ),
@@ -727,7 +727,7 @@ class EpisodeListViewWidget extends StatelessWidget {
                                     padding: EdgeInsets.only(
                                         left: ManageDeviceInfo.resolutionWidth * 0.04),
                                     child: Text(
-                                        '${ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList[index].episodeNumber}화',
+                                        '${int.parse(ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList[index].episodeNumber)}화',
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,

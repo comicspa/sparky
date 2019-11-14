@@ -241,7 +241,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailPage(snapshot.data[index].creatorId,
-                                    snapshot.data[index].comicId), // link to Actual viewer
+                                    snapshot.data[index].comicNumber), // link to Actual viewer
                               ),
                             );
                           },
@@ -527,7 +527,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailPage(
-                            i.creatorId, i.comicId), // link to Actual viewer
+                            i.creatorId, i.comicNumber), // link to Actual viewer
                       ),
                     );
                   },

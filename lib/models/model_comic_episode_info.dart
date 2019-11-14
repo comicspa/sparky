@@ -10,7 +10,7 @@ class ModelComicEpisodeInfo
   String _thumbnailUrl;
   int _imageCutCount = 0;
   List<String> _imageCutUrlList;
-  String _episodeId = '00001';
+  String _episodeNumber = '00001';
   String _titleName;
   String _fileExt = 'jpg';
   int _viewCount = 10000;
@@ -18,8 +18,7 @@ class ModelComicEpisodeInfo
   String get thumbnailUrl => _thumbnailUrl;
   int get imageCutCount => _imageCutCount;
   List<String> get imageCutUrlList => _imageCutUrlList;
-  String get episodeId => _episodeId;
-  int get episodeNumber {return int.parse(_episodeId); }
+  String get episodeNumber => _episodeNumber;
   String get titleName => _titleName;
   e_view_direction_type get viewDirectionType => _viewDirectionType;
   String get fileExt => _fileExt;
@@ -40,9 +39,9 @@ class ModelComicEpisodeInfo
     _imageCutUrlList = imageCutUrlList;
   }
 
-  set episodeId(String episodeId)
+  set episodeNumber(String episodeNumber)
   {
-    _episodeId = episodeId;
+    _episodeNumber = episodeNumber;
   }
 
   set titleName(String titleName)
@@ -61,6 +60,12 @@ class ModelComicEpisodeInfo
   set viewCount(int viewCount)
   {
     _viewCount = viewCount;
+  }
+
+
+  static String getComicEpisodeId(String creatorId,String comicNumber,String partNumber,String seasonNumber,String episodeNumber)
+  {
+    return creatorId+'_'+comicNumber+'_'+partNumber+'_'+seasonNumber+'_'+episodeNumber;
   }
 
   static List<ModelComicEpisodeInfo> list;

@@ -7,19 +7,19 @@ class ModelLibraryRecentComicInfo
   static const String ModelName = "model_library_recent_comic_info";
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
-  String get comicId => _modelComicInfo.comicId;
+  String get comicNumber => _modelComicInfo.comicNumber;
   //String get userId => _modelComicInfo.userId;
-  String get partId => _modelComicInfo.partId;
-  String get seasonId => _modelComicInfo.seasonId;
+  String get partNumber => _modelComicInfo.partNumber;
+  String get seasonNumber => _modelComicInfo.seasonNumber;
   String get titleName => _modelComicInfo.titleName;
   String get url => _modelComicInfo.urlAddress;
   String get creatorName => _modelComicInfo.creatorName1;
   String get creatorId => _modelComicInfo.creatorId;
   int get viewCount => _modelComicInfo.viewCount;
 
-  set comicId(String comicId)
+  set comicNumber(String comicNumber)
   {
-    _modelComicInfo.comicId = comicId;
+    _modelComicInfo.comicNumber = comicNumber;
   }
 
   /*
@@ -30,13 +30,13 @@ class ModelLibraryRecentComicInfo
 
    */
 
-  set partId(String partId)
+  set partNumber(String partNumber)
   {
-    _modelComicInfo.partId = partId;
+    _modelComicInfo.partNumber = partNumber;
   }
-  set seasonId(String seasonId)
+  set seasonNumber(String seasonNumber)
   {
-    _modelComicInfo.seasonId = seasonId;
+    _modelComicInfo.seasonNumber = seasonNumber;
   }
 
   set titleName(String titleName)
@@ -67,7 +67,7 @@ class ModelLibraryRecentComicInfo
   @override
   String toString()
   {
-    return 'titleName : $titleName , creatorName : $creatorName , comicId : $comicId , creatorId : $creatorId , url : $url';
+    return 'titleName : $titleName , creatorName : $creatorName , comicNumber : $comicNumber , creatorId : $creatorId , url : $url';
   }
 
   static List<ModelLibraryRecentComicInfo> list;

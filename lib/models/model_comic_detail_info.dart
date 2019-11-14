@@ -16,9 +16,9 @@ class ModelComicDetailInfo
   int _subscribed = 0;
 
   String get userId => _modelComicInfo.userId;
-  String get comicId => _modelComicInfo.comicId;
-  String get partId => _modelComicInfo.partId;
-  String get seasonId => _modelComicInfo.seasonId;
+  String get comicNumber => _modelComicInfo.comicNumber;
+  String get partNumber => _modelComicInfo.partNumber;
+  String get seasonNumber => _modelComicInfo.seasonNumber;
   String get titleName => _modelComicInfo.titleName;
   String get representationImageUrl => _representationImageUrl;
   String get explain => _modelComicInfo.description;
@@ -33,17 +33,17 @@ class ModelComicDetailInfo
   {
     _modelComicInfo.userId = userId;
   }
-  set comicId(String comicId)
+  set comicNumber(String comicNumber)
   {
-    _modelComicInfo.comicId = comicId;
+    _modelComicInfo.comicNumber = comicNumber;
   }
-  set partId(String partId)
+  set partNumber(String partNumber)
   {
-    _modelComicInfo.partId = partId;
+    _modelComicInfo.partNumber = partNumber;
   }
-  set seasonId(String seasonId)
+  set seasonNumber(String seasonNumber)
   {
-    _modelComicInfo.seasonId = seasonId;
+    _modelComicInfo.seasonNumber = seasonNumber;
   }
   set titleName(String titleName)
   {
@@ -106,13 +106,13 @@ class ModelComicDetailInfo
 
 
 
-  ModelComicEpisodeInfo searchModelComicInfo(String episodeId)
+  ModelComicEpisodeInfo searchModelComicInfo(String episodeNumber)
   {
     if(null == _modelComicEpisodeInfoList)
       return null;
     for(int countIndex=0; countIndex<_modelComicEpisodeInfoList.length; ++countIndex)
       {
-        if(0 == _modelComicEpisodeInfoList[countIndex].episodeId.compareTo(episodeId))
+        if(0 == _modelComicEpisodeInfoList[countIndex].episodeNumber.compareTo(episodeNumber))
           return _modelComicEpisodeInfoList[countIndex];
       }
 

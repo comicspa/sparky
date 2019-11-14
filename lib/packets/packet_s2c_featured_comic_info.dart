@@ -55,11 +55,11 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
 
         modelFeaturedComicInfo.titleName = comicInfo['title'];
         modelFeaturedComicInfo.creatorName = comicInfo['creator_name'];
-        modelFeaturedComicInfo.comicId = comicInfo['comic_id'];
+        modelFeaturedComicInfo.comicNumber = comicInfo['comic_id'];
         //modelFeaturedComicInfo.userId = comicInfo['user_id'];
         modelFeaturedComicInfo.creatorId = comicInfo['creator_id'];
 
-        String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.creatorId, modelFeaturedComicInfo.comicId);
+        String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.creatorId, modelFeaturedComicInfo.comicNumber);
         modelFeaturedComicInfo.url = url;
 
         print(modelFeaturedComicInfo.toString());
@@ -114,10 +114,10 @@ class PacketS2CFeaturedComicInfo extends PacketS2CCommon
       ModelFeaturedComicInfo modelFeaturedComicInfo = new ModelFeaturedComicInfo();
 
       modelFeaturedComicInfo.creatorId = readStringToByteBuffer();
-      modelFeaturedComicInfo.comicId = readStringToByteBuffer();
+      modelFeaturedComicInfo.comicNumber = readStringToByteBuffer();
       modelFeaturedComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.creatorId, modelFeaturedComicInfo.comicId);
+      String url = await ModelPreset.getBannerImageDownloadUrl(modelFeaturedComicInfo.creatorId, modelFeaturedComicInfo.comicNumber);
       modelFeaturedComicInfo.url = url;
 
       print(modelFeaturedComicInfo.toString());

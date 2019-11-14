@@ -271,7 +271,7 @@ class DetailHeaderWidget extends StatelessWidget {
           Divider(),
           new ViewFrom1stEpisodeWidget(
             userId: ModelComicDetailInfo.getInstance().userId,
-            comicId: ModelComicDetailInfo.getInstance().comicId,
+            comicId: ModelComicDetailInfo.getInstance().comicNumber,
             firstEpisodeId: ModelPreset.convertCountIndex2EpisodeId(0),
           ),
           Divider(),

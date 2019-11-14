@@ -51,11 +51,11 @@ class PacketS2CWeeklyTrendComicInfo extends PacketS2CCommon
 
       modelWeeklyTrendComicInfo.titleName = comicInfo['title'];
       modelWeeklyTrendComicInfo.creatorName = comicInfo['creator_name'];
-      modelWeeklyTrendComicInfo.comicId = comicInfo['comic_id'];
+      modelWeeklyTrendComicInfo.comicNumber = comicInfo['comic_id'];
       //modelWeeklyTrendComicInfo.userId = comicInfo['user_id'];
       modelWeeklyTrendComicInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.creatorId, modelWeeklyTrendComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.creatorId, modelWeeklyTrendComicInfo.comicNumber);
       modelWeeklyTrendComicInfo.url = url;
 
       print(modelWeeklyTrendComicInfo.toString());
@@ -109,10 +109,10 @@ class PacketS2CWeeklyTrendComicInfo extends PacketS2CCommon
       ModelWeeklyTrendComicInfo modelWeeklyTrendComicInfo = new ModelWeeklyTrendComicInfo();
 
       modelWeeklyTrendComicInfo.creatorId = readStringToByteBuffer();
-      modelWeeklyTrendComicInfo.comicId = readStringToByteBuffer();
+      modelWeeklyTrendComicInfo.comicNumber = readStringToByteBuffer();
       modelWeeklyTrendComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.creatorId, modelWeeklyTrendComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelWeeklyTrendComicInfo.creatorId, modelWeeklyTrendComicInfo.comicNumber);
       modelWeeklyTrendComicInfo.url = url;
 
       print(modelWeeklyTrendComicInfo.toString());

@@ -52,11 +52,11 @@ class PacketS2CRecommendedCreatorInfo extends PacketS2CCommon
 
       modelRecommendedCreatorInfo.titleName = comicInfo['title'];
       modelRecommendedCreatorInfo.creatorName = comicInfo['creator_name'];
-      modelRecommendedCreatorInfo.comicId = comicInfo['comic_id'];
+      modelRecommendedCreatorInfo.comicNumber = comicInfo['comic_id'];
       modelRecommendedCreatorInfo.userId = comicInfo['user_id'];
       modelRecommendedCreatorInfo.creatorId = comicInfo['creator_id'];
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedCreatorInfo.userId, modelRecommendedCreatorInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedCreatorInfo.userId, modelRecommendedCreatorInfo.comicNumber);
       modelRecommendedCreatorInfo.url = url;
 
       print(modelRecommendedCreatorInfo.toString());
@@ -110,10 +110,10 @@ class PacketS2CRecommendedCreatorInfo extends PacketS2CCommon
       ModelRecommendedCreatorInfo modelRecommendedCreatorInfo = new ModelRecommendedCreatorInfo();
 
       modelRecommendedCreatorInfo.userId = readStringToByteBuffer();
-      modelRecommendedCreatorInfo.comicId = readStringToByteBuffer();
+      modelRecommendedCreatorInfo.comicNumber = readStringToByteBuffer();
       modelRecommendedCreatorInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedCreatorInfo.userId, modelRecommendedCreatorInfo.comicId);
+      String url = await ModelPreset.getRepresentationHorizontalImageDownloadUrl(modelRecommendedCreatorInfo.userId, modelRecommendedCreatorInfo.comicNumber);
       modelRecommendedCreatorInfo.url = url;
 
       print(modelRecommendedCreatorInfo.toString());

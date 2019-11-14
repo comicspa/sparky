@@ -2,8 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
 import 'package:sparky/models/model_common.dart';
+import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_recommended_comic_info.dart';
@@ -17,7 +19,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 {
   int _fetchStatus = 0;
   bool _wantLoad = false;
-  int _databaseType = 1;
+  int _databaseType = 0;
 
   PacketC2SRecommendedComicInfo()
   {
@@ -52,7 +54,86 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 
   Future<List<ModelRecommendedComicInfo>> _fetchFireStoreDB(onFetchDone) async
   {
-    print('PacketC2SRecommendedComicInfo : _fetchRealTimeDB started');
+    print('PacketC2SRecommendedComicInfo : _fetchFireStoreDB started');
+
+    if(3 == _fetchStatus)
+      return ModelRecommendedComicInfo.list;
+
+    /*
+    Future<List<Product>>getProductsWishList(wishlistId) async {
+
+      var _wishlists = null;
+      List<Product> _products = []; // I am assuming that you have product model like above
+
+      await getWishList(wishlistId).then((val) {
+        _wishlists = Wishlist.fromMap(val.data);
+
+        _wishlists.forEach((wish) {
+          await getProduct(wish.productId).then((product) {
+            _products.add(product));
+          });
+        });
+      });
+
+      return _products;
+    }
+    */
+
+    await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelRecommendedComicInfo.ModelName).then((QuerySnapshot snapshot)
+    {
+      _fetchStatus = 2;
+      for(int countIndex=0; countIndex<snapshot.documents.length; ++countIndex)
+      {
+        var map = snapshot.documents[countIndex].data;
+        String comicNumber = map['comic_number'];
+        String creatorId = map['creator_id'];
+        String partNumber = map['part_number'];
+        String seasonNumber = map['season_number'];
+
+        ModelRecommendedComicInfo modelRecommendedComicInfo = new ModelRecommendedComicInfo();
+        modelRecommendedComicInfo.comicNumber = comicNumber;
+        modelRecommendedComicInfo.creatorId = creatorId;
+        modelRecommendedComicInfo.partNumber = partNumber;
+        modelRecommendedComicInfo.seasonNumber = seasonNumber;
+
+        if(null == ModelRecommendedComicInfo.list)
+          ModelRecommendedComicInfo.list = new List<ModelRecommendedComicInfo>();
+        ModelRecommendedComicInfo.list.add(modelRecommendedComicInfo);
+
+        String comicId = creatorId+'_'+comicNumber+'_'+partNumber+'_'+seasonNumber;
+        ManageFireBaseCloudFireStore.getDocumentSnapshot(ModelComicInfo.ModelName, comicId).then((documentSnapshot)
+        {
+          print('document : ${documentSnapshot.data.toString()}');
+
+          modelRecommendedComicInfo.titleName = documentSnapshot.data['title_name'];
+          modelRecommendedComicInfo.creatorName = documentSnapshot.data['creator_name1']+'/'+documentSnapshot.data['creator_name2'];
+
+
+
+          if(snapshot.documents.length - 1 == countIndex)
+          {
+            print('snapshot.documents.length - 1 == countIndex');
+            _fetchStatus = 3;
+            if(null != onFetchDone)
+            {
+              PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
+              onFetchDone(packet);
+            }
+          }
+
+          /*
+          PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
+          packet.parseCloudFirestoreJson(documentSnapshot.data , onFetchDone);
+
+          return ModelUserInfo.getInstance();
+           */
+        });
+      }
+
+    });
+
+
+    /*
     if(false == _wantLoad)
       return ModelRecommendedComicInfo.list;
 
@@ -74,10 +155,10 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
         return ModelRecommendedComicInfo.list;
 
       });
-
     }
+     */
 
-    return null;
+    return ModelRecommendedComicInfo.list;
   }
 
 
@@ -154,7 +235,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 
   Future<List<ModelRecommendedComicInfo>> _fetchBytes() async
   {
-    print('PacketC2SRecommendedComicInfo : fetchBytes started');
+    print('PacketC2SRecommendedComicInfo : _fetchBytes started');
 
     if(null != ModelRecommendedComicInfo.list)
       return ModelRecommendedComicInfo.list;

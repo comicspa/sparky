@@ -4,9 +4,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ManageFireBaseCloudFireStore
 {
-
   static final reference = Firestore.instance;
+  static Future<DocumentSnapshot> getDocumentSnapshot(String collectionId,String documentId) async
+  {
+    return await reference.collection(collectionId).document(documentId).get();
+  }
 
+  static Future<QuerySnapshot> getQuerySnapshot(String collectionId) async
+  {
+    return await reference.collection(collectionId).getDocuments();
+  }
+
+
+
+
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   static void createRecord() async
   {

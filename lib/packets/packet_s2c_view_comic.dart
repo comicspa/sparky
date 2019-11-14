@@ -21,7 +21,7 @@ class PacketS2CViewComic extends PacketS2CCommon
 
     ModelViewComic.getInstance().userId = userId;
     ModelViewComic.getInstance().id = comicId;
-    ModelViewComic.getInstance().episodeId = episodeId;
+    ModelViewComic.getInstance().episodeNumber = episodeId;
     ModelViewComic.getInstance().title = jsonMap['title'];
     int style = jsonMap['style'];
     ModelViewComic.getInstance().viewDirectionType = e_view_direction_type.values[style];
@@ -73,7 +73,8 @@ class PacketS2CViewComic extends PacketS2CCommon
           print('imageId[$countIndex / $comicCount] : $imageId');
 
           String comicImageUrl =
-          await ModelPreset.getCutImageDownloadUrl(ModelViewComic.getInstance().userId,ModelViewComic.getInstance().id,'001','001',ModelViewComic.getInstance().episodeId,imageId);
+          await ModelPreset.getCutImageDownloadUrl(ModelViewComic.getInstance().userId,
+              ModelViewComic.getInstance().id,'001','001',ModelViewComic.getInstance().episodeNumber,imageId);
 
           print('comicImageUrl[$countIndex] : $comicImageUrl');
 

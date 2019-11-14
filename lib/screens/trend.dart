@@ -119,7 +119,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                       MaterialPageRoute(
                                         builder: (context) => DetailPage(
                                             i.creatorId,
-                                            i.comicId), // link to Actual viewer
+                                            i.comicNumber), // link to Actual viewer
                                       ),
                                     );
                                   },
@@ -437,9 +437,9 @@ class TrendCardList extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => DetailPage(
-                    snapshot.data[index].userId,
+                    snapshot.data[index].creatorId,
                     snapshot.data[index]
-                        .comicId), // link to Actual viewer
+                        .comicNumber), // link to Actual viewer
               ),
             );
           },

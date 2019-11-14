@@ -49,9 +49,9 @@ class ModelComicInfo
   String _creatorId;
   String _creatorName1;
   String _creatorName2;
-  String _comicId = '000001';
-  String _partId = '001';
-  String _seasonId = '001';
+  String _comicNumber = '000001';
+  String _partNumber = '001';
+  String _seasonNumber = '001';
   String _titleName;
   String _cp;
   e_story_status _storyStatus;
@@ -78,9 +78,9 @@ class ModelComicInfo
   String get creatorId => _creatorId;
   int get countIndex => _countIndex;
   String get userId => _userId;
-  String get comicId => _comicId;
-  String get partId => _partId;
-  String get seasonId => _seasonId;
+  String get comicNumber => _comicNumber;
+  String get partNumber => _partNumber;
+  String get seasonNumber => _seasonNumber;
   String get titleName => _titleName;
   e_story_status get storyStatus => _storyStatus;
   String get cp => _cp;
@@ -105,6 +105,7 @@ class ModelComicInfo
   String get datePublished => _datePublished;
   String get urlAddress => _urlAddress;
   int get viewCount => _viewCount;
+  String get comicId => _creatorId+'_'+_comicNumber+'_'+_partNumber+'_'+_seasonNumber;
 
   set cp(String cp)
   {
@@ -122,17 +123,17 @@ class ModelComicInfo
   {
     _userId = userId;
   }
-  set comicId(String comicId)
+  set comicNumber(String comicNumber)
   {
-    _comicId = comicId;
+    _comicNumber = comicNumber;
   }
-  set partId(String partId)
+  set partNumber(String partNumber)
   {
-    _partId = partId;
+    _partNumber = partNumber;
   }
-  set seasonId(String seasonId)
+  set seasonNumber(String seasonNumber)
   {
-    _seasonId = seasonId;
+    _seasonNumber = seasonNumber;
   }
   set titleName(String titleName)
   {
@@ -225,6 +226,19 @@ class ModelComicInfo
   set viewCount(int viewCount)
   {
     _viewCount = viewCount;
+  }
+
+  static String getComicId(String creatorId,String comicNumber,String partNumber,String seasonNumber)
+  {
+      return creatorId+'_'+comicNumber+'_'+partNumber+'_'+seasonNumber;
+  }
+
+  static Map<String,ModelComicInfo> __map;
+  static ModelComicInfo Search(String comicId)
+  {
+    if(__map.containsKey(comicId))
+      return null;
+    return __map[comicId];
   }
 
 }

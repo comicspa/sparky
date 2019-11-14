@@ -14,7 +14,7 @@ class ModelViewComic
 
   String get userId => _userId;
   String get title => _modelComicEpisodeInfo.titleName;
-  String get episodeId => _modelComicEpisodeInfo.episodeId;
+  String get episodeNumber => _modelComicEpisodeInfo.episodeNumber;
   String get id => _id;
   String get partId => _partId;
   String get seasonId => _seasonId;
@@ -29,9 +29,9 @@ class ModelViewComic
   {
     _modelComicEpisodeInfo.titleName = title;
   }
-  set episodeId(String episodeId)
+  set episodeNumber(String episodeNumber)
   {
-    _modelComicEpisodeInfo.episodeId = episodeId;
+    _modelComicEpisodeInfo.episodeNumber = episodeNumber;
   }
   set id(String id)
   {

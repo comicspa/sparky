@@ -44,10 +44,10 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       ModelLibraryRecentComicInfo modelLibraryRecentComicInfo = new ModelLibraryRecentComicInfo();
 
       modelLibraryRecentComicInfo.creatorId = readStringToByteBuffer();
-      modelLibraryRecentComicInfo.comicId = readStringToByteBuffer();
+      modelLibraryRecentComicInfo.comicNumber = readStringToByteBuffer();
       modelLibraryRecentComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryRecentComicInfo.creatorId, modelLibraryRecentComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryRecentComicInfo.creatorId, modelLibraryRecentComicInfo.comicNumber);
       modelLibraryRecentComicInfo.url = url;
 
       print(modelLibraryRecentComicInfo.toString());
@@ -70,10 +70,10 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       ModelLibraryViewListComicInfo modelLibraryViewListComicInfo = new ModelLibraryViewListComicInfo();
 
       modelLibraryViewListComicInfo.creatorId = readStringToByteBuffer();
-      modelLibraryViewListComicInfo.comicId = readStringToByteBuffer();
+      modelLibraryViewListComicInfo.comicNumber = readStringToByteBuffer();
       modelLibraryViewListComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryViewListComicInfo.creatorId, modelLibraryViewListComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryViewListComicInfo.creatorId, modelLibraryViewListComicInfo.comicNumber);
       modelLibraryViewListComicInfo.url = url;
 
       print(modelLibraryViewListComicInfo.toString());
@@ -96,10 +96,10 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       ModelLibraryOwnedComicInfo modelLibraryOwnedComicInfo = new ModelLibraryOwnedComicInfo();
 
       modelLibraryOwnedComicInfo.creatorId = readStringToByteBuffer();
-      modelLibraryOwnedComicInfo.comicId = readStringToByteBuffer();
+      modelLibraryOwnedComicInfo.comicNumber = readStringToByteBuffer();
       modelLibraryOwnedComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.creatorId, modelLibraryOwnedComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryOwnedComicInfo.creatorId, modelLibraryOwnedComicInfo.comicNumber);
       modelLibraryOwnedComicInfo.url = url;
 
       print(modelLibraryOwnedComicInfo.toString());
@@ -121,10 +121,10 @@ class PacketS2CPresetLibraryInfo extends PacketS2CCommon
       ModelLibraryContinueComicInfo modelLibraryContinueComicInfo = new ModelLibraryContinueComicInfo();
 
       modelLibraryContinueComicInfo.creatorId = readStringToByteBuffer();
-      modelLibraryContinueComicInfo.comicId = readStringToByteBuffer();
+      modelLibraryContinueComicInfo.comicNumber = readStringToByteBuffer();
       modelLibraryContinueComicInfo.titleName = readStringToByteBuffer();
 
-      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.creatorId, modelLibraryContinueComicInfo.comicId);
+      String url = await ModelPreset.getRepresentationSquareImageDownloadUrl(modelLibraryContinueComicInfo.creatorId, modelLibraryContinueComicInfo.comicNumber);
       modelLibraryContinueComicInfo.url = url;
       //modelLibraryContinueComicInfo.thumbnailUrl = url;
 

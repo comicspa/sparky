@@ -36,7 +36,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
   Future<void> parseFireBaseDBJson(Map<dynamic,dynamic> jsonMap , onFetchDone) async
   {
     ModelComicDetailInfo.getInstance().userId = jsonMap['user_id'];
-    ModelComicDetailInfo.getInstance().comicId = jsonMap['comic_id'];
+    ModelComicDetailInfo.getInstance().comicNumber = jsonMap['comic_id'];
     ModelComicDetailInfo.getInstance().creatorName = jsonMap['creator_name'];
     ModelComicDetailInfo.getInstance().titleName = jsonMap['title'];
     ModelComicDetailInfo.getInstance().explain = jsonMap['explain'];
@@ -48,7 +48,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     //  await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
     ModelComicDetailInfo.getInstance().representationImageUrl =
-    await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+    await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicNumber );
 
     if(null == ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList)
       ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList = new List<ModelComicEpisodeInfo>();
@@ -92,12 +92,12 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
 
       ModelComicEpisodeInfo modelComicEpisodeInfo = new ModelComicEpisodeInfo();
 
-      modelComicEpisodeInfo.episodeId = comics[key.toString()]['episode_id'];
+      modelComicEpisodeInfo.episodeNumber = comics[key.toString()]['episode_id'];
       modelComicEpisodeInfo.titleName = comics[key.toString()]['title'];
       int collected = comics[key.toString()]['collected'];
       int updated = comics[key.toString()]['updated'];
 
-      print('episode_id : ${modelComicEpisodeInfo.episodeId}');
+      print('episode_number : ${modelComicEpisodeInfo.episodeNumber}');
 
       //modelComicEpisodeInfo.userId = ModelComicDetailInfo.getInstance().userId;
       //modelComicEpisodeInfo.comicId = ModelComicDetailInfo.getInstance().comicId;
@@ -108,10 +108,10 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
 
       //String userId,String comicId,String partId,String seasonId,String episodeId
       await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
-        ModelComicDetailInfo.getInstance().comicId,
-        ModelComicDetailInfo.getInstance().partId,
-        ModelComicDetailInfo.getInstance().seasonId,
-          modelComicEpisodeInfo.episodeId);
+        ModelComicDetailInfo.getInstance().comicNumber,
+        ModelComicDetailInfo.getInstance().partNumber,
+        ModelComicDetailInfo.getInstance().seasonNumber,
+          modelComicEpisodeInfo.episodeNumber);
 
       print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicEpisodeInfo.thumbnailUrl}');
       ++countIndex;
@@ -157,7 +157,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     print('PackSize : $size , PacketType : $type , systemErrorCode : $systemErrorCode , serviceErrorCode : $serviceErrorCode');
 
     ModelComicDetailInfo.getInstance().userId = readStringToByteBuffer();
-    ModelComicDetailInfo.getInstance().comicId = readStringToByteBuffer();
+    ModelComicDetailInfo.getInstance().comicNumber = readStringToByteBuffer();
     ModelComicDetailInfo.getInstance().creatorName = readStringToByteBuffer();
     ModelComicDetailInfo.getInstance().titleName = readStringToByteBuffer();
     ModelComicDetailInfo.getInstance().explain = readStringToByteBuffer();
@@ -168,7 +168,7 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
     //  await ModelPreset.getRepresentationVerticalImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
 
     ModelComicDetailInfo.getInstance().representationImageUrl =
-      await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicId );
+      await ModelPreset.getRepresentationSquareImageDownloadUrl(ModelComicDetailInfo.getInstance().userId, ModelComicDetailInfo.getInstance().comicNumber );
 
 
     if(null == ModelComicDetailInfo.getInstance().modelComicEpisodeInfoList)
@@ -194,10 +194,10 @@ class PacketS2CComicDetailInfo extends PacketS2CCommon
       //await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
        //   ModelComicDetailInfo.getInstance().comicId,'001','001','00001');
       await ModelPreset.getThumbnailImageDownloadUrl(ModelComicDetailInfo.getInstance().userId,
-          ModelComicDetailInfo.getInstance().comicId,
-          ModelComicDetailInfo.getInstance().partId,
-          ModelComicDetailInfo.getInstance().seasonId,
-          modelComicEpisodeInfo.episodeId);
+          ModelComicDetailInfo.getInstance().comicNumber,
+          ModelComicDetailInfo.getInstance().partNumber,
+          ModelComicDetailInfo.getInstance().seasonNumber,
+          modelComicEpisodeInfo.episodeNumber);
 
 
       print('comicInfo_thumbnailImageURL[$countIndex] : ${modelComicEpisodeInfo.thumbnailUrl}');
