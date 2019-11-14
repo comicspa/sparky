@@ -6,13 +6,13 @@ class ModelRecommendedComicInfo
   static const String ModelName = "model_recommended_comic_info";
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
+  String get creatorId => _modelComicInfo.creatorId;
   String get comicNumber => _modelComicInfo.comicNumber;
   String get partNumber => _modelComicInfo.partNumber;
   String get seasonNumber => _modelComicInfo.seasonNumber;
   String get titleName => _modelComicInfo.titleName;
   String get url => _modelComicInfo.urlAddress;
   String get creatorName => _modelComicInfo.creatorName1;
-  String get creatorId => _modelComicInfo.creatorId;
   int get viewCount => _modelComicInfo.viewCount;
 
   set comicNumber(String comicNumber)
@@ -61,5 +61,37 @@ class ModelRecommendedComicInfo
   }
 
   static List<ModelRecommendedComicInfo> list;
+
+  static ModelRecommendedComicInfo add()
+  {
+    if(null == list)
+      list = new List<ModelRecommendedComicInfo>();
+
+    ModelRecommendedComicInfo ddd = new ModelRecommendedComicInfo();
+    list.add(ddd);
+
+    return null;
+  }
+
+
+
+  static ModelRecommendedComicInfo search(String comicId)
+  {
+    if(null == list)
+      return null;
+
+    for(int countIndex=0; countIndex<list.length; ++countIndex)
+    {
+      String creatorId = list[countIndex].creatorId;
+      String comicNumber = list[countIndex].comicNumber;
+      String partNumber = list[countIndex].partNumber;
+      String seasonNumber = list[countIndex].seasonNumber;
+
+      if(0 == comicId.compareTo(creatorId + '_' + comicNumber + '_' + partNumber + '_' + seasonNumber))
+        return list[countIndex];
+    }
+
+    return null;
+  }
 
 }

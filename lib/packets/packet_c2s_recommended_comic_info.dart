@@ -79,6 +79,34 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
     }
     */
 
+
+    /*  sample
+    Future<void> getUserHomes() async
+    {
+  CollectionReference ref = Firestore.instance
+      .collection('users')
+      .document(mUid)
+      .collection('accessibleHomes');
+  QuerySnapshot eventsQuery = await ref.getDocuments();
+
+  final waitList = <Future<void>>[];
+
+  for (var document in eventsQuery.documents) {
+    DocumentReference homeReference = document["homeReference"];
+
+    waitList.add(getHomeDevices("home", homeReference));
+    waitList.add(
+      homeReference.get().then((DocumentSnapshot ds) {
+        mUserHomes.add(ds["alias"].toString());
+      });
+    );
+  }
+
+  await Future.wait(waitList);
+}
+     */
+
+
     await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelRecommendedComicInfo.ModelName).then((QuerySnapshot snapshot)
     {
       _fetchStatus = 2;
