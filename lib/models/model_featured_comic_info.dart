@@ -3,7 +3,7 @@ import 'package:sparky/models/model_comic_info.dart';
 
 class ModelFeaturedComicInfo
 {
-  static const String ModelName = "model_featured_episode_info";
+  static const String ModelName = "model_featured_comic_info";
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
   String get comicNumber => _modelComicInfo.comicNumber;

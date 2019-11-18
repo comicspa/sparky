@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
+import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
@@ -19,7 +20,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 {
   int _fetchStatus = 0;
   bool _wantLoad = false;
-  int _databaseType = 0;
+  int _databaseType = 1;
 
   PacketC2SRecommendedComicInfo()
   {
@@ -56,110 +57,72 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
   {
     print('PacketC2SRecommendedComicInfo : _fetchFireStoreDB started');
 
-    if(3 == _fetchStatus)
+    //if(3 == _fetchStatus)
+    //  return ModelRecommendedComicInfo.list;
+    if(null != ModelRecommendedComicInfo.list)
       return ModelRecommendedComicInfo.list;
 
-    /*
-    Future<List<Product>>getProductsWishList(wishlistId) async {
 
-      var _wishlists = null;
-      List<Product> _products = []; // I am assuming that you have product model like above
-
-      await getWishList(wishlistId).then((val) {
-        _wishlists = Wishlist.fromMap(val.data);
-
-        _wishlists.forEach((wish) {
-          await getProduct(wish.productId).then((product) {
-            _products.add(product));
-          });
-        });
-      });
-
-      return _products;
-    }
-    */
-
-
-    /*  sample
-    Future<void> getUserHomes() async
+    if(0 == _fetchStatus)
     {
-  CollectionReference ref = Firestore.instance
-      .collection('users')
-      .document(mUid)
-      .collection('accessibleHomes');
-  QuerySnapshot eventsQuery = await ref.getDocuments();
+      _fetchStatus = 1;
 
-  final waitList = <Future<void>>[];
+      await ManageFireBaseCloudFireStore.getQuerySnapshot(
+          ModelRecommendedComicInfo.ModelName).then((QuerySnapshot snapshot) {
+        _fetchStatus = 2;
+        for (int countIndex = 0; countIndex <
+            snapshot.documents.length; ++countIndex) {
+          var map = snapshot.documents[countIndex].data;
+          String comicNumber = map['comic_number'];
+          String creatorId = map['creator_id'];
+          String partNumber = map['part_number'];
+          String seasonNumber = map['season_number'];
 
-  for (var document in eventsQuery.documents) {
-    DocumentReference homeReference = document["homeReference"];
+          ModelRecommendedComicInfo modelRecommendedComicInfo = new ModelRecommendedComicInfo();
+          modelRecommendedComicInfo.comicNumber = comicNumber;
+          modelRecommendedComicInfo.creatorId = creatorId;
+          modelRecommendedComicInfo.partNumber = partNumber;
+          modelRecommendedComicInfo.seasonNumber = seasonNumber;
 
-    waitList.add(getHomeDevices("home", homeReference));
-    waitList.add(
-      homeReference.get().then((DocumentSnapshot ds) {
-        mUserHomes.add(ds["alias"].toString());
-      });
-    );
-  }
+          if (null == ModelRecommendedComicInfo.list)
+            ModelRecommendedComicInfo.list =
+            new List<ModelRecommendedComicInfo>();
+          ModelRecommendedComicInfo.list.add(modelRecommendedComicInfo);
 
-  await Future.wait(waitList);
-}
-     */
+          String comicId = creatorId + '_' + comicNumber + '_' + partNumber +
+              '_' + seasonNumber;
+          ManageFireBaseCloudFireStore.getDocumentSnapshot(
+              ModelComicInfo.ModelName, comicId).then((documentSnapshot) {
+            print('document : ${documentSnapshot.data.toString()}');
 
+            modelRecommendedComicInfo.titleName =
+            documentSnapshot.data['title_name'];
+            modelRecommendedComicInfo.creatorName =
+                documentSnapshot.data['creator_name1'] + '/' +
+                    documentSnapshot.data['creator_name2'];
 
-    await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelRecommendedComicInfo.ModelName).then((QuerySnapshot snapshot)
-    {
-      _fetchStatus = 2;
-      for(int countIndex=0; countIndex<snapshot.documents.length; ++countIndex)
-      {
-        var map = snapshot.documents[countIndex].data;
-        String comicNumber = map['comic_number'];
-        String creatorId = map['creator_id'];
-        String partNumber = map['part_number'];
-        String seasonNumber = map['season_number'];
+            if (snapshot.documents.length - 1 == countIndex) {
+              print('snapshot.documents.length - 1 == countIndex');
+              _fetchStatus = 3;
 
-        ModelRecommendedComicInfo modelRecommendedComicInfo = new ModelRecommendedComicInfo();
-        modelRecommendedComicInfo.comicNumber = comicNumber;
-        modelRecommendedComicInfo.creatorId = creatorId;
-        modelRecommendedComicInfo.partNumber = partNumber;
-        modelRecommendedComicInfo.seasonNumber = seasonNumber;
+              if (null == respondPacket)
+                respondPacket = new PacketS2CRecommendedComicInfo();
+              respondPacket.status = e_packet_status.finish_dispatch_respond;
 
-        if(null == ModelRecommendedComicInfo.list)
-          ModelRecommendedComicInfo.list = new List<ModelRecommendedComicInfo>();
-        ModelRecommendedComicInfo.list.add(modelRecommendedComicInfo);
-
-        String comicId = creatorId+'_'+comicNumber+'_'+partNumber+'_'+seasonNumber;
-        ManageFireBaseCloudFireStore.getDocumentSnapshot(ModelComicInfo.ModelName, comicId).then((documentSnapshot)
-        {
-          print('document : ${documentSnapshot.data.toString()}');
-
-          modelRecommendedComicInfo.titleName = documentSnapshot.data['title_name'];
-          modelRecommendedComicInfo.creatorName = documentSnapshot.data['creator_name1']+'/'+documentSnapshot.data['creator_name2'];
-
-
-
-          if(snapshot.documents.length - 1 == countIndex)
-          {
-            print('snapshot.documents.length - 1 == countIndex');
-            _fetchStatus = 3;
-            if(null != onFetchDone)
-            {
-              PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
-              onFetchDone(packet);
+              if (null != onFetchDone) {
+                onFetchDone(respondPacket);
+              }
             }
-          }
 
-          /*
+            /*
           PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
           packet.parseCloudFirestoreJson(documentSnapshot.data , onFetchDone);
-
           return ModelUserInfo.getInstance();
            */
-        });
-      }
-
-    });
-
+          });
+        }
+      });
+    }
 
     /*
     if(false == _wantLoad)
@@ -229,9 +192,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
         return ModelRecommendedComicInfo.list;
       });
     }
-
      */
-
 
     if(3 == _fetchStatus)
       return ModelRecommendedComicInfo.list;
@@ -254,8 +215,6 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
         return ModelRecommendedComicInfo.list;
       });
     }
-
-
 
     return null;
   }

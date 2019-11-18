@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:sparky/models/model_localization_info.dart';
+import 'package:sparky/packets/packet_s2c_storage_file_real_url.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
@@ -18,6 +19,9 @@ import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
 import 'package:sparky/screens/detail/detail_page.dart';
 import 'common_widgets.dart';
 import 'package:sparky/manage/manage_firebase_messaging.dart';
+import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 
 
 class Trend extends StatefulWidget {
@@ -26,19 +30,68 @@ class Trend extends StatefulWidget {
 }
 
 class _TrendState extends State<Trend> with WidgetsBindingObserver {
-  PacketC2STodayTrendComicInfo c2STodayTrendComicInfo =
-      new PacketC2STodayTrendComicInfo(); // use this to handle data
-  PacketC2SFeaturedComicInfo c2sFeaturedComicInfo =
-      new PacketC2SFeaturedComicInfo(); // use this to handle data
-  PacketC2SRecommendedComicInfo c2sRecommendedComicInfo =
-      new PacketC2SRecommendedComicInfo();
-  PacketC2SNewComicInfo c2sNewComicInfo = new PacketC2SNewComicInfo();
-  PacketC2SRealTimeTrendComicInfo c2sRealTimeTrendInfo =
-      new PacketC2SRealTimeTrendComicInfo();
-  PacketC2SWeeklyTrendComicInfo c2sWeeklyTrendComicInfo =
-      new PacketC2SWeeklyTrendComicInfo();
+
+  PacketC2STodayTrendComicInfo _packetC2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo(); // use this to handle data
+  PacketC2SFeaturedComicInfo _packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo(); // use this to handle data
+  PacketC2SRecommendedComicInfo _packetC2SRecommendedComicInfo = new PacketC2SRecommendedComicInfo();
+  PacketC2SNewComicInfo _packetC2SNewComicInfo = new PacketC2SNewComicInfo();
+  PacketC2SRealTimeTrendComicInfo _packetC2SRealTimeTrendInfo = new PacketC2SRealTimeTrendComicInfo();
+  PacketC2SWeeklyTrendComicInfo _packetC2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
+  PacketC2SStorageFileRealUrl _packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
+  //
+  void _onFetchDone(PacketS2CCommon packetS2CPacket)
+  {
+    print('[Trend] : _onFetchDone');
+    if(e_packet_status.finish_dispatch_respond != packetS2CPacket.status)
+      return;
+
+    switch(packetS2CPacket.type)
+    {
+      case e_packet_type.s2c_storage_file_real_url:
+        {
+            PacketS2CStorageFileRealUrl packet = packetS2CPacket as PacketS2CStorageFileRealUrl;
+            if(packet.isFinished())
+            {
+              print('packet.isFinished() - ${packet.modelName}');
+
+              switch(packet.modelName)
+              {
+                case ModelRecommendedComicInfo.ModelName:
+                  {
+                    _packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName);
+                    _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
+
+                  }
+                  break;
+
+                case ModelRealTimeTrendComicInfo.ModelName:
+                  {
+                    _packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName);
+                    _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
+                  }
+                  break;
+
+                default:
+                  break;
+
+              }
+
+
+            }
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setState(() {
+
+    });
+
+  }
 
 
   @override
@@ -48,16 +101,19 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     ManageFireBaseMessaging.initialize();
     // generating packet
 
-    //c2STodayTrendComicInfo.generate(0, 0,false);
-    //c2sFeaturedComicInfo.generate(0, 0,false);
-    //c2sRecommendedComicInfo.generate(0, 0);
-    //c2sNewComicInfo.generate(0, 0,false);
-    //c2sRealTimeTrendInfo.generate(0, 0,false);
-    //c2sWeeklyTrendComicInfo.generate(0, 0,false);
+    //_packetC2STodayTrendComicInfo.generate(0, 0,false);
+    //_packetC2SFeaturedComicInfo.generate(0, 0,false);
+    //_packetC2SRecommendedComicInfo.generate(0, 0);
+    //_packetC2SNewComicInfo.generate(0, 0,false);
+    //_packetC2SRealTimeTrendInfo.generate(0, 0,false);
+    //_packetC2SWeeklyTrendComicInfo.generate(0, 0,false);
 
     // WidgetsBinding.instance
     //     .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
-        // for pull to refresh
+    // for pull to refresh
+
+    _packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName);
+    _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
   }
 
   @override
@@ -86,7 +142,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             child: Padding(
               padding: EdgeInsets.all(0.0),
               child: FutureBuilder<List<ModelFeaturedComicInfo>>(
-                future: c2sFeaturedComicInfo.fetch(null),
+                future: _packetC2SFeaturedComicInfo.fetch(null),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData)
                     return Center(child: LoadingIndicator());
@@ -179,7 +235,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelRecommendedComicInfo>>(
-              future: c2sRecommendedComicInfo.fetch(null),
+              future: _packetC2SRecommendedComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return new LoadingIndicator();
                 {
@@ -205,7 +261,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelRealTimeTrendComicInfo>>(
-              future: c2sRealTimeTrendInfo.fetch(null),
+              future: _packetC2SRealTimeTrendInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData)
                   return Center(
@@ -242,7 +298,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelNewComicInfo>>(
-              future: c2sNewComicInfo.fetch(null),
+              future: _packetC2SNewComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
@@ -268,7 +324,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelTodayTrendComicInfo>>(
-              future: c2STodayTrendComicInfo.fetch(null),
+              future: _packetC2STodayTrendComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
@@ -294,7 +350,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
             padding: EdgeInsets.all(0),
             height: ManageDeviceInfo.resolutionHeight * 0.28,
             child: FutureBuilder<List<ModelWeeklyTrendComicInfo>>(
-              future: c2sWeeklyTrendComicInfo.fetch(null),
+              future: _packetC2SWeeklyTrendComicInfo.fetch(null),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return LoadingIndicator();
                 {
@@ -360,6 +416,8 @@ String checkTitle(int type) {
     }
     break;
   }
+
+  return title;
 }
 
 // Need handler for indicator
@@ -458,12 +516,13 @@ class TrendCardList extends StatelessWidget {
                       height: ManageDeviceInfo.resolutionHeight * 0.15,
                       child: ClipRRect(
                         borderRadius: new BorderRadius.circular(2.0),
-                        child: FadeInImage.memoryNetwork(
+                        child: null != snapshot.data[index].url ? FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
                           image: snapshot.data[index].url,
                           fit: BoxFit.cover,
                           height: ManageDeviceInfo.resolutionHeight * 0.15,
                         )
+                            : Image.asset('images/Comi.png')
                         /* CachedNetworkImage(
                           imageUrl: snapshot.data[index].url,
                           placeholder: (context, url) => LoadingIndicator(),
