@@ -62,16 +62,15 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
     if(null != ModelRecommendedComicInfo.list)
       return ModelRecommendedComicInfo.list;
 
-
     if(0 == _fetchStatus)
     {
       _fetchStatus = 1;
 
-      await ManageFireBaseCloudFireStore.getQuerySnapshot(
-          ModelRecommendedComicInfo.ModelName).then((QuerySnapshot snapshot) {
+      await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelRecommendedComicInfo.ModelName).then((QuerySnapshot snapshot)
+      {
         _fetchStatus = 2;
-        for (int countIndex = 0; countIndex <
-            snapshot.documents.length; ++countIndex) {
+
+        for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex) {
           var map = snapshot.documents[countIndex].data;
           String comicNumber = map['comic_number'];
           String creatorId = map['creator_id'];
@@ -102,7 +101,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
                     documentSnapshot.data['creator_name2'];
 
             if (snapshot.documents.length - 1 == countIndex) {
-              print('snapshot.documents.length - 1 == countIndex');
+              print('snapshot.documents.length - 1 == $countIndex');
               _fetchStatus = 3;
 
               if (null == respondPacket)

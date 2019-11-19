@@ -182,6 +182,102 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
 
+  /* backup
+  void _onFetchDone(PacketS2CCommon s2cPacket)
+  {
+    if(true == ModelPreset.developerMode)
+    {
+      Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
+      return;
+    }
+
+    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+      return;
+
+    bool result = true;
+    _enableAppVersion = result;
+
+    if (true == result) {
+      ManageMessage.generate();
+      ManageMessage.streamController.stream.listen((data) {
+        print("DataReceived1: " + data.toString());
+
+        switch(data)
+        {
+          case e_packet_type.s2c_sign_in:
+            {
+              PacketC2SUserInfo packetC2SUserInfo = new PacketC2SUserInfo();
+              packetC2SUserInfo.generate(_uId);
+              ManageMessage.add(packetC2SUserInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_user_info:
+            {
+              PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
+              packetC2SPresetComicInfo.generate();
+              ManageMessage.add(packetC2SPresetComicInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_preset_comic_info:
+            {
+              PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
+              packetC2SPresetLibraryInfo.generate();
+              ManageMessage.add(packetC2SPresetLibraryInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_preset_library_info:
+            {
+              PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+              packetC2SLocalizationInfo.generate(ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
+              ManageMessage.add(packetC2SLocalizationInfo);
+            }
+            break;
+
+          case e_packet_type.s2c_localization_info:
+            {
+              navigationPage();
+            }
+            break;
+
+          default:
+            break;
+        }
+
+
+      }, onDone: () {
+        print("_onFetchDone Done");
+      }, onError: (error) {
+        print("_onFetchDone Error");
+      });
+
+
+      if(null != _uId && _uId.length > 0)
+      {
+        if(false == ModelUserInfo.getInstance().signedIn)
+        {
+          ModelUserInfo.getInstance().uId = _uId;
+          ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[_socialProviderType];
+
+          print('social_provider_type : ${ModelUserInfo.getInstance().socialProviderType.toString()}');
+
+          PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
+          packetC2SSignIn.generate(_uId);
+          ManageMessage.add(packetC2SSignIn);
+        }
+      }
+      else
+      {
+        PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
+        packetC2SPresetComicInfo.generate();
+        ManageMessage.add(packetC2SPresetComicInfo);
+      }
+    }
+  }
+   */
+
   void navigationPage() {
 
       Navigator.of(context).pushReplacementNamed('/HomeScreen');

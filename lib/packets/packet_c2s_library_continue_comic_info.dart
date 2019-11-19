@@ -81,9 +81,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
         return ModelLibraryContinueComicInfo.list;
       });
     }
-
      */
-
 
 
     if(3 == _fetchStatus)
@@ -93,7 +91,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
       _fetchStatus = 1;
 
       DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-          .reference.child('model_library_continue_comic_info');
+          .reference.child(ModelLibraryContinueComicInfo.ModelName);
       modelUserInfoReference.once().then((DataSnapshot snapshot) {
         print('[PacketC2SLibraryContinueComicInfo:fetchFireBaseDB ] - ${snapshot
             .value}');

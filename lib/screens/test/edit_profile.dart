@@ -77,7 +77,7 @@ class EditProfileScreen extends StatelessWidget {
           child: AppBar(
             elevation: 1,
             iconTheme: IconThemeData(
-              color: Colors.black, 
+              color: Colors.black,
             ),
             backgroundColor: Colors.white, //Color.fromRGBO(21, 24, 45, 1.0),
             //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
