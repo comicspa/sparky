@@ -17,8 +17,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
 {
-  int _pageCountIndex = 0;
-  int _pageViewCount = 0;
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
@@ -28,15 +26,27 @@ class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_real_time_trend_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex)
+  void generate({bool recreateList = false})
   {
-    _pageViewCount = pageViewCount;
-    _pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
-    respondPacket = null;
-    respondPacket = new PacketS2CRealTimeTrendComicInfo();
+
+    if(null == respondPacket)
+      respondPacket = new PacketS2CRealTimeTrendComicInfo();
+    else
+      respondPacket.reset();
+
+    if(true == recreateList)
+    {
+      if(null != ModelRealTimeTrendComicInfo.list)
+      {
+        ModelRealTimeTrendComicInfo.list.clear();
+        ModelRealTimeTrendComicInfo.list = null;
+      }
+    }
+
     _wantLoad = true;
   }
+
 
 
   Future<List<ModelRealTimeTrendComicInfo>> fetch(onFetchDone) async
@@ -61,100 +71,81 @@ class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
   {
     print('PacketC2SRealTimeTrendComicInfo : _fetchFireStoreDB started');
 
-    //if(3 == _fetchStatus)
-    //  return ModelRecommendedComicInfo.list;
-    if(null != ModelRealTimeTrendComicInfo.list)
+    if (null != ModelRealTimeTrendComicInfo.list)
       return ModelRealTimeTrendComicInfo.list;
 
-
-    if(0 == _fetchStatus)
+    print('aaaa : ${respondPacket.status.toString()}');
+    if(e_packet_status.none == respondPacket.status)
     {
-      _fetchStatus = 1;
+      print('bbbb');
+      respondPacket.status = e_packet_status.start_dispatch_request;
 
-      await ManageFireBaseCloudFireStore.getQuerySnapshot(
-          ModelRealTimeTrendComicInfo.ModelName).then((QuerySnapshot snapshot) {
-        _fetchStatus = 2;
-        for (int countIndex = 0; countIndex <
-            snapshot.documents.length; ++countIndex) {
+      List<ModelRealTimeTrendComicInfo> list;
+      await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelRealTimeTrendComicInfo.ModelName).then((QuerySnapshot snapshot)
+      {
+        respondPacket.status = e_packet_status.wait_respond;
+
+        for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
+        {
           var map = snapshot.documents[countIndex].data;
-          String comicNumber = map['comic_number'];
-          String creatorId = map['creator_id'];
-          String partNumber = map['part_number'];
-          String seasonNumber = map['season_number'];
 
           ModelRealTimeTrendComicInfo modelRealTimeTrendComicInfo = new ModelRealTimeTrendComicInfo();
-          modelRealTimeTrendComicInfo.comicNumber = comicNumber;
-          modelRealTimeTrendComicInfo.creatorId = creatorId;
-          modelRealTimeTrendComicInfo.partNumber = partNumber;
-          modelRealTimeTrendComicInfo.seasonNumber = seasonNumber;
+          modelRealTimeTrendComicInfo.comicNumber = map['comic_number'];;
+          modelRealTimeTrendComicInfo.creatorId = map['creator_id'];
+          modelRealTimeTrendComicInfo.partNumber = map['part_number'];
+          modelRealTimeTrendComicInfo.seasonNumber = map['season_number'];
 
-          if (null == ModelRealTimeTrendComicInfo.list)
-            ModelRealTimeTrendComicInfo.list =
-            new List<ModelRealTimeTrendComicInfo>();
-          ModelRealTimeTrendComicInfo.list.add(modelRealTimeTrendComicInfo);
+          //print('comicNumber : ${modelFeaturedComicInfo.comicNumber}');
+          //print('creatorId : ${modelFeaturedComicInfo.creatorId}');
+          //print('partNumber : ${modelFeaturedComicInfo.partNumber}');
+          //print('seasonNumber : ${modelFeaturedComicInfo.seasonNumber}');
 
-          String comicId = creatorId + '_' + comicNumber + '_' + partNumber +
-              '_' + seasonNumber;
-          ManageFireBaseCloudFireStore.getDocumentSnapshot(
-              ModelComicInfo.ModelName, comicId).then((documentSnapshot) {
+          if (null == list)
+            list = new List<ModelRealTimeTrendComicInfo>();
+          list.add(modelRealTimeTrendComicInfo);
+
+        }
+      });
+
+
+      if(null != list)
+      {
+        for(int countIndex=0; countIndex<list.length; ++countIndex)
+        {
+          ModelRealTimeTrendComicInfo modelRealTimeTrendComicInfo = list[countIndex];
+
+          print('comicId : ${modelRealTimeTrendComicInfo.comicId}');
+
+          await ManageFireBaseCloudFireStore.getDocumentSnapshot(ModelComicInfo.ModelName,modelRealTimeTrendComicInfo.comicId).then((documentSnapshot)
+          {
             print('document : ${documentSnapshot.data.toString()}');
 
-            modelRealTimeTrendComicInfo.titleName =
-            documentSnapshot.data['title_name'];
-            modelRealTimeTrendComicInfo.creatorName =
-                documentSnapshot.data['creator_name1'] + '/' +
-                    documentSnapshot.data['creator_name2'];
+            modelRealTimeTrendComicInfo.titleName = documentSnapshot.data['title_name'];
+            modelRealTimeTrendComicInfo.creatorName = documentSnapshot.data['creator_name1'] + '/' + documentSnapshot.data['creator_name2'];
 
-            if (snapshot.documents.length - 1 == countIndex) {
-              print('snapshot.documents.length - 1 == countIndex');
-              _fetchStatus = 3;
+            if (list.length - 1 == countIndex)
+            {
+              print('list.length - 1 == countIndex');
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CRealTimeTrendComicInfo();
               respondPacket.status = e_packet_status.finish_dispatch_respond;
 
-              if (null != onFetchDone) {
+              ModelRealTimeTrendComicInfo.list = list;
+
+              if (null != onFetchDone)
                 onFetchDone(respondPacket);
-              }
+
             }
-
-            /*
-            PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
-            packet.parseCloudFirestoreJson(documentSnapshot.data , onFetchDone);
-            return ModelUserInfo.getInstance();
-            */
-
           });
+
+
         }
-      });
+      }
     }
 
-    /*
-    if(false == _wantLoad)
-      return ModelRecommendedComicInfo.list;
-
-    if(3 == _fetchStatus)
-      return ModelRecommendedComicInfo.list;
-    else if(0 == _fetchStatus)
-    {
-      _fetchStatus = 1;
-
-      Firestore.instance.collection(ModelRecommendedComicInfo.ModelName).getDocuments().then((QuerySnapshot snapshot)
-      {
-        _fetchStatus = 2;
-        //snapshot.documents.forEach((f) => print('AAAAAAAAAA : ${f.data}}'));
-
-        PacketS2CRecommendedComicInfo packet = new PacketS2CRecommendedComicInfo();
-        packet.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
-
-        _fetchStatus = 3;
-        return ModelRecommendedComicInfo.list;
-
-      });
-    }
-     */
-
-    return ModelRealTimeTrendComicInfo.list;
+    //print('finished');
+    return null;
   }
 
 
@@ -267,8 +258,8 @@ class PacketC2SRealTimeTrendComicInfo extends PacketC2SCommon
       int packetBodySize  = 4 + 4;
 
       if(0 == generateHeader(packetBodySize)) {
-        setUint32(_pageCountIndex);
-        setUint32(_pageViewCount);
+        //setUint32(_pageCountIndex);
+        //setUint32(_pageViewCount);
         socket.add(packet);
       }
 

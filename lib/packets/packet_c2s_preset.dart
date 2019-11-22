@@ -23,7 +23,7 @@ class PacketC2SPreset extends PacketC2SCommon
     respondPacket = new PacketS2CPreset();
   }
 
-  Future<void> fetch(onFetchDone) async
+  Future<String> fetch(onFetchDone) async
   {
     print('PacketC2SPreset : fetch started');
 
@@ -31,24 +31,29 @@ class PacketC2SPreset extends PacketC2SCommon
     {
       case 0:
         {
-          _fetchRealtimeDB(onFetchDone);
+           return _fetchRealtimeDB(onFetchDone);
         }
         break;
 
       case 1:
         {
-          _fetchFirestoreDB(onFetchDone);
+          return _fetchFirestoreDB(onFetchDone);
         }
         break;
 
       default:
         break;
     }
+
+    return null;
   }
 
-  Future<void> _fetchFirestoreDB(onFetchDone) async
+  Future<String> _fetchFirestoreDB(onFetchDone) async
   {
     print('PacketC2SPreset : _fetchFirestoreDB started');
+
+    if(null != ModelPreset.faqUrl)
+      return ModelPreset.faqUrl;
 
     Firestore.instance
         .collection(ModelPreset.ModelName)
@@ -59,13 +64,19 @@ class PacketC2SPreset extends PacketC2SCommon
 
       PacketS2CPreset preset = new PacketS2CPreset();
       preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+      return ModelPreset.faqUrl;
 
     });
+
+    return null;
   }
 
-  Future<void> _fetchRealtimeDB(onFetchDone) async
+  Future<String> _fetchRealtimeDB(onFetchDone) async
   {
     print('PacketC2SPreset : _fetchRealtimeDB started');
+
+    if(null != ModelPreset.faqUrl)
+      return ModelPreset.faqUrl;
 
     /*
     switch(respondPacket.status)
@@ -106,6 +117,9 @@ class PacketC2SPreset extends PacketC2SCommon
 
       PacketS2CPreset preset = new PacketS2CPreset();
       preset.parseRealtimeDatabaseJson(snapshot.value, onFetchDone);
+      return ModelPreset.faqUrl;
     });
+
+    return null;
   }
 }

@@ -58,11 +58,18 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
               switch(packet.modelName)
               {
+                case ModelFeaturedComicInfo.ModelName:
+                  {
+                    _packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName);
+                    _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
+                  }
+                  break;
+
+
                 case ModelRecommendedComicInfo.ModelName:
                   {
                     _packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName);
                     _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
-
                   }
                   break;
 
@@ -70,6 +77,26 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                   {
                     _packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName);
                     _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
+                  }
+                  break;
+
+                case ModelNewComicInfo.ModelName:
+                  {
+                    _packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName);
+                    _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
+                  }
+                  break;
+
+                case ModelTodayTrendComicInfo.ModelName:
+                  {
+                    _packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName);
+                    _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
+                  }
+                  break;
+
+                case ModelWeeklyTrendComicInfo.ModelName:
+                  {
+
                   }
                   break;
 
@@ -112,7 +139,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     //     .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
     // for pull to refresh
 
-    _packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName);
+    _packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName);
     _packetC2SStorageFileRealUrl.fetch(_onFetchDone);
   }
 
@@ -159,11 +186,13 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                 margin: EdgeInsets.symmetric(horizontal: 0.0),
                                 decoration: BoxDecoration(color: Colors.white),
                                 child: GestureDetector(
-                                  child: FadeInImage.memoryNetwork(
+                                  child: null != i.url ? FadeInImage.memoryNetwork(
                                     placeholder: kTransparentImage,
                                     image: i.url,
-                                    fit: BoxFit.fitWidth,
-                                  ),
+                                    fit: BoxFit.cover,
+                                    height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                  )
+                                      : Image.asset('images/Comi.png'),
                                   /* CachedNetworkImage(
                                       imageUrl: i.thumbnailUrl,
                                       placeholder: (context, url) =>

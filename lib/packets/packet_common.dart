@@ -199,8 +199,9 @@ class PacketCommon
       }
 
     byteData = null;
-
+    _status = e_packet_status.none;
   }
+
 
   static void setCSharpSocketServer()
   {

@@ -105,7 +105,7 @@ class ModelComicInfo
   String get datePublished => _datePublished;
   String get urlAddress => _urlAddress;
   int get viewCount => _viewCount;
-  String get comicId => _creatorId+'_'+_comicNumber+'_'+_partNumber+'_'+_seasonNumber;
+  String get comicId => getComicId(_creatorId,_comicNumber,_partNumber,_seasonNumber);
 
   set cp(String cp)
   {
@@ -234,11 +234,42 @@ class ModelComicInfo
   }
 
   static Map<String,ModelComicInfo> __map;
-  static ModelComicInfo Search(String comicId)
+
+  static void add(String comicId,ModelComicInfo modelComicInfo)
   {
-    if(__map.containsKey(comicId))
+    if(null == __map)
+      __map = new Map<String,ModelComicInfo>();
+    __map[comicId] = modelComicInfo;
+  }
+
+  static ModelComicInfo getByComicId(String comicId)
+  {
+    if(null == __map)
       return null;
-    return __map[comicId];
+    if(__map.containsKey(comicId))
+      return __map[comicId];
+    return null;
+  }
+
+  static ModelComicInfo getBy(String creatorId,String comicNumber,String partNumber,String seasonNumber)
+  {
+    String comicId = getComicId(creatorId,comicNumber,partNumber,seasonNumber);
+    return getByComicId(comicId);
+  }
+
+  static void remove(String comicId)
+  {
+    if(null == __map)
+      return;
+    if(__map.containsKey(comicId))
+      __map.remove(comicId);
+  }
+
+  static void clear()
+  {
+    if(null == __map)
+      return;
+    __map.clear();
   }
 
 }

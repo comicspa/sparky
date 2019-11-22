@@ -13,12 +13,12 @@ class ModelPreset
   static const String ModelName = "model_preset";
 
   static String _version = '1.0.0.0';
-  static String _homepageUrl = 'https://www.google.co.kr';
-  static String _faqUrl = 'https://www.google.co.kr';
-  static String _privacyPolicyUrl = 'https://www.google.co.kr';
-  static String _termsOfUseUrl = 'https://www.google.co.kr';
-  static String _termsOfUseTranslateComicUrl = 'https://www.google.co.kr';
-  static String _termsOfUseRegisterComicUrl = 'https://www.google.co.kr';
+  static String _homepageUrl;
+  static String _faqUrl;
+  static String _privacyPolicyUrl;
+  static String _termsOfUseUrl;
+  static String _termsOfUseTranslateComicUrl;
+  static String _termsOfUseRegisterComicUrl;
   static bool _developerMode = false;
   static final String _comicBaseUrl = 'comics';
   static final String __representationHorizontalImageFileFullName = '000000.jpg';

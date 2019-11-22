@@ -14,6 +14,7 @@ class ModelRecommendedComicInfo
   String get url => _modelComicInfo.urlAddress;
   String get creatorName => _modelComicInfo.creatorName1;
   int get viewCount => _modelComicInfo.viewCount;
+  String get comicId => ModelComicInfo.getComicId(creatorId,comicNumber,partNumber,seasonNumber);
 
   set comicNumber(String comicNumber)
   {

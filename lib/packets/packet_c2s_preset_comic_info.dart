@@ -38,12 +38,12 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
   {
     _count = 0;
 
-    _packetC2SFeaturedComicInfo.generate(0, 0);
+    _packetC2SFeaturedComicInfo.generate();
     _packetC2SRecommendedComicInfo.generate();
-    _packetC2sRealTimeTrendComicInfo.generate(0, 0);
-    _packetC2SNewComicInfo.generate(0, 0);
-    _packetC2STodayTrendComicInfo.generate(0, 0);
-    _packetC2SWeeklyTrendComicInfo.generate(0, 0);
+    _packetC2sRealTimeTrendComicInfo.generate();
+    _packetC2SNewComicInfo.generate();
+    _packetC2STodayTrendComicInfo.generate();
+    _packetC2SWeeklyTrendComicInfo.generate();
   }
 
   void _onFetchDone(PacketS2CCommon s2cPacket)

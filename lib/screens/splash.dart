@@ -22,6 +22,16 @@ import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_c2s_preset.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_localization_info.dart';
+import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_recommended_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_real_time_trend_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_new_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_today_trend_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_weekly_trend_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_recent_comic_info.dart';
+import 'package:sparky/packets/packet_c2s_library_view_list_comic_info.dart';
 import 'package:sparky/manage/manage_shared_preference.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -32,7 +42,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with WidgetsBindingObserver {
 
-  PacketC2SPreset _packetC2SPreset;
   bool _enableAppVersion = true;
   String _uId;
   int _socialProviderType = 0;
@@ -47,16 +56,15 @@ class _SplashScreenState extends State<SplashScreen>
     initialize();
   }
 
-
   void initialize() async
   {
-
     if(kDebugMode)
     {
       print('Debug Mode');
       //ModelPreset.developerMode = true;
     }
-    else {
+    else
+    {
       print('Release Mode');
     }
 
@@ -70,9 +78,200 @@ class _SplashScreenState extends State<SplashScreen>
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
      print('uId : $_uId , social_provider_type : $_socialProviderType');
 
-    _packetC2SPreset = new PacketC2SPreset();
-    _packetC2SPreset.generate();
-    _packetC2SPreset.fetch(_onFetchDone);
+
+    bool result = true;
+    _enableAppVersion = result;
+
+    ManageMessage.generate();
+    ManageMessage.streamController.stream.listen((data)
+    {
+      print("DataReceived1: " + data.toString());
+
+      switch (data)
+      {
+        case e_packet_type.s2c_preset:
+        {
+          print('----- e_packet_type.s2c_preset ----- ');
+
+
+          if(true == ModelPreset.developerMode)
+          {
+            Navigator.of(context).pushReplacementNamed('/PageDevTestMenu');
+          }
+          else
+            {
+              if(null != _uId && _uId.length > 0)
+              {
+                if(false == ModelUserInfo.getInstance().signedIn)
+                {
+                  ModelUserInfo.getInstance().uId = _uId;
+                  ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[_socialProviderType];
+
+                  print('social_provider_type : ${ModelUserInfo.getInstance().socialProviderType.toString()}');
+
+                  PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
+                  packetC2SSignIn.generate(_uId);
+                  ManageMessage.add(packetC2SSignIn);
+                }
+              }
+              else
+              {
+                PacketC2SFeaturedComicInfo packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
+                packetC2SFeaturedComicInfo.generate();
+                ManageMessage.add(packetC2SFeaturedComicInfo);
+
+              }
+
+            }
+
+        }
+        break;
+
+        case e_packet_type.s2c_sign_in:
+          {
+            print('----- e_packet_type.s2c_sign_in ------');
+
+            PacketC2SUserInfo packetC2SUserInfo = new PacketC2SUserInfo();
+            packetC2SUserInfo.generate(_uId);
+            ManageMessage.add(packetC2SUserInfo);
+          }
+          break;
+
+        case e_packet_type.s2c_user_info:
+          {
+            print('----- e_packet_type.s2c_user_info -------');
+
+            PacketC2SFeaturedComicInfo packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
+            packetC2SFeaturedComicInfo.generate();
+            ManageMessage.add(packetC2SFeaturedComicInfo);
+          }
+          break;
+
+        case e_packet_type.s2c_featured_comic_info:
+          {
+            print('---- e_packet_type.s2c_featured_comic_info ------');
+
+            PacketC2SRecommendedComicInfo packetC2SRecommendedComicInfo = new PacketC2SRecommendedComicInfo();
+            packetC2SRecommendedComicInfo.generate();
+            ManageMessage.add(packetC2SRecommendedComicInfo);
+          }
+          break;
+
+        case e_packet_type.s2c_recommended_comic_info:
+          {
+            print('---- e_packet_type.s2c_recommended_comic_info ------');
+
+            PacketC2SRealTimeTrendComicInfo packetC2SRealTimeTrendComicInfo = new PacketC2SRealTimeTrendComicInfo();
+            packetC2SRealTimeTrendComicInfo.generate();
+            ManageMessage.add(packetC2SRealTimeTrendComicInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_real_time_trend_comic_info:
+          {
+            print('---- e_packet_type.s2c_real_time_trend_comic_info ------');
+
+            PacketC2SNewComicInfo packetC2SNewComicInfo = new PacketC2SNewComicInfo();
+            packetC2SNewComicInfo.generate();
+            ManageMessage.add(packetC2SNewComicInfo);
+          }
+          break;
+
+        case e_packet_type.s2c_new_comic_info:
+          {
+            print('---- e_packet_type.s2c_new_comic_info ------');
+
+            PacketC2STodayTrendComicInfo packetC2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo();
+            packetC2STodayTrendComicInfo.generate();
+            ManageMessage.add(packetC2STodayTrendComicInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_today_trend_comic_info:
+          {
+            print('---- e_packet_type.s2c_today_trend_comic_info ------');
+
+            PacketC2SWeeklyTrendComicInfo packetC2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
+            packetC2SWeeklyTrendComicInfo.generate();
+            ManageMessage.add(packetC2SWeeklyTrendComicInfo);
+          }
+          break;
+
+        case e_packet_type.s2c_weekly_trend_comic_info:
+          {
+            print('---- e_packet_type.s2c_weekly_trend_comic_info ------');
+
+            PacketC2SLibraryContinueComicInfo  packetC2SLibraryContinueComicInfo = new PacketC2SLibraryContinueComicInfo();
+            packetC2SLibraryContinueComicInfo.generate();
+            ManageMessage.add(packetC2SLibraryContinueComicInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_library_continue_comic_info:
+          {
+            print('---- e_packet_type.s2c_library_continue_comic_info ------');
+
+            PacketC2SLibraryOwnedComicInfo  packetC2SLibraryOwnedComicInfo = new PacketC2SLibraryOwnedComicInfo();
+            packetC2SLibraryOwnedComicInfo.generate();
+            ManageMessage.add(packetC2SLibraryOwnedComicInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_library_owned_comic_info:
+          {
+            print('---- e_packet_type.s2c_library_owned_comic_info ------');
+
+            PacketC2SLibraryRecentComicInfo  packetC2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
+            packetC2SLibraryRecentComicInfo.generate();
+            ManageMessage.add(packetC2SLibraryRecentComicInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_library_recent_comic_info:
+          {
+            print('---- e_packet_type.s2c_library_recent_comic_info ------');
+
+            PacketC2SLibraryViewListComicInfo  packetC2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
+            packetC2SLibraryViewListComicInfo.generate();
+            ManageMessage.add(packetC2SLibraryViewListComicInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_library_view_list_comic_info:
+          {
+            print('---- e_packet_type.s2c_library_view_list_comic_info ------');
+
+            PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+            packetC2SLocalizationInfo.generate(ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
+            ManageMessage.add(packetC2SLocalizationInfo);
+
+          }
+          break;
+
+        case e_packet_type.s2c_localization_info:
+          {
+            print('---- e_packet_type.s2c_localization_info ------');
+            navigationPage();
+          }
+          break;
+
+        default:
+          break;
+      }
+    });
+
+
+    PacketC2SPreset packetC2SPreset = new PacketC2SPreset();
+    packetC2SPreset.generate();
+    ManageMessage.add(packetC2SPreset);
+
+
   }
 
   @override
@@ -87,7 +286,8 @@ class _SplashScreenState extends State<SplashScreen>
     print('state = $state');
   }
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+
+  void _onFetchDone(PacketS2CCommon packetS2CCommon)
   {
     if(true == ModelPreset.developerMode)
     {
@@ -95,13 +295,14 @@ class _SplashScreenState extends State<SplashScreen>
       return;
     }
 
-    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+    if(e_packet_status.finish_dispatch_respond != packetS2CCommon.status)
       return;
 
     bool result = true;
     _enableAppVersion = result;
 
-    if (true == result) {
+    if (true == result)
+    {
       ManageMessage.generate();
       ManageMessage.streamController.stream.listen((data) {
         print("DataReceived1: " + data.toString());
@@ -118,17 +319,36 @@ class _SplashScreenState extends State<SplashScreen>
 
           case e_packet_type.s2c_user_info:
             {
-              PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
-              packetC2SPresetComicInfo.generate();
-              ManageMessage.add(packetC2SPresetComicInfo);
+              print('e_packet_type.s2c_user_info');
+
+              PacketC2SFeaturedComicInfo packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
+              packetC2SFeaturedComicInfo.generate();
+              ManageMessage.add(packetC2SFeaturedComicInfo);
+
+
+
+
+
+             // PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
+             // packetC2SPresetComicInfo.generate();
+             // ManageMessage.add(packetC2SPresetComicInfo);
+
+            }
+            break;
+
+          case e_packet_type.s2c_featured_comic_info:
+            {
+              print('e_packet_type.s2c_featured_comic_info');
             }
             break;
 
           case e_packet_type.s2c_preset_comic_info:
             {
-              PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
-              packetC2SPresetLibraryInfo.generate();
-              ManageMessage.add(packetC2SPresetLibraryInfo);
+
+             // PacketC2SPresetLibraryInfo packetC2SPresetLibraryInfo = new PacketC2SPresetLibraryInfo();
+             // packetC2SPresetLibraryInfo.generate();
+             // ManageMessage.add(packetC2SPresetLibraryInfo);
+
             }
             break;
 
@@ -149,8 +369,6 @@ class _SplashScreenState extends State<SplashScreen>
           default:
             break;
         }
-
-
       }, onDone: () {
         print("_onFetchDone Done");
       }, onError: (error) {
@@ -183,7 +401,7 @@ class _SplashScreenState extends State<SplashScreen>
 
 
   /* backup
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+  void _onFetchDone(PacketS2CCommon packetS2CCommon)
   {
     if(true == ModelPreset.developerMode)
     {
@@ -191,7 +409,7 @@ class _SplashScreenState extends State<SplashScreen>
       return;
     }
 
-    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+    if(e_packet_status.finish_dispatch_respond != packetS2CCommon.status)
       return;
 
     bool result = true;
@@ -276,18 +494,22 @@ class _SplashScreenState extends State<SplashScreen>
       }
     }
   }
-   */
+  */
 
   void navigationPage() {
 
       Navigator.of(context).pushReplacementNamed('/HomeScreen');
   }
 
-  void applicationQuit() {
-    if (Platform.isAndroid) {
+  void applicationQuit()
+  {
+    if (Platform.isAndroid)
+    {
       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       //SystemNavigator.pop();
-    } else if (Platform.isIOS) {
+    }
+    else if (Platform.isIOS)
+    {
       exit(0);
     }
   }

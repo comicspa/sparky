@@ -16,6 +16,7 @@ class ModelLibraryViewListComicInfo
   String get creatorName => _modelComicInfo.creatorName1;
   String get creatorId => _modelComicInfo.creatorId;
   int get viewCount => _modelComicInfo.viewCount;
+  String get comicId => ModelComicInfo.getComicId(creatorId,comicNumber,partNumber,seasonNumber);
 
   set comicNumber(String comicNumber)
   {

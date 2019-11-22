@@ -15,7 +15,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
     type = e_packet_type.s2c_user_info;
   }
 
-
   Future<void> parseCloudFirestoreJson(Map<String,dynamic> jsonMap , onFetchDone) async
   {
     status = e_packet_status.start_dispatch_respond;
@@ -28,12 +27,11 @@ class PacketS2CUserInfo extends PacketS2CCommon
     ModelUserInfo.getInstance().following = jsonMap['following'];
     ModelUserInfo.getInstance().likes = jsonMap['likes'];
     ModelUserInfo.getInstance().photoUrl = jsonMap['photo_url'];
-
+    ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[jsonMap['social_provider_type']];
     if(1 == jsonMap['sign_in'])
       ModelUserInfo.getInstance().signedIn = true;
     else
       ModelUserInfo.getInstance().signedIn = false;
-    ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[jsonMap['social_provider_type']];
 
     print(ModelUserInfo.getInstance().toString());
 
@@ -48,7 +46,6 @@ class PacketS2CUserInfo extends PacketS2CCommon
   {
     status = e_packet_status.start_dispatch_respond;
 
-
     ModelUserInfo.getInstance().bio = jsonMap['bio'];
     ModelUserInfo.getInstance().comi = jsonMap['comi'];
     ModelUserInfo.getInstance().followers = jsonMap['followers'];
@@ -59,10 +56,30 @@ class PacketS2CUserInfo extends PacketS2CCommon
     //ModelUserInfo.getInstance().email = jsonMap['email_address'];
     ModelUserInfo.getInstance().photoUrl   = jsonMap['photo_url'];
 
-    if(jsonMap.containsKey('creators')) {
-      ModelUserInfo
-          .getInstance()
-          .creatorIdList = jsonMap['creators'].cast<String>();
+    if(jsonMap.containsKey('creators'))
+    {
+      for (var creator in jsonMap['creators'].entries)
+      {
+        if(null == ModelUserInfo.getInstance().creatorIdList)
+          ModelUserInfo.getInstance().creatorIdList = new List<String>();
+        else
+          ModelUserInfo.getInstance().creatorIdList.clear();
+
+        ModelUserInfo.getInstance().creatorIdList.add(creator.value);
+      }
+    }
+
+    if(jsonMap.containsKey('translators'))
+    {
+      for (var translator in jsonMap['translators'].entries)
+      {
+        if(null == ModelUserInfo.getInstance().translatorIdList)
+          ModelUserInfo.getInstance().translatorIdList = new List<String>();
+        else
+          ModelUserInfo.getInstance().translatorIdList.clear();
+
+        ModelUserInfo.getInstance().translatorIdList.add(translator.value);
+      }
     }
 
     //ModelUserInfo.getInstance().creatorId = creatorsMap[0];

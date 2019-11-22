@@ -4,47 +4,156 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 
 import 'package:sparky/models/model_common.dart';
+import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_featured_comic_info.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
-
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class PacketC2SFeaturedComicInfo extends PacketC2SCommon
 {
-  int _pageCountIndex = 0;
-  int _pageViewCount = 0;
   int _fetchStatus = 0;
   bool _wantLoad = false;
+  int _databaseType = 1;
+
 
   PacketC2SFeaturedComicInfo()
   {
     type = e_packet_type.c2s_featured_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex)
+
+  void generate({bool recreateList = false})
   {
     _fetchStatus = 0;
-    _pageViewCount = pageViewCount;
-    _pageCountIndex = pageCountIndex;
 
-    respondPacket = null;
-    respondPacket = new PacketS2CFeaturedComicInfo();
+    if(null == respondPacket)
+      respondPacket = new PacketS2CFeaturedComicInfo();
+    else
+      respondPacket.reset();
+
+    if(true == recreateList)
+      {
+        if(null != ModelFeaturedComicInfo.list)
+          {
+            ModelFeaturedComicInfo.list.clear();
+            ModelFeaturedComicInfo.list = null;
+          }
+      }
 
     _wantLoad = true;
   }
 
+
   Future<List<ModelFeaturedComicInfo>> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        return _fetchRealTimeDB(onFetchDone);
+
+      case 1:
+        return _fetchFireStoreDB(onFetchDone);
+
+      default:
+        break;
+    }
+
+    return null;
   }
 
-  Future<List<ModelFeaturedComicInfo>> _fetchFireBaseDB(onFetchDone) async
+
+  Future<List<ModelFeaturedComicInfo>> _fetchFireStoreDB(onFetchDone) async
   {
-    print('PacketC2SFeaturedComicInfo : fetchFireBaseDB started');
+    print('PacketC2SFeaturedComicInfo : _fetchFireStoreDB started');
+
+    if (null != ModelFeaturedComicInfo.list)
+      return ModelFeaturedComicInfo.list;
+
+    print('aaaa : ${respondPacket.status.toString()}');
+    if(e_packet_status.none == respondPacket.status)
+    {
+      print('bbbb');
+      respondPacket.status = e_packet_status.start_dispatch_request;
+
+      List<ModelFeaturedComicInfo> list;
+      await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelFeaturedComicInfo.ModelName).then((QuerySnapshot snapshot)
+      {
+        respondPacket.status = e_packet_status.wait_respond;
+
+        for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
+        {
+          var map = snapshot.documents[countIndex].data;
+
+          ModelFeaturedComicInfo modelFeaturedComicInfo = new ModelFeaturedComicInfo();
+          modelFeaturedComicInfo.comicNumber = map['comic_number'];;
+          modelFeaturedComicInfo.creatorId = map['creator_id'];
+          modelFeaturedComicInfo.partNumber = map['part_number'];
+          modelFeaturedComicInfo.seasonNumber = map['season_number'];
+
+          //print('comicNumber : ${modelFeaturedComicInfo.comicNumber}');
+          //print('creatorId : ${modelFeaturedComicInfo.creatorId}');
+          //print('partNumber : ${modelFeaturedComicInfo.partNumber}');
+          //print('seasonNumber : ${modelFeaturedComicInfo.seasonNumber}');
+
+          if (null == list)
+            list = new List<ModelFeaturedComicInfo>();
+          list.add(modelFeaturedComicInfo);
+
+        }
+      });
+
+
+      if(null != list)
+      {
+        for(int countIndex=0; countIndex<list.length; ++countIndex)
+        {
+          ModelFeaturedComicInfo modelFeaturedComicInfo = list[countIndex];
+
+          print('comicId : ${modelFeaturedComicInfo.comicId}');
+
+          await ManageFireBaseCloudFireStore.getDocumentSnapshot(ModelComicInfo.ModelName,modelFeaturedComicInfo.comicId).then((documentSnapshot)
+          {
+            print('document : ${documentSnapshot.data.toString()}');
+
+            modelFeaturedComicInfo.titleName = documentSnapshot.data['title_name'];
+            modelFeaturedComicInfo.creatorName = documentSnapshot.data['creator_name1'] + '/' + documentSnapshot.data['creator_name2'];
+
+            if (list.length - 1 == countIndex)
+            {
+              print('list.length - 1 == countIndex');
+
+              if (null == respondPacket)
+                respondPacket = new PacketS2CFeaturedComicInfo();
+              respondPacket.status = e_packet_status.finish_dispatch_respond;
+
+              ModelFeaturedComicInfo.list = list;
+
+              if (null != onFetchDone)
+                onFetchDone(respondPacket);
+
+            }
+          });
+
+
+        }
+      }
+    }
+
+    //print('finished');
+    return null;
+  }
+
+
+
+  Future<List<ModelFeaturedComicInfo>> _fetchRealTimeDB(onFetchDone) async
+  {
+    print('PacketC2SFeaturedComicInfo : _fetchRealTimeDB started');
 
     if(false == _wantLoad)
       return ModelFeaturedComicInfo.list;
@@ -57,7 +166,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
         _fetchStatus = 1;
 
         DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-            .reference.child('model_featured_comic_info');
+            .reference.child(ModelFeaturedComicInfo.ModelName);
         modelUserInfoReference.once().then((DataSnapshot snapshot) {
           print('[PacketC2SFeaturedComicInfo:fetchFireBaseDB ] - ${snapshot
               .value}');
@@ -160,8 +269,8 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
     int packetBodySize  = 4 + 4;
 
     if(0 == generateHeader(packetBodySize)) {
-      setUint32(_pageCountIndex);
-      setUint32(_pageViewCount);
+      //setUint32(_pageCountIndex);
+      //setUint32(_pageViewCount);
       socket.add(packet);
     }
 

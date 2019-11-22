@@ -19,18 +19,20 @@ class PacketC2SUserInfo extends PacketC2SCommon
 {
   String _userId;
   int _fetchStatus = 0;
-  int _databaseType = 1;
+  int _databaseType = 0;
 
   PacketC2SUserInfo()
   {
     type = e_packet_type.c2s_user_info;
   }
 
+  //
   void generate(String userId)
   {
     _userId = userId;
   }
 
+  //
   Future<ModelUserInfo> fetch(onFetchDone) async
   {
     switch(_databaseType)
@@ -48,22 +50,16 @@ class PacketC2SUserInfo extends PacketC2SCommon
     return null;
   }
 
-
-
   //
   Future<ModelUserInfo> _fetchFireStoreDB(onFetchDone) async
   {
     print('PacketC2SUserInfo : _fetchFireStoreDB started');
 
-    //if(2 == _fetchStatus)
-    //  return ModelUserInfo.getInstance();
+    if(true == ModelUserInfo.getInstance().signedIn)
+      return ModelUserInfo.getInstance();
 
-    Firestore.instance
-        .collection(ModelUserInfo.ModelName)
-        .document(_userId).get()
-        .then((documentSnapshot)
+    Firestore.instance.collection(ModelUserInfo.ModelName).document(_userId).get().then((documentSnapshot)
     {
-
       CollectionReference creatorsCollectionReference = documentSnapshot.reference.collection('creators');
       if(null != creatorsCollectionReference)
       {
@@ -128,8 +124,10 @@ class PacketC2SUserInfo extends PacketC2SCommon
       return ModelUserInfo.getInstance();
     });
 
-    return ModelUserInfo.getInstance();
+
+    return null;
   }
+
 
   //
   Future<ModelUserInfo> _fetchRealTimeDB(onFetchDone) async
@@ -155,6 +153,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
   }
 
 
+  //
   Future<ModelUserInfo> _fetchBytes(onFetchDone) async
   {
     print('PacketC2SUserInfo : fetchBytes started');

@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:sparky/models/model_featured_comic_info.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/models/model_recommended_comic_info.dart';
 import 'package:sparky/models/model_real_time_trend_comic_info.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
+import 'package:sparky/models/model_today_trend_comic_info.dart';
+import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_storage_file_real_url.dart';
@@ -39,6 +42,22 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
     switch((respondPacket as PacketS2CStorageFileRealUrl).modelName)
     {
+
+      case ModelFeaturedComicInfo.ModelName:
+        {
+          print('PacketC2SStorageFileRealUrl - ${ModelFeaturedComicInfo.list.length}');
+
+          for(int countIndex=0; countIndex<ModelFeaturedComicInfo.list.length; ++countIndex)
+          {
+            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+            ModelFeaturedComicInfo.list[countIndex].url =
+            await ModelPreset.getBannerImageDownloadUrl(creatorId,ModelFeaturedComicInfo.list[countIndex].comicNumber);
+
+            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelFeaturedComicInfo.list.length,countIndex+1);
+          }
+        }
+        break;
+
       case ModelRecommendedComicInfo.ModelName:
         {
           print('PacketC2SStorageFileRealUrl - ${ModelRecommendedComicInfo.list.length}');
@@ -83,6 +102,36 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelNewComicInfo.list.length,countIndex+1);
           }
 
+        }
+        break;
+
+      case ModelTodayTrendComicInfo.ModelName:
+        {
+          print('PacketC2SStorageFileRealUrl - ${ModelTodayTrendComicInfo.list.length}');
+
+          for(int countIndex=0; countIndex<ModelTodayTrendComicInfo.list.length; ++countIndex)
+          {
+            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+            ModelNewComicInfo.list[countIndex].url =
+            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelTodayTrendComicInfo.list[countIndex].comicNumber);
+
+            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelTodayTrendComicInfo.list.length,countIndex+1);
+          }
+        }
+        break;
+
+      case ModelWeeklyTrendComicInfo.ModelName:
+        {
+          print('PacketC2SStorageFileRealUrl - ${ModelWeeklyTrendComicInfo.list.length}');
+
+          for(int countIndex=0; countIndex<ModelWeeklyTrendComicInfo.list.length; ++countIndex)
+          {
+            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+            ModelNewComicInfo.list[countIndex].url =
+            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelWeeklyTrendComicInfo.list[countIndex].comicNumber);
+
+            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelWeeklyTrendComicInfo.list.length,countIndex+1);
+          }
         }
         break;
 

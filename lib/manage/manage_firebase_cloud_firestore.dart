@@ -7,6 +7,7 @@ class ManageFireBaseCloudFireStore
   static final reference = Firestore.instance;
   static Future<DocumentSnapshot> getDocumentSnapshot(String collectionId,String documentId) async
   {
+    // await reference.collection(ModelComicInfo.ModelName).document(modelFeaturedComicInfo.comicId).get()
     return await reference.collection(collectionId).document(documentId).get();
   }
 
@@ -14,11 +15,6 @@ class ManageFireBaseCloudFireStore
   {
     return await reference.collection(collectionId).getDocuments();
   }
-
-
-
-
-
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -11,12 +11,13 @@ class ModelWeeklyTrendComicInfo
   String get comicNumber => _modelComicInfo.comicNumber;
   //String get userId => _modelComicInfo.userId;
   String get partNumber => _modelComicInfo.partNumber;
-  String get seasonNunber => _modelComicInfo.seasonNumber;
+  String get seasonNumber => _modelComicInfo.seasonNumber;
   String get titleName => _modelComicInfo.titleName;
   String get url => _modelComicInfo.urlAddress;
   String get creatorName => _modelComicInfo.creatorName1;
   String get creatorId => _modelComicInfo.creatorId;
   int get viewCount => _modelComicInfo.viewCount;
+  String get comicId => ModelComicInfo.getComicId(creatorId,comicNumber,partNumber,seasonNumber);
 
   set comicNumber(String comicNumber)
   {

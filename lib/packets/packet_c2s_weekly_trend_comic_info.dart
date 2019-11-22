@@ -4,12 +4,15 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 
 import 'package:sparky/models/model_common.dart';
+import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_weekly_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
@@ -19,28 +22,135 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
   int _pageViewCount = 0;
   int _fetchStatus = 0;
   bool _wantLoad = false;
+  int _databaseType = 1;
 
   PacketC2SWeeklyTrendComicInfo()
   {
     type = e_packet_type.c2s_weekly_trend_comic_info;
   }
 
-  void generate(int pageViewCount,int pageCountIndex)
+  void generate({bool recreateList = false})
   {
-    _pageViewCount = pageViewCount;
-    _pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
-    respondPacket = null;
-    respondPacket = new PacketS2CWeeklyTrendComicInfo();
+
+    if(null == respondPacket)
+      respondPacket = new PacketS2CWeeklyTrendComicInfo();
+    else
+      respondPacket.reset();
+
+    if(true == recreateList)
+    {
+      if(null != ModelWeeklyTrendComicInfo.list)
+      {
+        ModelWeeklyTrendComicInfo.list.clear();
+        ModelWeeklyTrendComicInfo.list = null;
+      }
+    }
+
     _wantLoad = true;
   }
 
+
   Future<List<ModelWeeklyTrendComicInfo>> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        return _fetchRealTimeDB(onFetchDone);
+
+      case 1:
+        return _fetchFireStoreDB(onFetchDone);
+
+      default:
+        break;
+    }
+
+    return null;
   }
 
-  Future<List<ModelWeeklyTrendComicInfo>> _fetchFireBaseDB(onFetchDone) async
+  Future<List<ModelWeeklyTrendComicInfo>> _fetchFireStoreDB(onFetchDone) async
+  {
+    print('PacketC2SWeeklyTrendComicInfo : _fetchFireStoreDB started');
+
+    if (null != ModelWeeklyTrendComicInfo.list)
+      return ModelWeeklyTrendComicInfo.list;
+
+    print('aaaa : ${respondPacket.status.toString()}');
+    if(e_packet_status.none == respondPacket.status)
+    {
+      print('bbbb');
+      respondPacket.status = e_packet_status.start_dispatch_request;
+
+      List<ModelWeeklyTrendComicInfo> list;
+      await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelWeeklyTrendComicInfo.ModelName).then((QuerySnapshot snapshot)
+      {
+        respondPacket.status = e_packet_status.wait_respond;
+
+        for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
+        {
+          var map = snapshot.documents[countIndex].data;
+
+          ModelWeeklyTrendComicInfo modelWeeklyTrendComicInfo = new ModelWeeklyTrendComicInfo();
+          modelWeeklyTrendComicInfo.comicNumber = map['comic_number'];;
+          modelWeeklyTrendComicInfo.creatorId = map['creator_id'];
+          modelWeeklyTrendComicInfo.partNumber = map['part_number'];
+          modelWeeklyTrendComicInfo.seasonNumber = map['season_number'];
+
+          //print('comicNumber : ${modelFeaturedComicInfo.comicNumber}');
+          //print('creatorId : ${modelFeaturedComicInfo.creatorId}');
+          //print('partNumber : ${modelFeaturedComicInfo.partNumber}');
+          //print('seasonNumber : ${modelFeaturedComicInfo.seasonNumber}');
+
+          if (null == list)
+            list = new List<ModelWeeklyTrendComicInfo>();
+          list.add(modelWeeklyTrendComicInfo);
+
+        }
+      });
+
+
+      if(null != list)
+      {
+        for(int countIndex=0; countIndex<list.length; ++countIndex)
+        {
+          ModelWeeklyTrendComicInfo modelWeeklyTrendComicInfo = list[countIndex];
+
+          print('comicId : ${modelWeeklyTrendComicInfo.comicId}');
+
+          await ManageFireBaseCloudFireStore.getDocumentSnapshot(ModelComicInfo.ModelName,modelWeeklyTrendComicInfo.comicId).then((documentSnapshot)
+          {
+            print('document : ${documentSnapshot.data.toString()}');
+
+            modelWeeklyTrendComicInfo.titleName = documentSnapshot.data['title_name'];
+            modelWeeklyTrendComicInfo.creatorName = documentSnapshot.data['creator_name1'] + '/' + documentSnapshot.data['creator_name2'];
+
+            if (list.length - 1 == countIndex)
+            {
+              print('list.length - 1 == countIndex');
+
+              if (null == respondPacket)
+                respondPacket = new PacketS2CWeeklyTrendComicInfo();
+              respondPacket.status = e_packet_status.finish_dispatch_respond;
+
+              ModelWeeklyTrendComicInfo.list = list;
+
+              if (null != onFetchDone)
+                onFetchDone(respondPacket);
+
+            }
+          });
+
+
+        }
+      }
+    }
+
+    //print('finished');
+    return null;
+  }
+
+
+  Future<List<ModelWeeklyTrendComicInfo>> _fetchRealTimeDB(onFetchDone) async
   {
     print('PacketC2SWeeklyTrendComicInfo : fetchFireBaseDB started');
     if(false == _wantLoad)

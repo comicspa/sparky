@@ -4,12 +4,15 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 
 import 'package:sparky/models/model_common.dart';
+import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_library_owned_comic_info.dart';
 import 'package:sparky/models/model_library_owned_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
+import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
 {
@@ -17,29 +20,138 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
   int _pageViewCount = 0;
   int _fetchStatus = 0;
   bool _wantLoad = false;
+  int _databaseType = 1;
 
   PacketC2SLibraryOwnedComicInfo()
   {
     type = e_packet_type.c2s_library_owned_comic_info;
   }
 
-  void generate()
+  void generate({bool recreateList = false})
   {
-    //_pageViewCount = pageViewCount;
-    //_pageCountIndex = pageCountIndex;
     _fetchStatus = 0;
 
-    respondPacket = null;
-    respondPacket = new PacketS2CLibraryOwnedComicInfo();
+    if(null == respondPacket)
+      respondPacket = new PacketS2CLibraryOwnedComicInfo();
+    else
+      respondPacket.reset();
+
+    if(true == recreateList)
+    {
+      if(null != ModelLibraryOwnedComicInfo.list)
+      {
+        ModelLibraryOwnedComicInfo.list.clear();
+        ModelLibraryOwnedComicInfo.list = null;
+      }
+    }
+
     _wantLoad = true;
   }
 
+
   Future<List<ModelLibraryOwnedComicInfo>> fetch(onFetchDone) async
   {
-    return _fetchFireBaseDB(onFetchDone);
+    switch(_databaseType)
+    {
+      case 0:
+        return _fetchRealTimeDB(onFetchDone);
+
+      case 1:
+        return _fetchFireStoreDB(onFetchDone);
+
+      default:
+        break;
+    }
+
+    return null;
   }
 
-  Future<List<ModelLibraryOwnedComicInfo>> _fetchFireBaseDB(onFetchDone) async
+
+
+  Future<List<ModelLibraryOwnedComicInfo>> _fetchFireStoreDB(onFetchDone) async
+  {
+    print('PacketC2SLibraryOwnedComicInfo : _fetchFireStoreDB started');
+
+    if (null != ModelLibraryOwnedComicInfo.list)
+      return ModelLibraryOwnedComicInfo.list;
+
+    print('aaaa : ${respondPacket.status.toString()}');
+    if(e_packet_status.none == respondPacket.status)
+    {
+      print('bbbb');
+      respondPacket.status = e_packet_status.start_dispatch_request;
+
+      List<ModelLibraryOwnedComicInfo> list;
+      await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelLibraryOwnedComicInfo.ModelName).then((QuerySnapshot snapshot)
+      {
+        respondPacket.status = e_packet_status.wait_respond;
+
+        for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
+        {
+          var map = snapshot.documents[countIndex].data;
+
+          ModelLibraryOwnedComicInfo modelLibraryOwnedComicInfo = new ModelLibraryOwnedComicInfo();
+          modelLibraryOwnedComicInfo.comicNumber = map['comic_number'];;
+          modelLibraryOwnedComicInfo.creatorId = map['creator_id'];
+          modelLibraryOwnedComicInfo.partNumber = map['part_number'];
+          modelLibraryOwnedComicInfo.seasonNumber = map['season_number'];
+
+          //print('comicNumber : ${modelFeaturedComicInfo.comicNumber}');
+          //print('creatorId : ${modelFeaturedComicInfo.creatorId}');
+          //print('partNumber : ${modelFeaturedComicInfo.partNumber}');
+          //print('seasonNumber : ${modelFeaturedComicInfo.seasonNumber}');
+
+          if (null == list)
+            list = new List<ModelLibraryOwnedComicInfo>();
+          list.add(modelLibraryOwnedComicInfo);
+
+        }
+      });
+
+
+      if(null != list)
+      {
+        for(int countIndex=0; countIndex<list.length; ++countIndex)
+        {
+          ModelLibraryOwnedComicInfo modelLibraryOwnedComicInfo = list[countIndex];
+
+          print('comicId : ${modelLibraryOwnedComicInfo.comicId}');
+
+          await ManageFireBaseCloudFireStore.getDocumentSnapshot(ModelComicInfo.ModelName,modelLibraryOwnedComicInfo.comicId).then((documentSnapshot)
+          {
+            print('document : ${documentSnapshot.data.toString()}');
+
+            modelLibraryOwnedComicInfo.titleName = documentSnapshot.data['title_name'];
+            modelLibraryOwnedComicInfo.creatorName = documentSnapshot.data['creator_name1'] + '/' + documentSnapshot.data['creator_name2'];
+
+            if (list.length - 1 == countIndex)
+            {
+              print('list.length - 1 == countIndex');
+
+              if (null == respondPacket)
+                respondPacket = new PacketS2CLibraryOwnedComicInfo();
+              respondPacket.status = e_packet_status.finish_dispatch_respond;
+
+              ModelLibraryOwnedComicInfo.list = list;
+
+              if (null != onFetchDone)
+                onFetchDone(respondPacket);
+
+            }
+          });
+
+
+        }
+      }
+    }
+
+    //print('finished');
+    return null;
+  }
+
+
+
+  Future<List<ModelLibraryOwnedComicInfo>> _fetchRealTimeDB(onFetchDone) async
   {
     print('PacketC2SLibraryOwnedComicInfo : fetchFireBaseDB started');
     if(false == _wantLoad)
