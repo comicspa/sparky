@@ -488,11 +488,19 @@ List bannerList = map<Widget>(
       margin: EdgeInsets.all(5.0),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        child: FadeInImage.memoryNetwork(
+        child:
+        null != i.url ? FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: i.url,
+          fit: BoxFit.cover,
+          height: ManageDeviceInfo.resolutionHeight * 0.15,
+        )
+            : Image.asset('images/Comi.png')
+        /*FadeInImage.memoryNetwork(
           placeholder: kTransparentImage,
           image: i.thumnailUrl,
           fit: BoxFit.fill,
-        )
+        )*/
         /* CachedNetworkImage(imageUrl: i.thumbnailUrl, fit: BoxFit.fill), */
       ),
     );
