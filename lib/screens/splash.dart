@@ -45,6 +45,8 @@ class _SplashScreenState extends State<SplashScreen>
   bool _enableAppVersion = true;
   String _uId;
   int _socialProviderType = 0;
+  Stream<PacketS2CCommon> _broadcastStream;
+
 
   @override
   void initState()
@@ -78,21 +80,20 @@ class _SplashScreenState extends State<SplashScreen>
      _socialProviderType = await ManageSharedPreference.getInt('social_provider_type');
      print('uId : $_uId , social_provider_type : $_socialProviderType');
 
-
     bool result = true;
     _enableAppVersion = result;
 
     ManageMessage.generate();
-    ManageMessage.streamController.stream.listen((data)
+    _broadcastStream = ManageMessage.streamController.stream;
+    _broadcastStream.listen((data)
     {
-      print("DataReceived1: " + data.toString());
+      print("DataReceived1: " + data.type.toString());
 
-      switch (data)
+      switch (data.type)
       {
         case e_packet_type.s2c_preset:
         {
           print('----- e_packet_type.s2c_preset ----- ');
-
 
           if(true == ModelPreset.developerMode)
           {
@@ -104,6 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
               {
                 if(false == ModelUserInfo.getInstance().signedIn)
                 {
+
                   ModelUserInfo.getInstance().uId = _uId;
                   ModelUserInfo.getInstance().socialProviderType = e_social_provider_type.values[_socialProviderType];
 
@@ -112,13 +114,16 @@ class _SplashScreenState extends State<SplashScreen>
                   PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
                   packetC2SSignIn.generate(_uId);
                   ManageMessage.add(packetC2SSignIn);
+
                 }
               }
               else
               {
-                PacketC2SFeaturedComicInfo packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
-                packetC2SFeaturedComicInfo.generate();
-                ManageMessage.add(packetC2SFeaturedComicInfo);
+
+
+                PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+                packetC2SLocalizationInfo.generate(ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
+                ManageMessage.add(packetC2SLocalizationInfo);
 
               }
 
@@ -134,6 +139,7 @@ class _SplashScreenState extends State<SplashScreen>
             PacketC2SUserInfo packetC2SUserInfo = new PacketC2SUserInfo();
             packetC2SUserInfo.generate(_uId);
             ManageMessage.add(packetC2SUserInfo);
+
           }
           break;
 
@@ -141,9 +147,27 @@ class _SplashScreenState extends State<SplashScreen>
           {
             print('----- e_packet_type.s2c_user_info -------');
 
-            PacketC2SFeaturedComicInfo packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
-            packetC2SFeaturedComicInfo.generate();
-            ManageMessage.add(packetC2SFeaturedComicInfo);
+            PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
+            packetC2SLocalizationInfo.generate(ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
+            ManageMessage.add(packetC2SLocalizationInfo);
+          }
+          break;
+
+        case e_packet_type.s2c_localization_info:
+          {
+            print('---- e_packet_type.s2c_localization_info ------');
+
+            bool skip = true;
+            if(true == skip)
+            {
+              navigationPage();
+            }
+            else
+            {
+              PacketC2SFeaturedComicInfo packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo();
+              packetC2SFeaturedComicInfo.generate();
+              ManageMessage.add(packetC2SFeaturedComicInfo);
+            }
           }
           break;
 
@@ -154,6 +178,7 @@ class _SplashScreenState extends State<SplashScreen>
             PacketC2SRecommendedComicInfo packetC2SRecommendedComicInfo = new PacketC2SRecommendedComicInfo();
             packetC2SRecommendedComicInfo.generate();
             ManageMessage.add(packetC2SRecommendedComicInfo);
+
           }
           break;
 
@@ -175,6 +200,7 @@ class _SplashScreenState extends State<SplashScreen>
             PacketC2SNewComicInfo packetC2SNewComicInfo = new PacketC2SNewComicInfo();
             packetC2SNewComicInfo.generate();
             ManageMessage.add(packetC2SNewComicInfo);
+
           }
           break;
 
@@ -196,6 +222,7 @@ class _SplashScreenState extends State<SplashScreen>
             PacketC2SWeeklyTrendComicInfo packetC2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
             packetC2SWeeklyTrendComicInfo.generate();
             ManageMessage.add(packetC2SWeeklyTrendComicInfo);
+
           }
           break;
 
@@ -247,30 +274,21 @@ class _SplashScreenState extends State<SplashScreen>
           {
             print('---- e_packet_type.s2c_library_view_list_comic_info ------');
 
-            PacketC2SLocalizationInfo packetC2SLocalizationInfo = new PacketC2SLocalizationInfo();
-            packetC2SLocalizationInfo.generate(ManageDeviceInfo.languageCode,ManageDeviceInfo.localeCode);
-            ManageMessage.add(packetC2SLocalizationInfo);
-
-          }
-          break;
-
-        case e_packet_type.s2c_localization_info:
-          {
-            print('---- e_packet_type.s2c_localization_info ------');
             navigationPage();
           }
           break;
+
+
 
         default:
           break;
       }
     });
 
-
+    //
     PacketC2SPreset packetC2SPreset = new PacketC2SPreset();
     packetC2SPreset.generate();
     ManageMessage.add(packetC2SPreset);
-
 
   }
 
@@ -278,6 +296,10 @@ class _SplashScreenState extends State<SplashScreen>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     //ManageCommon.rotatePortraitLandscape();
+
+
+
+
     super.dispose();
   }
 
@@ -307,7 +329,7 @@ class _SplashScreenState extends State<SplashScreen>
       ManageMessage.streamController.stream.listen((data) {
         print("DataReceived1: " + data.toString());
 
-        switch(data)
+        switch(data.type)
         {
           case e_packet_type.s2c_sign_in:
             {

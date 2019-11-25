@@ -136,11 +136,8 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
 
               if (null != onFetchDone)
                 onFetchDone(respondPacket);
-
             }
           });
-
-
         }
       }
     }

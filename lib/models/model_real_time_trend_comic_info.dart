@@ -1,5 +1,6 @@
 
 import 'package:sparky/models/model_comic_info.dart';
+import 'package:sparky/packets/packet_common.dart';
 
 class ModelRealTimeTrendComicInfo
 {
@@ -71,5 +72,6 @@ class ModelRealTimeTrendComicInfo
   }
 
   static List<ModelRealTimeTrendComicInfo> list;
+  static e_packet_status status;
 
 }

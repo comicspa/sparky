@@ -1,5 +1,6 @@
 
 import 'package:sparky/models/model_comic_info.dart';
+import 'package:sparky/packets/packet_common.dart';
 
 class ModelRecommendedComicInfo
 {
@@ -62,6 +63,7 @@ class ModelRecommendedComicInfo
   }
 
   static List<ModelRecommendedComicInfo> list;
+  static e_packet_status status;
 
   static ModelRecommendedComicInfo add()
   {

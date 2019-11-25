@@ -1,7 +1,6 @@
 
-
 import 'package:sparky/models/model_comic_info.dart';
-
+import 'package:sparky/packets/packet_common.dart';
 
 class ModelNewComicInfo
 {
@@ -73,5 +72,6 @@ class ModelNewComicInfo
   }
 
   static List<ModelNewComicInfo> list;
+  static e_packet_status status;
 
 }

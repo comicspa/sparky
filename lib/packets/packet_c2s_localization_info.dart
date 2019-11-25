@@ -60,15 +60,19 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
 
   }
 
-
+  /*
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
     if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
       return;
 
     print('[PacketC2SLocalizationInfo] : onFetchDone');
-    ManageMessage.streamController.add(e_packet_type.s2c_localization_info);
+
+    PacketS2CLocalizationInfo packetS2CLocalizationInfo = new PacketS2CLocalizationInfo();
+    ManageMessage.streamController.add(packetS2CLocalizationInfo);
   }
+
+   */
 
   Future<Map<dynamic,dynamic>> fetch(onFetchDone) async
   {
@@ -111,9 +115,7 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
         return ModelLocalizationInfo.languagePack;
       });
     }
-
-     */
-
+    */
 
 
     if(null != ModelLocalizationInfo.languagePack)
@@ -122,13 +124,13 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
     String id = '${_languageCode}_${_localeCode}';
     print('id : $id');
 
-    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child('model_localization_info').child(id);
+    DatabaseReference modelUserInfoReference = ManageFirebaseDatabase.reference.child(ModelLocalizationInfo.ModelName).child(id);
     modelUserInfoReference.once().then((DataSnapshot snapshot)
     {
       print('[PacketC2SLocalizationInfo:fetchFireBaseDB ] - ${snapshot.value}');
 
       PacketS2CLocalizationInfo packet = new PacketS2CLocalizationInfo();
-      packet.parseFireBaseDBJson(snapshot.value , _onFetchDone);
+      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
 
       return ModelLocalizationInfo.languagePack;
 

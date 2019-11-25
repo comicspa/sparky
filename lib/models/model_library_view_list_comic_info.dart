@@ -1,6 +1,6 @@
 
 import 'package:sparky/models/model_comic_info.dart';
-
+import 'package:sparky/packets/packet_common.dart';
 
 class ModelLibraryViewListComicInfo
 {
@@ -72,4 +72,5 @@ class ModelLibraryViewListComicInfo
   }
 
   static List<ModelLibraryViewListComicInfo> list;
+  static e_packet_status status;
 }

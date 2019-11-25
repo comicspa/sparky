@@ -45,7 +45,7 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
     ManageMessage.streamController.stream.listen((data) {
       print("DataReceived1: " + data.toString());
 
-      switch(data)
+      switch(data.type)
       {
         case e_packet_type.s2c_preset_comic_info:
           {

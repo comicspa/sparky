@@ -41,9 +41,9 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
     _packetC2SLibraryViewListComicInfo.generate();
   }
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+  void _onFetchDone(PacketS2CCommon packetS2CCommon)
   {
-    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+    if(e_packet_status.finish_dispatch_respond != packetS2CCommon.status)
       return;
 
     print('[PacketC2SPresetLibraryInfo] : onFetchDone - $_count');
@@ -73,7 +73,7 @@ class PacketC2SPresetLibraryInfo extends PacketC2SCommon
 
       case 3:
         {
-          ManageMessage.streamController.add(e_packet_type.s2c_preset_library_info);
+          ManageMessage.streamController.add(packetS2CCommon);
           print('<------------------------------------------------- 2 -------------------------------------------------------');
         }
         break;

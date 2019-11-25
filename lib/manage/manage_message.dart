@@ -30,15 +30,16 @@ import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:sparky/packets/packet_c2s_localization_info.dart';
 import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
+import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 
 class ManageMessage
 {
-  static const int __LOOP_SECOND = 1;
+  static const int __LOOP_MILLISECONDS = 100;
   static Timer __timer;
   static List<PacketC2SCommon> __messageList;
-  static StreamController<e_packet_type>  __streamController;
+  static StreamController<PacketS2CCommon>  __streamController;
 
-  static StreamController<e_packet_type> get streamController => __streamController;
+  static StreamController<PacketS2CCommon> get streamController => __streamController;
 
   static void generate()
   {
@@ -48,7 +49,7 @@ class ManageMessage
     if(null == __messageList)
       __messageList = new List<PacketC2SCommon>();
 
-    const duration = const Duration(seconds:__LOOP_SECOND);
+    const duration = const Duration(milliseconds: __LOOP_MILLISECONDS);
     if(null == __timer)
       __timer = new Timer.periodic(duration, update);
   }
@@ -68,23 +69,10 @@ class ManageMessage
     __messageList.add(packetC2SCommon);
   }
 
-
-  static void update2(Timer timer)
-  {
-    if(null == __messageList)
-      return;
-    if (0 == __messageList.length)
-      return;
-
-    PacketC2SCommon packetC2SCommon = __messageList[0];
-    //packetC2SCommon.respondPacket.status == e_packet_status
-
-  }
-
   //
   static void update(Timer timer)
   {
-      //print('start current time : ${timer.tick}');
+    //print('start current time : ${timer.tick}');
     if(null != __messageList)
     {
       if (0 < __messageList.length)
@@ -93,6 +81,14 @@ class ManageMessage
 
             switch (packetC2SCommon.type)
             {
+              case e_packet_type.c2s_storage_file_real_url:
+                {
+                  PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+                  packet.fetch(_onFetchDone);
+                  __messageList.removeAt(0);
+                }
+                break;
+
               case e_packet_type.c2s_preset:
                 {
                   PacketC2SPreset packet = packetC2SCommon as PacketC2SPreset;
@@ -111,9 +107,7 @@ class ManageMessage
 
                   }, onError: (error) {
                     print("c2s_preset Some Error");
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -139,9 +133,7 @@ class ManageMessage
 
                   }, onError: (error) {
                     print("Some Error");
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -195,9 +187,7 @@ class ManageMessage
                   }, onError: (error) {
                     print("Some Error");
 
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -225,9 +215,7 @@ class ManageMessage
 
                   }, onError: (error) {
                     print("Some Error");
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -255,10 +243,7 @@ class ManageMessage
 
                   }, onError: (error) {
                     print("Some Error");
-
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -288,8 +273,6 @@ class ManageMessage
                     print("Some Error");
 
                   });
-
-
                    */
                   __messageList.removeAt(0);
                 }
@@ -317,9 +300,7 @@ class ManageMessage
                   }, onError: (error) {
                     print("Some Error");
 
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -347,10 +328,7 @@ class ManageMessage
 
                   }, onError: (error) {
                     print("Some Error");
-
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -377,10 +355,7 @@ class ManageMessage
 
                   }, onError: (error) {
                     print("Some Error");
-
-
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -410,7 +385,6 @@ class ManageMessage
                     print("Some Error");
 
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -550,7 +524,6 @@ class ManageMessage
                     print("Some Error");
 
                   });
-
                    */
 
                   __messageList.removeAt(0);
@@ -570,12 +543,11 @@ class ManageMessage
   }
 
 
-  static void _onFetchDone(PacketS2CCommon s2cPacket)
+  static void _onFetchDone(PacketS2CCommon packetS2CCommon)
   {
-    if(e_packet_status.finish_dispatch_respond != s2cPacket.status)
+    if(e_packet_status.finish_dispatch_respond != packetS2CCommon.status)
       return;
-
-    __streamController.add(s2cPacket.type);
+    __streamController.add(packetS2CCommon);
   }
 
 
@@ -603,10 +575,7 @@ class ManageMessage
           }, onError: (error) {
             print("Some Error");
 
-
           });
-
-
         }
         break;
 
@@ -704,7 +673,6 @@ class ManageMessage
 
           }, onError: (error) {
             print("Some Error");
-
 
           });
         }
