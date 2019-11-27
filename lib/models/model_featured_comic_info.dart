@@ -62,5 +62,18 @@ class ModelFeaturedComicInfo
   }
 
   static List<ModelFeaturedComicInfo> list;
-  static e_packet_status status;
+  static e_packet_status status = e_packet_status.none;
+  static int isEmptyUrl()
+  {
+    if(null == list)
+      return -1;
+
+    for(int countIndex=0; countIndex<list.length; ++countIndex)
+    {
+      if(null == list[countIndex].url || '' == list[countIndex].url)
+        return 1;
+    }
+
+    return 0;
+  }
 }

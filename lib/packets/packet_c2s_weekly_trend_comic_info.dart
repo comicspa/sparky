@@ -7,6 +7,7 @@ import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_weekly_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -23,15 +24,17 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
+  OnFetchDone _onFetchDone;
 
   PacketC2SWeeklyTrendComicInfo()
   {
     type = e_packet_type.c2s_weekly_trend_comic_info;
   }
 
-  void generate({bool recreateList = false})
+  void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
     _fetchStatus = 0;
+    _onFetchDone = onFetchDone;
 
     if(null == respondPacket)
       respondPacket = new PacketS2CWeeklyTrendComicInfo();
@@ -72,7 +75,7 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
   {
     print('PacketC2SWeeklyTrendComicInfo : _fetchFireStoreDB started');
 
-    if (null != ModelWeeklyTrendComicInfo.list)
+    if(e_packet_status.none == ModelWeeklyTrendComicInfo.status || e_packet_status.finish_dispatch_respond == ModelWeeklyTrendComicInfo.status)
       return ModelWeeklyTrendComicInfo.list;
 
     print('aaaa : ${respondPacket.status.toString()}');
@@ -80,11 +83,13 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
     {
       print('bbbb');
       respondPacket.status = e_packet_status.start_dispatch_request;
+      ModelWeeklyTrendComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelWeeklyTrendComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelWeeklyTrendComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
         respondPacket.status = e_packet_status.wait_respond;
+        ModelWeeklyTrendComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
         {
@@ -126,26 +131,23 @@ class PacketC2SWeeklyTrendComicInfo extends PacketC2SCommon
 
             if (list.length - 1 == countIndex)
             {
-              print('list.length - 1 == countIndex');
+              print('[PacketC2SWeeklyTrendComicInfo : _fetchFireStoreDB] - list.length - 1 == countIndex');
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CWeeklyTrendComicInfo();
               respondPacket.status = e_packet_status.finish_dispatch_respond;
+              ModelWeeklyTrendComicInfo.status = e_packet_status.finish_dispatch_respond;
 
               ModelWeeklyTrendComicInfo.list = list;
 
-              if (null != onFetchDone)
-                onFetchDone(respondPacket);
-
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
             }
           });
-
-
         }
       }
     }
 
-    //print('finished');
     return null;
   }
 

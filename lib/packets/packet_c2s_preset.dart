@@ -2,6 +2,7 @@
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_preset.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +11,7 @@ import 'package:sparky/manage/manage_firebase_database.dart';
 
 class PacketC2SPreset extends PacketC2SCommon
 {
+  OnFetchDone _onFetchDone;
   int _databaseType = 1;
 
   PacketC2SPreset()
@@ -17,8 +19,10 @@ class PacketC2SPreset extends PacketC2SCommon
     type = e_packet_type.c2s_preset;
   }
 
-  void generate()
+  void generate({OnFetchDone onFetchDone})
   {
+    _onFetchDone = onFetchDone;
+
     respondPacket = null;
     respondPacket = new PacketS2CPreset();
   }
@@ -63,7 +67,7 @@ class PacketC2SPreset extends PacketC2SCommon
       snapshot.documents..forEach((f) => print('${f.data}}'));
 
       PacketS2CPreset preset = new PacketS2CPreset();
-      preset.parseCloudFirestoreJson(snapshot.documents, onFetchDone);
+      preset.parseCloudFirestoreJson(snapshot.documents, _onFetchDone);
       return ModelPreset.faqUrl;
 
     });

@@ -38,12 +38,12 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
   }
 
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+  void _onFetchDone(PacketS2CCommon packetS2CCommon)
   {
     print('[SignInUpLandPage] : onFetchDone');
 
 
-    switch(s2cPacket.type)
+    switch(packetS2CCommon.type)
     {
       case e_packet_type.s2c_sign_in_with_social:
         {
@@ -264,9 +264,7 @@ class _SignInUpLandPageState extends State<SignInUpLandPage>  with WidgetsBindin
                 if(false == ModelUserInfo.getInstance().signedIn)
                 {
                   PacketC2SSignIn packetC2SSignIn = new PacketC2SSignIn();
-                  packetC2SSignIn.generate(ModelUserInfo
-                      .getInstance()
-                      .uId);
+                  packetC2SSignIn.generate(ModelUserInfo.getInstance().uId,_onFetchDone);
                   packetC2SSignIn.fetch(_onFetchDone);
                 }
                 else

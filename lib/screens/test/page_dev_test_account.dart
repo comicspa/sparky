@@ -76,7 +76,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
                 case e_packet_type.c2s_sign_in:
                   {
                     PacketC2SSignIn packetC2SSignIn = current as PacketC2SSignIn;
-                    packetC2SSignIn.generate(ModelUserInfo.getInstance().uId);
+                    packetC2SSignIn.generate(ModelUserInfo.getInstance().uId,null);
                     packetC2SSignIn.fetch(_onFetchDone);
                   }
                   break;
@@ -445,7 +445,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             onTap: (){
 
               PacketC2SUserInfo packetC2SUserInfo = new PacketC2SUserInfo();
-              packetC2SUserInfo.generate('BmmwNKFniiet5LeRS2GhK1oTeUw1');
+              packetC2SUserInfo.generate('BmmwNKFniiet5LeRS2GhK1oTeUw1',_onFetchDone);
               _requestPacketList.add(packetC2SUserInfo);
 
               packetC2SUserInfo.fetch(_onFetchDone);

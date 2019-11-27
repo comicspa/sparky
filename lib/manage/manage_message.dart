@@ -34,17 +34,18 @@ import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 
 class ManageMessage
 {
+
   static const int __LOOP_MILLISECONDS = 100;
   static Timer __timer;
   static List<PacketC2SCommon> __messageList;
-  static StreamController<PacketS2CCommon>  __streamController;
 
-  static StreamController<PacketS2CCommon> get streamController => __streamController;
+  //static StreamController<PacketS2CCommon>  __streamController;
+  //static StreamController<PacketS2CCommon> get streamController => __streamController;
 
   static void generate()
   {
-    if(null == __streamController)
-      __streamController = new StreamController.broadcast();
+    //if(null == __streamController)
+    //  __streamController = new StreamController.broadcast();
 
     if(null == __messageList)
       __messageList = new List<PacketC2SCommon>();
@@ -56,12 +57,14 @@ class ManageMessage
 
   static void dispose()
   {
-    if(null != __streamController)
-    {
-      if(false == __streamController.isClosed)
-        __streamController.close();
-      __streamController = null;
-    }
+    print('[ManageMessage : dispose]');
+
+    //if(null != __streamController)
+    //{
+    //  if(false == __streamController.isClosed)
+    //    __streamController.close();
+    //  __streamController = null;
+    //}
   }
 
   static void add(PacketC2SCommon packetC2SCommon)
@@ -84,7 +87,7 @@ class ManageMessage
               case e_packet_type.c2s_storage_file_real_url:
                 {
                   PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
                   __messageList.removeAt(0);
                 }
                 break;
@@ -92,7 +95,7 @@ class ManageMessage
               case e_packet_type.c2s_preset:
                 {
                   PacketC2SPreset packet = packetC2SCommon as PacketC2SPreset;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream c2s_preset");
@@ -118,7 +121,7 @@ class ManageMessage
               case e_packet_type.c2s_featured_comic_info:
                 {
                   PacketC2SFeaturedComicInfo packet = packetC2SCommon as PacketC2SFeaturedComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -143,7 +146,7 @@ class ManageMessage
               case e_packet_type.c2s_recommended_comic_info:
                 {
                   PacketC2SRecommendedComicInfo packet = packetC2SCommon as PacketC2SRecommendedComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -169,7 +172,7 @@ class ManageMessage
               case e_packet_type.c2s_real_time_trend_comic_info:
                 {
                   PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -198,7 +201,7 @@ class ManageMessage
               case e_packet_type.c2s_new_comic_info:
                 {
                   PacketC2SNewComicInfo packet = packetC2SCommon as PacketC2SNewComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -226,7 +229,7 @@ class ManageMessage
               case e_packet_type.c2s_today_trend_comic_info:
                 {
                   PacketC2STodayTrendComicInfo packet = packetC2SCommon as PacketC2STodayTrendComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -254,7 +257,7 @@ class ManageMessage
               case e_packet_type.c2s_weekly_trend_comic_info:
                 {
                   PacketC2SWeeklyTrendComicInfo packet = packetC2SCommon as PacketC2SWeeklyTrendComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -282,7 +285,7 @@ class ManageMessage
               case e_packet_type.c2s_library_recent_comic_info:
                 {
                   PacketC2SLibraryRecentComicInfo packet = packetC2SCommon as PacketC2SLibraryRecentComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -311,7 +314,7 @@ class ManageMessage
               case e_packet_type.c2s_library_view_list_comic_info:
                 {
                   PacketC2SLibraryViewListComicInfo packet = packetC2SCommon as PacketC2SLibraryViewListComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -338,7 +341,7 @@ class ManageMessage
               case e_packet_type.c2s_library_owned_comic_info:
                 {
                   PacketC2SLibraryOwnedComicInfo packet = packetC2SCommon as PacketC2SLibraryOwnedComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -366,7 +369,7 @@ class ManageMessage
               case e_packet_type.c2s_library_continue_comic_info:
                 {
                   PacketC2SLibraryContinueComicInfo packet = packetC2SCommon as PacketC2SLibraryContinueComicInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   print("Creating a stream...");
@@ -446,7 +449,7 @@ class ManageMessage
               case e_packet_type.c2s_localization_info:
                 {
                   PacketC2SLocalizationInfo packet = packetC2SCommon as PacketC2SLocalizationInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   // print("Creating a stream...");
@@ -475,7 +478,7 @@ class ManageMessage
               case e_packet_type.c2s_sign_in:
                 {
                   PacketC2SSignIn packet = packetC2SCommon as PacketC2SSignIn;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   // print("Creating a stream...");
@@ -505,7 +508,7 @@ class ManageMessage
               case e_packet_type.c2s_user_info:
                 {
                   PacketC2SUserInfo packet = packetC2SCommon as PacketC2SUserInfo;
-                  packet.fetch(_onFetchDone);
+                  packet.fetch(null);
 
                   /*
                   // print("Creating a stream...");
@@ -536,20 +539,7 @@ class ManageMessage
             }
           }
       }
-
-
-    //print('finish current time : ${timer.tick}');
-
   }
-
-
-  static void _onFetchDone(PacketS2CCommon packetS2CCommon)
-  {
-    if(e_packet_status.finish_dispatch_respond != packetS2CCommon.status)
-      return;
-    __streamController.add(packetS2CCommon);
-  }
-
 
   /*
   static void dispatch(PacketC2SCommon packetC2SCommon)

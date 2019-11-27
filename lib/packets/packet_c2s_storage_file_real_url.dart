@@ -16,12 +16,14 @@ import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:sparky/models/model_weekly_trend_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_storage_file_real_url.dart';
 
 
 class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 {
   String _modelName;
+  OnFetchDone _onFetchDone;
 
   String get modelName => _modelName;
   set modelName(String modelName)
@@ -34,8 +36,10 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
     type = e_packet_type.c2s_storage_file_real_url;
   }
 
-  void generate(String modelName)
+  void generate(String modelName,{OnFetchDone onFetchDone})
   {
+    _onFetchDone = onFetchDone;
+
     if(null == respondPacket)
       respondPacket = new PacketS2CStorageFileRealUrl();
     _modelName = modelName;
@@ -49,7 +53,7 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
   Future<void> _fetchFireBaseDB(onFetchDone) async
   {
-    print('PacketC2SStorageFileRealUrl : fetchFireBaseDB started');
+    print('PacketC2SStorageFileRealUrl : fetchFireBaseDB started - $modelName');
 
     switch(_modelName)
     {
@@ -63,8 +67,13 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             ModelFeaturedComicInfo.list[countIndex].url =
             await ModelPreset.getBannerImageDownloadUrl(creatorId,ModelFeaturedComicInfo.list[countIndex].comicNumber);
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelFeaturedComicInfo.list.length,countIndex+1);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
         }
         break;
 
@@ -77,9 +86,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
               String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
               ModelRecommendedComicInfo.list[countIndex].url =
                 await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelRecommendedComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-              (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelRecommendedComicInfo.list.length,countIndex+1);
+              if(null != _onFetchDone)
+                _onFetchDone(respondPacket);
+
             }
+
+
         }
         break;
 
@@ -92,9 +106,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
           String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
           ModelRealTimeTrendComicInfo.list[countIndex].url =
           await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelRealTimeTrendComicInfo.list[countIndex].comicNumber);
+          (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-          (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelRealTimeTrendComicInfo.list.length,countIndex+1);
+          if(null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
         }
+
+
 
       }
       break;
@@ -108,9 +127,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelNewComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelNewComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelNewComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
 
         }
         break;
@@ -124,9 +148,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelTodayTrendComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelTodayTrendComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelTodayTrendComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
         }
         break;
 
@@ -139,9 +168,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelWeeklyTrendComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelWeeklyTrendComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelWeeklyTrendComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
         }
         break;
 
@@ -154,9 +188,13 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelLibraryContinueComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryContinueComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelLibraryContinueComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
           }
+
+
         }
         break;
 
@@ -169,9 +207,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelLibraryOwnedComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryOwnedComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelLibraryOwnedComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
         }
         break;
 
@@ -184,9 +227,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelLibraryRecentComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryRecentComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelLibraryRecentComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
         }
         break;
 
@@ -199,9 +247,14 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
             String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
             ModelLibraryViewListComicInfo.list[countIndex].url =
             await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryViewListComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).parseFireBaseDBJson(onFetchDone,ModelLibraryViewListComicInfo.list.length,countIndex+1);
+            if(null != _onFetchDone)
+              _onFetchDone(respondPacket);
+
           }
+
+
         }
         break;
 

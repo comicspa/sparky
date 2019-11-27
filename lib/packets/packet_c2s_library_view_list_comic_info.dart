@@ -126,7 +126,7 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
 
             if (list.length - 1 == countIndex)
             {
-              print('list.length - 1 == countIndex');
+              print('[PacketC2SLibraryViewListComicInfo : _fetchFireStoreDB] - list.length - 1 == countIndex');
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CLibraryViewListComicInfo();
@@ -268,7 +268,6 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
     // wait 5 seconds
     await Future.delayed(Duration(seconds: 5));
     socket.close();
-
 
     return ModelLibraryViewListComicInfo.list;
   }

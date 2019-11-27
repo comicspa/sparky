@@ -42,70 +42,122 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
   PacketC2SWeeklyTrendComicInfo _packetC2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
-  /*
+
   void _onFetchDone(PacketS2CCommon packetS2CPacket)
   {
-    print('[Trend] : _onFetchDone');
-    if(e_packet_status.finish_dispatch_respond != packetS2CPacket.status)
-      return;
-
-    switch(packetS2CPacket.type)
+    print('[Trend : _onFetchDone] - ${packetS2CPacket.type.toString()}');
+    switch (packetS2CPacket.type)
     {
+      case e_packet_type.s2c_featured_comic_info:
+        {
+          _packetC2SRecommendedComicInfo.generate(_onFetchDone);
+          ManageMessage.add(_packetC2SRecommendedComicInfo);
+        }
+        break;
+
+      case e_packet_type.s2c_recommended_comic_info:
+        {
+          _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
+          ManageMessage.add(_packetC2SRealTimeTrendInfo);
+        }
+        break;
+
+      case e_packet_type.s2c_real_time_trend_comic_info:
+        {
+          _packetC2SNewComicInfo.generate(_onFetchDone);
+          ManageMessage.add(_packetC2SNewComicInfo);
+        }
+        break;
+
+      case e_packet_type.s2c_new_comic_info:
+        {
+          _packetC2STodayTrendComicInfo.generate(_onFetchDone);
+          ManageMessage.add(_packetC2STodayTrendComicInfo);
+        }
+        break;
+
+      case e_packet_type.s2c_today_trend_comic_info:
+        {
+          _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
+          ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+        }
+        break;
+
+      case e_packet_type.s2c_weekly_trend_comic_info:
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName,onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+        break;
+
       case e_packet_type.s2c_storage_file_real_url:
         {
-            PacketS2CStorageFileRealUrl packet = packetS2CPacket as PacketS2CStorageFileRealUrl;
-            if(packet.isFinished())
-            {
-              print('packet.isFinished() - ${packet.modelName}');
-
-              switch(packet.modelName)
+          PacketS2CStorageFileRealUrl packet = packetS2CPacket as PacketS2CStorageFileRealUrl;
+          switch(packet.modelName)
+          {
+            case ModelFeaturedComicInfo.ModelName:
               {
-                case ModelFeaturedComicInfo.ModelName:
-                  {
-                    //_packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName);
-                    //_packetC2SStorageFileRealUrl.fetch(_onFetchDone);
-                  }
-                  break;
-
-                case ModelRecommendedComicInfo.ModelName:
-                  {
-                    //_packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName);
-                    //_packetC2SStorageFileRealUrl.fetch(_onFetchDone);
-                  }
-                  break;
-
-                case ModelRealTimeTrendComicInfo.ModelName:
-                  {
-                    //_packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName);
-                    //_packetC2SStorageFileRealUrl.fetch(_onFetchDone);
-                  }
-                  break;
-
-                case ModelNewComicInfo.ModelName:
-                  {
-                    //_packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName);
-                    //_packetC2SStorageFileRealUrl.fetch(_onFetchDone);
-                  }
-                  break;
-
-                case ModelTodayTrendComicInfo.ModelName:
-                  {
-                    //_packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName);
-                    //_packetC2SStorageFileRealUrl.fetch(_onFetchDone);
-                  }
-                  break;
-
-                case ModelWeeklyTrendComicInfo.ModelName:
-                  {
-
-                  }
-                  break;
-
-                default:
-                  break;
-
+                if(0 == ModelFeaturedComicInfo.isEmptyUrl())
+                {
+                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                  packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName,onFetchDone: _onFetchDone);
+                  ManageMessage.add(packetC2SStorageFileRealUrl);
+                }
               }
-            }
+              break;
+
+            case ModelRecommendedComicInfo.ModelName:
+              {
+                if(0 == ModelRecommendedComicInfo.isEmptyUrl())
+                {
+                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                  packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+                  ManageMessage.add(packetC2SStorageFileRealUrl);}
+              }
+              break;
+
+            case ModelRealTimeTrendComicInfo.ModelName:
+              {
+                if(0 ==ModelRealTimeTrendComicInfo.isEmptyUrl()) {
+                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                  packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName,onFetchDone: _onFetchDone);
+                  ManageMessage.add(packetC2SStorageFileRealUrl);
+                }
+              }
+              break;
+
+            case ModelNewComicInfo.ModelName:
+              {
+                if(0 == ModelNewComicInfo.isEmptyUrl())
+                {
+                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                  packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+                  ManageMessage.add(packetC2SStorageFileRealUrl);}
+              }
+              break;
+
+            case ModelTodayTrendComicInfo.ModelName:
+              {
+                if(0 == ModelTodayTrendComicInfo.isEmptyUrl()) {
+                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                  packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+                  ManageMessage.add(packetC2SStorageFileRealUrl);
+                }
+              }
+              break;
+
+            case ModelWeeklyTrendComicInfo.ModelName:
+              {}
+              break;
+
+            default:
+              break;
+          }
+
+          setState(() {
+
+          });
         }
         break;
 
@@ -116,12 +168,14 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     setState(() {
 
     });
-
   }
-  */
+
 
   @override
   void initState() {
+
+    print('[trend:initState]');
+
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     ManageFireBaseMessaging.initialize();
@@ -138,159 +192,58 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     //     .addPostFrameCallback((_) => _refreshIndicatorKey.currentState.show());
     // for pull to refresh
 
+    /*
     _broadcastStream = ManageMessage.streamController.stream;
     _broadcastStream.listen((data)
     {
-      print("DataReceived1: " + data.type.toString());
-
-      switch (data.type)
-      {
-        case e_packet_type.s2c_featured_comic_info:
-          {
-            _packetC2SRecommendedComicInfo.generate();
-            ManageMessage.add(_packetC2SRecommendedComicInfo);
-          }
-          break;
-
-        case e_packet_type.s2c_recommended_comic_info:
-          {
-            _packetC2SRealTimeTrendInfo.generate();
-            ManageMessage.add(_packetC2SRealTimeTrendInfo);
-          }
-          break;
-
-        case e_packet_type.s2c_real_time_trend_comic_info:
-          {
-            _packetC2SNewComicInfo.generate();
-            ManageMessage.add(_packetC2SNewComicInfo);
-          }
-          break;
-
-        case e_packet_type.s2c_new_comic_info:
-          {
-            _packetC2STodayTrendComicInfo.generate();
-            ManageMessage.add(_packetC2STodayTrendComicInfo);
-          }
-          break;
-
-        case e_packet_type.s2c_today_trend_comic_info:
-          {
-            _packetC2SWeeklyTrendComicInfo.generate();
-            ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
-          }
-          break;
-
-        case e_packet_type.s2c_weekly_trend_comic_info:
-          {
-            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-            packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
-          }
-          break;
-
-        case e_packet_type.s2c_storage_file_real_url:
-          {
-            PacketS2CStorageFileRealUrl packet = data as PacketS2CStorageFileRealUrl;
-            switch(packet.modelName)
-            {
-              case ModelFeaturedComicInfo.ModelName:
-                {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
-                }
-                break;
-
-              case ModelRecommendedComicInfo.ModelName:
-                {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
-                }
-                break;
-
-              case ModelRealTimeTrendComicInfo.ModelName:
-                {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
-                }
-                break;
-
-              case ModelNewComicInfo.ModelName:
-                {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
-                }
-                break;
-
-              case ModelTodayTrendComicInfo.ModelName:
-                {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
-                }
-                break;
-
-              case ModelWeeklyTrendComicInfo.ModelName:
-                {
-
-                }
-                break;
-
-              default:
-                break;
-            }
-
-            setState(() {
-
-            });
-          }
-          break;
-
-        default:
-          break;
-      }
+      print("[trend:initState] - stream listen : " + data.type.toString());
     });
+     */
 
 
     if(null == ModelFeaturedComicInfo.list)
     {
-      _packetC2SFeaturedComicInfo.generate();
+      print('null == ModelFeaturedComicInfo.list');
+      _packetC2SFeaturedComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SFeaturedComicInfo);
     }
     else if(null == ModelRecommendedComicInfo.list)
     {
-      _packetC2SRecommendedComicInfo.generate();
+      print('null == ModelRecommendedComicInfo.list');
+      _packetC2SRecommendedComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SRecommendedComicInfo);
 
     }
     else if(null == ModelRealTimeTrendComicInfo.list)
     {
-      _packetC2SRealTimeTrendInfo.generate();
+      print('[trend : initState] - null == ModelRealTimeTrendComicInfo.list');
+      _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SRealTimeTrendInfo);
     }
     else if(null == ModelNewComicInfo.list)
     {
-      _packetC2SNewComicInfo.generate();
+      print('[trend : initState] - null == ModelNewComicInfo.list');
+      _packetC2SNewComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SNewComicInfo);
     }
     else if(null == ModelTodayTrendComicInfo.list)
     {
-      _packetC2STodayTrendComicInfo.generate();
+      print('null == ModelTodayTrendComicInfo.list');
+      _packetC2STodayTrendComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2STodayTrendComicInfo);
     }
     else if(null == ModelWeeklyTrendComicInfo.list)
     {
-      _packetC2SWeeklyTrendComicInfo.generate();
+      print('null == ModelWeeklyTrendComicInfo.list');
+      _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
     }
     else
      {
+       print('PacketC2SStorageFileRealUrl');
        PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-       packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName);
-      ManageMessage.add(packetC2SStorageFileRealUrl);
+       packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName,onFetchDone: _onFetchDone);
+       ManageMessage.add(packetC2SStorageFileRealUrl);
     }
   }
 

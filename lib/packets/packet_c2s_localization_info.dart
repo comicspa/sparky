@@ -18,15 +18,16 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
 {
   String _languageCode = 'ko';
   String _localeCode = 'kr';
+  OnFetchDone _onFetchDone;
 
   PacketC2SLocalizationInfo()
   {
     type = e_packet_type.c2s_localization_info;
   }
 
-  void generate(String languageCode,String localeCode)
+  void generate(String languageCode,String localeCode,OnFetchDone onFetchDone)
   {
-
+    _onFetchDone = onFetchDone;
     languageCode = languageCode.toLowerCase();
     switch(languageCode)
     {
@@ -130,7 +131,7 @@ class PacketC2SLocalizationInfo extends PacketC2SCommon
       print('[PacketC2SLocalizationInfo:fetchFireBaseDB ] - ${snapshot.value}');
 
       PacketS2CLocalizationInfo packet = new PacketS2CLocalizationInfo();
-      packet.parseFireBaseDBJson(snapshot.value , onFetchDone);
+      packet.parseFireBaseDBJson(snapshot.value , _onFetchDone);
 
       return ModelLocalizationInfo.languagePack;
 

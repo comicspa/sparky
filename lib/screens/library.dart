@@ -27,8 +27,7 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserver
 {
-
-  Stream<PacketS2CCommon> _broadcastStream;
+  //Stream<PacketS2CCommon> _broadcastStream;
 
   PacketC2SLibraryRecentComicInfo _packetC2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
   PacketC2SLibraryViewListComicInfo _packetC2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
@@ -42,11 +41,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
     super.initState();
     // generating packet
 
-    //c2sLibraryRecentComicInfo.generate();
-    //c2sMyLibraryViewListComicInfo.generate();
-    //c2sLibraryOwnedComicInfo.generate();
-    //c2sLibraryContinueComicInfo.generate();
-
+    /*
     _broadcastStream = ManageMessage.streamController.stream;
     _broadcastStream.listen((data)
     {
@@ -132,6 +127,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
           break;
       }
     });
+    */
 
 
     if(null == ModelLibraryContinueComicInfo.list)
@@ -164,8 +160,6 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
       packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName);
       ManageMessage.add(packetC2SStorageFileRealUrl);
     }
-
-
   }
 
   @override

@@ -8,7 +8,6 @@ class ModelLibraryContinueComicInfo
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
   String get comicNumber => _modelComicInfo.comicNumber;
-  //String get userId => _modelComicInfo.userId;
   String get partNumber => _modelComicInfo.partNumber;
   String get seasonNumber => _modelComicInfo.seasonNumber;
   String get titleName => _modelComicInfo.titleName;
@@ -22,12 +21,6 @@ class ModelLibraryContinueComicInfo
   {
     _modelComicInfo.comicNumber = comicNumber;
   }
-  /*
-  set userId(String userId)
-  {
-    _modelComicInfo.userId = userId;
-  }
-   */
 
   set partNumber(String partNumber)
   {
@@ -71,4 +64,17 @@ class ModelLibraryContinueComicInfo
 
   static List<ModelLibraryContinueComicInfo> list;
   static e_packet_status status;
+  static int isEmptyUrl()
+  {
+    if(null == list)
+      return -1;
+
+    for(int countIndex=0; countIndex<list.length; ++countIndex)
+    {
+      if(null == list[countIndex].url || '' == list[countIndex].url)
+        return 1;
+    }
+
+    return 0;
+  }
 }

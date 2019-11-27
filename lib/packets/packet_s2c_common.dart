@@ -5,7 +5,7 @@ import 'package:sparky/packets/packet_utility.dart';
 
 
 
-typedef void OnFetchDone(PacketS2CCommon s2cPacket);
+typedef void OnFetchDone(PacketS2CCommon packetS2CCommon);
 
 
 

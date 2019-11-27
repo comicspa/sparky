@@ -73,5 +73,18 @@ class ModelRealTimeTrendComicInfo
 
   static List<ModelRealTimeTrendComicInfo> list;
   static e_packet_status status;
+  static int isEmptyUrl()
+  {
+    if(null == list)
+      return -1;
+
+    for(int countIndex=0; countIndex<list.length; ++countIndex)
+    {
+      if(null == list[countIndex].url || '' == list[countIndex].url)
+        return 1;
+    }
+
+    return 0;
+  }
 
 }

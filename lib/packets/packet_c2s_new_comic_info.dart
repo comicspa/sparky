@@ -6,6 +6,7 @@ import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_new_comic_info.dart';
 import 'package:sparky/models/model_new_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -21,6 +22,7 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
+  OnFetchDone _onFetchDone;
 
   PacketC2SNewComicInfo()
   {
@@ -28,9 +30,10 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
   }
 
 
-  void generate({bool recreateList = false})
+  void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
     _fetchStatus = 0;
+    _onFetchDone = onFetchDone;
 
     if(null == respondPacket)
       respondPacket = new PacketS2CNewComicInfo();
@@ -72,19 +75,21 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
   {
     print('PacketC2SNewComicInfo : _fetchFireStoreDB started');
 
-    if (null != ModelNewComicInfo.list)
+    if(e_packet_status.none == ModelNewComicInfo.status || e_packet_status.finish_dispatch_respond == ModelNewComicInfo.status)
       return ModelNewComicInfo.list;
 
     print('aaaa : ${respondPacket.status.toString()}');
     if(e_packet_status.none == respondPacket.status)
     {
       print('bbbb');
-      respondPacket.status = e_packet_status.start_dispatch_request;
+      //respondPacket.status = e_packet_status.start_dispatch_request;
+      ModelNewComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelNewComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelNewComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
-        respondPacket.status = e_packet_status.wait_respond;
+        //respondPacket.status = e_packet_status.wait_respond;
+        ModelNewComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
         {
@@ -126,16 +131,17 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
 
             if (list.length - 1 == countIndex)
             {
-              print('list.length - 1 == countIndex');
+              print('[PacketC2SNewComicInfo : _fetchFireStoreDB] - list.length - 1 == countIndex');
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CNewComicInfo();
               respondPacket.status = e_packet_status.finish_dispatch_respond;
+              ModelNewComicInfo.status = e_packet_status.finish_dispatch_respond;
 
               ModelNewComicInfo.list = list;
 
-              if (null != onFetchDone)
-                onFetchDone(respondPacket);
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
 
             }
           });

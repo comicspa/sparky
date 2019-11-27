@@ -129,7 +129,7 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
 
             if (list.length - 1 == countIndex)
             {
-              print('list.length - 1 == countIndex');
+              print('[PacketC2SLibraryContinueComicInfo : _fetchFireStoreDB] - list.length - 1 == countIndex');
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CLibraryContinueComicInfo();
@@ -148,7 +148,6 @@ class PacketC2SLibraryContinueComicInfo extends PacketC2SCommon
       }
     }
 
-    //print('finished');
     return null;
   }
 

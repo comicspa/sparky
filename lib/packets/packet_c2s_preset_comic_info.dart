@@ -38,12 +38,12 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
   {
     _count = 0;
 
-    _packetC2SFeaturedComicInfo.generate();
-    _packetC2SRecommendedComicInfo.generate();
-    _packetC2sRealTimeTrendComicInfo.generate();
-    _packetC2SNewComicInfo.generate();
-    _packetC2STodayTrendComicInfo.generate();
-    _packetC2SWeeklyTrendComicInfo.generate();
+    //_packetC2SFeaturedComicInfo.generate();
+    _packetC2SRecommendedComicInfo.generate(null);
+    _packetC2sRealTimeTrendComicInfo.generate(null);
+    _packetC2SNewComicInfo.generate(null);
+    _packetC2STodayTrendComicInfo.generate(null);
+    _packetC2SWeeklyTrendComicInfo.generate(null);
   }
 
   void _onFetchDone(PacketS2CCommon packetS2CCommon)
@@ -92,7 +92,7 @@ class PacketC2SPresetComicInfo extends PacketC2SCommon
 
       case 5:
         {
-          ManageMessage.streamController.add(packetS2CCommon);
+          //ManageMessage.streamController.add(packetS2CCommon);
           print('<------------------------------------------------- 1 -------------------------------------------------------');
         }
         break;

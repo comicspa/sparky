@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   void init() async {
 
     if(null != _packetC2SUserInfo) {
-      _packetC2SUserInfo.generate(ModelUserInfo.getInstance().uId);
+      _packetC2SUserInfo.generate(ModelUserInfo.getInstance().uId,_onFetchDone);
       await _packetC2SUserInfo.fetch(_onFetchDone);
     }
 

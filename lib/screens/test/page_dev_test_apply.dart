@@ -42,6 +42,8 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
     PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
     packetC2SPresetComicInfo.generate();
     ManageMessage.generate();
+
+    /*
     ManageMessage.streamController.stream.listen((data) {
       print("DataReceived1: " + data.toString());
 
@@ -88,6 +90,7 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
     }, onError: (error) {
       print("_onFetchDone Error");
     });
+    */
 
     ManageMessage.add(packetC2SPresetComicInfo);
 

@@ -7,6 +7,7 @@ import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_featured_comic_info.dart';
 import 'package:sparky/models/model_featured_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -20,7 +21,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
-
+  OnFetchDone _onFetchDone;
 
   PacketC2SFeaturedComicInfo()
   {
@@ -28,8 +29,10 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
   }
 
 
-  void generate({bool recreateList = false})
+  void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
+    _onFetchDone = onFetchDone;
+    ModelFeaturedComicInfo.status = e_packet_status.start_dispatch_request;
     _fetchStatus = 0;
 
     if(null == respondPacket)
@@ -68,23 +71,24 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
   }
 
 
+  //
   Future<List<ModelFeaturedComicInfo>> _fetchFireStoreDB(onFetchDone) async
   {
     print('PacketC2SFeaturedComicInfo : _fetchFireStoreDB started');
 
-    if (null != ModelFeaturedComicInfo.list)
+    if(e_packet_status.none == ModelFeaturedComicInfo.status || e_packet_status.finish_dispatch_respond == ModelFeaturedComicInfo.status)
       return ModelFeaturedComicInfo.list;
 
-    print('aaaa : ${respondPacket.status.toString()}');
+    //print('aaaa : ${respondPacket.status.toString()}');
     if(e_packet_status.none == respondPacket.status)
     {
-      print('bbbb');
-      respondPacket.status = e_packet_status.start_dispatch_request;
+      //print('bbbb');
+      ModelFeaturedComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelFeaturedComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelFeaturedComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
-        respondPacket.status = e_packet_status.wait_respond;
+        ModelFeaturedComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
         {
@@ -124,18 +128,22 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
             modelFeaturedComicInfo.titleName = documentSnapshot.data['title_name'];
             modelFeaturedComicInfo.creatorName = documentSnapshot.data['creator_name1'] + '/' + documentSnapshot.data['creator_name2'];
 
+           // String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+           // modelFeaturedComicInfo.url = await ModelPreset.getBannerImageDownloadUrl(creatorId,modelFeaturedComicInfo.comicNumber);
+
             if (list.length - 1 == countIndex)
             {
-              print('list.length - 1 == countIndex');
+              print('[PacketC2SFeaturedComicInfo:_fetchFireStoreDB] - list.length - 1 == countIndex');
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CFeaturedComicInfo();
               respondPacket.status = e_packet_status.finish_dispatch_respond;
+              ModelFeaturedComicInfo.status = e_packet_status.finish_dispatch_respond;
 
               ModelFeaturedComicInfo.list = list;
 
-              if (null != onFetchDone)
-                onFetchDone(respondPacket);
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
             }
           });
         }
@@ -180,10 +188,9 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
       }
     }
     else
-      {
+    {
 
-
-    switch(respondPacket.status)
+      switch(respondPacket.status)
     {
       case e_packet_status.finish_dispatch_respond:
         return ModelFeaturedComicInfo.list;
@@ -214,10 +221,7 @@ class PacketC2SFeaturedComicInfo extends PacketC2SCommon
           return ModelFeaturedComicInfo.list;
         });
     }
-
-
-
-      }
+  }
 
 
     return null;

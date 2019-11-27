@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_user_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -20,6 +21,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
   String _userId;
   int _fetchStatus = 0;
   int _databaseType = 0;
+  OnFetchDone _onFetchDone;
 
   PacketC2SUserInfo()
   {
@@ -27,9 +29,10 @@ class PacketC2SUserInfo extends PacketC2SCommon
   }
 
   //
-  void generate(String userId)
+  void generate(String userId,OnFetchDone onFetchDone)
   {
     _userId = userId;
+    _onFetchDone = onFetchDone;
   }
 
   //
@@ -119,7 +122,7 @@ class PacketC2SUserInfo extends PacketC2SCommon
       print('document : ${documentSnapshot.data.toString()}');
 
       PacketS2CUserInfo packet = new PacketS2CUserInfo();
-      packet.parseCloudFirestoreJson(documentSnapshot.data , onFetchDone);
+      packet.parseCloudFirestoreJson(documentSnapshot.data , _onFetchDone);
 
       return ModelUserInfo.getInstance();
     });
