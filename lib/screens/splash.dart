@@ -15,8 +15,6 @@ import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/manage/manage_message.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sparky/packets/packet_c2s_preset_comic_info.dart';
-import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_c2s_preset.dart';

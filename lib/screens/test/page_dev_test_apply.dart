@@ -12,8 +12,6 @@ import 'package:sparky/manage/manage_common.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 import 'package:sparky/manage/manage_message.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sparky/packets/packet_c2s_preset_comic_info.dart';
-import 'package:sparky/packets/packet_c2s_preset_library_info.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
@@ -39,8 +37,6 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
 
   void initialize() async
   {
-    PacketC2SPresetComicInfo packetC2SPresetComicInfo = new PacketC2SPresetComicInfo();
-    packetC2SPresetComicInfo.generate();
     ManageMessage.generate();
 
     /*
@@ -92,7 +88,6 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
     });
     */
 
-    ManageMessage.add(packetC2SPresetComicInfo);
 
   }
 
