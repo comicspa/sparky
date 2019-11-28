@@ -38,6 +38,8 @@ class PacketS2CUserInfo extends PacketS2CCommon
     status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
+    else
+      print('null == onFetchDone');
   }
 
 
@@ -88,6 +90,8 @@ class PacketS2CUserInfo extends PacketS2CCommon
     status = e_packet_status.finish_dispatch_respond;
     if(null != onFetchDone)
       onFetchDone(this);
+    else
+      print('null == onFetchDone');
   }
 
 

@@ -18,6 +18,7 @@ import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/manage/manage_message.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_storage_file_real_url.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 
 class LibraryScreen extends StatefulWidget {
@@ -130,27 +131,48 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
     */
 
 
-    if(null == ModelLibraryContinueComicInfo.list)
-    {
-      _packetC2SLibraryContinueComicInfo.generate();
-      ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+    bool dispatched = false;
 
-    }
-    else if(null == ModelLibraryOwnedComicInfo.list)
+    if(false == dispatched)
     {
-      _packetC2SLibraryOwnedComicInfo.generate();
+      if (null == ModelLibraryContinueComicInfo.list)
+      {
+        print('[library : initState] - null == ModelLibraryContinueComicInfo.list');
+        _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelLibraryContinueComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
+    }
+
+
+    /*
+    if(null == ModelLibraryOwnedComicInfo.list)
+    {
+      _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
 
     }
     else if(null == ModelLibraryRecentComicInfo.list)
     {
-      _packetC2SLibraryRecentComicInfo.generate();
+      _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SLibraryRecentComicInfo);
 
     }
     else if(null == ModelLibraryViewListComicInfo.list)
     {
-      _packetC2SLibraryViewListComicInfo.generate();
+      _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
       ManageMessage.add(_packetC2SLibraryViewListComicInfo);
 
     }
@@ -160,7 +182,182 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
       packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName);
       ManageMessage.add(packetC2SStorageFileRealUrl);
     }
+    */
+
   }
+
+
+  void _onFetchDone(PacketCommon packetCommon)
+  {
+    PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
+    print('[splash : _onFetchDone] - ${packetS2CCommon.type.toString()}');
+
+    switch (packetS2CCommon.type)
+    {
+      case e_packet_type.s2c_library_continue_comic_info:
+        {
+
+          int isEmptyUrl = ModelLibraryContinueComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+            _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+          }
+
+        }
+        break;
+
+      case e_packet_type.s2c_library_owned_comic_info:
+        {
+          int isEmptyUrl = ModelLibraryOwnedComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+            _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SLibraryRecentComicInfo);
+          }
+
+        }
+        break;
+
+      case e_packet_type.s2c_library_recent_comic_info:
+        {
+          int isEmptyUrl = ModelLibraryRecentComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelLibraryRecentComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+            _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+          }
+
+        }
+        break;
+
+      case e_packet_type.s2c_library_view_list_comic_info:
+        {
+          int isEmptyUrl = ModelLibraryViewListComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelLibraryViewListComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+            print('---------------------------------------------');
+          }
+
+
+        }
+        break;
+
+      case e_packet_type.s2c_storage_file_real_url:
+        {
+          PacketS2CStorageFileRealUrl packet = packetS2CCommon as PacketS2CStorageFileRealUrl;
+          switch(packet.modelName)
+          {
+            case ModelLibraryContinueComicInfo.ModelName:
+              {
+                if(null == ModelLibraryOwnedComicInfo.list)
+                {
+                  _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+                }
+                else
+                {
+                  if(1 == ModelLibraryOwnedComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+
+              }
+              break;
+
+            case ModelLibraryOwnedComicInfo.ModelName:
+              {
+                if(null == ModelLibraryRecentComicInfo.list)
+                {
+                  _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SLibraryRecentComicInfo);
+                }
+                else
+                {
+                  if(1 == ModelLibraryRecentComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelLibraryRecentComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+              }
+              break;
+
+            case ModelLibraryRecentComicInfo.ModelName:
+              {
+                if(null == ModelLibraryViewListComicInfo.list)
+                {
+                  _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+                }
+                else
+                {
+                  if(1 == ModelLibraryViewListComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelLibraryViewListComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+              }
+              break;
+
+            case ModelLibraryViewListComicInfo.ModelName:
+              {
+
+              }
+              break;
+
+            default:
+              break;
+          }
+
+          setState(() {
+
+          });
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setState(() {
+
+    });
+  }
+
+
+
+
 
   @override
   void dispose() {
@@ -384,21 +581,35 @@ class LibraryListTile extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DetailPage(
-                              snapshot.data[index].userId,
+                              snapshot.data[index].creatorId,
                               snapshot.data[index]
-                                  .comicId), // link to Actual viewer
+                                  .comicNumber,snapshot.data[index].partNumber,snapshot.data[index].seasonNumber), // link to Actual viewer
                         ),
                       );
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(3.0),
-                      child: CachedNetworkImage(
+                      child:
+
+
+                      null != snapshot.data[index].url ? FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: snapshot.data[index].url,
+                        fit: BoxFit.cover,
+                        height: ManageDeviceInfo.resolutionHeight * 0.15,
+                      )
+                          : Image.asset('images/Comi.png'),
+
+                      /*
+                      CachedNetworkImage(
                         imageUrl: snapshot.data[index].url,
                         placeholder: (context, url) => LoadingIndicator(),
                         width: ManageDeviceInfo.resolutionWidth * 0.25,
                         height: ManageDeviceInfo.resolutionWidth * 0.25,
                         fit: BoxFit.fill,
                       ),
+                      */
+
                     ),
                   ),
                 ),
@@ -410,9 +621,9 @@ class LibraryListTile extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DetailPage(
-                              snapshot.data[index].userId,
+                              snapshot.data[index].creatorId,
                               snapshot.data[index]
-                                  .comicId), // link to Actual viewer
+                                  .comicNumber,snapshot.data[index].partNumber,snapshot.data[index].seasonNumber), // link to Actual viewer
                         ),
                       );
                     },
@@ -484,9 +695,9 @@ class LibraryListTile extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) => DetailPage(
-                                snapshot.data[index].userId,
+                                snapshot.data[index].creatorId,
                                 snapshot.data[index]
-                                    .comicId), // link to Actual viewer
+                                    .comicNumber,snapshot.data[index].partNumber,snapshot.data[index].seasonNumber), // link to Actual viewer
                           ),
                         );
                       },

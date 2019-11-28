@@ -7,7 +7,6 @@ import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
-import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_today_trend_comic_info.dart';
 import 'package:sparky/models/model_today_trend_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -24,7 +23,6 @@ class PacketC2STodayTrendComicInfo extends PacketC2SCommon
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
-  OnFetchDone _onFetchDone;
 
   PacketC2STodayTrendComicInfo()
   {
@@ -34,7 +32,8 @@ class PacketC2STodayTrendComicInfo extends PacketC2SCommon
   void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
     _fetchStatus = 0;
-    _onFetchDone = onFetchDone;
+    this.onFetchDone = onFetchDone;
+    ModelTodayTrendComicInfo.status = e_packet_status.start_dispatch_request;
 
     if(null == respondPacket)
       respondPacket = new PacketS2CTodayTrendComicInfo();
@@ -141,8 +140,8 @@ class PacketC2STodayTrendComicInfo extends PacketC2SCommon
 
               ModelTodayTrendComicInfo.list = list;
 
-              if (null != _onFetchDone)
-                _onFetchDone(respondPacket);
+              if (null != this.onFetchDone)
+                this.onFetchDone(respondPacket);
 
             }
           });

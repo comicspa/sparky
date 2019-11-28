@@ -4,7 +4,6 @@ import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
-import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_sign_in.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sparky/manage/manage_firebase_database.dart';
@@ -15,7 +14,6 @@ import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 class PacketC2SSignIn extends PacketC2SCommon
 {
   String _uId;
-  OnFetchDone _onFetchDone;
   int _databaseType = 1;
 
   PacketC2SSignIn()
@@ -26,7 +24,7 @@ class PacketC2SSignIn extends PacketC2SCommon
   void generate(String uId,OnFetchDone onFetchDone)
   {
     _uId = uId;
-    _onFetchDone = onFetchDone;
+    this.onFetchDone = onFetchDone;
   }
 
   Future<void> fetch(onFetchDone) async
@@ -54,7 +52,7 @@ class PacketC2SSignIn extends PacketC2SCommon
 
   Future<void> _fetchFirestoreDB(onFetchDone) async
   {
-    print('PacketC2SSignUp : _fetchFirestoreDB started');
+    print('PacketC2SSignIn : _fetchFirestoreDB started');
 
     await ManageFireBaseCloudFireStore.reference.collection(ModelUserInfo.ModelName)
         .document(_uId)
@@ -64,7 +62,7 @@ class PacketC2SSignIn extends PacketC2SCommon
     }).then((_) {
 
       PacketS2CSignIn packet = new PacketS2CSignIn();
-      packet.parseFireBaseDBJson(_onFetchDone);
+      packet.parseFireBaseDBJson(this.onFetchDone);
 
       //});
     });

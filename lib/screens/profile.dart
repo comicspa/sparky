@@ -9,6 +9,7 @@ import 'package:sparky/screens/test/edit_profile.dart';
 
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 
 
@@ -60,11 +61,18 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   }
 
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+  void _onFetchDone(PacketCommon packetCommon)
   {
+    print('[profile_page] : onFetchDone');
+    PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
+
+
+
+
+
     setState(() {
-       
-     });
+
+    });
   }
      
   

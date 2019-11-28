@@ -27,10 +27,11 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_library_owned_comic_info;
   }
 
-  void generate({bool recreateList = false})
+  void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
     _fetchStatus = 0;
-
+    this.onFetchDone = onFetchDone;
+    ModelLibraryOwnedComicInfo.status = e_packet_status.start_dispatch_request;
     if(null == respondPacket)
       respondPacket = new PacketS2CLibraryOwnedComicInfo();
     else
@@ -72,19 +73,23 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
   {
     print('PacketC2SLibraryOwnedComicInfo : _fetchFireStoreDB started');
 
-    if (null != ModelLibraryOwnedComicInfo.list)
+    if(e_packet_status.none == ModelLibraryOwnedComicInfo.status || e_packet_status.finish_dispatch_respond == ModelLibraryOwnedComicInfo.status)
       return ModelLibraryOwnedComicInfo.list;
+    if(null == respondPacket)
+      return null;
 
     print('aaaa : ${respondPacket.status.toString()}');
     if(e_packet_status.none == respondPacket.status)
     {
       print('bbbb');
       respondPacket.status = e_packet_status.start_dispatch_request;
+      ModelLibraryOwnedComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelLibraryOwnedComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelLibraryOwnedComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
         respondPacket.status = e_packet_status.wait_respond;
+        ModelLibraryOwnedComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
         {
@@ -131,21 +136,19 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
               if (null == respondPacket)
                 respondPacket = new PacketS2CLibraryOwnedComicInfo();
               respondPacket.status = e_packet_status.finish_dispatch_respond;
+              ModelLibraryOwnedComicInfo.status = e_packet_status.finish_dispatch_respond;
 
               ModelLibraryOwnedComicInfo.list = list;
 
-              if (null != onFetchDone)
-                onFetchDone(respondPacket);
+              if (null != this.onFetchDone)
+                this.onFetchDone(respondPacket);
 
             }
           });
-
-
         }
       }
     }
 
-    //print('finished');
     return null;
   }
 
@@ -189,7 +192,6 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
         return ModelLibraryOwnedComicInfo.list;
       });
     }
-
      */
 
 
@@ -199,7 +201,7 @@ class PacketC2SLibraryOwnedComicInfo extends PacketC2SCommon
       _fetchStatus = 1;
 
       DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-          .reference.child('model_library_owned_comic_info');
+          .reference.child(ModelLibraryOwnedComicInfo.ModelName);
       modelUserInfoReference.once().then((DataSnapshot snapshot) {
         print('[PacketC2SLibraryOwnedComicInfo:fetchFireBaseDB ] - ${snapshot
             .value}');

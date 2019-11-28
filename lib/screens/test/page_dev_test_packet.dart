@@ -96,7 +96,7 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
             onTap: (){
 
               PacketC2SComicDetailInfo c2SComicDetailInfo = new PacketC2SComicDetailInfo();
-              c2SComicDetailInfo.generate('1566811403000','000001');
+              c2SComicDetailInfo.generate('1566811403000','000001','001','001');
               c2SComicDetailInfo.fetch(_onFetchDone);
 
 

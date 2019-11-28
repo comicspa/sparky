@@ -8,7 +8,6 @@ class ModelNewComicInfo
   ModelComicInfo _modelComicInfo = new ModelComicInfo();
 
   String get comicNumber => _modelComicInfo.comicNumber;
-  //String get userId => _modelComicInfo.userId;
   String get partNumber => _modelComicInfo.partNumber;
   String get seasonNumber => _modelComicInfo.seasonNumber;
   String get titleName => _modelComicInfo.titleName;
@@ -22,14 +21,6 @@ class ModelNewComicInfo
   {
     _modelComicInfo.comicNumber = comicNumber;
   }
-
-  /*
-  set userId(String userId)
-  {
-    _modelComicInfo.userId = userId;
-  }
-
-   */
 
   set partNumber(String partNumber)
   {

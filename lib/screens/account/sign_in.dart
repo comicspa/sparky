@@ -55,7 +55,7 @@ class _SignInPageState extends State<SignInPage>  with WidgetsBindingObserver{
               GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => DetailPage('','')
+                      builder: (context) => DetailPage('','','001','001')
                   ));
                 },
                 child: Container(

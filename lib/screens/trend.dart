@@ -42,122 +42,234 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
   PacketC2SWeeklyTrendComicInfo _packetC2SWeeklyTrendComicInfo = new PacketC2SWeeklyTrendComicInfo();
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
-
-  void _onFetchDone(PacketS2CCommon packetS2CPacket)
+  //
+  void _onFetchDone(PacketCommon packetCommon)
   {
-    print('[Trend : _onFetchDone] - ${packetS2CPacket.type.toString()}');
-    switch (packetS2CPacket.type)
+    PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
+    print('[Trend : _onFetchDone] - ${packetS2CCommon.type.toString()}');
+    switch (packetS2CCommon.type)
     {
       case e_packet_type.s2c_featured_comic_info:
         {
-          _packetC2SRecommendedComicInfo.generate(_onFetchDone);
-          ManageMessage.add(_packetC2SRecommendedComicInfo);
+          int isEmptyUrl = ModelFeaturedComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+            _packetC2SRecommendedComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SRecommendedComicInfo);
+          }
         }
         break;
 
       case e_packet_type.s2c_recommended_comic_info:
         {
-          _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
-          ManageMessage.add(_packetC2SRealTimeTrendInfo);
+          int isEmptyUrl = ModelRecommendedComicInfo.isEmptyUrl();
+          if(1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName,onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if(0 == isEmptyUrl)
+          {
+            _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SRealTimeTrendInfo);
+          }
         }
         break;
 
       case e_packet_type.s2c_real_time_trend_comic_info:
         {
-          _packetC2SNewComicInfo.generate(_onFetchDone);
-          ManageMessage.add(_packetC2SNewComicInfo);
+          int isEmptyUrl = ModelRealTimeTrendComicInfo.isEmptyUrl();
+          if(1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if(0 == isEmptyUrl)
+          {
+            _packetC2SNewComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SNewComicInfo);
+          }
+
         }
         break;
 
       case e_packet_type.s2c_new_comic_info:
         {
-          _packetC2STodayTrendComicInfo.generate(_onFetchDone);
-          ManageMessage.add(_packetC2STodayTrendComicInfo);
+          if(1 == ModelNewComicInfo.isEmptyUrl())
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName,onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if(0 == ModelNewComicInfo.isEmptyUrl())
+          {
+            _packetC2STodayTrendComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2STodayTrendComicInfo);
+          }
         }
         break;
 
       case e_packet_type.s2c_today_trend_comic_info:
         {
-          _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
-          ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+          if(1 == ModelTodayTrendComicInfo.isEmptyUrl())
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if(0 == ModelTodayTrendComicInfo.isEmptyUrl())
+          {
+            _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+          }
         }
         break;
 
       case e_packet_type.s2c_weekly_trend_comic_info:
         {
-          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-          packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName,onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
+          if(1 == ModelWeeklyTrendComicInfo.isEmptyUrl())
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if(0 == ModelWeeklyTrendComicInfo.isEmptyUrl())
+          {
+            print('======================================');
+
+          }
+
         }
         break;
 
       case e_packet_type.s2c_storage_file_real_url:
         {
-          PacketS2CStorageFileRealUrl packet = packetS2CPacket as PacketS2CStorageFileRealUrl;
+          PacketS2CStorageFileRealUrl packet = packetS2CCommon as PacketS2CStorageFileRealUrl;
           switch(packet.modelName)
           {
             case ModelFeaturedComicInfo.ModelName:
               {
-                if(0 == ModelFeaturedComicInfo.isEmptyUrl())
-                {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName,onFetchDone: _onFetchDone);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
-                }
+                if(null == ModelRecommendedComicInfo.list)
+                  {
+                    _packetC2SRecommendedComicInfo.generate(_onFetchDone);
+                    ManageMessage.add(_packetC2SRecommendedComicInfo);
+                  }
+                else
+                  {
+                    if(1 == ModelRecommendedComicInfo.isEmptyUrl())
+                    {
+                      PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                      packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName,onFetchDone: _onFetchDone);
+                      ManageMessage.add(packetC2SStorageFileRealUrl);
+                    }
+                  }
+
               }
               break;
 
             case ModelRecommendedComicInfo.ModelName:
               {
-                if(0 == ModelRecommendedComicInfo.isEmptyUrl())
+                if(null == ModelRealTimeTrendComicInfo.list)
+               {
+                 _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
+                 ManageMessage.add(_packetC2SRealTimeTrendInfo);
+               }
+               else
+               {
+                if(1 == ModelRealTimeTrendComicInfo.isEmptyUrl())
                 {
                   PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                   packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);}
+                  ManageMessage.add(packetC2SStorageFileRealUrl);
+                }
+               }
+
+
               }
               break;
 
             case ModelRealTimeTrendComicInfo.ModelName:
               {
-                if(0 ==ModelRealTimeTrendComicInfo.isEmptyUrl()) {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName,onFetchDone: _onFetchDone);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                if(null == ModelNewComicInfo.list)
+                {
+                  _packetC2SNewComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SNewComicInfo);
                 }
+                else
+                {
+                  if(1 == ModelNewComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+
               }
               break;
 
             case ModelNewComicInfo.ModelName:
               {
-                if(0 == ModelNewComicInfo.isEmptyUrl())
+
+                if(null == ModelTodayTrendComicInfo.list)
                 {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);}
+                  _packetC2STodayTrendComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2STodayTrendComicInfo);
+                }
+                else
+                {
+                  if(1 == ModelTodayTrendComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+
               }
               break;
 
             case ModelTodayTrendComicInfo.ModelName:
               {
-                if(0 == ModelTodayTrendComicInfo.isEmptyUrl()) {
-                  PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                  packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                if(null == ModelWeeklyTrendComicInfo.list)
+                {
+                  _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
                 }
+                else
+                {
+                  if(1 == ModelWeeklyTrendComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+
               }
               break;
 
             case ModelWeeklyTrendComicInfo.ModelName:
-              {}
+              {
+                  print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
+              }
               break;
 
             default:
               break;
           }
 
-          setState(() {
-
-          });
         }
         break;
 
@@ -201,50 +313,147 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
      */
 
 
-    if(null == ModelFeaturedComicInfo.list)
+    bool dispatched = false;
+    if(false == dispatched)
     {
-      print('null == ModelFeaturedComicInfo.list');
-      _packetC2SFeaturedComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SFeaturedComicInfo);
-    }
-    else if(null == ModelRecommendedComicInfo.list)
-    {
-      print('null == ModelRecommendedComicInfo.list');
-      _packetC2SRecommendedComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SRecommendedComicInfo);
+      if (null == ModelFeaturedComicInfo.list)
+      {
+        print('[trend : initState] - null == ModelFeaturedComicInfo.list');
+        _packetC2SFeaturedComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SFeaturedComicInfo);
 
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelFeaturedComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
     }
-    else if(null == ModelRealTimeTrendComicInfo.list)
+
+    if(false == dispatched)
     {
-      print('[trend : initState] - null == ModelRealTimeTrendComicInfo.list');
-      _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SRealTimeTrendInfo);
+      if (null == ModelRecommendedComicInfo.list)
+      {
+        print('[trend : initState] - null == ModelRecommendedComicInfo.list');
+        _packetC2SRecommendedComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SRecommendedComicInfo);
+
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelRecommendedComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
     }
-    else if(null == ModelNewComicInfo.list)
+
+/*
+    if(false == dispatched)
     {
-      print('[trend : initState] - null == ModelNewComicInfo.list');
-      _packetC2SNewComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SNewComicInfo);
+      if (null == ModelRealTimeTrendComicInfo.list)
+      {
+        print('[trend : initState] - null == ModelRealTimeTrendComicInfo.list');
+        _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SRealTimeTrendInfo);
+
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelRealTimeTrendComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
     }
-    else if(null == ModelTodayTrendComicInfo.list)
+
+    if(false == dispatched)
     {
-      print('null == ModelTodayTrendComicInfo.list');
-      _packetC2STodayTrendComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2STodayTrendComicInfo);
+      if (null == ModelNewComicInfo.list)
+      {
+        print('[trend : initState] - null == ModelNewComicInfo.list');
+        _packetC2SNewComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SNewComicInfo);
+
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelNewComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
     }
-    else if(null == ModelWeeklyTrendComicInfo.list)
+
+    if(false == dispatched)
     {
-      print('null == ModelWeeklyTrendComicInfo.list');
-      _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+      if (null == ModelTodayTrendComicInfo.list)
+      {
+        print('[trend : initState] - null == ModelTodayTrendComicInfo.list');
+        _packetC2STodayTrendComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2STodayTrendComicInfo);
+
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelTodayTrendComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
     }
-    else
-     {
-       print('PacketC2SStorageFileRealUrl');
-       PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-       packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName,onFetchDone: _onFetchDone);
-       ManageMessage.add(packetC2SStorageFileRealUrl);
+
+    if(false == dispatched)
+    {
+      if (null == ModelWeeklyTrendComicInfo.list)
+      {
+        print('[trend : initState] - null == ModelWeeklyTrendComicInfo.list');
+        _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelWeeklyTrendComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName, onFetchDone: _onFetchDone);
+          ManageMessage.add(packetC2SStorageFileRealUrl);
+        }
+
+        dispatched = true;
+      }
     }
+
+ */
   }
 
   @override
@@ -308,7 +517,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                                       MaterialPageRoute(
                                         builder: (context) => DetailPage(
                                             i.creatorId,
-                                            i.comicNumber), // link to Actual viewer
+                                            i.comicNumber,i.partNumber,i.seasonNumber), // link to Actual viewer
                                       ),
                                     );
                                   },
@@ -637,8 +846,7 @@ class TrendCardList extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => DetailPage(
                     snapshot.data[index].creatorId,
-                    snapshot.data[index]
-                        .comicNumber), // link to Actual viewer
+                    snapshot.data[index].comicNumber,snapshot.data[index].partNumber,snapshot.data[index].seasonNumber), // link to Actual viewer
               ),
             );
           },

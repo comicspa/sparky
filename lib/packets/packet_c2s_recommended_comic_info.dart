@@ -4,12 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:sparky/manage/manage_firebase_cloud_firestore.dart';
 
-import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/models/model_common.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_common.dart';
-import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_recommended_comic_info.dart';
 import 'package:sparky/models/model_recommended_comic_info.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -22,7 +20,6 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
-  OnFetchDone _onFetchDone;
 
   PacketC2SRecommendedComicInfo()
   {
@@ -32,7 +29,7 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
   void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
     _fetchStatus = 0;
-    _onFetchDone = onFetchDone;
+    this.onFetchDone = onFetchDone;
     ModelRecommendedComicInfo.status = e_packet_status.start_dispatch_request;
 
     if(null == respondPacket)
@@ -141,8 +138,8 @@ class PacketC2SRecommendedComicInfo extends PacketC2SCommon
 
               ModelRecommendedComicInfo.list = list;
 
-              if (null != _onFetchDone)
-                _onFetchDone(respondPacket);
+              if (null != this.onFetchDone)
+                this.onFetchDone(respondPacket);
 
             }
           });

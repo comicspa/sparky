@@ -28,9 +28,12 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_library_view_list_comic_info;
   }
 
-  void generate({bool recreateList = false})
+  void generate(OnFetchDone onFetchDone , {bool recreateList = false})
   {
     _fetchStatus = 0;
+
+    this.onFetchDone = onFetchDone;
+    ModelLibraryViewListComicInfo.status = e_packet_status.start_dispatch_request;
 
     if(null == respondPacket)
       respondPacket = new PacketS2CLibraryViewListComicInfo();
@@ -72,19 +75,23 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
   {
     print('PacketC2SLibraryViewListComicInfo : _fetchFireStoreDB started');
 
-    if (null != ModelLibraryViewListComicInfo.list)
+    if(e_packet_status.none == ModelLibraryViewListComicInfo.status || e_packet_status.finish_dispatch_respond == ModelLibraryViewListComicInfo.status)
       return ModelLibraryViewListComicInfo.list;
+    if(null == respondPacket)
+      return null;
 
     print('aaaa : ${respondPacket.status.toString()}');
     if(e_packet_status.none == respondPacket.status)
     {
       print('bbbb');
       respondPacket.status = e_packet_status.start_dispatch_request;
+      ModelLibraryViewListComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelLibraryViewListComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelLibraryViewListComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
         respondPacket.status = e_packet_status.wait_respond;
+        ModelLibraryViewListComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
         {
@@ -131,15 +138,14 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
               if (null == respondPacket)
                 respondPacket = new PacketS2CLibraryViewListComicInfo();
               respondPacket.status = e_packet_status.finish_dispatch_respond;
+              ModelLibraryViewListComicInfo.status = e_packet_status.finish_dispatch_respond;
 
               ModelLibraryViewListComicInfo.list = list;
 
               if (null != onFetchDone)
                 onFetchDone(respondPacket);
-
             }
           });
-
 
         }
       }

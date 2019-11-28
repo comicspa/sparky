@@ -43,7 +43,6 @@ class _SplashScreenState extends State<SplashScreen>
   bool _enableAppVersion = true;
   String _uId;
   int _socialProviderType = 0;
-  bool _skip = false;
   //Stream<PacketS2CCommon> _broadcastStream;
 
   @override
@@ -94,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     //
     PacketC2SPreset packetC2SPreset = new PacketC2SPreset();
-    packetC2SPreset.generate(onFetchDone : _onFetchDone);
+    packetC2SPreset.generate(_onFetchDone);
     ManageMessage.add(packetC2SPreset);
 
   }
@@ -112,11 +111,10 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
 
-  void _onFetchDone(PacketS2CCommon packetS2CCommon)
+  void _onFetchDone(PacketCommon packetCommon)
   {
+    PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
     print('[splash : _onFetchDone] - ${packetS2CCommon.type.toString()}');
-    if(true == _skip)
-      return;
 
     switch (packetS2CCommon.type)
     {
@@ -185,8 +183,8 @@ class _SplashScreenState extends State<SplashScreen>
         {
           print('[splash:initialize] stream listen ---- e_packet_type.s2c_localization_info ------');
 
-          //_skip = true;
-          if(true == _skip)
+          bool skip = false;
+          if(true == skip)
           {
             navigationPage();
             //_gotoNextPage = true;
@@ -215,8 +213,8 @@ class _SplashScreenState extends State<SplashScreen>
         {
           print('[splash:initialize] ---- e_packet_type.s2c_recommended_comic_info ----');
 
-          _skip = true;
-          if(true == _skip)
+          bool skip = true;
+          if(true == skip)
           {
             //ManageMessage.removeOnFetchDone('splash');
             navigationPage();
@@ -268,7 +266,7 @@ class _SplashScreenState extends State<SplashScreen>
           print('---- e_packet_type.s2c_weekly_trend_comic_info ------');
 
           PacketC2SLibraryContinueComicInfo  packetC2SLibraryContinueComicInfo = new PacketC2SLibraryContinueComicInfo();
-          packetC2SLibraryContinueComicInfo.generate();
+          packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
           ManageMessage.add(packetC2SLibraryContinueComicInfo);
 
         }
@@ -279,7 +277,7 @@ class _SplashScreenState extends State<SplashScreen>
           print('---- e_packet_type.s2c_library_continue_comic_info ------');
 
           PacketC2SLibraryOwnedComicInfo  packetC2SLibraryOwnedComicInfo = new PacketC2SLibraryOwnedComicInfo();
-          packetC2SLibraryOwnedComicInfo.generate();
+          packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
           ManageMessage.add(packetC2SLibraryOwnedComicInfo);
 
         }
@@ -290,7 +288,7 @@ class _SplashScreenState extends State<SplashScreen>
           print('---- e_packet_type.s2c_library_owned_comic_info ------');
 
           PacketC2SLibraryRecentComicInfo  packetC2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
-          packetC2SLibraryRecentComicInfo.generate();
+          packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
           ManageMessage.add(packetC2SLibraryRecentComicInfo);
 
         }
@@ -301,7 +299,7 @@ class _SplashScreenState extends State<SplashScreen>
           print('---- e_packet_type.s2c_library_recent_comic_info ------');
 
           PacketC2SLibraryViewListComicInfo  packetC2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
-          packetC2SLibraryViewListComicInfo.generate();
+          packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
           ManageMessage.add(packetC2SLibraryViewListComicInfo);
 
         }
@@ -318,8 +316,6 @@ class _SplashScreenState extends State<SplashScreen>
       default:
         break;
     }
-
-
   }
 
 

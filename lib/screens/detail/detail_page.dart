@@ -6,29 +6,34 @@ import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/screens/common_widgets.dart';
 import 'package:sparky/screens/detail/detail_widgets.dart';
 import 'package:sparky/models/model_preset.dart';
+import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_s2c_subscribe_comic.dart';
 
 class DetailPage extends StatefulWidget {
-  final String _userId;
-  final String _comicId;
-  DetailPage(this._userId, this._comicId);
+  final String _creatorId;
+  final String _comicNumber;
+  String _partNumber = '001';
+  String _seasonNumber = '001';
+  DetailPage(this._creatorId, this._comicNumber,this._partNumber,this._seasonNumber);
   bool _Liked = true;
   
 
   @override
-  _DetailPageState createState() => _DetailPageState(_userId, _comicId);
+  _DetailPageState createState() => _DetailPageState(_creatorId, _comicNumber,_partNumber,_seasonNumber);
 }
 
 class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
-  final String _userId;
-  final String _comicId;
+  final String _creatorId;
+  final String _comicNumber;
+  String _partNumber = '001';
+  String _seasonNumber = '001';
   ScrollController controller;
   bool _Liked = true;
   int _LikeCount = 41;
 
 
-  _DetailPageState(this._userId, this._comicId);
+  _DetailPageState(this._creatorId, this._comicNumber,this._partNumber,this._seasonNumber);
 
   PacketC2SComicDetailInfo c2sComicDetailInfo = new PacketC2SComicDetailInfo();
 
@@ -74,24 +79,29 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   }
 
   void init() async {
-    c2sComicDetailInfo.generate(_userId, _comicId);
+    c2sComicDetailInfo.generate(_creatorId, _comicNumber,_partNumber,_seasonNumber);
     c2sComicDetailInfo.fetch(_onFetchDone);
   }
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+
+  void _onFetchDone(PacketCommon packetCommon)
   {
     print('[detail_page] : onFetchDone');
+    PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
+
+
+
+
+
     setState(() {
 
     });
   }
 
+
   Future<bool> _onBackPressed() async
   {
     print('_onBackPressed');
-
-
-
 
     // await showDialog or Show add banners or whatever
     // then
@@ -241,8 +251,6 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   //    });
   //  }
   //}
-
-
   }
 }
 

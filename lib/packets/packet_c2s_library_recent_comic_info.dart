@@ -29,9 +29,12 @@ class PacketC2SLibraryRecentComicInfo extends PacketC2SCommon
     type = e_packet_type.c2s_library_recent_comic_info;
   }
 
-  void generate({bool recreateList = false})
+  void generate(OnFetchDone onFetchDone , {bool recreateList = false})
   {
     _fetchStatus = 0;
+
+    this.onFetchDone = onFetchDone;
+    ModelLibraryRecentComicInfo.status = e_packet_status.start_dispatch_request;
 
     if(null == respondPacket)
       respondPacket = new PacketS2CLibraryRecentComicInfo();
@@ -72,19 +75,23 @@ class PacketC2SLibraryRecentComicInfo extends PacketC2SCommon
   {
     print('PacketC2SLibraryRecentComicInfo : _fetchFireStoreDB started');
 
-    if (null != ModelLibraryRecentComicInfo.list)
+    if(e_packet_status.none == ModelLibraryRecentComicInfo.status || e_packet_status.finish_dispatch_respond == ModelLibraryRecentComicInfo.status)
       return ModelLibraryRecentComicInfo.list;
+    if(null == respondPacket)
+      return null;
 
     print('aaaa : ${respondPacket.status.toString()}');
     if(e_packet_status.none == respondPacket.status)
     {
       print('bbbb');
       respondPacket.status = e_packet_status.start_dispatch_request;
+      ModelLibraryRecentComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelLibraryRecentComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelLibraryRecentComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
         respondPacket.status = e_packet_status.wait_respond;
+        ModelLibraryRecentComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
         {
@@ -130,7 +137,9 @@ class PacketC2SLibraryRecentComicInfo extends PacketC2SCommon
 
               if (null == respondPacket)
                 respondPacket = new PacketS2CLibraryRecentComicInfo();
+
               respondPacket.status = e_packet_status.finish_dispatch_respond;
+              ModelLibraryRecentComicInfo.status = e_packet_status.finish_dispatch_respond;
 
               ModelLibraryRecentComicInfo.list = list;
 
@@ -199,7 +208,7 @@ class PacketC2SLibraryRecentComicInfo extends PacketC2SCommon
       _fetchStatus = 1;
 
       DatabaseReference modelUserInfoReference = ManageFirebaseDatabase
-          .reference.child('model_library_recent_comic_info');
+          .reference.child(ModelLibraryRecentComicInfo.ModelName);
       modelUserInfoReference.once().then((DataSnapshot snapshot) {
         print('[PacketC2SLibraryRecentComicInfo:fetchFireBaseDB ] - ${snapshot
             .value}');

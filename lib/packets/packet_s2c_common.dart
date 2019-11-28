@@ -4,11 +4,6 @@ import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_utility.dart';
 
 
-
-typedef void OnFetchDone(PacketS2CCommon packetS2CCommon);
-
-
-
 class PacketS2CCommon extends PacketCommon
 {
   int _systemErrorCode;

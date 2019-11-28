@@ -22,7 +22,6 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
   int _fetchStatus = 0;
   bool _wantLoad = false;
   int _databaseType = 1;
-  OnFetchDone _onFetchDone;
 
   PacketC2SNewComicInfo()
   {
@@ -33,7 +32,8 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
   void generate(OnFetchDone onFetchDone,{bool recreateList = false})
   {
     _fetchStatus = 0;
-    _onFetchDone = onFetchDone;
+    this.onFetchDone = onFetchDone;
+    ModelNewComicInfo.status = e_packet_status.start_dispatch_request;
 
     if(null == respondPacket)
       respondPacket = new PacketS2CNewComicInfo();
@@ -82,13 +82,13 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
     if(e_packet_status.none == respondPacket.status)
     {
       print('bbbb');
-      //respondPacket.status = e_packet_status.start_dispatch_request;
+      respondPacket.status = e_packet_status.start_dispatch_request;
       ModelNewComicInfo.status = e_packet_status.start_dispatch_request;
 
       List<ModelNewComicInfo> list;
       await ManageFireBaseCloudFireStore.getQuerySnapshot(ModelNewComicInfo.ModelName).then((QuerySnapshot snapshot)
       {
-        //respondPacket.status = e_packet_status.wait_respond;
+        respondPacket.status = e_packet_status.wait_respond;
         ModelNewComicInfo.status = e_packet_status.wait_respond;
 
         for (int countIndex = 0; countIndex < snapshot.documents.length; ++countIndex)
@@ -140,8 +140,8 @@ class PacketC2SNewComicInfo extends PacketC2SCommon
 
               ModelNewComicInfo.list = list;
 
-              if (null != _onFetchDone)
-                _onFetchDone(respondPacket);
+              if (null != this.onFetchDone)
+                this.onFetchDone(respondPacket);
 
             }
           });

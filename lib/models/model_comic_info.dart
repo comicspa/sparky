@@ -228,6 +228,7 @@ class ModelComicInfo
     _viewCount = viewCount;
   }
 
+
   static String getComicId(String creatorId,String comicNumber,String partNumber,String seasonNumber)
   {
       return creatorId+'_'+comicNumber+'_'+partNumber+'_'+seasonNumber;

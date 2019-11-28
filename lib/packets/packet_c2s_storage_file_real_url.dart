@@ -59,19 +59,52 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
     {
       case ModelFeaturedComicInfo.ModelName:
         {
-          print('PacketC2SStorageFileRealUrl - ${ModelFeaturedComicInfo.list.length}');
+          print('PacketC2SStorageFileRealUrl - ${ModelFeaturedComicInfo.ModelName} , ${ModelFeaturedComicInfo.list.length}');
 
+          int countIndex = 0;
+          while(countIndex < ModelFeaturedComicInfo.list.length)
+          {
+            if(null == ModelFeaturedComicInfo.list[countIndex].url || '' == ModelFeaturedComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+              //ModelFeaturedComicInfo.list[countIndex].url =
+              await ModelPreset.getBannerImageDownloadUrl(creatorId, ModelFeaturedComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelFeaturedComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+
+            }
+          }
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+
+          /*
           for(int countIndex=0; countIndex<ModelFeaturedComicInfo.list.length; ++countIndex)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelFeaturedComicInfo.list[countIndex].url =
-            await ModelPreset.getBannerImageDownloadUrl(creatorId,ModelFeaturedComicInfo.list[countIndex].comicNumber);
+            if(null == ModelFeaturedComicInfo.list[countIndex].url || '' == ModelFeaturedComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
 
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
+              ModelFeaturedComicInfo.list[countIndex].url =
+              await ModelPreset.getBannerImageDownloadUrl(creatorId,
+                  ModelFeaturedComicInfo.list[countIndex].comicNumber);
 
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
           }
+           */
 
 
         }
@@ -79,19 +112,53 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
       case ModelRecommendedComicInfo.ModelName:
         {
-          print('PacketC2SStorageFileRealUrl - ${ModelRecommendedComicInfo.list.length}');
+          print('PacketC2SStorageFileRealUrl - ${ModelRecommendedComicInfo.ModelName} , ${ModelRecommendedComicInfo.list.length}');
 
-          for(int countIndex=0; countIndex<ModelRecommendedComicInfo.list.length; ++countIndex)
+
+          int countIndex = 0;
+          while(countIndex < ModelRecommendedComicInfo.list.length)
+          {
+            if(null == ModelRecommendedComicInfo.list[countIndex].url || '' == ModelRecommendedComicInfo.list[countIndex].url)
             {
               String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-              ModelRecommendedComicInfo.list[countIndex].url =
-                await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelRecommendedComicInfo.list[countIndex].comicNumber);
-              (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-              if(null != _onFetchDone)
-                _onFetchDone(respondPacket);
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelRecommendedComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelRecommendedComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
 
             }
+          }
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+          /*
+          for(int countIndex=0; countIndex<ModelRecommendedComicInfo.list.length; ++countIndex)
+            {
+              if(null == ModelFeaturedComicInfo.list[countIndex].url || '' == ModelFeaturedComicInfo.list[countIndex].url)
+              {
+                String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+                ModelRecommendedComicInfo.list[countIndex].url =
+                await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                    creatorId,
+                    ModelRecommendedComicInfo.list[countIndex].comicNumber);
+                (respondPacket as PacketS2CStorageFileRealUrl).status =
+                    e_packet_status.finish_dispatch_respond;
+
+                if (null != _onFetchDone)
+                  _onFetchDone(respondPacket);
+              }
+            }
+
+           */
 
 
         }
@@ -99,19 +166,54 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
       case ModelRealTimeTrendComicInfo.ModelName:
       {
-        print('PacketC2SStorageFileRealUrl - ${ModelRealTimeTrendComicInfo.list.length}');
+        print('PacketC2SStorageFileRealUrl - ${ModelRealTimeTrendComicInfo.ModelName} , ${ModelRealTimeTrendComicInfo.list.length}');
 
+        int countIndex = 0;
+        while(countIndex < ModelRealTimeTrendComicInfo.list.length)
+        {
+          if(null == ModelRealTimeTrendComicInfo.list[countIndex].url || '' == ModelRealTimeTrendComicInfo.list[countIndex].url)
+          {
+            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+            //ModelRecommendedComicInfo.list[countIndex].url =
+            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelRealTimeTrendComicInfo.list[countIndex].comicNumber).then((data)
+            {
+              ModelRealTimeTrendComicInfo.list[countIndex].url = data;
+
+              (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+              //if (null != _onFetchDone)
+              //  _onFetchDone(respondPacket);
+
+              ++ countIndex;
+            });
+
+          }
+        }
+
+        if (null != _onFetchDone)
+          _onFetchDone(respondPacket);
+
+
+
+        /*
         for(int countIndex=0; countIndex<ModelRealTimeTrendComicInfo.list.length; ++countIndex)
         {
-          String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-          ModelRealTimeTrendComicInfo.list[countIndex].url =
-          await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelRealTimeTrendComicInfo.list[countIndex].comicNumber);
-          (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+          if(null == ModelRealTimeTrendComicInfo.list[countIndex].url || '' == ModelRealTimeTrendComicInfo.list[countIndex].url)
+          {
+            String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+            ModelRealTimeTrendComicInfo.list[countIndex].url =
+            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                creatorId,
+                ModelRealTimeTrendComicInfo.list[countIndex].comicNumber);
+            (respondPacket as PacketS2CStorageFileRealUrl).status =
+                e_packet_status.finish_dispatch_respond;
 
-          if(null != _onFetchDone)
-            _onFetchDone(respondPacket);
-
+            if (null != _onFetchDone)
+              _onFetchDone(respondPacket);
+          }
         }
+
+         */
 
 
 
@@ -120,20 +222,61 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
       case ModelNewComicInfo.ModelName:
         {
-          print('PacketC2SStorageFileRealUrl - ${ModelNewComicInfo.list.length}');
+          print('PacketC2SStorageFileRealUrl - ${ModelNewComicInfo.ModelName} , ${ModelNewComicInfo.list.length}');
 
-          for(int countIndex=0; countIndex<ModelNewComicInfo.list.length; ++countIndex)
+
+          int countIndex = 0;
+          while(countIndex < ModelNewComicInfo.list.length)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelNewComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelNewComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            //if(false == ModelNewComicInfo.list[countIndex].urlRequested)
+            {
+              //ModelNewComicInfo.list[countIndex].urlRequested = true;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
+              if (null == ModelNewComicInfo.list[countIndex].url ||
+                  '' == ModelNewComicInfo.list[countIndex].url) {
+                String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+
+                //ModelRecommendedComicInfo.list[countIndex].url =
+                await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                    creatorId, ModelNewComicInfo.list[countIndex].comicNumber)
+                    .then((data) {
+                  ModelNewComicInfo.list[countIndex].url = data;
+
+                  (respondPacket as PacketS2CStorageFileRealUrl).status =
+                      e_packet_status.finish_dispatch_respond;
+                  //if (null != _onFetchDone)
+                  //  _onFetchDone(respondPacket);
+
+                  ++countIndex;
+                });
+              }
+            }
+
 
           }
 
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+
+          /*
+          for(int countIndex=0; countIndex<ModelNewComicInfo.list.length; ++countIndex)
+          {
+            if(null == ModelNewComicInfo.list[countIndex].url || '' == ModelNewComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelNewComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                  creatorId, ModelNewComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
+
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
+
+          }
+          */
 
 
         }
@@ -141,19 +284,51 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
       case ModelTodayTrendComicInfo.ModelName:
         {
-          print('PacketC2SStorageFileRealUrl - ${ModelTodayTrendComicInfo.list.length}');
+          print('PacketC2SStorageFileRealUrl - ${ModelTodayTrendComicInfo.ModelName} , ${ModelTodayTrendComicInfo.list.length}');
 
+          int countIndex = 0;
+          while(countIndex < ModelTodayTrendComicInfo.list.length)
+          {
+            if(null == ModelTodayTrendComicInfo.list[countIndex].url || '' == ModelTodayTrendComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelTodayTrendComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelTodayTrendComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+            }
+          }
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+          /*
           for(int countIndex=0; countIndex<ModelTodayTrendComicInfo.list.length; ++countIndex)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelTodayTrendComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelTodayTrendComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            if(null == ModelTodayTrendComicInfo.list[countIndex].url || '' == ModelTodayTrendComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelTodayTrendComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                  creatorId,
+                  ModelTodayTrendComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
-
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
           }
+
+           */
 
 
         }
@@ -161,19 +336,54 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
 
       case ModelWeeklyTrendComicInfo.ModelName:
         {
-          print('PacketC2SStorageFileRealUrl - ${ModelWeeklyTrendComicInfo.list.length}');
+          print('PacketC2SStorageFileRealUrl - ${ModelWeeklyTrendComicInfo.ModelName} , ${ModelWeeklyTrendComicInfo.list.length}');
 
+
+          int countIndex = 0;
+          while(countIndex < ModelWeeklyTrendComicInfo.list.length)
+          {
+            if(null == ModelWeeklyTrendComicInfo.list[countIndex].url || '' == ModelWeeklyTrendComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelWeeklyTrendComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelWeeklyTrendComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+            }
+          }
+
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+
+          /*
           for(int countIndex=0; countIndex<ModelWeeklyTrendComicInfo.list.length; ++countIndex)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelWeeklyTrendComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelWeeklyTrendComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            if(null == ModelWeeklyTrendComicInfo.list[countIndex].url || '' == ModelWeeklyTrendComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelWeeklyTrendComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                  creatorId,
+                  ModelWeeklyTrendComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
-
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
           }
+
+           */
 
 
         }
@@ -183,18 +393,48 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
         {
           print('PacketC2SStorageFileRealUrl - ${ModelLibraryContinueComicInfo.list.length}');
 
-          for(int countIndex=0; countIndex<ModelLibraryContinueComicInfo.list.length; ++countIndex)
+          int countIndex = 0;
+          while(countIndex < ModelLibraryContinueComicInfo.list.length)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelLibraryContinueComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryContinueComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            if(null == ModelLibraryContinueComicInfo.list[countIndex].url || '' == ModelLibraryContinueComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelLibraryContinueComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelLibraryContinueComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+            }
           }
 
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
 
+          /*
+          for(int countIndex=0; countIndex<ModelLibraryContinueComicInfo.list.length; ++countIndex)
+          {
+            if(null == ModelLibraryContinueComicInfo.list[countIndex].url || '' == ModelLibraryContinueComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelLibraryContinueComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                  creatorId,
+                  ModelLibraryContinueComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
+
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
+          }
+           */
         }
         break;
 
@@ -202,17 +442,50 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
         {
           print('PacketC2SStorageFileRealUrl - ${ModelLibraryOwnedComicInfo.list.length}');
 
+          int countIndex = 0;
+          while(countIndex < ModelLibraryOwnedComicInfo.list.length)
+          {
+            if(null == ModelLibraryOwnedComicInfo.list[countIndex].url || '' == ModelLibraryOwnedComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelLibraryOwnedComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelLibraryOwnedComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+            }
+          }
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+          /*
           for(int countIndex=0; countIndex<ModelLibraryOwnedComicInfo.list.length; ++countIndex)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelLibraryOwnedComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryOwnedComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            if(null == ModelLibraryOwnedComicInfo.list[countIndex].url || '' == ModelLibraryOwnedComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelLibraryOwnedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                  creatorId,
+                  ModelLibraryOwnedComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
 
           }
+
+           */
 
 
         }
@@ -222,17 +495,52 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
         {
           print('PacketC2SStorageFileRealUrl - ${ModelLibraryRecentComicInfo.list.length}');
 
+
+          int countIndex = 0;
+          while(countIndex < ModelLibraryRecentComicInfo.list.length)
+          {
+            if(null == ModelLibraryRecentComicInfo.list[countIndex].url || '' == ModelLibraryRecentComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelLibraryRecentComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelLibraryRecentComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+            }
+          }
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+
+
+          /*
           for(int countIndex=0; countIndex<ModelLibraryRecentComicInfo.list.length; ++countIndex)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelLibraryRecentComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryRecentComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+            if(null == ModelLibraryRecentComicInfo.list[countIndex].url || '' == ModelLibraryRecentComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelLibraryRecentComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(
+                  creatorId,
+                  ModelLibraryRecentComicInfo.list[countIndex].comicNumber);
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
-
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
           }
+
+           */
 
 
         }
@@ -242,17 +550,52 @@ class PacketC2SStorageFileRealUrl extends PacketC2SCommon
         {
           print('PacketC2SStorageFileRealUrl - ${ModelLibraryViewListComicInfo.list.length}');
 
+
+          int countIndex = 0;
+          while(countIndex < ModelLibraryViewListComicInfo.list.length)
+          {
+            if(null == ModelLibraryViewListComicInfo.list[countIndex].url || '' == ModelLibraryViewListComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
+
+              //ModelRecommendedComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelLibraryViewListComicInfo.list[countIndex].comicNumber).then((data)
+              {
+                ModelLibraryViewListComicInfo.list[countIndex].url = data;
+
+                (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
+                //if (null != _onFetchDone)
+                //  _onFetchDone(respondPacket);
+
+                ++ countIndex;
+              });
+            }
+          }
+
+          if (null != _onFetchDone)
+            _onFetchDone(respondPacket);
+
+
+
+          /*
           for(int countIndex=0; countIndex<ModelLibraryViewListComicInfo.list.length; ++countIndex)
           {
-            String creatorId = '1566811403000';//modelRecommendedComicInfo.creatorId;
-            ModelLibraryViewListComicInfo.list[countIndex].url =
-            await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId,ModelLibraryViewListComicInfo.list[countIndex].comicNumber);
-            (respondPacket as PacketS2CStorageFileRealUrl).status = e_packet_status.finish_dispatch_respond;
 
-            if(null != _onFetchDone)
-              _onFetchDone(respondPacket);
+            if(null == ModelLibraryViewListComicInfo.list[countIndex].url || '' == ModelLibraryViewListComicInfo.list[countIndex].url)
+            {
+              String creatorId = '1566811403000'; //modelRecommendedComicInfo.creatorId;
+              ModelLibraryViewListComicInfo.list[countIndex].url =
+              await ModelPreset.getRepresentationHorizontalImageDownloadUrl(creatorId, ModelLibraryViewListComicInfo.list[countIndex].comicNumber);
 
+              (respondPacket as PacketS2CStorageFileRealUrl).status =
+                  e_packet_status.finish_dispatch_respond;
+
+              if (null != _onFetchDone)
+                _onFetchDone(respondPacket);
+            }
           }
+
+           */
 
 
         }

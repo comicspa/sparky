@@ -139,6 +139,9 @@ enum e_packet_status
 }
 
 
+typedef void OnFetchDone(PacketCommon packetCommon);
+
+
 class PacketCommon
 {
   static Endian _endian = Endian.little;
@@ -148,6 +151,7 @@ class PacketCommon
   e_packet_status _status = e_packet_status.none;
   int _size = 4 + 2;
   e_packet_type _type = e_packet_type.none;
+  OnFetchDone _onFetchDone;
 
   int get size => _size;
   e_packet_type get type => _type;
@@ -159,6 +163,9 @@ class PacketCommon
   Uint8List get packet => _packet;
   int get currentOffset => _currentOffset;
   e_packet_status get status => _status;
+  OnFetchDone get onFetchDone => _onFetchDone;
+
+
 
   final int _version = 0;
 
@@ -185,6 +192,11 @@ class PacketCommon
   set status(e_packet_status status)
   {
     _status = status;
+  }
+
+  set onFetchDone(OnFetchDone onFetchDone)
+  {
+    _onFetchDone = onFetchDone;
   }
 
   void reset()
