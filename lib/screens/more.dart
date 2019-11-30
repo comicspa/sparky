@@ -25,6 +25,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
 
   @override
   void initState() {
+    print('[more : initState]');
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 //    c2STodayPopularComicInfo.generate(0, 0);   // generating packet
@@ -33,6 +34,9 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+
+    print('[more : dispose]');
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

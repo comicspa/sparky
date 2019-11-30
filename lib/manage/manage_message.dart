@@ -70,6 +70,12 @@ class ManageMessage
     __messageList.add(packetC2SCommon);
   }
 
+
+  static void insert(int index,PacketC2SCommon packetC2SCommon)
+  {
+    __messageList.insert(index,packetC2SCommon);
+  }
+
   //
   static void update(Timer timer)
   {

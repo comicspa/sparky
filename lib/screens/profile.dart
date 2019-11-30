@@ -30,6 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   @override
   void initState() {
+    print('[profile : initState]');
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     // generating packet

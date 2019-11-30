@@ -38,6 +38,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
   @override
   void initState()
   {
+    print('[library : initState]');
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     // generating packet
@@ -135,20 +136,20 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
 
     if(false == dispatched)
     {
-      if (null == ModelLibraryContinueComicInfo.list)
+      if (null == ModelLibraryRecentComicInfo.list)
       {
-        print('[library : initState] - null == ModelLibraryContinueComicInfo.list');
-        _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+        print('[library : initState] - null == ModelLibraryRecentComicInfo.list');
+        _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
+        ManageMessage.add(_packetC2SLibraryRecentComicInfo);
 
         dispatched = true;
       }
       else
       {
-        if (1 == ModelLibraryContinueComicInfo.isEmptyUrl())
+        if (1 == ModelLibraryRecentComicInfo.isEmptyUrl())
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-          packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
+          packetC2SStorageFileRealUrl.generate(ModelLibraryRecentComicInfo.ModelName, onFetchDone: _onFetchDone);
           ManageMessage.add(packetC2SStorageFileRealUrl);
         }
 
@@ -194,42 +195,6 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
 
     switch (packetS2CCommon.type)
     {
-      case e_packet_type.s2c_library_continue_comic_info:
-        {
-
-          int isEmptyUrl = ModelLibraryContinueComicInfo.isEmptyUrl();
-          if (1 == isEmptyUrl)
-          {
-            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-            packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
-          }
-          else if (0 == isEmptyUrl)
-          {
-            _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
-          }
-
-        }
-        break;
-
-      case e_packet_type.s2c_library_owned_comic_info:
-        {
-          int isEmptyUrl = ModelLibraryOwnedComicInfo.isEmptyUrl();
-          if (1 == isEmptyUrl)
-          {
-            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-            packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
-          }
-          else if (0 == isEmptyUrl)
-          {
-            _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SLibraryRecentComicInfo);
-          }
-
-        }
-        break;
 
       case e_packet_type.s2c_library_recent_comic_info:
         {
@@ -260,57 +225,56 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
           }
           else if (0 == isEmptyUrl)
           {
-            print('---------------------------------------------');
+            _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
           }
 
 
         }
         break;
 
+      case e_packet_type.s2c_library_owned_comic_info:
+        {
+          int isEmptyUrl = ModelLibraryOwnedComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+            _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
+            ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+          }
+
+        }
+        break;
+
+      case e_packet_type.s2c_library_continue_comic_info:
+        {
+
+          int isEmptyUrl = ModelLibraryContinueComicInfo.isEmptyUrl();
+          if (1 == isEmptyUrl)
+          {
+            PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+            packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
+            ManageMessage.add(packetC2SStorageFileRealUrl);
+          }
+          else if (0 == isEmptyUrl)
+          {
+           print('----------------------------------------');
+          }
+
+        }
+        break;
+
+
       case e_packet_type.s2c_storage_file_real_url:
         {
           PacketS2CStorageFileRealUrl packet = packetS2CCommon as PacketS2CStorageFileRealUrl;
           switch(packet.modelName)
           {
-            case ModelLibraryContinueComicInfo.ModelName:
-              {
-                if(null == ModelLibraryOwnedComicInfo.list)
-                {
-                  _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
-                }
-                else
-                {
-                  if(1 == ModelLibraryOwnedComicInfo.isEmptyUrl())
-                  {
-                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                    packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
-                  }
-                }
-
-              }
-              break;
-
-            case ModelLibraryOwnedComicInfo.ModelName:
-              {
-                if(null == ModelLibraryRecentComicInfo.list)
-                {
-                  _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SLibraryRecentComicInfo);
-                }
-                else
-                {
-                  if(1 == ModelLibraryRecentComicInfo.isEmptyUrl())
-                  {
-                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-                    packetC2SStorageFileRealUrl.generate(ModelLibraryRecentComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
-                  }
-                }
-              }
-              break;
-
             case ModelLibraryRecentComicInfo.ModelName:
               {
                 if(null == ModelLibraryViewListComicInfo.list)
@@ -332,6 +296,47 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
 
             case ModelLibraryViewListComicInfo.ModelName:
               {
+                if(null == ModelLibraryOwnedComicInfo.list)
+                {
+                  _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+                }
+                else
+                {
+                  if(1 == ModelLibraryOwnedComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+              }
+              break;
+
+
+            case ModelLibraryOwnedComicInfo.ModelName:
+              {
+                if(null == ModelLibraryContinueComicInfo.list)
+                {
+                  _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
+                  ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+                }
+                else
+                {
+                  if(1 == ModelLibraryContinueComicInfo.isEmptyUrl())
+                  {
+                    PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+                    packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName,onFetchDone: _onFetchDone);
+                    ManageMessage.add(packetC2SStorageFileRealUrl);
+                  }
+                }
+              }
+              break;
+
+
+            case ModelLibraryContinueComicInfo.ModelName:
+              {
+               print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
 
               }
               break;
@@ -357,10 +362,11 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
 
 
 
-
-
   @override
   void dispose() {
+
+    print('[library : dispose]');
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -563,7 +569,7 @@ class LibraryListTile extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
-      itemCount: values.length,
+      itemCount: values == null? 0 : values.length,
       itemBuilder: (BuildContext context, int index) => Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

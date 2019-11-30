@@ -25,6 +25,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
+
+    print('[main_tab_bar : initState]');
+
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 
@@ -37,6 +40,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void dispose() {
+
+    print('[main_tab_bar : dispose]');
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -49,6 +55,9 @@ class _HomeScreenState extends State<HomeScreen>
 
 
   void _handleTabSelection() {
+
+    print('[main_tab_bar : _handleTapSelection] - select : ${controller.index}');
+
     setState(() {});
   }
 

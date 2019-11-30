@@ -143,9 +143,8 @@ class PacketC2SLibraryRecentComicInfo extends PacketC2SCommon
 
               ModelLibraryRecentComicInfo.list = list;
 
-              if (null != onFetchDone)
-                onFetchDone(respondPacket);
-
+              if (null != this.onFetchDone)
+                this.onFetchDone(respondPacket);
             }
           });
 

@@ -213,7 +213,7 @@ class _SplashScreenState extends State<SplashScreen>
         {
           print('[splash:initialize] ---- e_packet_type.s2c_recommended_comic_info ----');
 
-          bool skip = true;
+          bool skip = false;
           if(true == skip)
           {
             //ManageMessage.removeOnFetchDone('splash');

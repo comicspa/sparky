@@ -142,8 +142,8 @@ class PacketC2SLibraryViewListComicInfo extends PacketC2SCommon
 
               ModelLibraryViewListComicInfo.list = list;
 
-              if (null != onFetchDone)
-                onFetchDone(respondPacket);
+              if (null != this.onFetchDone)
+                this.onFetchDone(respondPacket);
             }
           });
 

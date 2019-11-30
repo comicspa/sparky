@@ -32,7 +32,7 @@ class Trend extends StatefulWidget {
 
 class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
-  Stream<PacketS2CCommon> _broadcastStream;
+  //Stream<PacketS2CCommon> _broadcastStream;
 
   PacketC2STodayTrendComicInfo _packetC2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo(); // use this to handle data
   PacketC2SFeaturedComicInfo _packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo(); // use this to handle data
@@ -458,6 +458,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+
+    print('[trend : dispose]');
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
