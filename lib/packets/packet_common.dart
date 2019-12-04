@@ -125,6 +125,9 @@ enum e_packet_type
   c2s_comic_episode_info,
   s2c_comic_episode_info,
 
+  c2s_finish_message,
+  s2c_finish_message,
+
 }
 
 

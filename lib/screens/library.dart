@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 import 'package:sparky/screens/common_widgets.dart';
@@ -14,11 +15,13 @@ import 'package:sparky/packets/packet_c2s_library_owned_comic_info.dart';
 import 'package:sparky/models/model_library_continue_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_library_continue_comic_info.dart';
 import 'package:sparky/models/model_localization_info.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/manage/manage_message.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_storage_file_real_url.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:sparky/packets/packet_c2s_finish_message.dart';
 
 
 class LibraryScreen extends StatefulWidget {
@@ -29,6 +32,9 @@ class LibraryScreen extends StatefulWidget {
 class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserver
 {
   //Stream<PacketS2CCommon> _broadcastStream;
+
+  Timer _timer;
+  List<PacketC2SCommon> _messageList;
 
   PacketC2SLibraryRecentComicInfo _packetC2SLibraryRecentComicInfo = new PacketC2SLibraryRecentComicInfo();
   PacketC2SLibraryViewListComicInfo _packetC2SLibraryViewListComicInfo = new PacketC2SLibraryViewListComicInfo();
@@ -132,6 +138,13 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
     */
 
 
+    if(null == _messageList)
+      _messageList = new List<PacketC2SCommon>();
+    Duration duration = new Duration(milliseconds: 100);
+    if(null == _timer)
+      _timer = new Timer.periodic(duration, update);
+
+
     bool dispatched = false;
 
     if(false == dispatched)
@@ -140,7 +153,8 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
       {
         print('[library : initState] - null == ModelLibraryRecentComicInfo.list');
         _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SLibraryRecentComicInfo);
+        //ManageMessage.add(_packetC2SLibraryRecentComicInfo);
+        _messageList.add(_packetC2SLibraryRecentComicInfo);
 
         dispatched = true;
       }
@@ -150,41 +164,88 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelLibraryRecentComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
 
-        dispatched = true;
+          dispatched = true;
+        }
       }
     }
 
-
-    /*
-    if(null == ModelLibraryOwnedComicInfo.list)
+    if(false == dispatched)
     {
-      _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+      if (null == ModelLibraryViewListComicInfo.list)
+      {
+        print('[library : initState] - null == ModelLibraryViewListComicInfo.list');
+        _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
+        //ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+        _messageList.add(_packetC2SLibraryViewListComicInfo);
 
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelLibraryViewListComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelLibraryViewListComicInfo.ModelName, onFetchDone: _onFetchDone);
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
+
+          dispatched = true;
+        }
+      }
     }
-    else if(null == ModelLibraryRecentComicInfo.list)
+
+    if(false == dispatched)
     {
-      _packetC2SLibraryRecentComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SLibraryRecentComicInfo);
+      if (null == ModelLibraryOwnedComicInfo.list)
+      {
+        print('[library : initState] - null == ModelLibraryOwnedComicInfo.list');
+        _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
+        //ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+        _messageList.add(_packetC2SLibraryOwnedComicInfo);
 
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelLibraryOwnedComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName, onFetchDone: _onFetchDone);
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
+
+          dispatched = true;
+        }
+      }
     }
-    else if(null == ModelLibraryViewListComicInfo.list)
+
+    if(false == dispatched)
     {
-      _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
-      ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+      if (null == ModelLibraryContinueComicInfo.list)
+      {
+        print('[library : initState] - null == ModelLibraryContinueComicInfo.list');
+        _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
+        //ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+        _messageList.add(_packetC2SLibraryContinueComicInfo);
 
-    }
-    else
-    {
-      PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
-      packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName);
-      ManageMessage.add(packetC2SStorageFileRealUrl);
-    }
-    */
+        dispatched = true;
+      }
+      else
+      {
+        if (1 == ModelLibraryContinueComicInfo.isEmptyUrl())
+        {
+          PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
+          packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
 
+          dispatched = true;
+        }
+      }
+    }
   }
 
 
@@ -203,12 +264,16 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelLibraryRecentComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if (0 == isEmptyUrl)
           {
             _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+
+            //ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+            _messageList.add(_packetC2SLibraryViewListComicInfo);
           }
 
         }
@@ -221,15 +286,17 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelLibraryViewListComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if (0 == isEmptyUrl)
           {
             _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+
+            //ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+            _messageList.add(_packetC2SLibraryOwnedComicInfo);
           }
-
-
         }
         break;
 
@@ -240,12 +307,16 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if (0 == isEmptyUrl)
           {
             _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+
+            //ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+            _messageList.add(_packetC2SLibraryContinueComicInfo);
           }
 
         }
@@ -259,7 +330,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if (0 == isEmptyUrl)
           {
@@ -280,7 +353,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                 if(null == ModelLibraryViewListComicInfo.list)
                 {
                   _packetC2SLibraryViewListComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+
+                  //ManageMessage.add(_packetC2SLibraryViewListComicInfo);
+                  _messageList.add(_packetC2SLibraryViewListComicInfo);
                 }
                 else
                 {
@@ -288,7 +363,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                   {
                     PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                     packetC2SStorageFileRealUrl.generate(ModelLibraryViewListComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                    //ManageMessage.add(packetC2SStorageFileRealUrl);
+                    _messageList.add(packetC2SStorageFileRealUrl);
                   }
                 }
               }
@@ -299,7 +376,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                 if(null == ModelLibraryOwnedComicInfo.list)
                 {
                   _packetC2SLibraryOwnedComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+
+                  //ManageMessage.add(_packetC2SLibraryOwnedComicInfo);
+                  _messageList.add(_packetC2SLibraryOwnedComicInfo);
                 }
                 else
                 {
@@ -307,7 +386,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                   {
                     PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                     packetC2SStorageFileRealUrl.generate(ModelLibraryOwnedComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                    //ManageMessage.add(packetC2SStorageFileRealUrl);
+                    _messageList.add(packetC2SStorageFileRealUrl);
                   }
                 }
               }
@@ -319,7 +400,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                 if(null == ModelLibraryContinueComicInfo.list)
                 {
                   _packetC2SLibraryContinueComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+
+                  //ManageMessage.add(_packetC2SLibraryContinueComicInfo);
+                  _messageList.add(_packetC2SLibraryContinueComicInfo);
                 }
                 else
                 {
@@ -327,7 +410,9 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                   {
                     PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                     packetC2SStorageFileRealUrl.generate(ModelLibraryContinueComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                    //ManageMessage.add(packetC2SStorageFileRealUrl);
+                    _messageList.add(packetC2SStorageFileRealUrl);
                   }
                 }
               }
@@ -344,10 +429,6 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
             default:
               break;
           }
-
-          setState(() {
-
-          });
         }
         break;
 
@@ -361,11 +442,83 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
   }
 
 
+  void update(Timer timer)
+  {
+    //print('start current time : ${timer.tick}');
+    if(null != _messageList)
+    {
+      if (0 < _messageList.length)
+      {
+        PacketC2SCommon packetC2SCommon = _messageList[0];
+
+        switch (packetC2SCommon.type)
+        {
+          case e_packet_type.c2s_storage_file_real_url:
+            {
+              PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_finish_message:
+            {
+              _messageList.removeAt(0);
+              if(null != _timer)
+              {
+                _timer.cancel();
+                _timer = null;
+              }
+            }
+            break;
+
+          case e_packet_type.c2s_library_recent_comic_info:
+            {
+              PacketC2SLibraryRecentComicInfo packet = packetC2SCommon as PacketC2SLibraryRecentComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_library_view_list_comic_info:
+            {
+              PacketC2SLibraryViewListComicInfo packet = packetC2SCommon as PacketC2SLibraryViewListComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_library_owned_comic_info:
+            {
+              PacketC2SLibraryOwnedComicInfo packet = packetC2SCommon as PacketC2SLibraryOwnedComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_library_continue_comic_info:
+            {
+              PacketC2SLibraryContinueComicInfo packet = packetC2SCommon as PacketC2SLibraryContinueComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+    }
+  }
+
 
   @override
   void dispose() {
 
     print('[library : dispose]');
+
+    PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
+    _messageList.add(packet);
 
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();

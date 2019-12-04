@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
@@ -21,8 +22,10 @@ import 'package:sparky/screens/detail/detail_page.dart';
 import 'common_widgets.dart';
 import 'package:sparky/manage/manage_firebase_messaging.dart';
 import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
+import 'package:sparky/packets/packet_c2s_finish_message.dart';
 
 
 class Trend extends StatefulWidget {
@@ -33,6 +36,9 @@ class Trend extends StatefulWidget {
 class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
   //Stream<PacketS2CCommon> _broadcastStream;
+
+  Timer _timer;
+  List<PacketC2SCommon> _messageList;
 
   PacketC2STodayTrendComicInfo _packetC2STodayTrendComicInfo = new PacketC2STodayTrendComicInfo(); // use this to handle data
   PacketC2SFeaturedComicInfo _packetC2SFeaturedComicInfo = new PacketC2SFeaturedComicInfo(); // use this to handle data
@@ -56,12 +62,17 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName, onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if (0 == isEmptyUrl)
           {
             _packetC2SRecommendedComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SRecommendedComicInfo);
+
+            //ManageMessage.add(_packetC2SRecommendedComicInfo);
+            _messageList.add(_packetC2SRecommendedComicInfo);
           }
         }
         break;
@@ -73,12 +84,16 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName,onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if(0 == isEmptyUrl)
           {
             _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SRealTimeTrendInfo);
+
+            //ManageMessage.add(_packetC2SRealTimeTrendInfo);
+            _messageList.add(_packetC2SRealTimeTrendInfo);
           }
         }
         break;
@@ -90,12 +105,16 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if(0 == isEmptyUrl)
           {
             _packetC2SNewComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SNewComicInfo);
+
+            //ManageMessage.add(_packetC2SNewComicInfo);
+            _messageList.add(_packetC2SNewComicInfo);
           }
 
         }
@@ -107,12 +126,16 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName,onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if(0 == ModelNewComicInfo.isEmptyUrl())
           {
             _packetC2STodayTrendComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2STodayTrendComicInfo);
+
+            //ManageMessage.add(_packetC2STodayTrendComicInfo);
+            _messageList.add(_packetC2STodayTrendComicInfo);
           }
         }
         break;
@@ -123,12 +146,16 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if(0 == ModelTodayTrendComicInfo.isEmptyUrl())
           {
             _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
-            ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+
+            //ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+            _messageList.add(_packetC2SWeeklyTrendComicInfo);
           }
         }
         break;
@@ -139,7 +166,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           {
             PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
             packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-            ManageMessage.add(packetC2SStorageFileRealUrl);
+
+            //ManageMessage.add(packetC2SStorageFileRealUrl);
+            _messageList.add(packetC2SStorageFileRealUrl);
           }
           else if(0 == ModelWeeklyTrendComicInfo.isEmptyUrl())
           {
@@ -160,7 +189,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 if(null == ModelRecommendedComicInfo.list)
                   {
                     _packetC2SRecommendedComicInfo.generate(_onFetchDone);
-                    ManageMessage.add(_packetC2SRecommendedComicInfo);
+
+                    //ManageMessage.add(_packetC2SRecommendedComicInfo);
+                    _messageList.add(_packetC2SRecommendedComicInfo);
                   }
                 else
                   {
@@ -168,7 +199,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                     {
                       PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                       packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName,onFetchDone: _onFetchDone);
-                      ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                      //ManageMessage.add(packetC2SStorageFileRealUrl);
+                      _messageList.add(packetC2SStorageFileRealUrl);
                     }
                   }
 
@@ -180,7 +213,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 if(null == ModelRealTimeTrendComicInfo.list)
                {
                  _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
-                 ManageMessage.add(_packetC2SRealTimeTrendInfo);
+
+                 //ManageMessage.add(_packetC2SRealTimeTrendInfo);
+                 _messageList.add(_packetC2SRealTimeTrendInfo);
                }
                else
                {
@@ -188,7 +223,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 {
                   PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                   packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-                  ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                  //ManageMessage.add(packetC2SStorageFileRealUrl);
+                  _messageList.add(packetC2SStorageFileRealUrl);
                 }
                }
 
@@ -202,7 +239,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 if(null == ModelNewComicInfo.list)
                 {
                   _packetC2SNewComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SNewComicInfo);
+
+                  //ManageMessage.add(_packetC2SNewComicInfo);
+                  _messageList.add(_packetC2SNewComicInfo);
                 }
                 else
                 {
@@ -210,7 +249,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                   {
                     PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                     packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                    //ManageMessage.add(packetC2SStorageFileRealUrl);
+                    _messageList.add(packetC2SStorageFileRealUrl);
                   }
                 }
 
@@ -223,7 +264,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 if(null == ModelTodayTrendComicInfo.list)
                 {
                   _packetC2STodayTrendComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2STodayTrendComicInfo);
+
+                  //ManageMessage.add(_packetC2STodayTrendComicInfo);
+                  _messageList.add(_packetC2STodayTrendComicInfo);
                 }
                 else
                 {
@@ -231,7 +274,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                   {
                     PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                     packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                    //ManageMessage.add(packetC2SStorageFileRealUrl);
+                    _messageList.add(packetC2SStorageFileRealUrl);
                   }
                 }
 
@@ -244,7 +289,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 if(null == ModelWeeklyTrendComicInfo.list)
                 {
                   _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
-                  ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+
+                  //ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+                  _messageList.add(_packetC2SWeeklyTrendComicInfo);
                 }
                 else
                 {
@@ -252,7 +299,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                   {
                     PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
                     packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName,onFetchDone: _onFetchDone);
-                    ManageMessage.add(packetC2SStorageFileRealUrl);
+
+                    //ManageMessage.add(packetC2SStorageFileRealUrl);
+                    _messageList.add(packetC2SStorageFileRealUrl);
                   }
                 }
 
@@ -312,6 +361,12 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     });
      */
 
+    if(null == _messageList)
+      _messageList = new List<PacketC2SCommon>();
+    Duration duration = new Duration(milliseconds: 100);
+    if(null == _timer)
+      _timer = new Timer.periodic(duration, update);
+
 
     bool dispatched = false;
     if(false == dispatched)
@@ -320,7 +375,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       {
         print('[trend : initState] - null == ModelFeaturedComicInfo.list');
         _packetC2SFeaturedComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SFeaturedComicInfo);
+
+        //ManageMessage.add(_packetC2SFeaturedComicInfo);
+        _messageList.add(_packetC2SFeaturedComicInfo);
 
         dispatched = true;
       }
@@ -330,10 +387,12 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelFeaturedComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
 
-        dispatched = true;
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
+
+          dispatched = true;
+        }
       }
     }
 
@@ -343,7 +402,9 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       {
         print('[trend : initState] - null == ModelRecommendedComicInfo.list');
         _packetC2SRecommendedComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SRecommendedComicInfo);
+
+        //ManageMessage.add(_packetC2SRecommendedComicInfo);
+        _messageList.add(_packetC2SRecommendedComicInfo);
 
         dispatched = true;
       }
@@ -353,21 +414,23 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelRecommendedComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
 
-        dispatched = true;
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
+
+          dispatched = true;
+        }
       }
     }
 
-/*
     if(false == dispatched)
     {
       if (null == ModelRealTimeTrendComicInfo.list)
       {
         print('[trend : initState] - null == ModelRealTimeTrendComicInfo.list');
         _packetC2SRealTimeTrendInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SRealTimeTrendInfo);
+        //ManageMessage.add(_packetC2SRealTimeTrendInfo);
+        _messageList.add(_packetC2SRealTimeTrendInfo);
 
         dispatched = true;
       }
@@ -377,10 +440,11 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelRealTimeTrendComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
 
-        dispatched = true;
+          dispatched = true;
+        }
       }
     }
 
@@ -390,7 +454,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       {
         print('[trend : initState] - null == ModelNewComicInfo.list');
         _packetC2SNewComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SNewComicInfo);
+        //ManageMessage.add(_packetC2SNewComicInfo);
+        _messageList.add(_packetC2SNewComicInfo);
 
         dispatched = true;
       }
@@ -400,10 +465,11 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelNewComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
 
-        dispatched = true;
+          dispatched = true;
+        }
       }
     }
 
@@ -413,7 +479,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       {
         print('[trend : initState] - null == ModelTodayTrendComicInfo.list');
         _packetC2STodayTrendComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2STodayTrendComicInfo);
+        //ManageMessage.add(_packetC2STodayTrendComicInfo);
+        _messageList.add(_packetC2STodayTrendComicInfo);
 
         dispatched = true;
       }
@@ -423,10 +490,11 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelTodayTrendComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
 
-        dispatched = true;
+          dispatched = true;
+        }
       }
     }
 
@@ -436,7 +504,8 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
       {
         print('[trend : initState] - null == ModelWeeklyTrendComicInfo.list');
         _packetC2SWeeklyTrendComicInfo.generate(_onFetchDone);
-        ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+        //ManageMessage.add(_packetC2SWeeklyTrendComicInfo);
+        _messageList.add(_packetC2SWeeklyTrendComicInfo);
 
         dispatched = true;
       }
@@ -446,20 +515,151 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
         {
           PacketC2SStorageFileRealUrl packetC2SStorageFileRealUrl = new PacketC2SStorageFileRealUrl();
           packetC2SStorageFileRealUrl.generate(ModelWeeklyTrendComicInfo.ModelName, onFetchDone: _onFetchDone);
-          ManageMessage.add(packetC2SStorageFileRealUrl);
-        }
+          //ManageMessage.add(packetC2SStorageFileRealUrl);
+          _messageList.add(packetC2SStorageFileRealUrl);
 
-        dispatched = true;
+          dispatched = true;
+        }
       }
     }
-
- */
   }
+
+
+  void update(Timer timer)
+  {
+    //print('start current time : ${timer.tick}');
+    if(null != _messageList)
+    {
+      if (0 < _messageList.length)
+      {
+        PacketC2SCommon packetC2SCommon = _messageList[0];
+
+        switch (packetC2SCommon.type)
+        {
+          case e_packet_type.c2s_storage_file_real_url:
+            {
+              PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_finish_message:
+            {
+              _messageList.removeAt(0);
+              if(null != _timer)
+              {
+                _timer.cancel();
+                _timer = null;
+              }
+            }
+            break;
+
+          case e_packet_type.c2s_featured_comic_info:
+            {
+              PacketC2SFeaturedComicInfo packet = packetC2SCommon as PacketC2SFeaturedComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_recommended_comic_info:
+            {
+              PacketC2SRecommendedComicInfo packet = packetC2SCommon as PacketC2SRecommendedComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_real_time_trend_comic_info:
+            {
+              PacketC2SRealTimeTrendComicInfo packet = packetC2SCommon as PacketC2SRealTimeTrendComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+
+          case e_packet_type.c2s_new_comic_info:
+            {
+              PacketC2SNewComicInfo packet = packetC2SCommon as PacketC2SNewComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+
+          case e_packet_type.c2s_today_trend_comic_info:
+            {
+              PacketC2STodayTrendComicInfo packet = packetC2SCommon as PacketC2STodayTrendComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+
+          case e_packet_type.c2s_weekly_trend_comic_info:
+            {
+              PacketC2SWeeklyTrendComicInfo packet = packetC2SCommon as PacketC2SWeeklyTrendComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+            /*
+          case e_packet_type.c2s_library_recent_comic_info:
+            {
+              PacketC2SLibraryRecentComicInfo packet = packetC2SCommon as PacketC2SLibraryRecentComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+
+          case e_packet_type.c2s_library_view_list_comic_info:
+            {
+              PacketC2SLibraryViewListComicInfo packet = packetC2SCommon as PacketC2SLibraryViewListComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_library_owned_comic_info:
+            {
+              PacketC2SLibraryOwnedComicInfo packet = packetC2SCommon as PacketC2SLibraryOwnedComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+
+          case e_packet_type.c2s_library_continue_comic_info:
+            {
+              PacketC2SLibraryContinueComicInfo packet = packetC2SCommon as PacketC2SLibraryContinueComicInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+          */
+
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+
+
+
 
   @override
   void dispose() {
 
     print('[trend : dispose]');
+
+    PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
+    _messageList.add(packet);
 
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
