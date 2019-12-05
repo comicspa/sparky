@@ -62,7 +62,7 @@ class PacketC2SComicDetailInfo extends PacketC2SCommon
       String id = '${_creatorId}_${_comicNumber}';
       print('id : $id');
       DatabaseReference modelComicDetailInfoReference = ManageFirebaseDatabase
-          .reference.child('model_comic_detail_info').child(id);
+          .reference.child(ModelComicDetailInfo.ModelName).child(id);
       modelComicDetailInfoReference.once().then((DataSnapshot snapshot) {
         print('[PacketC2SComicDetailInfo : fetchFireBaseDB ] - ${snapshot
             .value}');

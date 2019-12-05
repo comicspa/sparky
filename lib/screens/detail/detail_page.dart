@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
@@ -7,7 +8,10 @@ import 'package:sparky/screens/common_widgets.dart';
 import 'package:sparky/screens/detail/detail_widgets.dart';
 import 'package:sparky/models/model_preset.dart';
 import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
+import 'package:sparky/packets/packet_c2s_finish_message.dart';
 import 'package:sparky/packets/packet_s2c_subscribe_comic.dart';
 
 class DetailPage extends StatefulWidget {
@@ -17,7 +21,6 @@ class DetailPage extends StatefulWidget {
   String _seasonNumber = '001';
   DetailPage(this._creatorId, this._comicNumber,this._partNumber,this._seasonNumber);
   bool _Liked = true;
-  
 
   @override
   _DetailPageState createState() => _DetailPageState(_creatorId, _comicNumber,_partNumber,_seasonNumber);
@@ -31,6 +34,8 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
   ScrollController controller;
   bool _Liked = true;
   int _LikeCount = 41;
+  Timer _timer;
+  List<PacketC2SCommon> _messageList;
 
 
   _DetailPageState(this._creatorId, this._comicNumber,this._partNumber,this._seasonNumber);
@@ -60,15 +65,31 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 
 
   @override
-  void initState() {
+  void initState()
+  {
+    print('[detail : initState]');
+
     WidgetsBinding.instance.addObserver(this);
     super.initState();
+
+    if(null == _messageList)
+      _messageList = new List<PacketC2SCommon>();
+    Duration duration = new Duration(milliseconds: 100);
+    if(null == _timer)
+      _timer = new Timer.periodic(duration, update);
 
     init();
   }
 
   @override
   void dispose() {
+
+    print('[detail : dispose]');
+
+    PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
+    _messageList.add(packet);
+
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -78,7 +99,10 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
     print('state = $state');
   }
 
-  void init() async {
+  void init() async
+  {
+    print('[detail : init] - creatorid : $_creatorId , comicNumber : $_comicNumber ');
+
     c2sComicDetailInfo.generate(_creatorId, _comicNumber,_partNumber,_seasonNumber);
     c2sComicDetailInfo.fetch(_onFetchDone);
   }
@@ -96,6 +120,52 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
     setState(() {
 
     });
+  }
+
+
+  void update(Timer timer)
+  {
+    //print('start current time : ${timer.tick}');
+    if(null != _messageList)
+    {
+      if (0 < _messageList.length)
+      {
+        PacketC2SCommon packetC2SCommon = _messageList[0];
+
+        switch (packetC2SCommon.type)
+        {
+          case e_packet_type.c2s_comic_detail_info:
+            {
+              PacketC2SComicDetailInfo packet = packetC2SCommon as PacketC2SComicDetailInfo;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_storage_file_real_url:
+            {
+              PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_finish_message:
+            {
+              _messageList.removeAt(0);
+              if(null != _timer)
+              {
+                _timer.cancel();
+                _timer = null;
+              }
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+    }
   }
 
 

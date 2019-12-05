@@ -116,9 +116,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
                 break;
 
               case ModelLibraryViewListComicInfo.ModelName:
-                {
-
-                }
+                {}
                 break;
 
               default:
@@ -144,9 +142,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
     if(null == _timer)
       _timer = new Timer.periodic(duration, update);
 
-
     bool dispatched = false;
-
     if(false == dispatched)
     {
       if (null == ModelLibraryRecentComicInfo.list)

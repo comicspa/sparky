@@ -90,8 +90,6 @@ class PacketC2SViewComic extends PacketC2SCommon
             _episodeId,
             snapshot.value,
             onFetchDone);
-
-
       });
     }
 
