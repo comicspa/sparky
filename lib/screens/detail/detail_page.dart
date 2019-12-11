@@ -110,11 +110,15 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 
   void _onFetchDone(PacketCommon packetCommon)
   {
-    print('[detail_page] : onFetchDone');
+    print('[detail : _onFetchDone] - ${packetCommon.type.toString()}');
     PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
 
+    switch(packetCommon.type)
+    {
 
-
+      default:
+        break;
+    }
 
 
     setState(() {

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
@@ -6,11 +7,13 @@ import 'package:sparky/packets/packet_c2s_user_info.dart';
 import 'package:sparky/screens/account/sign_in_up_landing_page.dart';
 import 'package:sparky/screens/test/edit_profile.dart'; 
 
-
 import 'common_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_c2s_finish_message.dart';
+import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 
 
 
@@ -27,6 +30,8 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
   _ProfileScreenState();
 
   PacketC2SUserInfo _packetC2SUserInfo;// = PacketC2SUserInfo();
+  Timer _timer;
+  List<PacketC2SCommon> _messageList;
 
   @override
   void initState() {
@@ -35,18 +40,30 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
     super.initState();
     // generating packet
 
+    if(null == _messageList)
+      _messageList = new List<PacketC2SCommon>();
+    Duration duration = new Duration(milliseconds: 100);
+    if(null == _timer)
+      _timer = new Timer.periodic(duration, update);
+
     init();
   }
 
   @override
   void dispose() {
+
+    print('[profile : dispose]');
+
+    PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
+    _messageList.add(packet);
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+    print('[profile : didChangeAppLifecycleState] - state : $state');
   }
 
   void init() async {
@@ -64,16 +81,58 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   void _onFetchDone(PacketCommon packetCommon)
   {
-    print('[profile_page] : onFetchDone');
+    print('[profile : _onFetchDone] - type : ${packetCommon.type}');
     PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
 
+    switch(packetCommon.type)
+    {
 
 
-
+      default:
+        break;
+    }
 
     setState(() {
 
     });
+  }
+
+
+  void update(Timer timer)
+  {
+    //print('update : ${timer.tick}');
+    if(null != _messageList)
+    {
+      if (0 < _messageList.length)
+      {
+        PacketC2SCommon packetC2SCommon = _messageList[0];
+
+        switch (packetC2SCommon.type)
+        {
+          case e_packet_type.c2s_storage_file_real_url:
+            {
+              PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_finish_message:
+            {
+              _messageList.removeAt(0);
+              if(null != _timer)
+              {
+                _timer.cancel();
+                _timer = null;
+              }
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+    }
   }
      
   

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
@@ -7,7 +8,10 @@ import 'package:sparky/screens/coming_soon.dart';
 import 'package:sparky/models/model_price_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
+import 'package:sparky/packets/packet_c2s_finish_message.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
 
 
@@ -27,13 +31,24 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
   _ShopMenuScreenState(this.titleText);
   String titleText;
   PacketC2SPriceInfo _packetC2SPriceInfo;
+  Timer _timer;
+  List<PacketC2SCommon> _messageList;
 
   @override
   void initState() {
+
+    print('[shop : initState]');
+
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 
     print('titleText : $titleText');
+
+    if(null == _messageList)
+      _messageList = new List<PacketC2SCommon>();
+    Duration duration = new Duration(milliseconds: 100);
+    if(null == _timer)
+      _timer = new Timer.periodic(duration, update);
 
     if(null == _packetC2SPriceInfo)
     {
@@ -45,25 +60,29 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
   @override
   void dispose() {
+
+    print('[shop : dispose]');
+
+    PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
+    _messageList.add(packet);
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+    print('[shop : didChangeAppLifecycleState] - state : $state');
   }
 
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+  void _onFetchDone(PacketS2CCommon packetS2CCommon)
   {
-
-    switch(s2cPacket.type)
+    print('[shop : _onFetchDone] - type : ${packetS2CCommon.type}');
+    switch(packetS2CCommon.type)
     {
       case e_packet_type.s2c_price_info:
         {
-
-
 
         }
         break;
@@ -72,13 +91,50 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
         break;
     }
 
-
-
-
     setState(() {
 
     });
   }
+
+
+  //
+  void update(Timer timer)
+  {
+    //print('start current time : ${timer.tick}');
+    if(null != _messageList)
+    {
+      if (0 < _messageList.length)
+      {
+        PacketC2SCommon packetC2SCommon = _messageList[0];
+
+        switch (packetC2SCommon.type)
+        {
+          case e_packet_type.c2s_storage_file_real_url:
+            {
+              PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_finish_message:
+            {
+              _messageList.removeAt(0);
+              if(null != _timer)
+              {
+                _timer.cancel();
+                _timer = null;
+              }
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

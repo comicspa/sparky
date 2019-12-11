@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,6 +13,9 @@ import 'package:sparky/packets/packet_c2s_view_comic.dart';
 import 'package:sparky/models/model_comic_info.dart';
 import 'package:sparky/models/model_text_detection.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
+import 'package:sparky/packets/packet_c2s_common.dart';
+import 'package:sparky/packets/packet_c2s_finish_message.dart';
+import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 
 
 class ViewerScreen extends StatefulWidget {
@@ -30,6 +34,8 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
   String _userId;
   String _comicId;
   String _episodeId;
+  Timer _timer;
+  List<PacketC2SCommon> _messageList;
 
   _ViewerScreen(this._userId, this._comicId, this._episodeId);
 
@@ -38,31 +44,97 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
 
   @override
   initState() {
+
+    print('[viewer : initState]');
+
     //    SystemChrome.setEnabledSystemUIOverlays([]);
 
     _c2sViewComic.generate(_userId, _comicId, _episodeId);
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     _isVisible = true;
+
+
+    if(null == _messageList)
+      _messageList = new List<PacketC2SCommon>();
+    Duration duration = new Duration(milliseconds: 100);
+    if(null == _timer)
+      _timer = new Timer.periodic(duration, update);
+
+
   }
 
-  void _onFetchDone(PacketS2CCommon s2cPacket)
+  void _onFetchDone(PacketCommon packetCommon)
   {
-    print('ViewerScreen : _onFetchDone');
+    print('[viewer : _onFetchDone] - type : ${packetCommon.type.toString()}');
+
+    switch(packetCommon.type)
+    {
+
+      default:
+        break;
+    }
+
     setState(() {
 
     });
   }
 
+
+  void update(Timer timer)
+  {
+    //print('update : ${timer.tick}');
+    if(null != _messageList)
+    {
+      if (0 < _messageList.length)
+      {
+        PacketC2SCommon packetC2SCommon = _messageList[0];
+
+        switch (packetC2SCommon.type)
+        {
+          case e_packet_type.c2s_storage_file_real_url:
+            {
+              PacketC2SStorageFileRealUrl packet = packetC2SCommon as PacketC2SStorageFileRealUrl;
+              packet.fetch(null);
+              _messageList.removeAt(0);
+            }
+            break;
+
+          case e_packet_type.c2s_finish_message:
+            {
+              _messageList.removeAt(0);
+              if(null != _timer)
+              {
+                _timer.cancel();
+                _timer = null;
+              }
+            }
+            break;
+
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+
   @override
   void dispose() {
+
+    print('[viewer : dispose]');
+
+    PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
+    _messageList.add(packet);
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+  void didChangeAppLifecycleState(AppLifecycleState state)
+  {
+    print('[viewer : didChangeAppLifecycleState] - state : $state');
   }
 
   @override
