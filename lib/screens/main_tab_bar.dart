@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state)
   {
-    print('state = $state');
+    print('[main_tab_bar : didChangeAppLifecycleState] - state :  $state');
   }
 
 

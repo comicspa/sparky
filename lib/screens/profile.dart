@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> with WidgetsBindingObserv
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('[profile : didChangeAppLifecycleState] - state : $state');
+    print('[profile : didChangeAppLifecycleState] - state :  $state');
   }
 
   void init() async {

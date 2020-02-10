@@ -32,7 +32,7 @@ class _CreatorDetailPageState extends State<CreatorDetailPage>  with WidgetsBind
   @override
   void didChangeAppLifecycleState(AppLifecycleState state)
   {
-    print('state = $state');
+    print('[creator_detail_page : didChangeAppLifecycleState] - state :  $state');
   }
 
   @override

@@ -667,7 +667,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+    print('[trend : didChangeAppLifecycleState] - state :  $state');
   }
 
   int _current = 0; // this is for indicator handler

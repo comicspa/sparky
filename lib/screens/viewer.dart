@@ -134,7 +134,7 @@ class _ViewerScreen extends State<ViewerScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state)
   {
-    print('[viewer : didChangeAppLifecycleState] - state : $state');
+    print('[viewer : didChangeAppLifecycleState] - state :  $state');
   }
 
   @override

@@ -13,6 +13,7 @@ import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 import 'package:sparky/packets/packet_c2s_finish_message.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
+import 'package:sparky/manage/manage_in_app_purchase.dart';
 
 
 // Coming soon page for multi-purpose
@@ -33,6 +34,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
   PacketC2SPriceInfo _packetC2SPriceInfo;
   Timer _timer;
   List<PacketC2SCommon> _messageList;
+  ManageInAppPurchase _manageInAppPurchase;
 
   @override
   void initState() {
@@ -50,6 +52,10 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
     if(null == _timer)
       _timer = new Timer.periodic(duration, update);
 
+    if(null == _manageInAppPurchase)
+      _manageInAppPurchase = new ManageInAppPurchase();
+    _manageInAppPurchase.initialize();
+
     if(null == _packetC2SPriceInfo)
     {
       _packetC2SPriceInfo = new PacketC2SPriceInfo();
@@ -62,6 +68,12 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
   void dispose() {
 
     print('[shop : dispose]');
+
+    if(null != _manageInAppPurchase)
+    {
+      _manageInAppPurchase.dispose();
+      _manageInAppPurchase = null;
+    }
 
     PacketC2SFinishMessage packet = new PacketC2SFinishMessage();
     _messageList.add(packet);

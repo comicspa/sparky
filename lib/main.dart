@@ -1,3 +1,4 @@
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sparky/screens/test/page_dev_test_menu.dart';
@@ -7,6 +8,7 @@ import 'package:sparky/screens/test/page_dev_test_apply.dart';
 import 'package:sparky/theme.dart';
 
 void main() async {
+  InAppPurchaseConnection.enablePendingPurchases();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

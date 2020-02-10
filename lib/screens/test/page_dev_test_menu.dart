@@ -40,6 +40,8 @@ import 'package:sparky/screens/test/page_dev_test_shared_preference.dart';
 import 'package:sparky/screens/test/page_dev_test_translation_page.dart';
 import 'package:sparky/screens/test/page_dev_test_localization.dart';
 import 'package:sparky/screens/test/page_dev_test_register_comic.dart';
+import 'package:sparky/screens/test/page_dev_test_in_app_purchase.dart';
+import 'package:sparky/screens/test/page_dev_test_webview.dart';
 
 
 class PageDevTestMenu extends StatefulWidget
@@ -110,6 +112,8 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
             title: Text('TFLite Test'),
             onTap: (){
 
+              /*
+
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
@@ -117,6 +121,10 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
                   ),
                 ),
               );
+
+
+
+               */
 
             },
           ),
@@ -229,6 +237,36 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
                 context,
                 MaterialPageRoute(
                   builder: (context) => PageDevTestLocalization(
+                  ),
+                ),
+              );
+
+            },
+          ),
+
+          ListTile(
+            title: Text('InAppPurchase Test'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestInAppPurchase(
+                  ),
+                ),
+              );
+
+            },
+          ),
+
+          ListTile(
+            title: Text('Webview Test'),
+            onTap: (){
+
+              Navigator.push<Widget>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PageDevTestWebview(
                   ),
                 ),
               );

@@ -1,4 +1,7 @@
 
+/*
+
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
@@ -32,14 +35,11 @@ class ManageTFLite
 
     String res;
 
-    /*
-    res = await Tflite.loadModel(
-        model: 'data/tflite/model.tflite',
-        labels: 'data/tflite/dict.txt',
-        numThreads: 1 // defaults to 1
-    );
-
-     */
+    // res = await Tflite.loadModel(
+    //    model: 'data/tflite/model.tflite',
+    //    labels: 'data/tflite/dict.txt',
+    //    numThreads: 1 // defaults to 1
+    // );
 
 
       try {
@@ -87,18 +87,16 @@ class ManageTFLite
 
     print('readModel - $res');
 
-    /*
-    var recognitions = await Tflite.detectObjectOnImage(
-        path: filePath,       // required
-        model: "",
-        imageMean: 127.5,
-        imageStd: 127.5,
-        threshold: 0.4,       // defaults to 0.1
-        numResultsPerClass: 2,// defaults to 5
-        asynch: true          // defaults to true
-    );
 
-     */
+   //  var recognitions = await Tflite.detectObjectOnImage(
+   //     path: filePath,       // required
+   //     model: "",
+   //     imageMean: 127.5,
+   //     imageStd: 127.5,
+   //     threshold: 0.4,       // defaults to 0.1
+   //     numResultsPerClass: 2,// defaults to 5
+   //     asynch: true          // defaults to true
+   //  );
 
 
     await predictImage(file);
@@ -154,13 +152,13 @@ class ManageTFLite
      await recognizeImageBinary(image);
     }
 
-    /*
-    new FileImage(image)
-        .resolve(new ImageConfiguration())
-        .addListener(ImageStreamListener((ImageInfo info, bool _) {
 
-    }));
-    */
+    // new FileImage(image)
+    //    .resolve(new ImageConfiguration())
+    //    .addListener(ImageStreamListener((ImageInfo info, bool _) {
+
+    // }));
+
 
 
 
@@ -330,3 +328,5 @@ class ManageTFLite
 
 
 }
+
+ */

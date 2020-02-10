@@ -25,7 +25,7 @@ class _SignInPageState extends State<SignInPage>  with WidgetsBindingObserver{
   @override
   void didChangeAppLifecycleState(AppLifecycleState state)
   {
-    print('state = $state');
+    print('[sign_in : didChangeAppLifecycleState] - state :  $state');
   }
 
 

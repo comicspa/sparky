@@ -96,7 +96,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+    print('[detail : didChangeAppLifecycleState] - state :  $state');
   }
 
   void init() async
@@ -175,7 +175,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
 
   Future<bool> _onBackPressed() async
   {
-    print('_onBackPressed');
+    print('[detail : _onBackPressed]');
 
     // await showDialog or Show add banners or whatever
     // then
@@ -205,7 +205,7 @@ class _DetailPageState extends State<DetailPage> with WidgetsBindingObserver {
     icon: new Icon(Icons.arrow_back),
     onPressed: () {
 
-      print('onPressed');
+      print('[detail : onPressed]');
       return Navigator.pop(context);
       },
     ),

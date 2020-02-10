@@ -54,17 +54,35 @@ class _PageDevTestPacketConnectedState extends State<PageDevTestPacketConnected>
     {
       case e_packet_type.s2c_echo:
         {
+          String content = (s2cPacket as PacketS2CEcho).message;
+          print('content : $content');
+          List<String> contentList = content.split('&&');
+          print('content length : ${contentList.length}');
+
           if(null == Message.list)
             Message.list = new List<Message>();
 
-          Message message = new Message();
-          message.id = Message.list.length + 1;
-          message.title = 'title';
-          message.content = (s2cPacket as PacketS2CEcho).message;
+          bool searched = false;
+          if(Message.list.length > 0)
+            {
+              if(0 == Message.list[Message.list.length-1].content.compareTo(contentList[1]))
+                {
+                  searched = true;
+                }
+            }
 
-          Message.list.add(message);
 
-          _streamController.add(Message.list);
+          if(false == searched)
+          {
+            Message message = new Message();
+            message.id = Message.list.length + 1;
+            message.title = contentList[0];
+            message.content = contentList[1];
+
+            Message.list.add(message);
+
+            _streamController.add(Message.list);
+          }
         }
         break;
 
@@ -102,7 +120,7 @@ class _PageDevTestPacketConnectedState extends State<PageDevTestPacketConnected>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Connected Test")),
+        appBar: AppBar(title: Text("connected test")),
         body: Column(
           children: <Widget>[
             Center(

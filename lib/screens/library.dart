@@ -248,7 +248,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
   void _onFetchDone(PacketCommon packetCommon)
   {
     PacketS2CCommon packetS2CCommon = packetCommon as PacketS2CCommon;
-    print('[splash : _onFetchDone] - ${packetS2CCommon.type.toString()}');
+    print('[library : _onFetchDone] - ${packetS2CCommon.type.toString()}');
 
     switch (packetS2CCommon.type)
     {
@@ -522,7 +522,7 @@ class _LibraryScreenState extends State<LibraryScreen> with WidgetsBindingObserv
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+    print('[library : didChangeAppLifecycleState] - state :  $state');
   }
 
   @override

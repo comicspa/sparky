@@ -43,7 +43,7 @@ class _MoreScreenState extends State<MoreScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+    print('[more : didChangeAppLifecycleState] - state :  $state');
   }
 
   final textStyle = TextStyle(

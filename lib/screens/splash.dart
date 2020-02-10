@@ -106,8 +106,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('state = $state');
+  void didChangeAppLifecycleState(AppLifecycleState state)
+  {
+    print('[splash : didChangeAppLifecycleState] - state :  $state');
   }
 
 
@@ -152,9 +153,7 @@ class _SplashScreenState extends State<SplashScreen>
               ManageMessage.add(packetC2SLocalizationInfo);
 
             }
-
           }
-
         }
         break;
 

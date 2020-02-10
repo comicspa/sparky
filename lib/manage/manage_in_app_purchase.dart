@@ -1,13 +1,46 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:sparky/manage/manage_shared_preference.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 
-class ManageInAppPurchase
+
+
+const bool kAutoConsume = true;
+
+//const String _kConsumableId = 'consumable';
+//const List<String> _kProductIds = <String>[
+//  _kConsumableId,
+//  'upgrade',
+//  'subscription'
+//];
+
+
+const String _kConsumableId = 'item_10';
+const List<String> _kProductIds = <String>[
+  _kConsumableId,
+  'item_50',
+  'item_100',
+  'item_200',
+  'item_300',
+  'item_500'
+];
+
+
+/*
+const String _kConsumableId = 'android.test.purchased';
+const List<String> _kProductIds = <String>[
+  _kConsumableId
+];
+
+ */
+
+
+
+
+class ConsumableStore
 {
-  StreamSubscription<List<PurchaseDetails>> _subscription;
-
   static const String _kPrefKey = 'consumables';
   static Future<void> _writes = Future.value();
 
@@ -44,21 +77,167 @@ class ManageInAppPurchase
     cached.remove(id);
     await prefs.setStringList(_kPrefKey, cached);
   }
+}
 
+
+
+class ManageInAppPurchase
+{
+
+  final InAppPurchaseConnection _connection = InAppPurchaseConnection.instance;
+  StreamSubscription<List<PurchaseDetails>> _subscription;
+  List<String> _notFoundIds = [];
+  List<ProductDetails> _products = [];
+  List<PurchaseDetails> _purchases = [];
+  List<String> _consumables = [];
+  bool _isAvailable = false;
+  bool _purchasePending = false;
+  bool _loading = true;
+  String _queryProductError;
+
+
+  /*
+   void loadingPreviousPurchases() async
+  {
+    final QueryPurchaseDetailsResponse response = await InAppPurchaseConnection.instance.queryPastPurchases();
+    if (response.error != null)
+    {
+      // Handle the error.
+    }
+    for (PurchaseDetails purchase in response.pastPurchases)
+    {
+      _verifyPurchase(purchase);  // Verify the purchase following the best practices for each storefront.
+      _deliverPurchase(purchase); // Deliver the purchase to the user in your app.
+      if (Platform.isIOS)
+      {
+        // Mark that you've delivered the purchase. Only the App Store requires
+        // this final confirmation.
+        InAppPurchaseConnection.instance.completePurchase(purchase);
+      }
+    }
+  }
+
+  */
 
   void initialize()
   {
-    final Stream purchaseUpdates =
-        InAppPurchaseConnection.instance.purchaseUpdatedStream;
-    _subscription = purchaseUpdates.listen((purchases) {
-      _handlePurchaseUpdates(purchases);
+    Stream purchaseUpdated = InAppPurchaseConnection.instance.purchaseUpdatedStream;
+      _subscription = purchaseUpdated.listen((purchaseDetailsList)
+    {
+      _listenToPurchaseUpdated(purchaseDetailsList);
+    },
+    onDone: ()
+    {
+      _subscription.cancel();
+    }, onError: (error)
+          {
+      // handle error here.
+            ManageToastMessage.showShort('[ManageInAppPurchase : initialize] error - ' + error.toString());
     });
+
+    initStoreInfo();
+
   }
 
-  void _handlePurchaseUpdates(purchases)
+
+  Future<void> initStoreInfo() async
   {
+    final bool isAvailable = await _connection.isAvailable();
+    if (!isAvailable)
+    {
+      ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo] - !isAvailable');
 
+      //setState(()
+      //{
+      //  _isAvailable = isAvailable;
+      //  _products = [];
+      //  _purchases = [];
+      //  _notFoundIds = [];
+      //  _consumables = [];
+      //  _purchasePending = false;
+      //  _loading = false;
+      //});
+
+      return;
+    }
+
+    ProductDetailsResponse productDetailResponse =  await _connection.queryProductDetails(_kProductIds.toSet());
+    if (productDetailResponse.error != null)
+    {
+      ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo] - '+productDetailResponse.productDetails.toString());
+
+      //setState(()
+      //{
+      //  _queryProductError = productDetailResponse.error.message;
+      //  _isAvailable = isAvailable;
+      //  _products = productDetailResponse.productDetails;
+      //  _purchases = [];
+      //  _notFoundIds = productDetailResponse.notFoundIDs;
+      //  _consumables = [];
+      //  _purchasePending = false;
+      //  _loading = false;
+      //});
+
+      return;
+    }
+
+    //productDetailResponse.notFoundIDs
+
+    //if(null != productDetailResponse.notFoundIDs)
+    //{
+    //  ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo] - productDetailResponse.notFoundIDs : '+productDetailResponse.notFoundIDs.toString());
+    //  return;
+    //}
+
+    if (productDetailResponse.productDetails.isEmpty)
+    {
+      ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo] - productDetailResponse.productDetails.isEmpty');
+
+      //setState(()
+      //{
+      //  _queryProductError = null;
+      //  _isAvailable = isAvailable;
+      //  _products = productDetailResponse.productDetails;
+      //  _purchases = [];
+      //  _notFoundIds = productDetailResponse.notFoundIDs;
+      //  _consumables = [];
+      //  _purchasePending = false;
+      //  _loading = false;
+      //});
+
+      return;
+    }
+
+    final QueryPurchaseDetailsResponse purchaseResponse = await _connection.queryPastPurchases();
+    if (purchaseResponse.error != null)
+    {
+      ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo] - '+purchaseResponse.error.message);
+      // handle query past purchase error..
+    }
+
+    final List<PurchaseDetails> verifiedPurchases = [];
+    for (PurchaseDetails purchase in purchaseResponse.pastPurchases)
+    {
+      if (await _verifyPurchase(purchase))
+      {
+        verifiedPurchases.add(purchase);
+      }
+    }
+
+    List<String> consumables = await ConsumableStore.load();
+
+    //setState(()
+    //{
+    //  _isAvailable = isAvailable;
+    //  _products = productDetailResponse.productDetails;
+    //  _purchases = verifiedPurchases;
+    //  _notFoundIds = productDetailResponse.notFoundIDs;
+    //  _consumables = consumables;
+    //  _purchasePending = false;
+    //  _loading = false;
+    //});
   }
+
 
   void dispose()
   {
@@ -72,9 +251,110 @@ class ManageInAppPurchase
   }
 
 
-  void _loadingPreviousPurchases()
+  Future<void> consume(String id) async
   {
+    await ConsumableStore.consume(id);
 
+    final List<String> consumables = await ConsumableStore.load();
+
+    //setState(()
+    //{
+    //  _consumables = consumables;
+    //});
+  }
+
+  void showPendingUI()
+  {
+    //setState(()
+    //{
+    //  _purchasePending = true;
+    //});
+  }
+
+  void deliverProduct(PurchaseDetails purchaseDetails) async
+  {
+    // IMPORTANT!! Always verify a purchase purchase details before delivering the product.
+    if (purchaseDetails.productID == _kConsumableId)
+    {
+      await ConsumableStore.save(purchaseDetails.purchaseID);
+      List<String> consumables = await ConsumableStore.load();
+
+      //setState(()
+      //{
+      //  _purchasePending = false;
+      //  _consumables = consumables;
+      //});
+    }
+    else
+    {
+      //setState(()
+      //{
+      //  _purchases.add(purchaseDetails);
+      //  _purchasePending = false;
+      //});
+    }
+  }
+
+
+  void handleError(IAPError error)
+  {
+    //setState(()
+    //{
+    //  _purchasePending = false;
+    //});
+  }
+
+  Future<bool> _verifyPurchase(PurchaseDetails purchaseDetails)
+  {
+    // IMPORTANT!! Always verify a purchase before delivering the product.
+    // For the purpose of an example, we directly return true.
+    return Future<bool>.value(true);
+  }
+
+  void _handleInvalidPurchase(PurchaseDetails purchaseDetails)
+  {
+    // handle invalid purchase here if  _verifyPurchase` failed.
+  }
+
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList)
+  {
+    purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async
+    {
+      if (purchaseDetails.status == PurchaseStatus.pending)
+      {
+        //showPendingUI();
+      }
+      else
+      {
+        if (purchaseDetails.status == PurchaseStatus.error)
+        {
+          handleError(purchaseDetails.error);
+        }
+        else if (purchaseDetails.status == PurchaseStatus.purchased)
+        {
+          bool valid = await _verifyPurchase(purchaseDetails);
+          if (valid)
+          {
+            deliverProduct(purchaseDetails);
+          }
+          else
+          {
+            _handleInvalidPurchase(purchaseDetails);
+          }
+        }
+        if (Platform.isIOS)
+        {
+          await InAppPurchaseConnection.instance.completePurchase(purchaseDetails);
+        }
+        else if (Platform.isAndroid)
+        {
+          if (!kAutoConsume && purchaseDetails.productID == _kConsumableId)
+          {
+            await InAppPurchaseConnection.instance.consumePurchase(purchaseDetails);
+          }
+        }
+      }
+    });
   }
 
   void buy()
