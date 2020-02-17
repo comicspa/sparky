@@ -302,6 +302,47 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                         ],)
                       ),
                       onTap: () {
+
+                        String itemId = 'item_10';
+                        switch(index)
+                        {
+                          case 1:
+                            {
+                              itemId = 'item_50';
+                            }
+                            break;
+
+                          case 2:
+                            {
+                              itemId = 'item_100';
+                            }
+                            break;
+
+                          case 3:
+                            {
+                              itemId = 'item_200';
+                            }
+                            break;
+
+                          case 4:
+                            {
+                              itemId = 'item_300';
+                            }
+                            break;
+
+                          case 5:
+                            {
+                              itemId = 'item_500';
+                            }
+                            break;
+
+                          default:
+                            break;
+                        }
+
+                        _manageInAppPurchase.buy(itemId);
+
+                        /*
                         Navigator.push<Widget>(
                           context,
                           MaterialPageRoute(
@@ -309,6 +350,9 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                                 ComingSoonScreen(),
                           ),
                         );
+                        */
+
+
                       },
                     );
                   }

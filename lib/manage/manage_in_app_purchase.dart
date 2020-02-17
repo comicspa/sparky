@@ -321,6 +321,9 @@ class ManageInAppPurchase
 
   void handleError(IAPError error)
   {
+    print('[ManageInAppPurchase : handleError] - error : ${error.message}');
+    //error.message
+
     //setState(()
     //{
     _purchasePending = false;
