@@ -1,12 +1,13 @@
 import 'dart:io';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:sparky/models/model_user_info.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 
 // test
 // https://pushtry.com/
 
 class ManageFireBaseMessaging
 {
+  /*
   static FirebaseMessaging _firebaseMessaging;
 
   static void initialize()
@@ -70,6 +71,8 @@ class ManageFireBaseMessaging
       print("Settings registered: $settings");
     });
   }
+  
+   */
 }
 
 

@@ -339,9 +339,10 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
 
     WidgetsBinding.instance.addObserver(this);
     super.initState();
-    ManageFireBaseMessaging.initialize();
-    // generating packet
 
+    //ManageFireBaseMessaging.initialize();
+
+    // generating packet
     //_packetC2STodayTrendComicInfo.generate(0, 0,false);
     //_packetC2SFeaturedComicInfo.generate(0, 0,false);
     //_packetC2SRecommendedComicInfo.generate(0, 0);

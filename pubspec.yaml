@@ -11,7 +11,7 @@ description: sparky
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+4
+version: 1.0.0+8
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -38,7 +38,7 @@ dependencies:
   firebase_auth: ^0.11.1+12
   flutter_svg:
       git: git://github.com/dnfield/flutter_svg
-  google_sign_in: ^4.0.4
+  google_sign_in: ^4.1.1
   device_info: ^0.4.0+2
   firebase_ml_vision: ^0.9.2
   firebase_storage: ^3.0.5

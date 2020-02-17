@@ -33,8 +33,7 @@ const String _kConsumableId = 'android.test.purchased';
 const List<String> _kProductIds = <String>[
   _kConsumableId
 ];
-
- */
+*/
 
 
 
@@ -164,7 +163,7 @@ class ManageInAppPurchase
     ProductDetailsResponse productDetailResponse =  await _connection.queryProductDetails(_kProductIds.toSet());
     if (productDetailResponse.error != null)
     {
-      ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo] - '+productDetailResponse.productDetails.toString());
+      ManageToastMessage.showShort('[ManageInAppPurchase : initStoreInfo error] - '+productDetailResponse.error.message);
 
       //setState(()
       //{
@@ -225,6 +224,17 @@ class ManageInAppPurchase
     }
 
     List<String> consumables = await ConsumableStore.load();
+
+/*
+    String message = '[ManageInAppPurchase : initStoreInfo] - productDetails : ';
+    for(int countIndex=0; countIndex<productDetailResponse.productDetails.length; ++countIndex)
+    {
+      message += ' id : ';
+      message += productDetailResponse.productDetails[countIndex].id;
+      message += ' , ';
+    }
+    ManageToastMessage.showShort(message);
+*/
 
     //setState(()
     //{
@@ -323,6 +333,7 @@ class ManageInAppPurchase
       if (purchaseDetails.status == PurchaseStatus.pending)
       {
         //showPendingUI();
+        print();
       }
       else
       {

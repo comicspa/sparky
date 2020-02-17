@@ -7,6 +7,25 @@ import 'package:sparky/screens/splash.dart';
 import 'package:sparky/screens/test/page_dev_test_apply.dart';
 import 'package:sparky/theme.dart';
 
+/* ios permission
+<key>NSAppleMusicUsageDescription</key>
+<string>Media Library Access Warning</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Location When In Use Access Warning</string>
+<key>NSCalendarsUsageDescription</key>
+<string>Calendars Access Warning</string>
+<key>NSContactsUsageDescription</key>
+<string>Contacts Access Warning</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Location Always Access Warning</string>
+<key>NSMotionUsageDescription</key>
+<string>Motion Access Warning</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Photo Library Access Warning</string>
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>Speech Recognition Access Warning</string>
+ */
+
 void main() async {
   InAppPurchaseConnection.enablePendingPurchases();
   WidgetsFlutterBinding.ensureInitialized();

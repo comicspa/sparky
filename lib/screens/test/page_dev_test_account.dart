@@ -268,7 +268,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             },
           ),
 
-
+          /*
           ListTile(
             title: Text('Get Firebase Messaging Token'),
             onTap: (){
@@ -277,6 +277,8 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
               },
           ),
+
+           */
 
           ListTile(
             title: Text('Check uid'),
