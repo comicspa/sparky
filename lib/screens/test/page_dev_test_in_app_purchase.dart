@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:sparky/manage/manage_in_app_purchase.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
 
@@ -20,9 +21,48 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
   {
     if(null == _manageInAppPurchase)
       _manageInAppPurchase = new ManageInAppPurchase();
-    _manageInAppPurchase.initialize();
+    _manageInAppPurchase.initialize(_callbackInAppPurchase);
 
     super.initState();
+  }
+
+  //
+  void _callbackInAppPurchase(String purchaseStatus,bool updateUIState)
+  {
+    print('[PageDevTestInAppPurchase : _callbackInAppPurchase] - $purchaseStatus');
+
+    switch(purchaseStatus)
+    {
+      case 'pending':
+        {
+
+        }
+        break;
+
+      case 'purchased':
+        {
+          ManageToastMessage.showShort('Item Purchased');
+        }
+        break;
+
+      case 'error':
+        {
+
+
+        }
+        break;
+
+      default:
+        break;
+    }
+
+
+    if(true == updateUIState)
+    {
+      setState(() {
+
+      });
+    }
   }
 
 
@@ -70,12 +110,15 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
             title: Text('buy item_10'),
             onTap: (){
 
+              _manageInAppPurchase.buy('item_10');
 
             },
           ),
           ListTile(
             title: Text('buy item_50'),
             onTap: (){
+
+              _manageInAppPurchase.buy('item_50');
 
             },
           ),
@@ -84,6 +127,7 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
             title: Text('buy item_100'),
             onTap: (){
 
+              _manageInAppPurchase.buy('item_100');
 
             },
           ),
@@ -92,6 +136,7 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
             title: Text('buy item_200'),
             onTap: (){
 
+              _manageInAppPurchase.buy('item_200');
 
             },
           ),
@@ -100,6 +145,7 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
             title: Text('buy item_300'),
             onTap: (){
 
+              _manageInAppPurchase.buy('item_300');
 
             },
           ),
@@ -109,6 +155,7 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
             title: Text('buy item_500'),
             onTap: (){
 
+              _manageInAppPurchase.buy('item_500');
 
             },
           ),

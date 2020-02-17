@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
     if(kDebugMode)
     {
       print('Debug Mode');
-      ModelPreset.developerMode = true;
+      //ModelPreset.developerMode = true;
     }
     else
     {

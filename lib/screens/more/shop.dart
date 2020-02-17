@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 
 import 'package:sparky/screens/more/uploading_center.dart';
@@ -14,6 +15,7 @@ import 'package:sparky/packets/packet_c2s_storage_file_real_url.dart';
 import 'package:sparky/packets/packet_c2s_finish_message.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
 import 'package:sparky/manage/manage_in_app_purchase.dart';
+import 'package:sparky/manage/manage_toast_message.dart';
 
 
 // Coming soon page for multi-purpose
@@ -54,7 +56,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
     if(null == _manageInAppPurchase)
       _manageInAppPurchase = new ManageInAppPurchase();
-    _manageInAppPurchase.initialize();
+    _manageInAppPurchase.initialize(_callbackInAppPurchase);
 
     if(null == _packetC2SPriceInfo)
     {
@@ -106,6 +108,45 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
     setState(() {
 
     });
+  }
+
+
+  //
+  void _callbackInAppPurchase(String purchaseStatus,bool updateUIState)
+  {
+    print('[shop : _callbackInAppPurchase] - $purchaseStatus');
+    switch(purchaseStatus)
+    {
+      case 'pending':
+        {
+
+        }
+        break;
+
+      case 'purchased':
+        {
+          ManageToastMessage.showShort('Item Purchased');
+        }
+        break;
+
+      case 'error':
+        {
+
+
+        }
+        break;
+
+      default:
+        break;
+    }
+
+
+    if(true == updateUIState)
+    {
+      setState(() {
+
+      });
+    }
   }
 
 
