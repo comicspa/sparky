@@ -50,49 +50,49 @@ class _DrawRectAndImageState extends State<DrawRectAndImage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(  // Todo add loading indicator here
-        scrollDirection: Axis.vertical,
-        child: FutureBuilder<List<ModelTextDetection>>(
-          future:  ModelTextDetection.generate(urlList,useCloud),
-          builder: (context, snapshot) {
-          return Stack(
-            children: <Widget>[
-              FittedBox(
-                child: SizedBox(
-                  width: ModelTextDetection.sizeBoxWidth,// ManageDeviceInfo.resolutionWidth * (ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth),
-                  height: ModelTextDetection.sizeBoxHeight,//ManageDeviceInfo.resolutionHeight * (ModelTextDetection.imageTotalHeight / ManageDeviceInfo.resolutionHeight),
-                  child: _buildImage(),
-                ),
-              ),
-                for(var boundingBoxInfo in ModelTextDetection.boundingBoxInfoList)
-                  Positioned(
-                    left: boundingBoxInfo.left,//ManageDeviceInfo.resolutionWidth / (ModelTextDetection.list[0].manageImage.width / boundingBoxInfo.boundingBox.left),
-                    top: boundingBoxInfo.top,//(boundingBoxInfo.boundingBox.top / (ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth)) + (boundingBoxInfo.previousImageTotalHeight/(ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth)),
-                    child: GestureDetector(
-                      onTap: () {
-
-                        tappedCountIndex = boundingBoxInfo.countIndex;
-
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return buildTranslatePopUp(context);
-                          },
-                        );
-                        debugPrint("hello");
-                      },
-                      child: Container(
-                          width: boundingBoxInfo.width,//ManageDeviceInfo.resolutionWidth / (ModelTextDetection.list[0].manageImage.width / boundingBoxInfo.boundingBox.width),
-                          height: boundingBoxInfo.height,//ManageDeviceInfo.resolutionHeight / (ModelTextDetection.imageTotalHeight / boundingBoxInfo.boundingBox.height) + ManageDeviceInfo.statusBarHeight,
-                          decoration: textBoxDecoration(boundingBoxInfo.changed),
-                          child: Text(
-                            /*textController.text*/boundingBoxInfo.text)
+          scrollDirection: Axis.vertical,
+          child: FutureBuilder<List<ModelTextDetection>>(
+              future:  ModelTextDetection.generate(urlList,useCloud),
+              builder: (context, snapshot) {
+                return Stack(
+                    children: <Widget>[
+                      FittedBox(
+                        child: SizedBox(
+                          width: ModelTextDetection.sizeBoxWidth,// ManageDeviceInfo.resolutionWidth * (ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth),
+                          height: ModelTextDetection.sizeBoxHeight,//ManageDeviceInfo.resolutionHeight * (ModelTextDetection.imageTotalHeight / ManageDeviceInfo.resolutionHeight),
+                          child: _buildImage(),
+                        ),
                       ),
-                    ),
-                  ),
-            ]
-          );
-          }
-        )
+                      for(var boundingBoxInfo in ModelTextDetection.boundingBoxInfoList)
+                        Positioned(
+                          left: boundingBoxInfo.left,//ManageDeviceInfo.resolutionWidth / (ModelTextDetection.list[0].manageImage.width / boundingBoxInfo.boundingBox.left),
+                          top: boundingBoxInfo.top,//(boundingBoxInfo.boundingBox.top / (ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth)) + (boundingBoxInfo.previousImageTotalHeight/(ModelTextDetection.list[0].manageImage.width / ManageDeviceInfo.resolutionWidth)),
+                          child: GestureDetector(
+                            onTap: () {
+
+                              tappedCountIndex = boundingBoxInfo.countIndex;
+
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return buildTranslatePopUp(context);
+                                },
+                              );
+                              debugPrint("hello");
+                            },
+                            child: Container(
+                                width: boundingBoxInfo.width,//ManageDeviceInfo.resolutionWidth / (ModelTextDetection.list[0].manageImage.width / boundingBoxInfo.boundingBox.width),
+                                height: boundingBoxInfo.height,//ManageDeviceInfo.resolutionHeight / (ModelTextDetection.imageTotalHeight / boundingBoxInfo.boundingBox.height) + ManageDeviceInfo.statusBarHeight,
+                                decoration: textBoxDecoration(boundingBoxInfo.changed),
+                                child: Text(
+                                  /*textController.text*/boundingBoxInfo.text)
+                            ),
+                          ),
+                        ),
+                    ]
+                );
+              }
+          )
 
 
 
@@ -226,20 +226,20 @@ class _DrawRectAndImageState extends State<DrawRectAndImage> {
                       contentPadding: EdgeInsets.all(
                           ManageDeviceInfo.resolutionHeight * 0.01)
 
-                      //                              border: OutlineInputBorder(),
-                      //                              focusedBorder: OutlineInputBorder(
-                      //                                borderSide: BorderSide(
-                      //                                  color: Colors.greenAccent,
-                      //                                ),
-                      //                              ),
-                      //                              enabledBorder: OutlineInputBorder(
-                      //                                borderSide: BorderSide(
-                      //                                  color: Colors.redAccent,
-                      //                                ),
-                      //                              ),
-                      //                              contentPadding: EdgeInsets.all(
-                      //                                  ManageDeviceInfo.resolutionWidth * 0.02),
-                      ),
+                    //                              border: OutlineInputBorder(),
+                    //                              focusedBorder: OutlineInputBorder(
+                    //                                borderSide: BorderSide(
+                    //                                  color: Colors.greenAccent,
+                    //                                ),
+                    //                              ),
+                    //                              enabledBorder: OutlineInputBorder(
+                    //                                borderSide: BorderSide(
+                    //                                  color: Colors.redAccent,
+                    //                                ),
+                    //                              ),
+                    //                              contentPadding: EdgeInsets.all(
+                    //                                  ManageDeviceInfo.resolutionWidth * 0.02),
+                  ),
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   validator: (value) {
@@ -340,16 +340,16 @@ class _DrawRectAndImageState extends State<DrawRectAndImage> {
       border: Border.all(color: changed? Colors.white.withOpacity(1.0):Colors.blueAccent, width: 1.0),
 
       borderRadius: BorderRadius.all(Radius.circular(5.0)
-          ),
+      ),
     );
   }
 
 
   Widget _buildImage() {
 
-      return new CustomPaint(
-        painter: new PaintingImage(),
-      );
+    return new CustomPaint(
+      painter: new PaintingImage(),
+    );
 
   }
 }
