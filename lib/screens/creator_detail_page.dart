@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_device_info.dart';
+import 'package:sparky/screens/page_prepare_service.dart';
 import 'viewer.dart';
-import 'coming_soon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CreatorDetailPage extends StatefulWidget {
@@ -61,7 +61,7 @@ class _CreatorDetailPageState extends State<CreatorDetailPage>  with WidgetsBind
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ComingSoonScreen(),
+                    builder: (context) => PagePrepareService(),
                   ),
                 );
               },
@@ -75,7 +75,7 @@ class _CreatorDetailPageState extends State<CreatorDetailPage>  with WidgetsBind
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ComingSoonScreen(),
+                    builder: (context) => PagePrepareService(),
                   ),
                 );
               },

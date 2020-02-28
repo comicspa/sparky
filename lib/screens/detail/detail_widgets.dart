@@ -9,7 +9,7 @@ import 'package:sparky/models/model_comic_detail_info.dart';
 import 'package:sparky/packets/packet_common.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/packets/packet_c2s_subscribe_comic.dart';
-import 'package:sparky/screens/coming_soon.dart';
+import 'package:sparky/screens/page_prepare_service.dart';
 import 'package:sparky/screens/common_widgets.dart';
 
 import 'package:sparky/screens/viewer.dart';
@@ -338,7 +338,7 @@ class StoryTranslationIconWidget extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ComingSoonScreen(),
+                    builder: (context) => PagePrepareService(),
                   ),
                 );
               },

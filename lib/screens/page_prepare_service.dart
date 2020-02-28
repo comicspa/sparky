@@ -4,7 +4,7 @@ import 'package:sparky/manage/manage_device_info.dart'; // use this to make all 
 import 'package:sparky/screens/library.dart';
 import 'package:sparky/screens/more.dart';
 import 'package:sparky/screens/creator.dart';
-import 'package:sparky/screens/testhome.dart';
+import 'package:sparky/screens/experiment_home.dart';
 import 'package:sparky/screens/trend.dart';
 
 import 'package:sparky/screens/notification.dart';

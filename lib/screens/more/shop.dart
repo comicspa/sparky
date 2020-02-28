@@ -5,7 +5,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:sparky/manage/manage_device_info.dart'; // use this to make all the widget size responsive to the device size.
 
 import 'package:sparky/screens/more/uploading_center.dart';
-import 'package:sparky/screens/coming_soon.dart';
+import 'package:sparky/screens/page_prepare_service.dart';
 import 'package:sparky/models/model_price_info.dart';
 import 'package:sparky/models/model_user_info.dart';
 import 'package:sparky/packets/packet_common.dart';
@@ -166,7 +166,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
 
           ModelUserInfo.getInstance().comi += itemCount;
-          ManageToastMessage.showShort('Selected Item Purchased');
+          ManageToastMessage.showShort('선택한 아이템이 구매되었습니다.');
           updateUIState = true;
         }
         break;

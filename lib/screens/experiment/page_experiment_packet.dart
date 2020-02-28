@@ -6,7 +6,7 @@ import 'package:sparky/packets/packet_c2s_featured_comic_info.dart';
 import 'package:sparky/packets/packet_c2s_comic_detail_info.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
-import 'package:sparky/screens/test/page_dev_test_packet_connected.dart';
+import 'package:sparky/screens/experiment/page_experiment_packet_connected.dart';
 
 class PageExperimentPacket extends StatefulWidget {
   @override
@@ -70,7 +70,7 @@ class _PageExperimentPacketState extends State<PageExperimentPacket> {
               Navigator.push<Widget>(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PageDevTestPacketConnected(),
+                    builder: (context) => PageExperimentPacketConnected(),
                   ));
 
 
