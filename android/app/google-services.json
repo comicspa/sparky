@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "502860158175-2h148u5o6a4vk66536ik19t9io7e7655.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.superants.sparky",
+            "certificate_hash": "05d068c86afc98e4d0082c30207c1475fe967265"
+          }
+        },
+        {
           "client_id": "502860158175-5id5607oqar1iqhgfiubjq6i1eviml7s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
