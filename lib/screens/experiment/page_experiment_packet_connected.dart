@@ -21,14 +21,14 @@ class Message
 }
 
 
-class PageDevTestPacketConnected extends StatefulWidget {
+class PageExperimentPacketConnected extends StatefulWidget {
   @override
-  _PageDevTestPacketConnectedState createState() => _PageDevTestPacketConnectedState();
+  _PageExperimentPacketConnectedState createState() => _PageExperimentPacketConnectedState();
 }
 
 
 
-class _PageDevTestPacketConnectedState extends State<PageDevTestPacketConnected>
+class _PageExperimentPacketConnectedState extends State<PageExperimentPacketConnected>
 {
   Timer _timer;
   StreamController<List<Message>> _streamController = StreamController();
@@ -64,12 +64,12 @@ class _PageDevTestPacketConnectedState extends State<PageDevTestPacketConnected>
 
           bool searched = false;
           if(Message.list.length > 0)
+          {
+            if(0 == Message.list[Message.list.length-1].content.compareTo(contentList[1]))
             {
-              if(0 == Message.list[Message.list.length-1].content.compareTo(contentList[1]))
-                {
-                  searched = true;
-                }
+              searched = true;
             }
+          }
 
 
           if(false == searched)
@@ -120,7 +120,7 @@ class _PageDevTestPacketConnectedState extends State<PageDevTestPacketConnected>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("connected test")),
+        appBar: AppBar(title: Text("Connected Experiment")),
         body: Column(
           children: <Widget>[
             Center(

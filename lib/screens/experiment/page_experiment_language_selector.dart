@@ -7,12 +7,12 @@ import 'application.dart';
 import 'translations.dart';
 
 
-class LanguageSelector extends StatefulWidget {
+class PageLanguageSelector extends StatefulWidget {
   @override
-  _LanguageSelectorState createState() => new _LanguageSelectorState();
+  _PageLanguageSelectorState createState() => new _PageLanguageSelectorState();
 }
 
-class _LanguageSelectorState extends State<LanguageSelector> {
+class _PageLanguageSelectorState extends State<PageLanguageSelector> {
   int _key;
 
   @override

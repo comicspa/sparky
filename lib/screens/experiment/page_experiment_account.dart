@@ -21,12 +21,12 @@ import 'package:sparky/packets/packet_c2s_unregister_translator.dart';
 import 'package:sparky/packets/packet_c2s_user_info.dart';
 
 
-class PageDevTestAccount extends StatefulWidget {
+class PageExperimentAccount extends StatefulWidget {
   @override
-  _PageDevTestAccountState createState() => new _PageDevTestAccountState();
+  _PageExperimentAccountState createState() => new _PageExperimentAccountState();
 }
 
-class _PageDevTestAccountState extends State<PageDevTestAccount> {
+class _PageExperimentAccountState extends State<PageExperimentAccount> {
 
   List<PacketC2SCommon> _requestPacketList = new List<PacketC2SCommon>();
 
@@ -43,7 +43,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
 
   void _onFetchDone(PacketS2CCommon s2cPacket)
   {
-    print('[PageDevTestAccount] : onFetchDone');
+    print('[_PageExperimentAccountState] : onFetchDone');
 
     switch(s2cPacket.type)
     {
@@ -61,30 +61,30 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
           if(0 == _requestPacketList.length)
             ManageToastMessage.showShort('Sign in with social !!');
           else
+          {
+            PacketC2SCommon current = _requestPacketList[0];
+            switch(current.type)
             {
-              PacketC2SCommon current = _requestPacketList[0];
-              switch(current.type)
-              {
-                case e_packet_type.c2s_sign_up:
-                  {
-                    PacketC2SSignUp packetC2SSignUp = current as PacketC2SSignUp;
-                    packetC2SSignUp.generate(ModelUserInfo.getInstance().uId, ModelUserInfo.getInstance().socialProviderType,ModelUserInfo.getInstance().email);
-                    packetC2SSignUp.fetch(_onFetchDone);
-                  }
-                  break;
+              case e_packet_type.c2s_sign_up:
+                {
+                  PacketC2SSignUp packetC2SSignUp = current as PacketC2SSignUp;
+                  packetC2SSignUp.generate(ModelUserInfo.getInstance().uId, ModelUserInfo.getInstance().socialProviderType,ModelUserInfo.getInstance().email);
+                  packetC2SSignUp.fetch(_onFetchDone);
+                }
+                break;
 
-                case e_packet_type.c2s_sign_in:
-                  {
-                    PacketC2SSignIn packetC2SSignIn = current as PacketC2SSignIn;
-                    packetC2SSignIn.generate(ModelUserInfo.getInstance().uId,null);
-                    packetC2SSignIn.fetch(_onFetchDone);
-                  }
-                  break;
+              case e_packet_type.c2s_sign_in:
+                {
+                  PacketC2SSignIn packetC2SSignIn = current as PacketC2SSignIn;
+                  packetC2SSignIn.generate(ModelUserInfo.getInstance().uId,null);
+                  packetC2SSignIn.fetch(_onFetchDone);
+                }
+                break;
 
-                default:
-                  break;
-              }
+              default:
+                break;
             }
+          }
 
 
         }
@@ -173,9 +173,9 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
           if(0 == _requestPacketList.length)
             ManageToastMessage.showShort('Register Creator !!');
           else
-            {
+          {
 
-            }
+          }
 
         }
         break;
@@ -187,22 +187,22 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
           if(0 == _requestPacketList.length)
             ManageToastMessage.showShort('Unregister Creator !!');
           else
+          {
+            PacketC2SCommon current = _requestPacketList[0];
+            switch(current.type)
             {
-              PacketC2SCommon current = _requestPacketList[0];
-              switch(current.type)
-              {
-                case e_packet_type.c2s_unregister_translator:
-                  {
-                    PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = current as PacketC2SUnregisterTranslator;
-                    packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
-                    packetC2SUnregisterTranslator.fetch(_onFetchDone);
-                  }
-                  break;
+              case e_packet_type.c2s_unregister_translator:
+                {
+                  PacketC2SUnregisterTranslator packetC2SUnregisterTranslator = current as PacketC2SUnregisterTranslator;
+                  packetC2SUnregisterTranslator.generate(ModelUserInfo.getInstance().uId);
+                  packetC2SUnregisterTranslator.fetch(_onFetchDone);
+                }
+                break;
 
-                default:
-                  break;
-              }
+              default:
+                break;
             }
+          }
         }
         break;
 
@@ -263,7 +263,7 @@ class _PageDevTestAccountState extends State<PageDevTestAccount> {
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),

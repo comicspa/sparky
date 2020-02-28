@@ -4,30 +4,30 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
 
 
-class PageDevTestWebview extends StatefulWidget {
+class PageExperimentWebview extends StatefulWidget {
   @override
-  _PageDevTestWebviewState createState() => new _PageDevTestWebviewState();
+  _PageExperimentWebviewState createState() => new _PageExperimentWebviewState();
 }
 
-class _PageDevTestWebviewState extends State<PageDevTestWebview> {
+class _PageExperimentWebviewState extends State<PageExperimentWebview> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Webview Test'),
+        title: Text('Webview Experiment'),
       ),
 
       //body: _buildSuggestions(context),
       body: WebView(
-          initialUrl: 'https://www.google.co.kr',
-          javascriptMode: JavascriptMode.unrestricted,
-          onPageFinished: (String url) {
+        initialUrl: 'https://www.google.co.kr',
+        javascriptMode: JavascriptMode.unrestricted,
+        onPageFinished: (String url) {
 
-            print('finished:' + url);
-            ManageToastMessage.showShort('finished:'+url);
-      },
-    ),
+          print('finished:' + url);
+          ManageToastMessage.showShort('finished:'+url);
+        },
+      ),
     );
   }
 
@@ -49,7 +49,7 @@ class _PageDevTestWebviewState extends State<PageDevTestWebview> {
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),

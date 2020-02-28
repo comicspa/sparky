@@ -5,12 +5,12 @@ import 'package:sparky/manage/manage_in_app_purchase.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
 
 
-class PageDevTestInAppPurchase extends StatefulWidget {
+class PageExperimentInAppPurchase extends StatefulWidget {
   @override
-  _PageDevTestInAppPurchaseState createState() => new _PageDevTestInAppPurchaseState();
+  _PageExperimentInAppPurchaseState createState() => new _PageExperimentInAppPurchaseState();
 }
 
-class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
+class _PageExperimentInAppPurchaseState extends State<PageExperimentInAppPurchase> {
   // TODO Add build() method
 
   ManageInAppPurchase _manageInAppPurchase;
@@ -29,7 +29,7 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
   //
   void _callbackInAppPurchase(String purchaseStatus,bool updateUIState)
   {
-    print('[PageDevTestInAppPurchase : _callbackInAppPurchase] - $purchaseStatus');
+    print('[_PageExperimentInAppPurchaseState : _callbackInAppPurchase] - $purchaseStatus');
 
     switch(purchaseStatus)
     {
@@ -80,10 +80,10 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
   void dispose()
   {
     if(null != _manageInAppPurchase)
-     {
-       _manageInAppPurchase.dispose();
-       _manageInAppPurchase = null;
-     }
+    {
+      _manageInAppPurchase.dispose();
+      _manageInAppPurchase = null;
+    }
 
     ManageToastMessage.cancel();
     super.dispose();
@@ -101,7 +101,7 @@ class _PageDevTestInAppPurchaseState extends State<PageDevTestInAppPurchase> {
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),

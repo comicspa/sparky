@@ -4,18 +4,18 @@ import 'package:sparky/manage/manage_shared_preference.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
 
 
-class PageDevTestSharedPreference extends StatefulWidget {
+class PageExperimentSharedPreference extends StatefulWidget {
   @override
-  _PageDevTestSharedPreferenceState createState() => new _PageDevTestSharedPreferenceState();
+  _PageExperimentSharedPreferenceState createState() => new _PageExperimentSharedPreferenceState();
 }
 
-class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreference> {
+class _PageExperimentSharedPreferenceState extends State<PageExperimentSharedPreference> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SharedPreference Test'),
+        title: Text('SharedPreference Experiment'),
       ),
       body: _buildSuggestions(context),
     );
@@ -39,7 +39,7 @@ class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreferenc
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),
@@ -68,28 +68,28 @@ class _PageDevTestSharedPreferenceState extends State<PageDevTestSharedPreferenc
             title: Text('get'),
             onTap: (){
 
-               ManageSharedPreference.getString('test').then((value)
-               {
-                 if(null != value)
-                 {
-                   print(value.toString());
-                   print('success');
+              ManageSharedPreference.getString('test').then((value)
+              {
+                if(null != value)
+                {
+                  print(value.toString());
+                  print('success');
 
-                   ManageToastMessage.showShort('get string  Shared Preference. : ${value.toString()}');
-                 }
-                 else
-                   {
-                     ManageToastMessage.showShort('get string  Shared Preference. : null');
-                   }
+                  ManageToastMessage.showShort('get string  Shared Preference. : ${value.toString()}');
+                }
+                else
+                {
+                  ManageToastMessage.showShort('get string  Shared Preference. : null');
+                }
 
-               },
-                   onError: (error)
-                   {
-                     print('error : $error');
-                   }).catchError( (error)
-               {
-                 print('catchError : $error');
-               });
+              },
+                  onError: (error)
+                  {
+                    print('error : $error');
+                  }).catchError( (error)
+              {
+                print('catchError : $error');
+              });
 
             },
           ),

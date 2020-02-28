@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:sparky/manage/manage_toast_message.dart';
 import 'package:sparky/manage/manage_device_info.dart';
 
-class PageDevTestLocalization extends StatefulWidget {
+class PageExperimentLocalization extends StatefulWidget {
   @override
-  _PageDevTestLocalizationState createState() => new _PageDevTestLocalizationState();
+  _PageExperimentLocalizationState createState() => new _PageExperimentLocalizationState();
 }
 
-class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
+class _PageExperimentLocalizationState extends State<PageExperimentLocalization> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _PageDevTestLocalizationState extends State<PageDevTestLocalization> {
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),

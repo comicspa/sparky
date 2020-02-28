@@ -1,10 +1,10 @@
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sparky/screens/test/page_dev_test_menu.dart';
+import 'package:sparky/screens/experiment/page_experiment_menu.dart';
 import 'package:sparky/screens/main_tab_bar.dart';
 import 'package:sparky/screens/splash.dart';
-import 'package:sparky/screens/test/page_dev_test_apply.dart';
+import 'package:sparky/screens/experiment/page_experiment_apply.dart';
 import 'package:sparky/theme.dart';
 
 /* ios permission
@@ -53,9 +53,9 @@ class MyApp extends StatelessWidget {
 
       home: SplashScreen(),
       routes: {
-        '/PageDevTestMenu': (context) => PageDevTestMenu(),
+        '/PageExperimentMenu': (context) => PageExperimentMenu(),
         '/HomeScreen': (context) => HomeScreen(),
-        '/PageDevTestApply': (context) => PageDevTestApply(),
+        '/PageExperimentApply': (context) => PageExperimentApply(),
       },
 
     );

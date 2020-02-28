@@ -37,6 +37,7 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
   Timer _timer;
   List<PacketC2SCommon> _messageList;
   ManageInAppPurchase _manageInAppPurchase;
+  int _selectedItemId = -1;
 
   @override
   void initState() {
@@ -125,13 +126,55 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
 
       case 'purchased':
         {
-          ManageToastMessage.showShort('Item Purchased');
+
+          int itemCount = 10;
+          switch(_selectedItemId)
+          {
+            case 1:
+              {
+                itemCount = 50;
+              }
+              break;
+
+            case 2:
+              {
+                itemCount = 100;
+              }
+              break;
+
+            case 3:
+              {
+                itemCount = 200;
+              }
+              break;
+
+            case 4:
+              {
+                itemCount = 300;
+              }
+              break;
+
+            case 5:
+              {
+                itemCount = 500;
+              }
+              break;
+
+            default:
+              break;
+          }
+
+
+          ModelUserInfo.getInstance().comi += itemCount;
+          ManageToastMessage.showShort('Selected Item Purchased');
+          updateUIState = true;
         }
         break;
 
       case 'error':
         {
-
+          ManageToastMessage.showShort('Purchase Error');
+          _selectedItemId = -1;
 
         }
         break;
@@ -302,6 +345,8 @@ class _ShopMenuScreenState extends State<ShopMenuScreen>
                         ],)
                       ),
                       onTap: () {
+
+                        _selectedItemId = index;
 
                         String itemId = 'item_10';
                         switch(index)

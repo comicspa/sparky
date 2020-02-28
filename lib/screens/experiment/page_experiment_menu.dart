@@ -30,27 +30,27 @@ import 'package:sparky/manage/manage_paint_canvas.dart';
 import 'package:sparky/manage/manage_access_token.dart';
 
 import 'package:sparky/models/model_view_comic.dart';
-import 'package:sparky/screens/test/Page_dev_test_lazy_loading.dart';
-import 'package:sparky/screens/test/page_dev_test_tflite.dart';
-import 'package:sparky/screens/test/page_dev_test_account.dart';
-import 'package:sparky/screens/test/page_dev_test_toast_message.dart';
-import 'package:sparky/screens/test/page_dev_test_packet.dart';
-import 'package:sparky/screens/test/page_dev_test_view_image.dart';
-import 'package:sparky/screens/test/page_dev_test_shared_preference.dart';
-import 'package:sparky/screens/test/page_dev_test_translation_page.dart';
-import 'package:sparky/screens/test/page_dev_test_localization.dart';
-import 'package:sparky/screens/test/page_dev_test_register_comic.dart';
-import 'package:sparky/screens/test/page_dev_test_in_app_purchase.dart';
-import 'package:sparky/screens/test/page_dev_test_webview.dart';
+import 'package:sparky/screens/experiment/page_experiment_lazy_loading.dart';
+import 'package:sparky/screens/experiment/page_experiment_tflite.dart';
+import 'package:sparky/screens/experiment/page_experiment_account.dart';
+import 'package:sparky/screens/experiment/page_experiment_toast_message.dart';
+import 'package:sparky/screens/experiment/page_experiment_packet.dart';
+import 'package:sparky/screens/experiment/page_experiment_view_image.dart';
+import 'package:sparky/screens/experiment/page_experiment_shared_preference.dart';
+import 'package:sparky/screens/experiment/page_experiment_translation.dart';
+import 'package:sparky/screens/experiment/page_experiment_localization.dart';
+import 'package:sparky/screens/experiment/page_experiment_register_comic.dart';
+import 'package:sparky/screens/experiment/page_experiment_in_app_purchase.dart';
+import 'package:sparky/screens/experiment/page_experiment_web_view.dart';
 
 
-class PageDevTestMenu extends StatefulWidget
+class PageExperimentMenu extends StatefulWidget
 {
   @override
-  _PageDevTestMenuState createState() => new _PageDevTestMenuState();
+  _PageExperimentMenuState createState() => new _PageExperimentMenuState();
 }
 
-class _PageDevTestMenuState extends State<PageDevTestMenu>
+class _PageExperimentMenuState extends State<PageExperimentMenu>
 {
 
   @override
@@ -69,7 +69,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dev Test Page Menu'),
+        title: Text('Experiment Page Menu'),
       ),
       body: _buildSuggestions(context),
     );
@@ -88,19 +88,19 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),
 
           ListTile(
-            title: Text('ToastMessage Test'),
+            title: Text('ToastMessage Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestToastMessage(
+                  builder: (context) => PageExperimentToastMessage(
                   ),
                 ),
               );
@@ -109,7 +109,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('TFLite Test'),
+            title: Text('TFLite Experiment'),
             onTap: (){
 
               /*
@@ -117,7 +117,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestTFLite(
+                  builder: (context) => PageExperimentTFLite(
                   ),
                 ),
               );
@@ -129,13 +129,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
             },
           ),
           ListTile(
-            title: Text('Account Test'),
+            title: Text('Account Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestAccount(
+                  builder: (context) => PageExperimentAccount(
                   ),
                 ),
               );
@@ -144,13 +144,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('Packet Test'),
+            title: Text('Packet Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestPacket(
+                  builder: (context) => PageExperimentPacket(
                   ),
                 ),
               );
@@ -159,13 +159,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('Register Comic Test'),
+            title: Text('Register Comic Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestRegisterComic(
+                  builder: (context) => PageExperimentRegisterComic(
                   ),
                 ),
               );
@@ -180,7 +180,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestPacket(),
+                  builder: (context) => PageExperimentPacket(),
                 ),
               );
 
@@ -194,7 +194,7 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestViewImage(),
+                  builder: (context) => PageExperimentViewImage(),
                 ),
               );
 
@@ -202,13 +202,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('SharedPreference Test'),
+            title: Text('SharedPreference Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestSharedPreference(),
+                  builder: (context) => PageExperimentSharedPreference(),
                 ),
               );
 
@@ -216,13 +216,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('Translation List View'),
+            title: Text('Translation Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TranslationListScreen(),
+                  builder: (context) => PageExperimentTranslation(),
                 ),
               );
 
@@ -230,13 +230,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('Localization Test'),
+            title: Text('Localization Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestLocalization(
+                  builder: (context) => PageExperimentLocalization(
                   ),
                 ),
               );
@@ -245,13 +245,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('InAppPurchase Test'),
+            title: Text('InAppPurchase Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestInAppPurchase(
+                  builder: (context) => PageExperimentInAppPurchase(
                   ),
                 ),
               );
@@ -260,13 +260,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('Webview Test'),
+            title: Text('Webview Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PageDevTestWebview(
+                  builder: (context) => PageExperimentWebview(
                   ),
                 ),
               );
@@ -275,13 +275,13 @@ class _PageDevTestMenuState extends State<PageDevTestMenu>
           ),
 
           ListTile(
-            title: Text('Lazy Loading Test'),
+            title: Text('Lazy Loading Experiment'),
             onTap: (){
 
               Navigator.push<Widget>(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Trend(),
+                  builder: (context) => PageExperimentLazyLoading(),
                 ),
               );
 

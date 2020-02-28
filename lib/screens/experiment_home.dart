@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 //import 'package:carousel_pro/carousel_pro.dart';
 
 
-class TestHome extends StatefulWidget {
+class ExperimentHome extends StatefulWidget {
   @override
-  _TestHomeState createState() => new _TestHomeState();
+  _ExperimentHomeState createState() => new _ExperimentHomeState();
 }
 
-class _TestHomeState extends State<TestHome> {
+class _ExperimentHomeState extends State<ExperimentHome> {
   @override
   void initState() {
     super.initState();
@@ -70,12 +70,12 @@ class _TestHomeState extends State<TestHome> {
             ),
           ),
           Text(
-            'Demo Headline 2',
+            'Experiment Headline 2',
             style: TextStyle(fontSize: 18),
           ),
           Card(
             child:
-                ListTile(title: Text('Motivation $int'), subtitle: Text('재미남')),
+            ListTile(title: Text('Motivation $int'), subtitle: Text('재미남')),
           ),
           SizedBox(
             height: 160.0,

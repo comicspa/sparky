@@ -17,12 +17,12 @@ import 'package:sparky/packets/packet_c2s_sign_in.dart';
 import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_localization_info.dart';
 
-class PageDevTestApply extends StatefulWidget {
+class PageExperimentApply extends StatefulWidget {
   @override
-  _PageDevTestApplyState createState() => new _PageDevTestApplyState();
+  _PageExperimentApplyState createState() => new _PageExperimentApplyState();
 }
 
-class _PageDevTestApplyState extends State<PageDevTestApply>
+class _PageExperimentApplyState extends State<PageExperimentApply>
     with WidgetsBindingObserver {
 
   @override
@@ -105,7 +105,7 @@ class _PageDevTestApplyState extends State<PageDevTestApply>
 
   void navigationPage() {
 
-      Navigator.of(context).pushReplacementNamed('/HomeScreen');
+    Navigator.of(context).pushReplacementNamed('/HomeScreen');
   }
 
   void applicationQuit() {

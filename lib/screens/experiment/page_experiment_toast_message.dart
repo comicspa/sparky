@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
-class PageDevTestToastMessage extends StatefulWidget {
+class PageExperimentToastMessage extends StatefulWidget {
   @override
-  _PageDevTestToastMessageState createState() => new _PageDevTestToastMessageState();
+  _PageExperimentToastMessageState createState() => new _PageExperimentToastMessageState();
 }
 
-class _PageDevTestToastMessageState extends State<PageDevTestToastMessage> {
+class _PageExperimentToastMessageState extends State<PageExperimentToastMessage> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ToastMessage Test'),
+        title: Text('ToastMessage Experiment'),
       ),
       body: _buildSuggestions(context),
     );
@@ -38,7 +38,7 @@ class _PageDevTestToastMessageState extends State<PageDevTestToastMessage> {
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),

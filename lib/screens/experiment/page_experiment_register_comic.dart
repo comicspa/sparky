@@ -17,17 +17,16 @@ class _UploadData {
   String description = '';
 }
 
-class PageDevTestRegisterComic extends StatefulWidget {
-  PageDevTestRegisterComic();
+class PageExperimentRegisterComic extends StatefulWidget {
+  PageExperimentRegisterComic();
 
   @override
-  _PageDevTestRegisterComicState createState() =>
-      new _PageDevTestRegisterComicState();
+  _PageExperimentRegisterComicState createState() => new _PageExperimentRegisterComicState();
 }
 
-class _PageDevTestRegisterComicState extends State<PageDevTestRegisterComic>
+class _PageExperimentRegisterComicState extends State<PageExperimentRegisterComic>
     with WidgetsBindingObserver {
-  _PageDevTestRegisterComicState();
+  _PageExperimentRegisterComicState();
 
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   _UploadData _data = new _UploadData();
@@ -99,7 +98,7 @@ class _PageDevTestRegisterComicState extends State<PageDevTestRegisterComic>
             backgroundColor: Colors
                 .white, //Color.fromRGBO(21, 24, 45, 1.0), //Color(0xff202a30), //Colors.black87, // Color(0xFF5986E1),
             title: Text(
-              'Register Comic Test',
+              'Register Comic Experiment',
               style: TextStyle(color: Colors.black),
             ),
             centerTitle: true,

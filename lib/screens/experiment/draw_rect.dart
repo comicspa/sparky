@@ -60,7 +60,7 @@ class _DrawRectState extends State<DrawRect> {
 //                              ),
 //                              contentPadding: EdgeInsets.all(
 //                                  ManageDeviceInfo.resolutionWidth * 0.02),
-                                ),
+                            ),
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             validator: (value) {
@@ -78,7 +78,7 @@ class _DrawRectState extends State<DrawRect> {
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: SizedBox(
                                 height:
-                                    ManageDeviceInfo.resolutionHeight * 0.035,
+                                ManageDeviceInfo.resolutionHeight * 0.035,
                                 child: RaisedButton(
                                   shape: StadiumBorder(),
                                   onPressed: () {
@@ -95,10 +95,10 @@ class _DrawRectState extends State<DrawRect> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(vertical: 15.0),
+                              const EdgeInsets.symmetric(vertical: 15.0),
                               child: SizedBox(
                                 height:
-                                    ManageDeviceInfo.resolutionHeight * 0.035,
+                                ManageDeviceInfo.resolutionHeight * 0.035,
                                 child: RaisedButton(
                                   shape: StadiumBorder(),
                                   onPressed: () {
@@ -122,7 +122,7 @@ class _DrawRectState extends State<DrawRect> {
                                   ManageDeviceInfo.resolutionHeight * 0.02),
                               child: SizedBox(
                                 height:
-                                    ManageDeviceInfo.resolutionHeight * 0.035,
+                                ManageDeviceInfo.resolutionHeight * 0.035,
                                 child: RaisedButton(
                                   shape: StadiumBorder(),
                                   onPressed: () {

@@ -21,23 +21,23 @@ import 'package:transparent_image/transparent_image.dart';
 
 
 
-class Trend extends StatefulWidget {
+class PageExperimentLazyLoading extends StatefulWidget {
   @override
-  _TrendState createState() => new _TrendState();
+  _PageExperimentLazyLoadingState createState() => new _PageExperimentLazyLoadingState();
 }
 
-class _TrendState extends State<Trend> with WidgetsBindingObserver {
+class _PageExperimentLazyLoadingState extends State<PageExperimentLazyLoading> with WidgetsBindingObserver {
   PacketC2STodayTrendComicInfo c2STodayTrendComicInfo =
-      new PacketC2STodayTrendComicInfo(); // use this to handle data
+  new PacketC2STodayTrendComicInfo(); // use this to handle data
   PacketC2SFeaturedComicInfo c2sFeaturedComicInfo =
-      new PacketC2SFeaturedComicInfo(); // use this to handle data
+  new PacketC2SFeaturedComicInfo(); // use this to handle data
   PacketC2SRecommendedComicInfo c2sRecommendedComicInfo =
-      new PacketC2SRecommendedComicInfo();
+  new PacketC2SRecommendedComicInfo();
   PacketC2SNewComicInfo c2sNewComicInfo = new PacketC2SNewComicInfo();
   PacketC2SRealTimeTrendComicInfo c2sRealTimeTrendInfo =
-      new PacketC2SRealTimeTrendComicInfo();
+  new PacketC2SRealTimeTrendComicInfo();
   PacketC2SWeeklyTrendComicInfo c2sWeeklyTrendComicInfo =
-      new PacketC2SWeeklyTrendComicInfo();
+  new PacketC2SWeeklyTrendComicInfo();
 
   // final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
@@ -78,7 +78,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
+        Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
         child: SafeArea(
           child: AppBar(
             elevation: 1,
@@ -224,154 +224,154 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
                 scrollDirection: Axis.horizontal,
                 itemCount: 4,
                 itemBuilder: (BuildContext context, int index) =>
-                FutureBuilder<List<ModelRecommendedComicInfo>>(
-                  future: c2sRecommendedComicInfo.fetch(null),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData == null){
-                      return Center(child: LoadingIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
-                      }
-                    {
-                      return Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push<Widget>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailPage(snapshot.data[index].creatorId,
-                                    snapshot.data[index].comicNumber, snapshot.data[index].partNumber, snapshot.data[index].seasonNumber), // link to Actual viewer
-                              ),
-                            );
-                          },
-                          child: Container(
-                            child: FittedBox(
-                              child: Material(
-                                color: Colors.white,
-                                elevation: 2.0,
-                                borderRadius: BorderRadius.circular(4.0),
-                                shadowColor: Color(0x802196F3),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      width: ManageDeviceInfo.resolutionWidth * 0.41,
-                                      height: ManageDeviceInfo.resolutionHeight * 0.15,
-                                      child: ClipRRect(
-                                        borderRadius: new BorderRadius.circular(2.0),
-                                        child: FadeInImage.memoryNetwork(
-                                          placeholder: kTransparentImage,
-                                          image: snapshot.data[index].url == null ? LinearProgressIndicator : snapshot.data[index].url,
-                                          fit: BoxFit.cover,
+                    FutureBuilder<List<ModelRecommendedComicInfo>>(
+                      future: c2sRecommendedComicInfo.fetch(null),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData == null){
+                          return Center(child: LoadingIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
+                        {
+                          return Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push<Widget>(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailPage(snapshot.data[index].creatorId,
+                                        snapshot.data[index].comicNumber, snapshot.data[index].partNumber, snapshot.data[index].seasonNumber), // link to Actual viewer
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                child: FittedBox(
+                                  child: Material(
+                                    color: Colors.white,
+                                    elevation: 2.0,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    shadowColor: Color(0x802196F3),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          width: ManageDeviceInfo.resolutionWidth * 0.41,
                                           height: ManageDeviceInfo.resolutionHeight * 0.15,
-                                        ),
-                                        /* CachedNetworkImage(
+                                          child: ClipRRect(
+                                            borderRadius: new BorderRadius.circular(2.0),
+                                            child: FadeInImage.memoryNetwork(
+                                              placeholder: kTransparentImage,
+                                              image: snapshot.data[index].url == null ? LinearProgressIndicator : snapshot.data[index].url,
+                                              fit: BoxFit.cover,
+                                              height: ManageDeviceInfo.resolutionHeight * 0.15,
+                                            ),
+                                            /* CachedNetworkImage(
                                           imageUrl: snapshot.data[index].thumbnailUrl,
                                           placeholder: (context, url) => LoadingIndicator(),
                                           fit: BoxFit.cover,
                                           height: ManageDeviceInfo.resolutionHeight * 0.15,
                                         ), */
-                                      ),
-                                    ),
-                                    SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
-                                    Container(
-                                      padding: EdgeInsets.only(
-                                          left: ManageDeviceInfo.resolutionWidth * 0.01),
-                                      height: ManageDeviceInfo.resolutionHeight * 0.048,
-                                      width: ManageDeviceInfo.resolutionWidth * 0.41,
-                                      child: Text(
-                                        snapshot.data[index].titleName == null ? '' : snapshot.data[index].titleName,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontFamily: 'Lato',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
-                                    Container(
-                                      width: ManageDeviceInfo.resolutionWidth * 0.41,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            height: ManageDeviceInfo.resolutionHeight * 0.042,
-                                            width: ManageDeviceInfo.resolutionWidth * 0.20,
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                snapshot.data[index].creatorId == null ? '' : snapshot.data[index].creatorId,
-                                                textAlign: TextAlign.right,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily: 'Lato',
-                                                  fontSize:
+                                        SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              left: ManageDeviceInfo.resolutionWidth * 0.01),
+                                          height: ManageDeviceInfo.resolutionHeight * 0.048,
+                                          width: ManageDeviceInfo.resolutionWidth * 0.41,
+                                          child: Text(
+                                            snapshot.data[index].titleName == null ? '' : snapshot.data[index].titleName,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontFamily: 'Lato',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
+                                        Container(
+                                          width: ManageDeviceInfo.resolutionWidth * 0.41,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: <Widget>[
+                                              Container(
+                                                height: ManageDeviceInfo.resolutionHeight * 0.042,
+                                                width: ManageDeviceInfo.resolutionWidth * 0.20,
+                                                child: Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                    snapshot.data[index].creatorId == null ? '' : snapshot.data[index].creatorId,
+                                                    textAlign: TextAlign.right,
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Lato',
+                                                      fontSize:
                                                       ManageDeviceInfo.resolutionHeight * 0.018,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: ManageDeviceInfo.resolutionWidth * 0.02,
-                                          ),
-                                          Container(
-                                            height: ManageDeviceInfo.resolutionHeight * 0.032,
-                                            child: Icon(
-                                              Icons.remove_red_eye,
-                                              size: ManageDeviceInfo.resolutionHeight * 0.025,
-                                              color: Colors.black54,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              padding: EdgeInsets.only(
-                                                  right:
-                                                      ManageDeviceInfo.resolutionWidth * 0.02),
-                                              height: ManageDeviceInfo.resolutionHeight * 0.022,
-                                              width: ManageDeviceInfo.resolutionWidth * 0.22,
-                                              child: Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Text(
-                                                  '250,589,938', //Todo need to create 조회수 data
-                                                  maxLines: 1,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Lato',
-                                                    color: Colors.black87,
-                                                    fontSize:
-                                                        ManageDeviceInfo.resolutionHeight *
-                                                            0.018,
+                                                      fontWeight: FontWeight.normal,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                              SizedBox(
+                                                width: ManageDeviceInfo.resolutionWidth * 0.02,
+                                              ),
+                                              Container(
+                                                height: ManageDeviceInfo.resolutionHeight * 0.032,
+                                                child: Icon(
+                                                  Icons.remove_red_eye,
+                                                  size: ManageDeviceInfo.resolutionHeight * 0.025,
+                                                  color: Colors.black54,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  padding: EdgeInsets.only(
+                                                      right:
+                                                      ManageDeviceInfo.resolutionWidth * 0.02),
+                                                  height: ManageDeviceInfo.resolutionHeight * 0.022,
+                                                  width: ManageDeviceInfo.resolutionWidth * 0.22,
+                                                  child: Align(
+                                                    alignment: Alignment.centerRight,
+                                                    child: Text(
+                                                      '250,589,938', //Todo need to create 조회수 data
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.right,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Lato',
+                                                        color: Colors.black87,
+                                                        fontSize:
+                                                        ManageDeviceInfo.resolutionHeight *
+                                                            0.018,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      );
-                      
-                    }
-                  },
-                ),
+                          );
+
+                        }
+                      },
+                    ),
               ),
-              
+
             ),
-            
+
 
             Container(
               alignment: Alignment.centerLeft,
@@ -389,34 +389,34 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
               padding: EdgeInsets.all(0),
               height: ManageDeviceInfo.resolutionHeight * 0.28,
               child: FutureBuilder<List<ModelRealTimeTrendComicInfo>>(
-                future: c2sRealTimeTrendInfo.fetch(null),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(
-                            height: ManageDeviceInfo.resolutionHeight * .25,
-                            child: Center(child: CircularProgressIndicator()),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
+                  future: c2sRealTimeTrendInfo.fetch(null),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              height: ManageDeviceInfo.resolutionHeight * .25,
+                              child: Center(child: CircularProgressIndicator()),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
                       return Container(
-                      child: TrendCardList(snapshot: snapshot,),
-                    );
-                    
+                        child: TrendCardList(snapshot: snapshot,),
+                      );
+
+                    }
+
                   }
-                    
-                  }
-                
+
               ),
             ),
-           
 
-          /*  Container(
+
+            /*  Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.fromLTRB(15, 20, 0, 5),
               child: Text(
@@ -548,7 +548,7 @@ class _TrendState extends State<Trend> with WidgetsBindingObserver {
           mainAxisAlignment: MainAxisAlignment.center,
           children: map<Widget>(
             ModelFeaturedComicInfo.list,
-            (index, i) {
+                (index, i) {
               return Container(
                 width: 8.0,
                 height: 8.0,
@@ -612,7 +612,7 @@ List<String> countBanner(List<ModelFeaturedComicInfo> countBanner) {
 
 List bannerList = map<Widget>(
   featuredComicsList,
-  (index, i) {
+      (index, i) {
     return Container(
       height: 300,
       margin: EdgeInsets.all(5.0),
@@ -645,138 +645,138 @@ class TrendCardList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: values.length,
       itemBuilder: (BuildContext context, int index) => Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push<Widget>(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailPage(snapshot.data[index].creatorId,
-                  snapshot.data[index].comicNumber,snapshot.data[index].partNumber,snapshot.data[index].seasonNumber), // link to Actual viewer
-            ),
-          );
-        },
-        child: Container(
-          child: FittedBox(
-            child: Material(
-              color: Colors.white,
-              elevation: 2.0,
-              borderRadius: BorderRadius.circular(4.0),
-              shadowColor: Color(0x802196F3),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: ManageDeviceInfo.resolutionWidth * 0.41,
-                    height: ManageDeviceInfo.resolutionHeight * 0.15,
-                    child: ClipRRect(
-                      borderRadius: new BorderRadius.circular(2.0),
-                      child: FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        image: snapshot.data[index].thumbnailUrl,
-                        fit: BoxFit.cover,
-                        height: ManageDeviceInfo.resolutionHeight * 0.15,
-                      ),
-                      /* CachedNetworkImage(
+        padding: const EdgeInsets.all(4.0),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push<Widget>(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPage(snapshot.data[index].creatorId,
+                    snapshot.data[index].comicNumber,snapshot.data[index].partNumber,snapshot.data[index].seasonNumber), // link to Actual viewer
+              ),
+            );
+          },
+          child: Container(
+            child: FittedBox(
+              child: Material(
+                color: Colors.white,
+                elevation: 2.0,
+                borderRadius: BorderRadius.circular(4.0),
+                shadowColor: Color(0x802196F3),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: ManageDeviceInfo.resolutionWidth * 0.41,
+                      height: ManageDeviceInfo.resolutionHeight * 0.15,
+                      child: ClipRRect(
+                        borderRadius: new BorderRadius.circular(2.0),
+                        child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: snapshot.data[index].thumbnailUrl,
+                          fit: BoxFit.cover,
+                          height: ManageDeviceInfo.resolutionHeight * 0.15,
+                        ),
+                        /* CachedNetworkImage(
                         imageUrl: snapshot.data[index].thumbnailUrl,
                         placeholder: (context, url) => LoadingIndicator(),
                         fit: BoxFit.cover,
                         height: ManageDeviceInfo.resolutionHeight * 0.15,
                       ), */
-                    ),
-                  ),
-                  SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: ManageDeviceInfo.resolutionWidth * 0.01),
-                    height: ManageDeviceInfo.resolutionHeight * 0.048,
-                    width: ManageDeviceInfo.resolutionWidth * 0.41,
-                    child: Text(
-                      snapshot.data[index].title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.bold,
-                        fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
                       ),
                     ),
-                  ),
-                  SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
-                  Container(
-                    width: ManageDeviceInfo.resolutionWidth * 0.41,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                          height: ManageDeviceInfo.resolutionHeight * 0.042,
-                          width: ManageDeviceInfo.resolutionWidth * 0.20,
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              snapshot.data[index].userId,
-                              textAlign: TextAlign.right,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontFamily: 'Lato',
-                                fontSize:
-                                    ManageDeviceInfo.resolutionHeight * 0.018,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
+                    SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
+                    Container(
+                      padding: EdgeInsets.only(
+                          left: ManageDeviceInfo.resolutionWidth * 0.01),
+                      height: ManageDeviceInfo.resolutionHeight * 0.048,
+                      width: ManageDeviceInfo.resolutionWidth * 0.41,
+                      child: Text(
+                        snapshot.data[index].title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.bold,
+                          fontSize: ManageDeviceInfo.resolutionHeight * 0.019,
                         ),
-                        SizedBox(
-                          width: ManageDeviceInfo.resolutionWidth * 0.02,
-                        ),
-                        Container(
-                          height: ManageDeviceInfo.resolutionHeight * 0.032,
-                          child: Icon(
-                            Icons.remove_red_eye,
-                            size: ManageDeviceInfo.resolutionHeight * 0.025,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                right:
-                                    ManageDeviceInfo.resolutionWidth * 0.02),
-                            height: ManageDeviceInfo.resolutionHeight * 0.022,
-                            width: ManageDeviceInfo.resolutionWidth * 0.22,
+                      ),
+                    ),
+                    SizedBox(height: ManageDeviceInfo.resolutionHeight * 0.002),
+                    Container(
+                      width: ManageDeviceInfo.resolutionWidth * 0.41,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: ManageDeviceInfo.resolutionHeight * 0.042,
+                            width: ManageDeviceInfo.resolutionWidth * 0.20,
                             child: Align(
-                              alignment: Alignment.centerRight,
+                              alignment: Alignment.centerLeft,
                               child: Text(
-                                '250,589,938', //Todo need to create 조회수 data
+                                snapshot.data[index].userId,
+                                textAlign: TextAlign.right,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontFamily: 'Lato',
-                                  color: Colors.black87,
                                   fontSize:
-                                      ManageDeviceInfo.resolutionHeight *
-                                          0.018,
+                                  ManageDeviceInfo.resolutionHeight * 0.018,
+                                  fontWeight: FontWeight.normal,
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                          SizedBox(
+                            width: ManageDeviceInfo.resolutionWidth * 0.02,
+                          ),
+                          Container(
+                            height: ManageDeviceInfo.resolutionHeight * 0.032,
+                            child: Icon(
+                              Icons.remove_red_eye,
+                              size: ManageDeviceInfo.resolutionHeight * 0.025,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  right:
+                                  ManageDeviceInfo.resolutionWidth * 0.02),
+                              height: ManageDeviceInfo.resolutionHeight * 0.022,
+                              width: ManageDeviceInfo.resolutionWidth * 0.22,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  '250,589,938', //Todo need to create 조회수 data
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black87,
+                                    fontSize:
+                                    ManageDeviceInfo.resolutionHeight *
+                                        0.018,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
-    ),
     );
   }
 
-  
+
 }

@@ -22,12 +22,12 @@ const String posenet = "PoseNet";
 // https://github.com/shaqian/flutter_tflite
 // https://github.com/shaqian/flutter_tflite/blob/master/example/lib/main.dart
 
-class PageDevTestTFLite extends StatefulWidget {
+class PageExperimentTFLite extends StatefulWidget {
   @override
-  _PageDevTestTFLiteState createState() => new _PageDevTestTFLiteState();
+  _PageExperimentTFLiteState createState() => new _PageExperimentTFLiteState();
 }
 
-class _PageDevTestTFLiteState extends State<PageDevTestTFLite> {
+class _PageExperimentTFLiteState extends State<PageExperimentTFLite> {
   File _image;
   List _recognitions;
   String _model = yolo;

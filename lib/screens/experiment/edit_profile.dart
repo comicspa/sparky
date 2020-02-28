@@ -34,7 +34,7 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 
- /*  applyChanges() {
+  /*  applyChanges() {
     Firestore.instance
         .collection('insta_users')
         .document(currentUserModel.id)
@@ -72,7 +72,7 @@ class EditProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
+        Size.fromHeight(ManageDeviceInfo.resolutionHeight * 0.055),
         child: SafeArea(
           child: AppBar(
             elevation: 1,
@@ -100,31 +100,31 @@ class EditProfileScreen extends StatelessWidget {
                           color: Colors.black87,
                         ),
                       )
-                    : */ 
-                  child: Text(
-                        'Profile',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.bold,
-                          fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
-                          color: Colors.black87,
-                        ),
-                      ),
+                    : */
+                child: Text(
+                  'Profile',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.bold,
+                    fontSize: ManageDeviceInfo.resolutionHeight * 0.025,
+                    color: Colors.black87,
+                  ),
+                ),
               ),
             ),
             /*SvgPicture.asset(
               'images/sparky_logo.svg',
               width: ManageDeviceInfo.resolutionWidth * 0.045,
               height: ManageDeviceInfo.resolutionHeight * 0.025,
-            
+
             ),*/
           ),
         ),
-      ), 
-    body: ListView(
+      ),
+      body: ListView(
         padding: const EdgeInsets.all(0.0),
         children: <Widget>[
           Column(
@@ -157,21 +157,21 @@ class EditProfileScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: MaterialButton(
-                    onPressed: () => { /*_logout(context)*/ },
-                    child: Text("Logout")
+                  padding: const EdgeInsets.all(16.0),
+                  child: MaterialButton(
+                      onPressed: () => { /*_logout(context)*/ },
+                      child: Text("Logout")
 
-                )
+                  )
               )
             ],
           )
         ],
       ),
     );
-    }
+  }
 
-  
+
 }/* FutureBuilder(
         future: Firestore.instance
             .collection('insta_users')

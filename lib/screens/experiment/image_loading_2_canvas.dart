@@ -43,7 +43,7 @@ class _ImageLoading2CanvasState extends State<ImageLoading2Canvas> {
     }
 
     VisionText visionText =
-        await ManageFirebaseMLVision.detectTextFromFile(file,true);
+    await ManageFirebaseMLVision.detectTextFromFile(file,true);
 
     textBlockList = new List<TextBlock>();
 

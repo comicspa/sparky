@@ -8,12 +8,12 @@ import 'package:sparky/packets/packet_s2c_common.dart';
 import 'package:sparky/packets/packet_c2s_price_info.dart';
 import 'package:sparky/screens/test/page_dev_test_packet_connected.dart';
 
-class PageDevTestPacket extends StatefulWidget {
+class PageExperimentPacket extends StatefulWidget {
   @override
-  _PageDevTestPacketState createState() => new _PageDevTestPacketState();
+  _PageExperimentPacketState createState() => new _PageExperimentPacketState();
 }
 
-class _PageDevTestPacketState extends State<PageDevTestPacket> {
+class _PageExperimentPacketState extends State<PageExperimentPacket> {
   // TODO Add build() method
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
             title: Text('Go to Next Page !!'),
             onTap: (){
 
-              Navigator.of(context).pushReplacementNamed('/PageDevTestApply');
+              Navigator.of(context).pushReplacementNamed('/PageExperimentApply');
 
             },
           ),
@@ -68,10 +68,10 @@ class _PageDevTestPacketState extends State<PageDevTestPacket> {
 
 
               Navigator.push<Widget>(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PageDevTestPacketConnected(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PageDevTestPacketConnected(),
+                  ));
 
 
 

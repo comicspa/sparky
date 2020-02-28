@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PageDevTestViewImage extends StatelessWidget {
+class PageExperimentViewImage extends StatelessWidget {
 
   String _url1 = '';
   String _url2 = '';
