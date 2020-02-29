@@ -58,8 +58,10 @@ class PacketC2SUserInfo extends PacketC2SCommon
 
     if(true == ModelUserInfo.getInstance().signedIn)
     {
-      print('true == ModelUserInfo.getInstance().signedIn');
-      return ModelUserInfo.getInstance();
+      print('true == ModelUserInfo.getInstance().signedIn , display_name : ${ModelUserInfo.getInstance().displayName}');
+
+      if(null != ModelUserInfo.getInstance().displayName)
+        return ModelUserInfo.getInstance();
     }
 
     Firestore.instance.collection(ModelUserInfo.ModelName).document(_userId).get().then((documentSnapshot)
