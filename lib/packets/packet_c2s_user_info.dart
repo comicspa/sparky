@@ -56,12 +56,17 @@ class PacketC2SUserInfo extends PacketC2SCommon
   {
     print('PacketC2SUserInfo : _fetchFireStoreDB started');
 
+    PacketS2CUserInfo packet = new PacketS2CUserInfo();
     if(true == ModelUserInfo.getInstance().signedIn)
     {
       print('true == ModelUserInfo.getInstance().signedIn , display_name : ${ModelUserInfo.getInstance().displayName}');
 
       if(null != ModelUserInfo.getInstance().displayName)
-        return ModelUserInfo.getInstance();
+       {
+         if(null != onFetchDone)
+           onFetchDone(packet);
+         return ModelUserInfo.getInstance();
+       }
     }
 
     Firestore.instance.collection(ModelUserInfo.ModelName).document(_userId).get().then((documentSnapshot)
@@ -123,8 +128,6 @@ class PacketC2SUserInfo extends PacketC2SCommon
       */
 
       print('document : ${documentSnapshot.data.toString()}');
-
-      PacketS2CUserInfo packet = new PacketS2CUserInfo();
       packet.parseCloudFirestoreJson(documentSnapshot.data , this.onFetchDone);
 
       return ModelUserInfo.getInstance();
