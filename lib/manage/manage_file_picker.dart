@@ -9,7 +9,7 @@ class ManageFilePicker
 
   static Future<Map<String,String>> getMultiFilePath() async
   {
-    Map<String,String> filePathsMap = await FilePicker.getMultiFilePath(type:FileType.IMAGE);
+    Map<String,String> filePathsMap = await FilePicker.getMultiFilePath(type:FileType.image);
 
     if(null != filePathsMap)
     {
